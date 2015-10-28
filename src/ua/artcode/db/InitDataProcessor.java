@@ -6,14 +6,14 @@ import ua.artcode.utils.Serializator;
 import java.io.File;
 
 /**
- * Created by serhii on 28.10.15.
+ * If you have some problem with serialization, just delete cache, then rerun
  */
 public class InitDataProcessor {
 
     private CodingBatTaskContainer container;
     private Serializator<CodingBatTaskContainer> serializator;
 
-    // TODO dont use absolute path, use relative
+    // TODO dont use absolute path, use relative, add resource to classpath then get via getResource method
     private String path = "/home/serhii/dev/tempVitalik/StudyArt/cache/app_db.txt";
 
 
@@ -23,19 +23,18 @@ public class InitDataProcessor {
 
     private void initData(){
         container = new CodingBatTaskContainer();
-        container.addTask(new CodingBatTask("1", "sum", "sum two numbers", "-", "public int sum(int a, int b){\n\n}"));
-        container.addTask(new CodingBatTask("2", "mul", "multiply two numbers", "-", "public int mul(int a, int b){\n\n}"));
+        container.addTask(new CodingBatTask("1", "sum", "sum two numbers", "-", "public int sum(int a, int b){}"));
+        container.addTask(new CodingBatTask("2", "mul", "multiply two numbers", "-", "public int mul(int a, int b){}"));
     }
 
     public CodingBatTaskContainer getContainer() {
         if(container == null){
-            initData();
-            /*if(new File(path).exists()){
-                //container = serializator.load(path);
+            if(new File(path).exists()){
+                container = serializator.load(path);
             } else {
-
-                //serializator.save(path, container);
-            }*/
+                initData();
+                serializator.save(path, container);
+            }
         }
 
         return container;

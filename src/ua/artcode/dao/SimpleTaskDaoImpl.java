@@ -8,6 +8,8 @@ import ua.artcode.to.TaskFilter;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class SimpleTaskDaoImpl implements SimpleTaskDao {
 
@@ -45,13 +47,8 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
 
     @Override
     public List<CodingBatTask> getAll() throws AppException {
-        Collection<CodingBatTask> collection = taskContainer.getTasks();
-
-        if(collection instanceof List)
-            return (List<CodingBatTask>) collection;
-        else
-            throw new AppException("can not cast Collection to List");
-
+        // todo it may be not good in future with big collection
+        return taskContainer.getTasks().stream().collect(Collectors.toList());
     }
 
     @Override

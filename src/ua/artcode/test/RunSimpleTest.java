@@ -29,7 +29,7 @@ public class RunSimpleTest {
 
         try {
             List<CodingBatTask> taskList = simpleTaskService.getAll();
-            taskList.stream().forEach(System.out::print);
+            taskList.stream().forEach(System.out::println);
             // java 8, streams, lambda -> (reference to method)
         } catch (AppException e) {
             e.printStackTrace();
