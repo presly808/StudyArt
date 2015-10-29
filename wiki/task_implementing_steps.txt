@@ -1,0 +1,32 @@
+1. https://github.com/presly808/StudyArt/issues
+see current tasks
+
+2. choose issue
+assign to yourself
+
+3. Before implementing create own_branch
+
+git branch <branch_name>
+
+checkout tonew branch
+git checkout <branch_name>
+
+...
+
+4. Prefer little commits instead one big
+
+5. push your changes
+git push origin <your_branch_name>
+
+6. If task fully implemented
+Do pull request in git hub
+
+go to github
+
+choose your branch
+press "pull request"
+
+pull request to master branch
+
+
+...If you have some questions, just ask
