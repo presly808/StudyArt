@@ -87,4 +87,5 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     public int compareTo(CodingBatTask o) {
         return this.id.compareTo(o.id);
     }
+
 }

@@ -14,7 +14,7 @@ public class InitDataProcessor {
     private Serializator<CodingBatTaskContainer> serializator;
 
     // TODO dont use absolute path, use relative, add resource to classpath then get via getResource method
-    private String path = "/home/serhii/dev/tempVitalik/StudyArt/cache/app_db.txt";
+    private String path = "/Users/Home/IdeaProjects/StudyArt/cache/app_db.txt";
 
 
     public InitDataProcessor(Serializator<CodingBatTaskContainer> serializator) {
