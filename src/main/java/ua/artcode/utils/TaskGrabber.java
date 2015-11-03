@@ -83,7 +83,6 @@ public class TaskGrabber {
                         taskContainer.addTask(new CodingBatTask(title, description, examples, template));
                     }
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
