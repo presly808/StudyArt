@@ -10,27 +10,28 @@ import ua.artcode.model.CodingBatTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Home on 30.10.2015.
- */
+// where is logger
 public class TaskGrabber {
+
+    public static final String HTTP_CODINGBAT_COM = "http://codingbat.com";
     private final String url = "http://codingbat.com/java";
     private CodingBatTaskContainer taskContainer;
-    private ArrayList<String> taskLinks;
+    private List<String> taskLinks;
 
     public TaskGrabber(CodingBatTaskContainer taskContainer) {
         this.taskContainer = taskContainer;
     }
 
     private void findLinks() {
-        taskLinks = new ArrayList<String>();
+        taskLinks = new ArrayList<>();
         try {
             Document document = Jsoup.connect(url).get();
             Elements links = document.select("a");
             for (Element link : links) {
                 if (link.ownText().equals("more")) {
-                    String linkOfTaskGroup = "http://codingbat.com" + link.attr("href").toString();
+                    String linkOfTaskGroup = HTTP_CODINGBAT_COM + link.attr("href");
                     initTaskLinks(linkOfTaskGroup);
                 }
             }
@@ -43,8 +44,8 @@ public class TaskGrabber {
         Document doc = Jsoup.connect(linkOfTaskGroup).get();
         Elements links = doc.select("a");
         for (Element link : links) {
-            if (link.attr("href").toString().contains("prob")) {
-                taskLinks.add("http://codingbat.com" + link.attr("href"));
+            if (link.attr("href").contains("prob")) {
+                taskLinks.add(HTTP_CODINGBAT_COM + link.attr("href"));
             }
         }
     }
@@ -52,8 +53,8 @@ public class TaskGrabber {
     public void addTasksFromCodingBat() {
         Document doc;
         String title;
-        String description = null;
-        String examples = null;
+        String description;
+        String examples;
         String template;
 
         findLinks();
@@ -61,13 +62,16 @@ public class TaskGrabber {
         for (int i = 0; i < taskLinks.size(); i++) {
             try {
                 doc = Jsoup.connect(taskLinks.get(i)).get();
+
+
                 String[] absoluteTitle = doc.title().split(" ");
                 title = absoluteTitle[3];
-                template = doc.body().getElementsByTag("textarea").val().toString();
+                template = doc.body().getElementsByTag("textarea").val();
 
                 Elements tables = doc.body().getElementsByTag("td");
                 for (Element infoTable : tables) {
-                    if (infoTable.attr("width").toString().equals("700") && infoTable.attr("valign").toString().equals("top")) {
+                    //
+                    if (infoTable.attr("width").equals("700") && infoTable.attr("valign").equals("top")) {
                         String[] absoluteDescription = infoTable.html().split("<br>");
                         description = absoluteDescription[0];
 
