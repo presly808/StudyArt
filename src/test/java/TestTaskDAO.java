@@ -1,6 +1,7 @@
 /**
  * Created by Home on 02.11.2015.
  */
+
 import org.junit.After;
 import org.junit.Test;
 import ua.artcode.dao.SimpleTaskDaoImpl;
@@ -47,10 +48,6 @@ public class TestTaskDAO {
         assertEquals(5, simpleTaskService.getAll().size());
     }
 
-    @After
-    public void after() {
-
-    }
 
     @Test
     public void getTask() throws NoSuchTaskException {
@@ -74,7 +71,6 @@ public class TestTaskDAO {
         taskContainer.addTask(mockTask3);
         taskContainer.addTask(mockTask4);
         taskContainer.addTask(mockTask5);
-//        System.out.println(simpleTaskService.getTask("2"));
 
         assertEquals(simpleTaskService.getTask("7").getId(), "1877");
     }
