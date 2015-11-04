@@ -1,4 +1,4 @@
-/**
+package ua.artcode.service; /**
  * Created by Home on 02.11.2015.
  */
 import org.junit.After;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 
-public class TestTaskDAO {
+public class TaskServiceTest {
 
 
     @Test(expected = NoSuchTaskException.class)
