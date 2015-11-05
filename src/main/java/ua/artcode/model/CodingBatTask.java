@@ -1,7 +1,9 @@
 package ua.artcode.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@XmlRootElement
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     private String id;
@@ -81,6 +83,22 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         sb.append(", template='").append(template).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CodingBatTask that = (CodingBatTask) o;
+
+        return !(id != null ? !id.equals(that.id) : that.id != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

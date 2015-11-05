@@ -8,7 +8,6 @@ import java.net.URL;
  */
 public class ClassPathResourceLoader {
 
-
     public static File getFile(String path){
         URL resource = ClassPathResourceLoader.class.getResource(path);
 

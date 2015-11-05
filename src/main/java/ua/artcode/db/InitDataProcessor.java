@@ -2,7 +2,7 @@ package ua.artcode.db;
 
 import ua.artcode.model.CodingBatTask;
 import ua.artcode.utils.ClassPathResourceLoader;
-import ua.artcode.utils.Serializator;
+import ua.artcode.utils.serialization.Serializator;
 
 import java.io.File;
 

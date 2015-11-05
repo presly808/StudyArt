@@ -1,11 +1,10 @@
 package ua.artcode.db;
 
 
-import com.sun.org.apache.bcel.internal.util.ClassPath;
 import ua.artcode.model.AccountType;
 import ua.artcode.model.UserAccount;
 import ua.artcode.utils.ClassPathResourceLoader;
-import ua.artcode.utils.Serializator;
+import ua.artcode.utils.serialization.Serializator;
 
 import java.io.File;
 

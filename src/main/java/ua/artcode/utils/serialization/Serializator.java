@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.serialization;
 
 /**
  * Created by serhii on 28.10.15.

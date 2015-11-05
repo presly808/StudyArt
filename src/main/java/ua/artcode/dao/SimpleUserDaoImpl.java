@@ -5,9 +5,7 @@ import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.UserAccount;
-import ua.artcode.to.TaskFilter;
 
-import java.util.List;
 import java.util.Set;
 
 public class SimpleUserDaoImpl implements SimpleUserDao {
@@ -43,6 +41,11 @@ public class SimpleUserDaoImpl implements SimpleUserDao {
         return userContainer.remove(user);
     }
 
+    @Override
+    public Set<UserAccount> getAllUser() {
+        return null;
+    }
+
     public Set<String> getAllUserNames()  {
         return userContainer.getUserNames();
     }
@@ -56,8 +59,4 @@ public class SimpleUserDaoImpl implements SimpleUserDao {
         return user;
     }
 
-    @Override
-    public List<UserAccount> search(TaskFilter filter) {
-        return null;
-    }
 }

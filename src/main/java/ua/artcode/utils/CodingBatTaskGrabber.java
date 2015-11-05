@@ -1,5 +1,6 @@
 package ua.artcode.utils;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,24 +11,26 @@ import ua.artcode.model.CodingBatTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 // where is logger
-public class TaskGrabber {
+public class CodingBatTaskGrabber {
+
+    private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
 
     public static final String HTTP_CODINGBAT_COM = "http://codingbat.com";
-    private final String url = "http://codingbat.com/java";
-    private CodingBatTaskContainer taskContainer;
     private List<String> taskLinks;
 
-    public TaskGrabber(CodingBatTaskContainer taskContainer) {
-        this.taskContainer = taskContainer;
+    public CodingBatTaskGrabber() {
+
     }
 
     private void findLinks() {
         taskLinks = new ArrayList<>();
         try {
-            Document document = Jsoup.connect(url).get();
+            Document document = Jsoup.connect(HTTP_CODINGBAT_COM + "/java").get();
             Elements links = document.select("a");
             for (Element link : links) {
                 if (link.ownText().equals("more")) {
@@ -36,7 +39,7 @@ public class TaskGrabber {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
     }
 
@@ -50,25 +53,30 @@ public class TaskGrabber {
         }
     }
 
-    public void addTasksFromCodingBat() {
-        Document doc;
-        String title;
-        String description;
-        String examples;
-        String template;
+    public Collection<CodingBatTask> getTasksFromCodingBat() {
+
+        Collection<CodingBatTask> taskCollection = new LinkedList<>();
 
         findLinks();
 
-        for (int i = 0; i < taskLinks.size(); i++) {
+        for (String taskLink : taskLinks) {
+
             try {
-                doc = Jsoup.connect(taskLinks.get(i)).get();
 
+                Document doc;
+                String title;
+                String description;
+                String examples;
+                String template;
 
-                String[] absoluteTitle = doc.title().split(" ");
-                title = absoluteTitle[3];
+                doc = Jsoup.connect(taskLink).get();
+
+                title = doc.title().split(" ")[3];
+
                 template = doc.body().getElementsByTag("textarea").val();
 
                 Elements tables = doc.body().getElementsByTag("td");
+
                 for (Element infoTable : tables) {
                     //
                     if (infoTable.attr("width").equals("700") && infoTable.attr("valign").equals("top")) {
@@ -77,19 +85,19 @@ public class TaskGrabber {
 
                         String[] taskInfo = infoTable.ownText().split(title + "()");
                         examples = null;
+
                         for (int j = 1; j < taskInfo.length; j++) {
                             examples = examples + title + taskInfo[j] + "\n";
                         }
-//                        System.out.println(title);
-//                        System.out.println(description);
-//                        System.out.println(examples);
-//                        System.out.println(template);
-                        taskContainer.addTask(new CodingBatTask(title, description, examples, template));
+
+                        taskCollection.add(new CodingBatTask(title, description, examples, template));
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOG.error(e);
             }
+
         }
+        return taskCollection;
     }
 }

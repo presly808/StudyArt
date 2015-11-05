@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.serialization;
 
 
 import java.io.*;

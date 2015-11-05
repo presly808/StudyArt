@@ -1,27 +1,48 @@
-package ua.artcode.service; /**
- * Created by Home on 02.11.2015.
- */
+package ua.artcode.service;
+
+import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.dao.SimpleTaskDaoImpl;
 import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.CodingBatTask;
-import ua.artcode.service.SimpleTaskServiceImpl;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
-
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+//TODO finish tests
+@RunWith(MockitoJUnitRunner.class)
 public class TaskServiceTest {
+
+    private static final Logger LOGGER = Logger.getLogger(TaskServiceTest.class);
+    private static SimpleTaskDao mockTaskDao;
+    private CodingBatTaskContainer taskContainerMock;
+
+    @BeforeClass
+    public static void initMocks(){
+        mockTaskDao = mock(SimpleTaskDao.class);
+
+        try {
+            when(mockTaskDao.getAll()).thenReturn(Arrays.asList(new CodingBatTask("1","sum","desc1", "ex1", "template1")));
+        } catch (AppException e) {
+            LOGGER.error(e);
+        }
+    }
 
 
     @Test(expected = NoSuchTaskException.class)
-    public void testFindByIdException() throws NoSuchTaskException {
-        CodingBatTaskContainer taskContainerMock = mock(CodingBatTaskContainer.class);
+    public void findTaskByIdWithNoTask() throws NoSuchTaskException {
+        taskContainerMock = mock(CodingBatTaskContainer.class);
+
         SimpleTaskDaoImpl dao = new SimpleTaskDaoImpl(taskContainerMock);
 
         dao.findById("notId");
@@ -47,10 +68,6 @@ public class TaskServiceTest {
         assertEquals(5, simpleTaskService.getAll().size());
     }
 
-    @After
-    public void after() {
-
-    }
 
     @Test
     public void getTask() throws NoSuchTaskException {

@@ -4,11 +4,8 @@ import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.CodingBatTask;
-import ua.artcode.to.TaskFilter;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class SimpleTaskDaoImpl implements SimpleTaskDao {
@@ -52,7 +49,7 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
     }
 
     @Override
-    public List<CodingBatTask> search(TaskFilter filter) {
+    public List<CodingBatTask> search() {
         return null;
     }
 }

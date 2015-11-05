@@ -14,22 +14,29 @@
         <junit.version>4.12</junit.version>
         <jsoup.version>1.8.3</jsoup.version>
         <log4j.version>1.2.17</log4j.version>
+        <org.eclipse.persistence.moxy.version>2.6.1</org.eclipse.persistence.moxy.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <compilator.java.version>1.8</compilator.java.version>
     </properties>
+
 
     <dependencies>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>${mockito-all.version}</version><!-- ${}-->
-            <scope>test</scope>
+            <version>${mockito-all.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.moxy</artifactId>
+            <version>${org.eclipse.persistence.moxy.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -52,10 +59,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${compilator.java.version}</source>
+                    <target>${compilator.java.version}</target>
                 </configuration>
             </plugin>
         </plugins>

@@ -4,13 +4,12 @@ package ua.artcode.model;
 import java.io.Serializable;
 
 public class UserAccount implements Serializable {
+
     private String username;
     private String password;
     private String email;
     private AccountType accountType;
 
-
-    private UserHistory history;
 
     public UserAccount(String username, String password, String email) {
         this.username = username;
@@ -26,9 +25,6 @@ public class UserAccount implements Serializable {
         this.accountType = accountType;
     }
 
-    public UserHistory getHistory() {
-        return history;
-    }
 
     public String getPassword() {
         return password;
@@ -46,9 +42,6 @@ public class UserAccount implements Serializable {
         this.username = username;
     }
 
-    public void setHistory(UserHistory history) {
-        this.history = history;
-    }
 
     public String getEmail() {
         return email;
@@ -66,12 +59,5 @@ public class UserAccount implements Serializable {
         this.accountType = accountType;
     }
 
-
-    public boolean checkPassword(String pass) {
-        if (pass.equals(password)) {
-            return true;
-        }
-        return false;
-    }
 
 }
