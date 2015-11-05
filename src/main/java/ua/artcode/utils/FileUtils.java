@@ -10,18 +10,8 @@ import java.io.IOException;
  */
 public  class  FileUtils {
 
-    public static boolean isFile(String path) {
-        File file = new File(path);
-        if (file.isFile()) {
-            return true;
-        } else {
-            try {
-                throw new PathNotFoundException("Path not found");
-            } catch (PathNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
+    public static boolean exists(String path) {
+        return new File(path).exists();
     }
 
     public static File createNewIfNotExists(String path){

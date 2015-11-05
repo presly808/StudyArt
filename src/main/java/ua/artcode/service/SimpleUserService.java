@@ -10,7 +10,7 @@ public interface SimpleUserService {
 
     UserAccount authenticate(String username, String password) throws AppException;
 
-    UserAccount registrate(String username, String password, String email, AccountType accountType) throws AppException;
+    UserAccount register(String username, String password, String email, AccountType accountType) throws AppException;
 
     UserAccount getUserInfo(String username);
 

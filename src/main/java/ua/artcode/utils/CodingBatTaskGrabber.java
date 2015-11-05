@@ -6,7 +6,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.model.CodingBatTask;
 
 import java.io.IOException;
@@ -15,26 +14,27 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-// where is logger
+// TODO need refactor, decompose big methods
 public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
 
-    public static final String HTTP_CODINGBAT_COM = "http://codingbat.com";
+    public static final String CODINGBAT_BASE_URL = "http://codingbat.com";
     private List<String> taskLinks;
 
     public CodingBatTaskGrabber() {
 
     }
 
-    private void findLinks() {
+    private void findGroupLinks() {
+        LOG.trace("find group links");
         taskLinks = new ArrayList<>();
         try {
-            Document document = Jsoup.connect(HTTP_CODINGBAT_COM + "/java").get();
+            Document document = Jsoup.connect(CODINGBAT_BASE_URL + "/java").get();
             Elements links = document.select("a");
             for (Element link : links) {
                 if (link.ownText().equals("more")) {
-                    String linkOfTaskGroup = HTTP_CODINGBAT_COM + link.attr("href");
+                    String linkOfTaskGroup = CODINGBAT_BASE_URL + link.attr("href");
                     initTaskLinks(linkOfTaskGroup);
                 }
             }
@@ -48,16 +48,17 @@ public class CodingBatTaskGrabber {
         Elements links = doc.select("a");
         for (Element link : links) {
             if (link.attr("href").contains("prob")) {
-                taskLinks.add(HTTP_CODINGBAT_COM + link.attr("href"));
+                taskLinks.add(CODINGBAT_BASE_URL + link.attr("href"));
             }
         }
     }
 
     public Collection<CodingBatTask> getTasksFromCodingBat() {
+        LOG.trace("Start loading tasks from coding bat");
 
         Collection<CodingBatTask> taskCollection = new LinkedList<>();
 
-        findLinks();
+        findGroupLinks();
 
         for (String taskLink : taskLinks) {
 

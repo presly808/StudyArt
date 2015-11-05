@@ -27,7 +27,8 @@ public class SimpleUserServiceImpl implements SimpleUserService {
         return user;
     }
 
-    public UserAccount registrate(String username, String password, String email, AccountType accountType) throws AppException {
+    @Override
+    public UserAccount register(String username, String password, String email, AccountType accountType) throws AppException {
         return userDao.create(new UserAccount(username, password, email, accountType));
     }
 
@@ -41,8 +42,5 @@ public class SimpleUserServiceImpl implements SimpleUserService {
         return null;
     }
 
-    public UserAccount registrate(String username, String password, String email) throws AppException {
-        return userDao.create(new UserAccount(username, password, email));
-    }
 
 }

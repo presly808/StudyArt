@@ -12,6 +12,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String examples;
     private String template;
 
+    private String groupName;
+
     public CodingBatTask() {
     }
 
