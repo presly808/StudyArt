@@ -10,6 +10,7 @@
     <packaging>jar</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mockito-all.version>1.10.19</mockito-all.version>
         <junit.version>4.12</junit.version>
         <jsoup.version>1.8.3</jsoup.version>

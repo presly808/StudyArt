@@ -69,10 +69,12 @@ public class CodingBatTaskGrabber {
                 String description;
                 String examples;
                 String template;
+                String groupName;
 
                 doc = Jsoup.connect(taskLink).get();
 
                 title = doc.title().split(" ")[3];
+                groupName = doc.title().split(" ")[2];
 
                 template = doc.body().getElementsByTag("textarea").val();
 
@@ -91,7 +93,7 @@ public class CodingBatTaskGrabber {
                             examples = examples + title + taskInfo[j] + "\n";
                         }
 
-                        taskCollection.add(new CodingBatTask(title, description, examples, template));
+                        taskCollection.add(new CodingBatTask(title, description, examples, template, groupName));
                     }
                 }
             } catch (IOException e) {
