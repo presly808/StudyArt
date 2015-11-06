@@ -14,7 +14,18 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     private String groupName;
 
+    private TaskTestData taskTestData;
+
     public CodingBatTask() {
+    }
+
+    public CodingBatTask(String id, String title, String description, String examples, String template, String groupName) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.examples = examples;
+        this.template = template;
+        this.groupName = groupName;
     }
 
     public CodingBatTask(String title, String description,
@@ -72,6 +83,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     public void setTemplate(String template) {
         this.template = template;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     // generate alt+ins

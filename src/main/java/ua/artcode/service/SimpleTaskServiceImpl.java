@@ -8,15 +8,22 @@ import ua.artcode.model.ResultContainer;
 
 import java.util.List;
 
-/**
- * Created by serhii on 28.10.15.
- */
 public class SimpleTaskServiceImpl implements SimpleTaskService {
 
     private SimpleTaskDao simpleTaskDao;
 
     public SimpleTaskServiceImpl(SimpleTaskDao simpleTaskDao) {
         this.simpleTaskDao = simpleTaskDao;
+    }
+
+    @Override
+    public List<CodingBatTask> getAllByGroup(String groupName) throws AppException {
+        return null;
+    }
+
+    @Override
+    public List<CodingBatTask> addTask(CodingBatTask codingBatTask) throws AppException {
+        return null;
     }
 
     @Override
