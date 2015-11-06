@@ -2,9 +2,6 @@ package ua.artcode.model;
 
 import java.util.List;
 
-/**
- * Created by serhii on 28.10.15.
- */
 public class TaskTestResult {
 
     private List<String> inData;
