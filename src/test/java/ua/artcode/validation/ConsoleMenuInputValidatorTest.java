@@ -1,12 +1,13 @@
 package ua.artcode.validation;
 
-import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.artcode.exception.AppValidationException;
 
-public class ConsoleMenuInputValidatorTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class ConsoleMenuInputValidatorTest{
     private static final Logger LOGGER = Logger.getLogger(ConsoleMenuInputValidator.class);
     private static   Validator validator;
     private static String rightInput;

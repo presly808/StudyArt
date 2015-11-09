@@ -23,12 +23,12 @@ public class View {
         private static final int USER_REGISTRATION = 7;
 
         private SimpleTaskService taskService;
-        private SimpleUserService noteService2;
+        private SimpleUserService userService;
         private Scanner scan;
 
-    public View(SimpleTaskService taskService, SimpleUserService noteService2) {
+    public View(SimpleTaskService taskService, SimpleUserService userService) {
         this.taskService = taskService;
-        this.noteService2 = noteService2;
+        this.userService = userService;
         scan = new Scanner(System.in);
     }
 

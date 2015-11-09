@@ -1,7 +1,6 @@
 package ua.artcode.service;
 
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.CodingBatTask;
 import ua.artcode.model.ResultContainer;
 
@@ -18,5 +17,7 @@ public interface SimpleTaskService {
     CodingBatTask getTask(String id) throws AppException;
 
     ResultContainer checkTaskImplementation(CodingBatTask task) throws AppException;
+
+    CodingBatTask taskCreation();
 
 }
