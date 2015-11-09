@@ -40,7 +40,5 @@ public class RunSimpleTest {
         } catch (AppException e) {
             e.printStackTrace();
         }
-
-
     }
 }
