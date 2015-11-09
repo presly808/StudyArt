@@ -4,3 +4,9 @@ out/
 
 *.class
 *.jar
+
+target/
+
+#logs ir
+logs/
+*.log

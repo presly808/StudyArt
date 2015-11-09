@@ -1,7 +1,8 @@
 package ua.artcode.db;
 
 import ua.artcode.model.CodingBatTask;
-import ua.artcode.utils.Serializator;
+import ua.artcode.utils.ClassPathResourceLoader;
+import ua.artcode.utils.serialization.Serializator;
 
 import java.io.File;
 
@@ -14,11 +15,14 @@ public class InitDataProcessor {
     private Serializator<CodingBatTaskContainer> serializator;
 
     // TODO dont use absolute path, use relative, add resource to classpath then get via getResource method
-    private String path = "/Users/Home/IdeaProjects/StudyArt/cache/app_db.txt";
+    final File dbFile;
+    //private String path = "/home/serhii/dev/tempVitalik/StudyArt/cache/app_db.txt";
 
 
     public InitDataProcessor(Serializator<CodingBatTaskContainer> serializator) {
         this.serializator = serializator;
+
+        dbFile = ClassPathResourceLoader.getFile("/user_db.txt");
     }
 
     private void initData(){
@@ -29,11 +33,11 @@ public class InitDataProcessor {
 
     public CodingBatTaskContainer getContainer() {
         if(container == null){
-            if(new File(path).exists()){
-                container = serializator.load(path);
+            if(dbFile.exists()){
+                container = serializator.load(dbFile.getPath());
             } else {
                 initData();
-                serializator.save(path, container);
+                serializator.save(dbFile.getPath(), container);
             }
         }
 

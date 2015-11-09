@@ -1,7 +1,9 @@
 package ua.artcode.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@XmlRootElement
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     private String id;
@@ -10,7 +12,20 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String examples;
     private String template;
 
+    private String groupName;
+
+    private TaskTestData taskTestData;
+
     public CodingBatTask() {
+    }
+
+    public CodingBatTask(String id, String title, String description, String examples, String template, String groupName) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.examples = examples;
+        this.template = template;
+        this.groupName = groupName;
     }
 
     public CodingBatTask(String title, String description,
@@ -70,6 +85,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.template = template;
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
     // generate alt+ins
     @Override
     public String toString() {
@@ -81,6 +104,22 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         sb.append(", template='").append(template).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CodingBatTask that = (CodingBatTask) o;
+
+        return !(id != null ? !id.equals(that.id) : that.id != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
