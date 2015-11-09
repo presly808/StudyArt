@@ -18,24 +18,24 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 //TODO finish tests
 @RunWith(MockitoJUnitRunner.class)
 public class TaskServiceTest {
 
     private static final Logger LOGGER = Logger.getLogger(TaskServiceTest.class);
     private static SimpleTaskDao mockTaskDao;
-    private CodingBatTaskContainer taskContainerMock;
 
     private CodingBatTaskContainer taskContainer;
     private SimpleTaskDaoImpl simpleTaskDao;
     private SimpleTaskServiceImpl simpleTaskService;
 
     @BeforeClass
-    public static void initMocks(){
+    public static void initMocks() {
         mockTaskDao = mock(SimpleTaskDao.class);
 
         try {
-            when(mockTaskDao.getAll()).thenReturn(Arrays.asList(new CodingBatTask("1","sum","desc1", "ex1", "template1")));
+            when(mockTaskDao.getAll()).thenReturn(Arrays.asList(new CodingBatTask("1", "sum", "desc1", "ex1", "template1")));
         } catch (AppException e) {
             LOGGER.error(e);
         }
@@ -64,9 +64,7 @@ public class TaskServiceTest {
         taskContainer.addTask(mockTask3);
         taskContainer.addTask(mockTask4);
         taskContainer.addTask(mockTask5);
-
     }
-    
 
 
     @Test(expected = NoSuchTaskException.class)
