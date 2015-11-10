@@ -22,10 +22,15 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
     }
 
     @Override
+    public CodingBatTask addTask(CodingBatTask codingBatTask) {
+        return taskContainer.addTask(codingBatTask);
+    }
+
+    @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {
         CodingBatTask codingBatTask = taskContainer.getById(id);
 
-        if(codingBatTask == null){
+        if (codingBatTask == null) {
             throw new NoSuchTaskException("No task with id " + id);
         }
 
