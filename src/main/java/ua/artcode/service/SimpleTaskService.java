@@ -1,5 +1,6 @@
 package ua.artcode.service;
 
+import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.CodingBatTask;
@@ -23,9 +24,11 @@ public interface SimpleTaskService {
 
     void saveTemplateToFile (CodingBatTask task) throws NoSuchTaskException;
 
-    void saveTaskTestResult (TaskTestResult result);
+    void saveTaskTestResultToFile (TaskTestResult result);
 
     ImplementedTask loadImplementedTaskFromFile();
+
+    void saveHistory(ImplementedTaskContainer implementedTaskContainer);
 
 
 

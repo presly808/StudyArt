@@ -1,6 +1,7 @@
 package ua.artcode.service;
 
 import ua.artcode.dao.SimpleTaskDao;
+import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.CodingBatTask;
@@ -49,13 +50,13 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
     }
 
     @Override
-    public void saveTemplateToFile(CodingBatTask task) throws NoSuchTaskException {
+       public void saveTemplateToFile(CodingBatTask task) throws NoSuchTaskException {
         appDataStandartJavaSerializator.save(path,task);
 
     }
 
     @Override
-    public void saveTaskTestResult(TaskTestResult result) {
+    public void saveTaskTestResultToFile(TaskTestResult result) {
         appDataStandartJavaSerializator.save(path,result);
     }
 
@@ -63,6 +64,11 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
     public ImplementedTask loadImplementedTaskFromFile() {
         return (ImplementedTask) appDataStandartJavaSerializator.load(path);
 
+    }
+
+    @Override
+    public void saveHistory(ImplementedTaskContainer implementedTaskContainer) {
+        appDataStandartJavaSerializator.save(path,implementedTaskContainer);
     }
 
 

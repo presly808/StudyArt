@@ -11,8 +11,13 @@ import ua.artcode.dao.SimpleTaskDaoImpl;
 import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.exception.PathNotFoundException;
 import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.ImplementedTask;
+import ua.artcode.model.TaskTestResult;
+import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,9 +31,20 @@ public class TaskServiceTest {
     private static final Logger LOGGER = Logger.getLogger(TaskServiceTest.class);
     private static SimpleTaskDao mockTaskDao;
     private CodingBatTaskContainer taskContainerMock;
+    private static CodingBatTask codingBatTask;
+    private static TaskTestResult taskTestResult;
+    private static ImplementedTask implementedTask;
+    private static String path;
+    private static AppDataStandartJavaSerializator appDataStandartJavaSerializator;
+
+
 
     @BeforeClass
     public static void initMocks(){
+        codingBatTask = new CodingBatTask();
+        taskTestResult = new TaskTestResult();
+        implementedTask = mock(ImplementedTask.class);
+        appDataStandartJavaSerializator = new AppDataStandartJavaSerializator();
         mockTaskDao = mock(SimpleTaskDao.class);
 
         try {
@@ -37,6 +53,30 @@ public class TaskServiceTest {
             LOGGER.error(e);
         }
     }
+
+    @Test(expected = NullPointerException.class)
+    public void saveTemplateToFileNullTest()throws  NullPointerException{
+        String wrongPath = null;
+        appDataStandartJavaSerializator.save(wrongPath,codingBatTask);
+    }
+
+
+
+
+    @Test(expected = NullPointerException.class)
+    public void loadImplementedTaskFromFileNullTest(){
+        appDataStandartJavaSerializator.load(path);
+
+    }
+
+
+
+    @Test(expected = NullPointerException.class)
+    public void saveTaskTestResultToFileNullTest(){
+        appDataStandartJavaSerializator.save(path,taskTestResult);
+
+    }
+
 
 
     @Test(expected = NoSuchTaskException.class)
