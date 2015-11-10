@@ -1,6 +1,7 @@
 package ua.artcode.service;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,9 +26,9 @@ public class TaskServiceTest {
     private static final Logger LOGGER = Logger.getLogger(TaskServiceTest.class);
     private static SimpleTaskDao mockTaskDao;
 
-    private static CodingBatTaskContainer taskContainer;
-    private static SimpleTaskDaoImpl simpleTaskDao;
-    private static SimpleTaskServiceImpl simpleTaskService;
+    private  CodingBatTaskContainer taskContainer;
+    private  SimpleTaskDaoImpl simpleTaskDao;
+    private  SimpleTaskServiceImpl simpleTaskService;
 
     @BeforeClass
     public static void initMocks() {
@@ -40,8 +41,8 @@ public class TaskServiceTest {
         }
     }
 
-    @BeforeClass
-    public static void initTasks() {
+    @Before
+    public  void initTasks() {
         taskContainer = new CodingBatTaskContainer();
         simpleTaskDao = new SimpleTaskDaoImpl(taskContainer);
         simpleTaskService = new SimpleTaskServiceImpl(simpleTaskDao);
@@ -65,6 +66,10 @@ public class TaskServiceTest {
         taskContainer.addTask(mockTask5);
     }
 
+//    @After
+//    public void cleanContainer() {
+//        initTasks();
+//    }
 
     @Test(expected = NoSuchTaskException.class)
     public void findTaskByIdWithNoTask() throws NoSuchTaskException {
@@ -75,16 +80,17 @@ public class TaskServiceTest {
     public void getAllTasks() throws AppException {
         assertEquals(5, simpleTaskService.getAll().size());
     }
-
+    //TO DO static?or non static?
     @Test
     public void getTask() throws NoSuchTaskException {
         assertEquals("2", simpleTaskService.getTask("2").getId());
     }
+
     @Test
-    public void addTask()throws AppException{
-        CodingBatTask task=new CodingBatTask("TestTask","description","examples","template");
+    public void addTask() throws AppException {
+        CodingBatTask task = new CodingBatTask("TestTask", "description", "examples", "template");
         simpleTaskService.addTask(task);
-        assertEquals(0,simpleTaskService.getTask("5").compareTo(task));
+        assertEquals(0, simpleTaskService.getTask("5").compareTo(task));
     }
 
 }
