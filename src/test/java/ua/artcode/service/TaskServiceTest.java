@@ -17,6 +17,7 @@ import ua.artcode.model.ImplementedTask;
 import ua.artcode.model.TaskTestResult;
 import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -62,10 +63,30 @@ public class TaskServiceTest {
 
 
 
+    @Test
+     public void saveTemplateToFileTest(){
+        path = "C:\\temp\\2.txt";
+        appDataStandartJavaSerializator.save(path,(new CodingBatTask("1","sum","desc1", "ex1", "template01")));
+        File fileToDelete = new File("C:\\temp\\2.txt");
+        fileToDelete.delete();
+    }
+
 
     @Test(expected = NullPointerException.class)
     public void loadImplementedTaskFromFileNullTest(){
         appDataStandartJavaSerializator.load(path);
+
+    }
+
+    @Test
+    public void loadImplementedTaskFromFileTest() throws IOException {
+        File fileToCreate = new File("C:\\temp\\55.txt");
+        fileToCreate.createNewFile();
+        path = "C:\\temp\\55.txt";
+        appDataStandartJavaSerializator.save(path,(new CodingBatTask("1","sum","desc1", "ex1", "template01")));
+        appDataStandartJavaSerializator.load(path);
+        File fileToDelete = new File("C:\\temp\\55.txt");
+        fileToDelete.delete();
 
     }
 
