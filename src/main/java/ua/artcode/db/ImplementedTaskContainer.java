@@ -25,7 +25,7 @@ public class ImplementedTaskContainer implements Serializable {
         return implementedTask;
     }
 
-    public Collection<ImplementedTask> getTasks(){
+    public Collection<ImplementedTask> getImplementedTasks(){
         return implementedTaskMap.values();
     }
 
