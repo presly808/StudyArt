@@ -7,14 +7,14 @@ import java.net.UnknownHostException;
 /**
  * Created by Razer on 09.11.15.
  */
-public class MongoConnectionHelper {
+public class MongoDbConnectionHelper {
     private static MongoClient mongoClient;
 
     public static MongoClient getMongoClient() throws UnknownHostException {
         if (mongoClient == null) {
-            String name = AppPropertiesHolder.getProperty("dataBaseName");
+            String host = AppPropertiesHolder.getProperty("host");
             int port = Integer.parseInt(AppPropertiesHolder.getProperty("port"));
-            mongoClient = new MongoClient(name, port);
+            mongoClient = new MongoClient(host, port);
         }
         return mongoClient;
     }
