@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.holder;
 
 import java.io.IOException;
 import java.util.Properties;
