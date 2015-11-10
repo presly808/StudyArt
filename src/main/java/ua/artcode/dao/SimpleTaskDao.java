@@ -19,5 +19,7 @@ public interface SimpleTaskDao {
 
     List<CodingBatTask> getAll() throws AppException;
 
+    CodingBatTask addTask(CodingBatTask codingBatTask);
+
     List<CodingBatTask> search();
 }
