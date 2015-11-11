@@ -1,6 +1,6 @@
 package ua.artcode.db;
 
-import ua.artcode.model.UserAccount;
+import ua.artcode.model.common.UserAccount;
 
 import java.io.Serializable;
 import java.util.*;

@@ -3,8 +3,8 @@ package ua.artcode.service;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.CodingBatTask;
-import ua.artcode.model.ResultContainer;
+import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.ResultContainer;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package ua.artcode.db;
 
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.ClassPathResourceLoader;
 import ua.artcode.utils.serialization.Serializator;
 

@@ -1,4 +1,4 @@
-package ua.artcode.model;
+package ua.artcode.model.codingbat;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
