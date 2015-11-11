@@ -18,4 +18,6 @@ public interface SimpleTaskService {
 
     ResultContainer checkTaskImplementation(CodingBatTask task) throws AppException;
 
+    CodingBatTask taskCreation();
+
 }
