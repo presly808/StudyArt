@@ -7,6 +7,7 @@ import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,22 +26,22 @@ public class TestTaskJsonSerializer {
     private static AppDataJsonSerializer appDataJsonSerializer;
 
     @BeforeClass
-    public static void beforeAllTest(){
+    public static void beforeAllTest() {
 
         dbTaskPath = FileUtils.createNewIfNotExists("target/app_db.json");
 
         appDataJsonSerializer = new AppDataJsonSerializer(CodingBatTask.class);
 
         codingBatTasks = Stream.generate(() -> new CodingBatTask(generateRandomId(),
-                    generateNameWith("title",100),
-                    generateNameWith("desc ", 100),generateNameWith("example ", 100),generateNameWith("tamplate ", 100))).
+                generateNameWith("title", 100),
+                generateNameWith("desc ", 100), generateNameWith("example ", 100), generateNameWith("tamplate ", 100))).
                 limit(10).
                 collect(Collectors.toList());
 
     }
 
     @Test
-    public void _01testSimpleSaving(){
+    public void _01testSimpleSaving() {
         appDataJsonSerializer.save(codingBatTasks, dbTaskPath.getPath());
 
         try {
@@ -56,7 +57,7 @@ public class TestTaskJsonSerializer {
     }
 
     @Test
-    public void _02testSimpleLoading(){
+    public void _02testSimpleLoading() {
         Collection<CodingBatTask> loadedTasks = appDataJsonSerializer.load(CodingBatTask.class, dbTaskPath.getPath());
 
         loadedTasks.stream().forEach(System.out::println);
@@ -65,7 +66,7 @@ public class TestTaskJsonSerializer {
     }
 
     @AfterClass
-    public static void afterAllTests(){
+    public static void afterAllTests() {
         dbTaskPath.delete();
     }
 
