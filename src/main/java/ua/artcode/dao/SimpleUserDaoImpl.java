@@ -7,6 +7,7 @@ import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.UserAccount;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SimpleUserDaoImpl implements SimpleUserDao {
 
@@ -43,7 +44,8 @@ public class SimpleUserDaoImpl implements SimpleUserDao {
 
     @Override
     public Set<UserAccount> getAllUser() {
-        return null;
+
+        return userContainer.getAllUser().stream().collect(Collectors.toSet());
     }
 
     public Set<String> getAllUserNames()  {

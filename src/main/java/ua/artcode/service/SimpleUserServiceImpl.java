@@ -34,9 +34,14 @@ public class SimpleUserServiceImpl implements SimpleUserService {
     @Override
     public UserAccount register(String username, String password, String email, AccountType accountType) throws AppException {
 
-        accountValidator.validate(new UserAccount(username,password,email));
+        if (accountType == null) {
+            accountType = AccountType.USER;
+        }
 
-        return userDao.create(new UserAccount(username, password, email, accountType));
+        //accountValidator.validate(new UserAccount(username,password,email));
+        UserAccount user = userDao.create(new UserAccount(username, password, email, accountType));
+
+        return user;
     }
 
     @Override
@@ -46,7 +51,9 @@ public class SimpleUserServiceImpl implements SimpleUserService {
 
     @Override
     public Set<String> getAllUser() {
-        return null;
+
+        return userDao.getAllUserNames();
+
     }
 
 

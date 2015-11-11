@@ -16,7 +16,7 @@ public class UserAccountValidator implements Validator<UserAccount> {
             "[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:" +
             "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 
-    private static final String NAME_PATTERN = ""; // TODO find name pattern
+    private static final String NAME_PATTERN = "^[a-z0-9_-]{3,15}$"; // TODO find name pattern
 
     private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
 
@@ -32,12 +32,12 @@ public class UserAccountValidator implements Validator<UserAccount> {
         AppValidationException exceptionMessageContainer = new AppValidationException();
 
         if(!isValidUserName(entity.getUsername())){
-            exceptionMessageContainer.addMessage(String.format("username %s is invalid, recomendation %s",
+            exceptionMessageContainer.addMessage(String.format("username %s is invalid, recommendation %s",
                     entity.getUsername(), "example of valid username"));
         }
 
         if(!isValidPassword(entity.getPassword())){
-            exceptionMessageContainer.addMessage(String.format("password %s is invalid, recomendation %s",
+            exceptionMessageContainer.addMessage(String.format("password %s is invalid, recommendation %s",
                     entity.getPassword(), "must contains one digit from 0-9\n" +
                             " must contains one lowercase characters\n" +
                             " must contains one uppercase characters\n" +
@@ -46,7 +46,7 @@ public class UserAccountValidator implements Validator<UserAccount> {
         }
 
         if(!isValidEmail(entity.getEmail())){
-            exceptionMessageContainer.addMessage(String.format("email %s is invalid, recomendation %s",
+            exceptionMessageContainer.addMessage(String.format("email %s is invalid, recommendation %s",
                     entity.getUsername(), "example of valid email"));
         }
 

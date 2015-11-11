@@ -4,6 +4,7 @@ import ua.artcode.model.UserAccount;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class UserAccountContainer implements Serializable {
@@ -30,6 +31,11 @@ public class UserAccountContainer implements Serializable {
     public Set<String> getUserNames(){
 
         return userMap.keySet();
+    }
+
+    public Collection<UserAccount> getAllUser(){
+
+        return userMap.values();
     }
 
     public UserAccount getByUserName(String username) {

@@ -59,5 +59,11 @@ public class UserAccount implements Serializable {
         this.accountType = accountType;
     }
 
+    public boolean isEqual(UserAccount other) {
+        if (username == other.getUsername()){
+            return true;
+        }
+        return false;
+    }
 
 }
