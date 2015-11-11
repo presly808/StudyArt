@@ -36,6 +36,7 @@ public class AppDataJsonSerializer {
             unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_JSON);
 
         } catch (JAXBException e) {
+            e.printStackTrace();
             LOG.error(e);
         }
 

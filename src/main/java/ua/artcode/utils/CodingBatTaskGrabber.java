@@ -53,7 +53,7 @@ public class CodingBatTaskGrabber {
     }
 
     private String getTitle(Document doc) {
-        String[] fullTitle = doc.title().split(" ");
+        String[] fullTitle = doc.title().split(" ");// TODO same action in getGroupName, do action only one time, then pass arg
         return fullTitle[3];
     }
 
@@ -63,7 +63,7 @@ public class CodingBatTaskGrabber {
     }
 
     private String getTemplate(Document doc) {
-        String template = doc.body().getElementsByTag("textarea").val();
+        String template = doc.body().getElementsByTag("textarea").val();// TODO delete redundant variable
         return template;
     }
 

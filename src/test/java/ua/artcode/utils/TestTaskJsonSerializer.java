@@ -7,7 +7,6 @@ import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,6 +15,7 @@ import static org.junit.Assert.*;
 import static ua.artcode.utils.RandomDataGenerator.generateNameWith;
 import static ua.artcode.utils.RandomDataGenerator.generateRandomId;
 
+@Ignore
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestTaskJsonSerializer {
 
