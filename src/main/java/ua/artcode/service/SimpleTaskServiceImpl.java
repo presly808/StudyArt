@@ -22,8 +22,8 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
     }
 
     @Override
-    public List<CodingBatTask> addTask(CodingBatTask codingBatTask) throws AppException {
-        return null;
+    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException {
+        return simpleTaskDao.addTask(codingBatTask) ;
     }
 
     @Override
