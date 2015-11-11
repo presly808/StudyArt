@@ -1,8 +1,11 @@
 package ua.artcode.service;
 
+import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.ResultContainer;
+import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.model.ImplementedTask;
 
 import java.util.List;
 
@@ -19,5 +22,15 @@ public interface SimpleTaskService {
     ResultContainer checkTaskImplementation(CodingBatTask task) throws AppException;
 
     CodingBatTask taskCreation();
+
+    void saveTemplateToFile (CodingBatTask task) throws NoSuchTaskException;
+
+    void saveTaskTestResultToFile (TaskTestResult result);
+
+    ImplementedTask loadImplementedTaskFromFile();
+
+    void saveHistory(ImplementedTaskContainer implementedTaskContainer);
+
+
 
 }
