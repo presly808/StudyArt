@@ -2,7 +2,6 @@ package ua.artcode.service;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -12,8 +11,6 @@ import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.CodingBatTask;
-
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -26,50 +23,23 @@ public class TaskServiceTest {
     private static final Logger LOGGER = Logger.getLogger(TaskServiceTest.class);
     private static SimpleTaskDao mockTaskDao;
 
-    private  CodingBatTaskContainer taskContainer;
-    private  SimpleTaskDaoImpl simpleTaskDao;
-    private  SimpleTaskServiceImpl simpleTaskService;
-
-    @BeforeClass
-    public static void initMocks() {
-        mockTaskDao = mock(SimpleTaskDao.class);
-
-        try {
-            when(mockTaskDao.getAll()).thenReturn(Arrays.asList(new CodingBatTask("1", "sum", "desc1", "ex1", "template1")));
-        } catch (AppException e) {
-            LOGGER.error(e);
-        }
-    }
+    private CodingBatTaskContainer taskContainer;
+    private SimpleTaskDaoImpl simpleTaskDao;
+    private SimpleTaskServiceImpl simpleTaskService;
 
     @Before
-    public  void initTasks() {
+    public void initTasks() {
         taskContainer = new CodingBatTaskContainer();
         simpleTaskDao = new SimpleTaskDaoImpl(taskContainer);
         simpleTaskService = new SimpleTaskServiceImpl(simpleTaskDao);
-
-        CodingBatTask mockTask1 = mock(CodingBatTask.class);
-        CodingBatTask mockTask2 = mock(CodingBatTask.class);
-        CodingBatTask mockTask3 = mock(CodingBatTask.class);
-        CodingBatTask mockTask4 = mock(CodingBatTask.class);
-        CodingBatTask mockTask5 = mock(CodingBatTask.class);
-
-        when(mockTask1.getId()).thenReturn("0");
-        when(mockTask2.getId()).thenReturn("1");
-        when(mockTask3.getId()).thenReturn("2");
-        when(mockTask4.getId()).thenReturn("3");
-        when(mockTask5.getId()).thenReturn("4");
-
-        taskContainer.addTask(mockTask1);
-        taskContainer.addTask(mockTask2);
-        taskContainer.addTask(mockTask3);
-        taskContainer.addTask(mockTask4);
-        taskContainer.addTask(mockTask5);
+        //create and add tasks to container
+        for (int i = 0; i < 5; i++) {
+            CodingBatTask mockTask = mock(CodingBatTask.class);
+            when(mockTask.getId()).thenReturn(Integer.toString(i));
+            taskContainer.addTask(mockTask);
+        }
     }
 
-//    @After
-//    public void cleanContainer() {
-//        initTasks();
-//    }
 
     @Test(expected = NoSuchTaskException.class)
     public void findTaskByIdWithNoTask() throws NoSuchTaskException {
@@ -80,10 +50,11 @@ public class TaskServiceTest {
     public void getAllTasks() throws AppException {
         assertEquals(5, simpleTaskService.getAll().size());
     }
-    //TO DO static?or non static?
+
+    //TODO static?or non static?
     @Test
     public void getTask() throws NoSuchTaskException {
-        assertEquals("2", simpleTaskService.getTask("2").getId());
+        assertEquals("2", simpleTaskService.getTask("18").getId());
     }
 
     @Test
