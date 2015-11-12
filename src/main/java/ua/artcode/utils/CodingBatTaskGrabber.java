@@ -14,12 +14,14 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
 
     public static final String CODINGBAT_BASE_URL = "http://codingbat.com";
-    private List<String> taskLinks;
+    private List<String> taskLinksContainer;
 
     public CodingBatTaskGrabber() {
 
@@ -27,14 +29,17 @@ public class CodingBatTaskGrabber {
 
     private void findGroupLinks() {
         LOG.trace("find group links");
-        taskLinks = new ArrayList<>();
+        taskLinksContainer = new ArrayList<>();
         try {
-            Document document = Jsoup.connect(CODINGBAT_BASE_URL + "/java").get();
-            Elements links = document.select("a");// get all links from the document
-            for (Element link : links) {
-                if (link.ownText().equals("more")) {// find links of task group
+            Document doc = Jsoup.connect(CODINGBAT_BASE_URL + "/java").get();
+            // added one unnecessary element with empty link. Can't fix this
+            Elements groupLinks = doc.getElementsMatchingOwnText("more");
+            for (Element link : groupLinks) {
+                // verify not empty links
+                if (!link.attr("href").equals("")) {
+                    // create actual link of task group
                     String linkOfTaskGroup = CODINGBAT_BASE_URL + link.attr("href");
-                    initTaskLinks(linkOfTaskGroup);// init links in the group
+                    initTaskLinks(linkOfTaskGroup);
                 }
             }
         } catch (IOException e) {
@@ -44,22 +49,32 @@ public class CodingBatTaskGrabber {
 
     private void initTaskLinks(String linkOfTaskGroup) throws IOException {
         Document doc = Jsoup.connect(linkOfTaskGroup).get();
-        Elements links = doc.select("a");// get all links from the document
-        for (Element link : links) {
-            if (link.attr("href").contains("prob")) {// find links of task
-                taskLinks.add(CODINGBAT_BASE_URL + link.attr("href"));
-            }
+        // get elements with links of task
+        Elements taskLinks = doc.getElementsByAttributeValueContaining("href", "prob");
+        for (Element link : taskLinks) {
+            // create and add actual task link
+                taskLinksContainer.add(CODINGBAT_BASE_URL + link.attr("href"));
         }
     }
 
-    private String getTitle(Document doc) {
+    private String[] getFullTitle(Document doc) {
+        // This method give array of strings:
+        // 0 - name of site
+        // 1 - program language
+        // 2 - name of task group
+        // 3 - name of task
         String[] fullTitle = doc.title().split(" ");
-        return fullTitle[3];
+        return fullTitle;
+    }
+
+    private String getTitle(Document doc) {
+        String title = getFullTitle(doc)[3];
+        return title;
     }
 
     private String getGroupName(Document doc) {
-        String[] fullTitle = doc.title().split(" ");
-        return fullTitle[2];
+        String groupName = getFullTitle(doc)[2];
+        return groupName;
     }
 
     private String getTemplate(Document doc) {
@@ -94,7 +109,7 @@ public class CodingBatTaskGrabber {
 
         findGroupLinks();
 
-        for (String taskLink : taskLinks) {
+        for (String taskLink : taskLinksContainer) {
 
             try {
 
@@ -110,18 +125,15 @@ public class CodingBatTaskGrabber {
                 title = getTitle(doc);
                 groupName = getGroupName(doc);
                 template = getTemplate(doc);
+                // get table with needed information(descriptions, examples)
+                Elements tables = doc.body().getElementsByAttributeValue("width", "700");
 
-                Elements tables = doc.body().getElementsByTag("td");
-                //get all tables in the document
                 for (Element infoTable : tables) {
-                    // find the table with the right information
-                    if (infoTable.attr("width").equals("700") && infoTable.attr("valign").equals("top")) {
 
                         description = getDescription(infoTable);
                         examples = getExamples(infoTable, title);
 
                         taskCollection.add(new CodingBatTask(title, description, examples, template, groupName));
-                    }
                 }
             } catch (IOException e) {
                 LOG.error(e);

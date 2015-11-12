@@ -8,6 +8,8 @@ import ua.artcode.model.ResultContainer;
 
 import java.util.List;
 
+
+
 public class SimpleTaskServiceImpl implements SimpleTaskService {
 
     private SimpleTaskDao simpleTaskDao;

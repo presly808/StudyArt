@@ -88,7 +88,7 @@
                     </execution>
                     <execution>
                         <id>default-report</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals><goal>report</goal></goals>
                     </execution>
                 </executions>
