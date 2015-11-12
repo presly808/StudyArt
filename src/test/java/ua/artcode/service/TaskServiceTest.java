@@ -1,6 +1,7 @@
 package ua.artcode.service;
 
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +24,18 @@ public class TaskServiceTest {
     private static final Logger LOGGER = Logger.getLogger(TaskServiceTest.class);
     private static SimpleTaskDao mockTaskDao;
 
-    private CodingBatTaskContainer taskContainer;
-    private SimpleTaskDaoImpl simpleTaskDao;
-    private SimpleTaskServiceImpl simpleTaskService;
+    private static CodingBatTaskContainer taskContainer;
+    private static SimpleTaskDaoImpl simpleTaskDao;
+    private static SimpleTaskServiceImpl simpleTaskService;
+
+    @After
+    public void cleanCounter() {
+        CodingBatTaskContainer.setCount(0);
+    }
 
     @Before
     public void initTasks() {
-        taskContainer = new CodingBatTaskContainer();
+        taskContainer=new CodingBatTaskContainer();
         simpleTaskDao = new SimpleTaskDaoImpl(taskContainer);
         simpleTaskService = new SimpleTaskServiceImpl(simpleTaskDao);
         //create and add tasks to container
@@ -54,12 +60,12 @@ public class TaskServiceTest {
     //TODO static?or non static?
     @Test
     public void getTask() throws NoSuchTaskException {
-        assertEquals("2", simpleTaskService.getTask("18").getId());
+        assertEquals("2", simpleTaskService.getTask("2").getId());
     }
 
     @Test
     public void addTask() throws AppException {
-        CodingBatTask task = new CodingBatTask("TestTask", "description", "examples", "template");
+        CodingBatTask task = new CodingBatTask("5", "TestTask", "description", "examples", "template");
         simpleTaskService.addTask(task);
         assertEquals(0, simpleTaskService.getTask("5").compareTo(task));
     }

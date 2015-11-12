@@ -39,7 +39,7 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
 
     @Override
     public boolean delete(String id) {
-        return false;
+        return taskContainer.deleteById(id);
     }
 
     @Override

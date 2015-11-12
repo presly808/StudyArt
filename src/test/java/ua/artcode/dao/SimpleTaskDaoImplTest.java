@@ -1,12 +1,14 @@
 package ua.artcode.dao;
 
 
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.artcode.db.CodingBatTaskContainer;
+import ua.artcode.exception.AppException;
 import ua.artcode.model.CodingBatTask;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -18,24 +20,36 @@ import static org.mockito.Mockito.mock;
 public class SimpleTaskDaoImplTest {
     private static SimpleTaskDao simpleTaskDao;
 
-    @BeforeClass
-    public static void initDao() {
-        CodingBatTaskContainer codingBatTaskContainer = new CodingBatTaskContainer();
-        simpleTaskDao = new SimpleTaskDaoImpl(codingBatTaskContainer);
-    }
 
     @Before
     public void initTask() {
-        CodingBatTask mockTask = mock(CodingBatTask.class);
-        CodingBatTask mockTask1 = mock(CodingBatTask.class);
-        simpleTaskDao.addTask(mockTask);
-        simpleTaskDao.addTask(mockTask1);
+        CodingBatTaskContainer codingBatTaskContainer = new CodingBatTaskContainer();
+        simpleTaskDao = new SimpleTaskDaoImpl(codingBatTaskContainer);
+        for (int i = 0; i < 5; i++) {
+            CodingBatTask mockTask = mock(CodingBatTask.class);
+            simpleTaskDao.addTask(mockTask);
+        }
     }
 
-    //TODO after delete size-1
+    @After
+    public void cleanCount() {
+        CodingBatTaskContainer.setCount(0);
+    }
+
     @Test
     public void deleteTask() {
         assertTrue(simpleTaskDao.delete("1"));
+    }
+
+    @Test
+    public void deleteTaskByDecSize() throws AppException {
+        int sizeBeforeDel = getSize();
+        simpleTaskDao.delete("2");
+        assertEquals(sizeBeforeDel - 1, getSize());
+    }
+
+    public int getSize() throws AppException {
+        return simpleTaskDao.getAll().size();
     }
 
 
