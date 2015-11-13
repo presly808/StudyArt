@@ -1,4 +1,4 @@
-package ua.artcode.model;
+package ua.artcode.model.codingbat;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -11,7 +11,6 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String description;
     private String examples;
     private String template;
-
     private String groupName;
 
     private TaskTestData taskTestData;

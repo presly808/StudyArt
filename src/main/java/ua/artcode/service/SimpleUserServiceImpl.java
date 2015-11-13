@@ -3,8 +3,8 @@ package ua.artcode.service;
 import ua.artcode.dao.SimpleUserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.UserAuthenticationFailException;
-import ua.artcode.model.AccountType;
-import ua.artcode.model.UserAccount;
+import ua.artcode.model.common.AccountType;
+import ua.artcode.model.common.UserAccount;
 import ua.artcode.validation.Validator;
 
 import java.util.Set;

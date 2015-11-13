@@ -1,4 +1,4 @@
-package ua.artcode.model;
+package ua.artcode.model.codingbat;
 
 import java.util.List;
 

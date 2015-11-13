@@ -1,8 +1,8 @@
 package ua.artcode.service;
 
 import ua.artcode.exception.AppException;
-import ua.artcode.model.AccountType;
-import ua.artcode.model.UserAccount;
+import ua.artcode.model.common.AccountType;
+import ua.artcode.model.common.UserAccount;
 
 import java.util.Set;
 

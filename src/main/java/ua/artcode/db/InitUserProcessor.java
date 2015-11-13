@@ -1,8 +1,8 @@
 package ua.artcode.db;
 
 
-import ua.artcode.model.AccountType;
-import ua.artcode.model.UserAccount;
+import ua.artcode.model.common.AccountType;
+import ua.artcode.model.common.UserAccount;
 import ua.artcode.utils.ClassPathResourceLoader;
 import ua.artcode.utils.serialization.Serializator;
 

@@ -1,6 +1,6 @@
 package ua.artcode.trigger;
 
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.AppDataJsonSerializer;
 import ua.artcode.utils.AppPropertiesHolder;
 import ua.artcode.utils.CodingBatTaskGrabber;

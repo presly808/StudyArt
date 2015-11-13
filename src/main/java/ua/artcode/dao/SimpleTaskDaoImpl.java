@@ -3,7 +3,7 @@ package ua.artcode.dao;
 import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,10 +22,15 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
     }
 
     @Override
+    public CodingBatTask addTask(CodingBatTask codingBatTask) {
+        return taskContainer.addTask(codingBatTask);
+    }
+
+    @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {
         CodingBatTask codingBatTask = taskContainer.getById(id);
 
-        if(codingBatTask == null){
+        if (codingBatTask == null) {
             throw new NoSuchTaskException("No task with id " + id);
         }
 
