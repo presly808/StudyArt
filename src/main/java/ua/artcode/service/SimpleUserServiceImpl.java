@@ -38,7 +38,7 @@ public class SimpleUserServiceImpl implements SimpleUserService {
             accountType = AccountType.USER;
         }
 
-        //accountValidator.validate(new UserAccount(username,password,email));
+        accountValidator.validate(new UserAccount(username,password,email));
         UserAccount user = userDao.create(new UserAccount(username, password, email, accountType));
 
         return user;

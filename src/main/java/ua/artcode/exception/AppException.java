@@ -11,6 +11,7 @@ public class AppException extends Exception {
     private Collection<String> exceptionMessageList;
 
     public AppException() {
+        exceptionMessageList = new LinkedList<>();
     }
 
     public AppException(String message) {
