@@ -1,11 +1,9 @@
 package ua.artcode.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement
-public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
+public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String id;
     private String title;
     private String description;

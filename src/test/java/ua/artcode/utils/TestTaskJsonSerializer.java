@@ -59,7 +59,7 @@ public class TestTaskJsonSerializer {
     public void _02testSimpleLoading(){
         Collection<CodingBatTask> loadedTasks = appDataJsonSerializer.load(CodingBatTask.class, dbTaskPath.getPath());
         //TODO use logger
-        //loadedTasks.stream().forEach(System.out::println);
+        loadedTasks.stream().forEach(System.out::println);
 
         assertTrue(loadedTasks.containsAll(codingBatTasks));
     }
