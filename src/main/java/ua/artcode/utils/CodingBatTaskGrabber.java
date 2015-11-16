@@ -21,15 +21,14 @@ public class CodingBatTaskGrabber {
     public static final String CODINGBAT_BASE_URL = "http://codingbat.com";
     private List<String> taskLinks;
 
-    public CodingBatTaskGrabber() {
-
-    }
+    public CodingBatTaskGrabber() {}
 
     private void findGroupLinks() {
         LOG.trace("find group links");
         taskLinks = new ArrayList<>();
         try {
             Document document = Jsoup.connect(CODINGBAT_BASE_URL + "/java").get();
+            // TODO refactor one line select with out for
             Elements links = document.select("a");// get all links from the document
             for (Element link : links) {
                 if (link.ownText().equals("more")) {// find links of task group

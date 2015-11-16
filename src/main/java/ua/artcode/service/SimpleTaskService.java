@@ -6,6 +6,7 @@ import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.ResultContainer;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.ImplementedTask;
+import ua.artcode.model.codingbat.TaskTestResult;
 
 import java.util.List;
 

@@ -1,8 +1,11 @@
 package ua.artcode.utils.serialization;
 
 
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 
+@Component
 public class AppDataStandartJavaSerializator<V> implements Serializator<V> {
 
 

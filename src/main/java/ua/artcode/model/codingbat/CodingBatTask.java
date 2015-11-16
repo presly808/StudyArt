@@ -92,6 +92,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.groupName = groupName;
     }
 
+    public TaskTestData getTaskTestData() {
+        return taskTestData;
+    }
+
+    public void setTaskTestData(TaskTestData taskTestData) {
+        this.taskTestData = taskTestData;
+    }
+
     // generate alt+ins
     @Override
     public String toString() {

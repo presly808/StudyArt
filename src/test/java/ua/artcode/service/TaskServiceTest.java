@@ -15,6 +15,7 @@ import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.exception.PathNotFoundException;
 import ua.artcode.model.ImplementedTask;
+import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 
 import java.io.File;

@@ -1,6 +1,8 @@
 package ua.artcode.service;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
@@ -8,7 +10,8 @@ import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.ResultContainer;
-import ua.artcode.validation.TaskCreationValidator;
+import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.validation.CodingBatTaskValidator;
 import ua.artcode.validation.Validator;
 import ua.artcode.model.ImplementedTask;
 
@@ -17,17 +20,27 @@ import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class SimpleTaskServiceImpl implements SimpleTaskService {
-    private String path;
-    AppDataStandartJavaSerializator appDataStandartJavaSerializator;
 
+    private String path;
+
+    @Autowired
+    private AppDataStandartJavaSerializator appDataStandartJavaSerializator;
+
+    @Autowired
     private SimpleTaskDao simpleTaskDao;
+
     private Scanner scanner;
+
     private static final Logger LOGGER = Logger.getLogger(SimpleTaskService.class);
+
+    public SimpleTaskServiceImpl() {
+    }
 
     public SimpleTaskServiceImpl(SimpleTaskDao simpleTaskDao){
         this.simpleTaskDao = simpleTaskDao;
-        appDataStandartJavaSerializator = new AppDataStandartJavaSerializator();
+
         scanner = new Scanner(System.in);
     }
 
@@ -83,8 +96,11 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
 
     @Override
     public CodingBatTask taskCreation() {
-        Validator validator =  new TaskCreationValidator();
+        //
+        Validator validator =  new CodingBatTaskValidator();
+
         boolean inputPass = false;
+
         CodingBatTask codingBatTask;
         do {
             System.out.println("Please enter title");
@@ -97,13 +113,13 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
             String template = scanner.nextLine();
              codingBatTask = new CodingBatTask(title, description, example, template);
             try {
-                if(validator.validate(codingBatTask) == true){
+                if(validator.validate(codingBatTask)){
                     inputPass = true;
                 }
             } catch (AppValidationException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
-        } while(inputPass==false);
+        } while(!inputPass);
         return codingBatTask;
     }
 

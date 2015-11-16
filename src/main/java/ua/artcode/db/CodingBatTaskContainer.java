@@ -1,5 +1,6 @@
 package ua.artcode.db;
 
+import org.springframework.stereotype.Component;
 import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.io.Serializable;
@@ -7,7 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
-
+@Component
 public class CodingBatTaskContainer implements Serializable {
 
     private static int count = 0;// todo when load data counter did not change

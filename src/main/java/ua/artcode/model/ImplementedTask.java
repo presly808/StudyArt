@@ -1,5 +1,8 @@
 package ua.artcode.model;
 
+import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.TaskTestResult;
+
 /**
  * Created by Alex on 08.11.2015.
  */

@@ -20,6 +20,7 @@
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <compilator.java.version>1.8</compilator.java.version>
         <morphia.version>1.0.1</morphia.version>
+        <spring.version>4.2.2.RELEASE</spring.version>
     </properties>
 
 
@@ -62,6 +63,24 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+
+        <!--SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
     </dependencies>

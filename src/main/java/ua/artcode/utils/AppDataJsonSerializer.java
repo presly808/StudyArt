@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.eclipse.persistence.oxm.MediaType;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -12,7 +14,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.*;
 
-
+@Component(value = "jsonSerializer")// <bean declaring>
 public class AppDataJsonSerializer {
 
     private static final Logger LOG = Logger.getLogger(AppDataJsonSerializer.class);
@@ -20,6 +22,9 @@ public class AppDataJsonSerializer {
     private JAXBContext jaxbContext;
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
+
+    public AppDataJsonSerializer() {
+    }
 
     public AppDataJsonSerializer(Class... classes) {
 
