@@ -22,4 +22,6 @@ public interface SimpleTaskDao {
     CodingBatTask addTask(CodingBatTask codingBatTask);
 
     List<CodingBatTask> search();
+
+    int size();
 }
