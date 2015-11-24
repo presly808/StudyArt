@@ -1,7 +1,6 @@
 package ua.artcode.db;
 
-import ua.artcode.model.CodingBatTask;
-import ua.artcode.model.ImplementedTask;
+import ua.artcode.model.codingbat.TaskTestResult;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,22 +13,22 @@ import java.util.TreeMap;
 public class ImplementedTaskContainer implements Serializable {
 
 
-    private Map<String, ImplementedTask> implementedTaskMap;
+    private Map<String, TaskTestResult.ImplementedTask> implementedTaskMap;
 
     public ImplementedTaskContainer() {
         implementedTaskMap = new TreeMap<>();
     }
 
-    public ImplementedTask addImplementedTask(ImplementedTask implementedTask){
+    public TaskTestResult.ImplementedTask addImplementedTask(TaskTestResult.ImplementedTask implementedTask){
         implementedTaskMap.put(implementedTask.getCodingBatTask().getId(),implementedTask);
         return implementedTask;
     }
 
-    public Collection<ImplementedTask> getImplementedTasks(){
+    public Collection<TaskTestResult.ImplementedTask> getImplementedTasks(){
         return implementedTaskMap.values();
     }
 
-    public ImplementedTask getById(String id) {
+    public TaskTestResult.ImplementedTask getById(String id) {
         return implementedTaskMap.get(id);
     }
 

@@ -1,7 +1,6 @@
 package ua.artcode.service;
 
 import org.apache.log4j.Logger;
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,14 +12,12 @@ import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.exception.PathNotFoundException;
-import ua.artcode.model.ImplementedTask;
+import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -36,7 +33,7 @@ public class TaskServiceTest {
     private CodingBatTaskContainer taskContainerMock;
     private static CodingBatTask codingBatTask;
     private static TaskTestResult taskTestResult;
-    private static ImplementedTask implementedTask;
+    private static TaskTestResult.ImplementedTask implementedTask;
     private static String path;
     private static AppDataStandartJavaSerializator appDataStandartJavaSerializator;
 
@@ -48,7 +45,7 @@ public class TaskServiceTest {
     public static void initMocks(){
         codingBatTask = new CodingBatTask();
         taskTestResult = new TaskTestResult();
-        implementedTask = mock(ImplementedTask.class);
+        implementedTask = mock(TaskTestResult.ImplementedTask.class);
         appDataStandartJavaSerializator = new AppDataStandartJavaSerializator();
         mockTaskDao = mock(SimpleTaskDao.class);
 

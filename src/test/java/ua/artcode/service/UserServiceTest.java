@@ -10,10 +10,12 @@ import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.exception.UserAuthenticationFailException;
-import ua.artcode.model.UserAccount;
+import ua.artcode.model.common.UserAccount;
 import ua.artcode.validation.UserAccountValidator;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
@@ -25,6 +27,7 @@ public class UserServiceTest {
 
     private SimpleUserDao mockedUserDao;
     private SimpleUserServiceImpl userService;
+    private UserAccountValidator userValidator;
     private UserAccount USER1 = new UserAccount("User1", "password1", "user1@gmail.com");
     private UserAccount USER2 = new UserAccount("User2", "password2", "user2@gmail.com");
     private UserAccount USER3 = new UserAccount("User3", "P@ssword3", "anonimus.anonim@gmail.com");
@@ -34,8 +37,9 @@ public class UserServiceTest {
     @Before
     public void setUp() throws UserAuthenticationFailException, NoSuchUserException, UserAccountExistException {
         setUpMockedDao();
+        userValidator =  new UserAccountValidator();
         // create mock for interface
-        userService = new SimpleUserServiceImpl(mockedUserDao, new UserAccountValidator());
+        userService = new SimpleUserServiceImpl(mockedUserDao,userValidator);
     }
 
     private void setUpMockedDao() throws UserAuthenticationFailException, NoSuchUserException, UserAccountExistException {
@@ -57,6 +61,12 @@ public class UserServiceTest {
         when(mockedUserDao.getAllUserNames()).thenReturn(allUsers);
 
 
+    }
+
+    @Test
+    public void constructorTest() {
+        assertEquals(mockedUserDao, userService.getUserDao());
+        assertEquals(userValidator, userService.getAccountValidator());
     }
 
 

@@ -1,7 +1,7 @@
 package ua.artcode.validation;
 
 import ua.artcode.exception.AppValidationException;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 /**
  * Created by Family on 11/8/2015.

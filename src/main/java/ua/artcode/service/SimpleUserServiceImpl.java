@@ -20,7 +20,7 @@ public class SimpleUserServiceImpl implements SimpleUserService {
         this.accountValidator = accountValidator;
     }
 
-    @Override
+
     public UserAccount authenticate(String username, String password) throws AppException {
         UserAccount user = userDao.findByUserName(username);
 
@@ -31,7 +31,7 @@ public class SimpleUserServiceImpl implements SimpleUserService {
         return user;
     }
 
-    @Override
+
     public UserAccount register(String username, String password, String email, AccountType accountType) throws AppException {
 
         if (accountType == null) {
@@ -49,12 +49,21 @@ public class SimpleUserServiceImpl implements SimpleUserService {
         return null;
     }
 
-    @Override
+
     public Set<String> getAllUser() {
 
         return userDao.getAllUserNames();
 
     }
+
+    public SimpleUserDao getUserDao() {
+        return userDao;
+    }
+
+    public Validator<UserAccount> getAccountValidator() {
+        return accountValidator;
+    }
+
 
 
 }

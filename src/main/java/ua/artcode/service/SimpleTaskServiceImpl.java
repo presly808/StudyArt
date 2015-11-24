@@ -8,9 +8,9 @@ import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.ResultContainer;
+import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.validation.TaskCreationValidator;
 import ua.artcode.validation.Validator;
-import ua.artcode.model.ImplementedTask;
 
 import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 
@@ -69,8 +69,8 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
     }
 
     @Override
-    public ImplementedTask loadImplementedTaskFromFile() {
-        return (ImplementedTask) appDataStandartJavaSerializator.load(path);
+    public TaskTestResult.ImplementedTask loadImplementedTaskFromFile() {
+        return (TaskTestResult.ImplementedTask) appDataStandartJavaSerializator.load(path);
 
     }
 

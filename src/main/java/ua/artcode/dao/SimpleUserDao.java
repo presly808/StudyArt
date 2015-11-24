@@ -17,4 +17,6 @@ public interface SimpleUserDao {
 
     Set<UserAccount> getAllUser();
 
+    Set<String> getAllUserNames();
+
 }
