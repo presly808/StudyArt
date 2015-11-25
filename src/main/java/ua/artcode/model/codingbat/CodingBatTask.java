@@ -1,17 +1,14 @@
-package ua.artcode.model;
+package ua.artcode.model.codingbat;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement
-public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
+public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String id;
     private String title;
     private String description;
     private String examples;
     private String template;
-
     private String groupName;
 
     private TaskTestData taskTestData;
@@ -84,6 +81,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public TaskTestData getTaskTestData() {
+        return taskTestData;
+    }
+
+    public void setTaskTestData(TaskTestData taskTestData) {
+        this.taskTestData = taskTestData;
     }
 
     // generate alt+ins

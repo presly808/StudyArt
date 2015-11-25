@@ -1,6 +1,6 @@
 package ua.artcode.trigger;
 
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.AppDataJsonSerializer;
 import ua.artcode.utils.AppPropertiesHolder;
 import ua.artcode.utils.CodingBatTaskGrabber;
@@ -18,6 +18,8 @@ public class InitCodingBatTaskTrigger {
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
         if(FileUtils.exists(dbJsonPath)){
+            //AppDataJsonSerializer appDataJsonSerializer=new AppDataJsonSerializer();
+            //appDataJsonSerializer.load(CodingBatTask.class,dbJsonPath);
             return false;
         } else {
             CodingBatTaskGrabber codingBatTaskGrabber = new CodingBatTaskGrabber();

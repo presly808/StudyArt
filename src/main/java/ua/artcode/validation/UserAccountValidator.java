@@ -1,7 +1,7 @@
 package ua.artcode.validation;
 
 import ua.artcode.exception.AppValidationException;
-import ua.artcode.model.UserAccount;
+import ua.artcode.model.common.UserAccount;
 
 import java.util.regex.Pattern;
 

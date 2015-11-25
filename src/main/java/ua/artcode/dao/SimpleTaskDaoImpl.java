@@ -1,16 +1,23 @@
 package ua.artcode.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Repository
 public class SimpleTaskDaoImpl implements SimpleTaskDao {
 
+    @Autowired
     private CodingBatTaskContainer taskContainer;
+
+    public SimpleTaskDaoImpl() {
+    }
 
     public SimpleTaskDaoImpl(CodingBatTaskContainer taskContainer) {
         this.taskContainer = taskContainer;
@@ -22,10 +29,25 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
     }
 
     @Override
+    public CodingBatTask addTask(CodingBatTask codingBatTask) {
+        return taskContainer.addTask(codingBatTask);
+    }
+
+    @Override
+    public List<CodingBatTask> searchByName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<CodingBatTask> searchById(String id) {
+        return null;
+    }
+
+    @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {
         CodingBatTask codingBatTask = taskContainer.getById(id);
 
-        if(codingBatTask == null){
+        if (codingBatTask == null) {
             throw new NoSuchTaskException("No task with id " + id);
         }
 
@@ -34,7 +56,7 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
 
     @Override
     public boolean delete(String id) {
-        return false;
+        return taskContainer.deleteById(id);
     }
 
     @Override
@@ -49,7 +71,9 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
     }
 
     @Override
-    public List<CodingBatTask> search() {
+    public List<CodingBatTask> getAllByGroup(String groupName) throws AppException {
         return null;
     }
+
+
 }
