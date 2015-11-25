@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class AppPropertiesHolder {
 
-    private final static Properties properties = initProperties();
+    private final static Properties PROPERTIES = initProperties();
     private final static String PROPERTY_FILE_PATH = "/app.properties";
 
     private synchronized static Properties initProperties() {
@@ -19,7 +19,7 @@ public class AppPropertiesHolder {
     }
 
     public static String getProperty(String name){
-        return properties.getProperty(name);
+        return PROPERTIES.getProperty(name);
     }
 
 

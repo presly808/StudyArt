@@ -4,36 +4,16 @@ import java.util.List;
 
 public class TaskTestResult {
 
-    private List<String> inData;
-    private String expected;
+    // todo must be list, rename classes
+    private TaskTestData taskTestData;
     private String actual;
     private boolean passed;
 
     public TaskTestResult() {
     }
 
-    public TaskTestResult(List<String> inData, String expected,
-                          String actual, boolean passed) {
-        this.inData = inData;
-        this.expected = expected;
-        this.actual = actual;
-        this.passed = passed;
-    }
-
-    public List<String> getInData() {
-        return inData;
-    }
-
-    public void setInData(List<String> inData) {
-        this.inData = inData;
-    }
-
-    public String getExpected() {
-        return expected;
-    }
-
-    public void setExpected(String expected) {
-        this.expected = expected;
+    public TaskTestResult(TaskTestData taskTestData) {
+        this.taskTestData = taskTestData;
     }
 
     public String getActual() {
@@ -50,5 +30,13 @@ public class TaskTestResult {
 
     public void setPassed(boolean passed) {
         this.passed = passed;
+    }
+
+    public TaskTestData getTaskTestData() {
+        return taskTestData;
+    }
+
+    public void setTaskTestData(TaskTestData taskTestData) {
+        this.taskTestData = taskTestData;
     }
 }
