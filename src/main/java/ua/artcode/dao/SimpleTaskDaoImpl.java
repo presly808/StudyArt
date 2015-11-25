@@ -3,7 +3,7 @@ package ua.artcode.dao;
 import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 import java.util.stream.Collectors;
