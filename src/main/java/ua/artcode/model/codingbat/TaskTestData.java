@@ -3,7 +3,13 @@ package ua.artcode.model.codingbat;
 import java.util.List;
 
 /**
- * Created by serhii on 06.11.15.
+ * sleepIn(false, false) → true	true	OK
+ *
+ * EXAMPLE of FILL IN Object
+ * inData = {"false","false"}
+ * expectedValue = "true"
+ *
+ *
  */
 public class TaskTestData {
 
@@ -18,5 +24,19 @@ public class TaskTestData {
         this.inData = inData;
     }
 
+    public String getExpectedValue() {
+        return expectedValue;
+    }
 
+    public void setExpectedValue(String expectedValue) {
+        this.expectedValue = expectedValue;
+    }
+
+    public List<String> getInData() {
+        return inData;
+    }
+
+    public void setInData(List<String> inData) {
+        this.inData = inData;
+    }
 }
