@@ -5,8 +5,6 @@ import org.mongodb.morphia.Datastore;
 import ua.artcode.model.CodingBatTask;
 import ua.artcode.utils.MongoDbConnectionHelper;
 
-import java.net.UnknownHostException;
-
 /**
  * Created by Razer on 09.11.15.
  */
@@ -19,12 +17,8 @@ public class DataBaseManager {
     private static Datastore datastore;
 
     public static void initDataStore() {
-        try {
-            mongo = MongoDbConnectionHelper.initMongoClient();
-            datastore = MongoDbConnectionHelper.createDatastore(mongo, CodingBatTask.class);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        mongo = MongoDbConnectionHelper.initMongoClient();
+        datastore = MongoDbConnectionHelper.createDatastore(mongo, CodingBatTask.class);
     }
 
     public static Datastore getDataStore() {
@@ -36,6 +30,10 @@ public class DataBaseManager {
     }
 
     public void deleteTask(CodingBatTask codingBatTask) {
+    }
+
+    public int size() {
+        return (int) datastore.getDB().getCollection("CodingBatTask").getCount();
     }
 }
 

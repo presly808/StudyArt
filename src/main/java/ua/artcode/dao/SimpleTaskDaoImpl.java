@@ -57,4 +57,9 @@ public class SimpleTaskDaoImpl implements SimpleTaskDao {
     public List<CodingBatTask> search() {
         return null;
     }
+
+    @Override
+    public int size() {
+        return 0;
+    }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.log4j.Logger;
+import ua.artcode.model.CodingBatTask;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -19,15 +20,16 @@ public class AppDataJsonSerializer {
 
 
     public AppDataJsonSerializer(Class... classes) {
-
         LOG.trace("init Gson");
         gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     public <T> void save(Collection<T> collection, String path) {
         LOG.trace("save entities into file " + path);
+        Type typeOfCollection = new TypeToken<Collection<CodingBatTask>>() {
+        }.getType();
         //serialize collection to json
-        String json = gson.toJson(collection);
+        String json = gson.toJson(collection, typeOfCollection);
         try {
             //create file
             fileWriter = new FileWriter(new File(path));
@@ -46,10 +48,10 @@ public class AppDataJsonSerializer {
         try {
             if (FileUtils.exists(path)) {
                 //get type of collection
-                Type collectionType = new TypeToken<Collection<T>>() {
+                Type collectionType = new TypeToken<Collection<CodingBatTask>>() {
                 }.getType();
                 //deserialize json from file to
-                codingBatTasks = gson.fromJson(new FileReader(path),collectionType);
+                codingBatTasks = gson.fromJson(new FileReader(path), collectionType);
             }
         } catch (FileNotFoundException e) {
             LOG.error(e);

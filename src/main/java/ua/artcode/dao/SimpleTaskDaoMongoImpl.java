@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import ua.artcode.db.DataBaseManager;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.CodingBatTask;
@@ -10,11 +11,16 @@ import java.util.List;
  * Created by Razer on 09.11.15.
  */
 public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
+    private DataBaseManager dataBaseManager;
 
-    //Morphia morphia = new Morphia();
+    public SimpleTaskDaoMongoImpl(DataBaseManager dataBaseManager) {
+        this.dataBaseManager = dataBaseManager;
+    }
+
     @Override
     public CodingBatTask create(CodingBatTask task) {
-        return null;
+        dataBaseManager.addTask(task);
+        return task;
     }
 
     @Override
@@ -25,6 +31,11 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
     @Override
     public boolean delete(String id) {
         return false;
+    }
+
+    @Override
+    public int size() {
+        return dataBaseManager.size();
     }
 
     @Override

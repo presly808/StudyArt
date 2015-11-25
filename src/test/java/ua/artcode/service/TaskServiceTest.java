@@ -35,7 +35,7 @@ public class TaskServiceTest {
 
     @Before
     public void initTasks() {
-        taskContainer=new CodingBatTaskContainer();
+        taskContainer = new CodingBatTaskContainer();
         simpleTaskDao = new SimpleTaskDaoImpl(taskContainer);
         simpleTaskService = new SimpleTaskServiceImpl(simpleTaskDao);
         //create and add tasks to container

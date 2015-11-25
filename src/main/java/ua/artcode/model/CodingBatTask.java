@@ -1,9 +1,13 @@
 package ua.artcode.model;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
 import java.io.Serializable;
 
-
+@Entity
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
+    @Id
     private String id;
     private String title;
     private String description;
@@ -14,11 +18,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     private TaskTestData taskTestData;
 
-    public CodingBatTask() {
-    }
-
-    public CodingBatTask(String id, String title, String description, String examples, String template, String groupName) {
-        this.id = id;
+    public CodingBatTask(String title, String description,
+                         String examples, String template, String groupName) {
         this.title = title;
         this.description = description;
         this.examples = examples;
@@ -26,21 +27,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.groupName = groupName;
     }
 
-    public CodingBatTask(String title, String description,
-                         String examples, String template) {
-        this.title = title;
-        this.description = description;
-        this.examples = examples;
-        this.template = template;
-    }
-
     public CodingBatTask(String id, String title,
-                         String description, String examples, String template) {
+                         String description, String examples, String template, String groupName) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.examples = examples;
         this.template = template;
+        this.groupName = groupName;
     }
 
     public String getId() {

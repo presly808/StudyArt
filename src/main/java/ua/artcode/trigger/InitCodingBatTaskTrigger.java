@@ -1,5 +1,8 @@
 package ua.artcode.trigger;
 
+import ua.artcode.dao.SimpleTaskDao;
+import ua.artcode.dao.SimpleTaskDaoMongoImpl;
+import ua.artcode.db.DataBaseManager;
 import ua.artcode.model.CodingBatTask;
 import ua.artcode.utils.AppDataJsonSerializer;
 import ua.artcode.utils.AppPropertiesHolder;
@@ -13,13 +16,13 @@ public class InitCodingBatTaskTrigger {
 
     /**
      * @return if task have been already loaded return false, otherwise return true
-     * */
-    public static synchronized boolean loadTasksIfNeeded(){
+     */
+    public static synchronized boolean loadTasksIfNeeded() {
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
-        if(FileUtils.exists(dbJsonPath)){
-            //AppDataJsonSerializer appDataJsonSerializer=new AppDataJsonSerializer();
-            //appDataJsonSerializer.load(CodingBatTask.class,dbJsonPath);
+        if (FileUtils.exists(dbJsonPath)) {
+            AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
+            appDataJsonSerializer.load(CodingBatTask.class, dbJsonPath);
             return false;
         } else {
             CodingBatTaskGrabber codingBatTaskGrabber = new CodingBatTaskGrabber();
@@ -33,6 +36,23 @@ public class InitCodingBatTaskTrigger {
             return true;
         }
 
+    }
+    /**
+     * @download tasks to database if it need
+     */
+    public static void loadTasksToDataBase() {
+        //if()
+        SimpleTaskDao simpleTaskDao=new SimpleTaskDaoMongoImpl(new DataBaseManager());
+        AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
+        String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
+        appDataJsonSerializer.load(CodingBatTask.class, dbJsonPath);
+        Collection<CodingBatTask> collection = appDataJsonSerializer.load(CodingBatTask.class, dbJsonPath);
+        int i=0;
+        for (CodingBatTask task : collection) {
+            simpleTaskDao.create(task);
+            System.out.println(i++);
+        }
+        System.out.println(simpleTaskDao.size());
     }
 
 }
