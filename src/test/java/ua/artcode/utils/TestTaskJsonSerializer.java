@@ -1,10 +1,7 @@
 package ua.artcode.utils;
 
 import jdk.nashorn.internal.runtime.Source;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import ua.artcode.model.codingbat.CodingBatTask;
 
