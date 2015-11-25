@@ -96,31 +96,8 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
 
     @Override
     public CodingBatTask taskCreation() {
-        //
-        Validator validator =  new CodingBatTaskValidator();
 
-        boolean inputPass = false;
-
-        CodingBatTask codingBatTask;
-        do {
-            System.out.println("Please enter title");
-            String title = scanner.nextLine();
-            System.out.println("Please enter description");
-            String description = scanner.nextLine();
-            System.out.println("Please enter example");
-            String example = scanner.nextLine();
-            System.out.println("Please enter template");
-            String template = scanner.nextLine();
-             codingBatTask = new CodingBatTask(title, description, example, template);
-            try {
-                if(validator.validate(codingBatTask)){
-                    inputPass = true;
-                }
-            } catch (AppValidationException e) {
-                LOGGER.error(e);
-            }
-        } while(!inputPass);
-        return codingBatTask;
+        return null;
     }
 
 }
