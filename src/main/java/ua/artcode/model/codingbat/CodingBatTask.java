@@ -16,8 +16,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     public CodingBatTask() {
     }
 
-    public CodingBatTask(String id, String title, String description, String examples, String template, String groupName) {
-        this.id = id;
+    public CodingBatTask(String title, String description,
+                         String examples, String template, String groupName) {
         this.title = title;
         this.description = description;
         this.examples = examples;
@@ -25,21 +25,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.groupName = groupName;
     }
 
-    public CodingBatTask(String title, String description,
-                         String examples, String template) {
-        this.title = title;
-        this.description = description;
-        this.examples = examples;
-        this.template = template;
-    }
-
     public CodingBatTask(String id, String title,
-                         String description, String examples, String template) {
+                         String description, String examples, String template, String groupName) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.examples = examples;
         this.template = template;
+        this.groupName = groupName;
     }
 
     public String getId() {
