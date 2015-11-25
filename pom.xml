@@ -20,6 +20,7 @@
         <compilator.java.version>1.8</compilator.java.version>
         <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
+        <httpclient.version>4.5.1</httpclient.version>
     </properties>
 
 
@@ -52,6 +53,18 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.4</version>
         </dependency>
 
     </dependencies>
