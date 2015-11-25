@@ -1,41 +1,34 @@
 package ua.artcode.model.codingbat;
 
+import ua.artcode.model.common.UserAccount;
 
+import java.util.List;
+
+// todo change global structure,
 public class TaskTestResult {
 
-    // todo must be list, rename classes
-    private TaskTestData taskTestData;
-    private String actual;
+    private UserAccount userAccount;
+
+
+    private CodingBatTask codingBatTask;
+
+    // in data and expected values
+    private TaskTestDataContainer taskTestDataContainer;
+    // practical result
+    private List<String> actualValues;
+
     private boolean passed;
+
 
     public TaskTestResult() {
     }
 
-    public TaskTestResult(TaskTestData taskTestData) {
-        this.taskTestData = taskTestData;
-    }
-
-    public String getActual() {
-        return actual;
-    }
-
-    public void setActual(String actual) {
-        this.actual = actual;
-    }
-
-    public boolean isPassed() {
-        return passed;
-    }
-
-    public void setPassed(boolean passed) {
+    public TaskTestResult(List<String> actualValues, CodingBatTask codingBatTask, boolean passed,
+                          TaskTestDataContainer taskTestDataContainer, UserAccount userAccount) {
+        this.actualValues = actualValues;
+        this.codingBatTask = codingBatTask;
         this.passed = passed;
-    }
-
-    public TaskTestData getTaskTestData() {
-        return taskTestData;
-    }
-
-    public void setTaskTestData(TaskTestData taskTestData) {
-        this.taskTestData = taskTestData;
+        this.taskTestDataContainer = taskTestDataContainer;
+        this.userAccount = userAccount;
     }
 }

@@ -1,9 +1,12 @@
 package ua.artcode.model.codingbat;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
+
     private String id;
     private String title;
     private String description;
@@ -11,7 +14,10 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String template;
     private String groupName;
 
-    private TaskTestData taskTestData;
+    // parsed template
+    private MethodSignature methodSignature;
+
+    private TaskTestDataContainer taskTestDataContainer;
 
     public CodingBatTask() {
     }
@@ -83,12 +89,20 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.groupName = groupName;
     }
 
-    public TaskTestData getTaskTestData() {
-        return taskTestData;
+    public MethodSignature getMethodSignature() {
+        return methodSignature;
     }
 
-    public void setTaskTestData(TaskTestData taskTestData) {
-        this.taskTestData = taskTestData;
+    public void setMethodSignature(MethodSignature methodSignature) {
+        this.methodSignature = methodSignature;
+    }
+
+    public TaskTestDataContainer getTaskTestDataContainer() {
+        return taskTestDataContainer;
+    }
+
+    public void setTaskTestDataContainer(TaskTestDataContainer taskTestDataContainer) {
+        this.taskTestDataContainer = taskTestDataContainer;
     }
 
     // generate alt+ins
