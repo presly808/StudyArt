@@ -2,7 +2,7 @@ package ua.artcode.db;
 
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.MongoDbConnectionHelper;
 
 /**
@@ -13,15 +13,15 @@ public class DataBaseManager {
         initDataStore();
     }
 
-    private static MongoClient mongo;
-    private static Datastore datastore;
+    private  MongoClient mongo;
+    private  Datastore datastore;
 
-    public static void initDataStore() {
+    public  void initDataStore() {
         mongo = MongoDbConnectionHelper.initMongoClient();
         datastore = MongoDbConnectionHelper.createDatastore(mongo, CodingBatTask.class);
     }
 
-    public static Datastore getDataStore() {
+    public  Datastore getDataStore() {
         return datastore;
     }
 
