@@ -15,7 +15,7 @@ public class FileHelperModel implements FileModelInterface {
 
 
 
-    Path currentPath = Paths.get(System.getProperty("user.dir"));
+    private Path currentPath = Paths.get(System.getProperty("user.dir"));
 
 
     public Path getCurrentPath() {
@@ -72,7 +72,7 @@ public class FileHelperModel implements FileModelInterface {
     public List<String> showDirectoryContent(String pathDirectory) {
         Path path = preparePath(pathDirectory);
 
-        ArrayList outList = new ArrayList();
+        List<String> outList = new ArrayList<>();
 
         try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(path)) {
             for (Path child : dirStream) {

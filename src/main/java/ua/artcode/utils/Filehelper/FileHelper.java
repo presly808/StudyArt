@@ -15,6 +15,7 @@ public class FileHelper {
         FileHelperView view = new FileHelperView();
 
         String name="";
+        // todo see try-with-resources
         try {
 
         while(!name.equals("exit")){
@@ -32,10 +33,22 @@ public class FileHelper {
                 }
             }
         }
-            br.close();
-            r.close();
+
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                r.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
