@@ -18,6 +18,8 @@ public class InitCodingBatTaskTrigger {
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
         if(FileUtils.exists(dbJsonPath)){
+            //AppDataJsonSerializer appDataJsonSerializer=new AppDataJsonSerializer();
+            //appDataJsonSerializer.load(CodingBatTask.class,dbJsonPath);
             return false;
         } else {
             CodingBatTaskGrabber codingBatTaskGrabber = new CodingBatTaskGrabber();

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Razer on 09.11.15.
  */
-public class SimpleTaskDaoMongoImpl implements  SimpleTaskDao {
+public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
 
     //Morphia morphia = new Morphia();
     @Override
@@ -56,6 +56,5 @@ public class SimpleTaskDaoMongoImpl implements  SimpleTaskDao {
     public List<CodingBatTask> searchById(String id) {
         return null;
     }
-
 
 }

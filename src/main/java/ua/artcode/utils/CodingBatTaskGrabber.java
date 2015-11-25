@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,23 +63,19 @@ public class CodingBatTaskGrabber {
         // 1 - program language
         // 2 - name of task group
         // 3 - name of task
-        String[] fullTitle = doc.title().split(" ");
-        return fullTitle;
+        return doc.title().split(" ");
     }
 
     private String getTitle(Document doc) {
-        String title = getFullTitle(doc)[3];
-        return title;
+        return getFullTitle(doc)[3];
     }
 
     private String getGroupName(Document doc) {
-        String groupName = getFullTitle(doc)[2];
-        return groupName;
+        return getFullTitle(doc)[2];
     }
 
     private String getTemplate(Document doc) {
-        String template = doc.body().getElementsByTag("textarea").val();
-        return template;
+        return doc.body().getElementsByTag("textarea").val();
     }
 
     private String getDescription(Element infoTable) {

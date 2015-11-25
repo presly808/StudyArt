@@ -18,7 +18,11 @@ public class CodingBatTaskContainer implements Serializable {
         taskMap = new TreeMap<>();
     }
 
-    public CodingBatTask addTask(CodingBatTask codingBatTask){
+    public static void setCount(int count) {
+        CodingBatTaskContainer.count = count;
+    }
+
+    public CodingBatTask addTask(CodingBatTask codingBatTask) {
         String id = String.valueOf(count);
 
         codingBatTask.setId(id);
@@ -29,11 +33,25 @@ public class CodingBatTaskContainer implements Serializable {
         return codingBatTask;
     }
 
-    public Collection<CodingBatTask> getTasks(){
+    public Collection<CodingBatTask> getTasks() {
         return taskMap.values();
     }
 
     public CodingBatTask getById(String id) {
         return taskMap.get(id);
+    }
+
+    public boolean deleteById(String id) {
+        if (taskMap.containsKey(id)) {
+            taskMap.remove(id);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public void cleanContainer(){
+        taskMap.clear();
     }
 }
