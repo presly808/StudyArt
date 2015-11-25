@@ -22,7 +22,7 @@ public class InitCodingBatTaskTrigger {
 
         if (FileUtils.exists(dbJsonPath)) {
             AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
-            appDataJsonSerializer.load(CodingBatTask.class, dbJsonPath);
+            appDataJsonSerializer.load(dbJsonPath);
             return false;
         } else {
             CodingBatTaskGrabber codingBatTaskGrabber = new CodingBatTaskGrabber();
@@ -46,7 +46,7 @@ public class InitCodingBatTaskTrigger {
         SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(new DataBaseManager());
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
-        Collection<CodingBatTask> collection = appDataJsonSerializer.load(CodingBatTask.class, dbJsonPath);
+        Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
         int i = 0;
         for (CodingBatTask task : collection) {
             simpleTaskDao.create(task);
