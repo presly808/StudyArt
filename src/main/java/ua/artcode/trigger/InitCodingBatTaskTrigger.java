@@ -3,7 +3,7 @@ package ua.artcode.trigger;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.dao.SimpleTaskDaoMongoImpl;
 import ua.artcode.db.DataBaseManager;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.AppDataJsonSerializer;
 import ua.artcode.utils.AppPropertiesHolder;
 import ua.artcode.utils.CodingBatTaskGrabber;
@@ -37,22 +37,22 @@ public class InitCodingBatTaskTrigger {
         }
 
     }
+
     /**
      * @download tasks to database if it need
      */
     public static void loadTasksToDataBase() {
         //if()
-        SimpleTaskDao simpleTaskDao=new SimpleTaskDaoMongoImpl(new DataBaseManager());
+        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(new DataBaseManager());
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
-        appDataJsonSerializer.load(CodingBatTask.class, dbJsonPath);
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(CodingBatTask.class, dbJsonPath);
-        int i=0;
+        int i = 0;
         for (CodingBatTask task : collection) {
             simpleTaskDao.create(task);
-            System.out.println(i++);
+            //System.out.println(i++);
         }
-        System.out.println(simpleTaskDao.size());
+        // System.out.println(simpleTaskDao.size());
     }
 
 }

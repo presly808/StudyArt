@@ -6,15 +6,11 @@ import org.springframework.stereotype.Service;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.model.ImplementedTask;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.ResultContainer;
 import ua.artcode.model.codingbat.TaskTestResult;
-import ua.artcode.validation.CodingBatTaskValidator;
-import ua.artcode.validation.Validator;
-import ua.artcode.model.ImplementedTask;
-
 import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 
 import java.util.List;
@@ -96,31 +92,7 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
 
     @Override
     public CodingBatTask taskCreation() {
-        //
-        Validator validator =  new CodingBatTaskValidator();
-
-        boolean inputPass = false;
-
-        CodingBatTask codingBatTask;
-        do {
-            System.out.println("Please enter title");
-            String title = scanner.nextLine();
-            System.out.println("Please enter description");
-            String description = scanner.nextLine();
-            System.out.println("Please enter example");
-            String example = scanner.nextLine();
-            System.out.println("Please enter template");
-            String template = scanner.nextLine();
-             codingBatTask = new CodingBatTask(title, description, example, template);
-            try {
-                if(validator.validate(codingBatTask)){
-                    inputPass = true;
-                }
-            } catch (AppValidationException e) {
-                LOGGER.error(e);
-            }
-        } while(!inputPass);
-        return codingBatTask;
+        return null;
     }
 
 }
