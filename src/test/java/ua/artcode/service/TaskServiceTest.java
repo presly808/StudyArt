@@ -11,7 +11,7 @@ import ua.artcode.dao.SimpleTaskDaoImpl;
 import ua.artcode.db.CodingBatTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;

@@ -3,7 +3,7 @@ package ua.artcode.dao;
 import ua.artcode.db.DataBaseManager;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.CodingBatTask;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 
@@ -49,12 +49,23 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
     }
 
     @Override
+    public List<CodingBatTask> getAllByGroup(String groupName) throws AppException {
+        return null;
+    }
+
+    @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) {
         return null;
     }
 
     @Override
-    public List<CodingBatTask> search() {
+    public List<CodingBatTask> searchByName(String name) {
         return null;
     }
+
+    @Override
+    public List<CodingBatTask> searchById(String id) {
+        return null;
+    }
+
 }

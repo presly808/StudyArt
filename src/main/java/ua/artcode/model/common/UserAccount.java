@@ -1,4 +1,4 @@
-package ua.artcode.model;
+package ua.artcode.model.common;
 
 
 import java.io.Serializable;

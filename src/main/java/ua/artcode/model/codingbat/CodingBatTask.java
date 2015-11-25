@@ -1,4 +1,4 @@
-package ua.artcode.model;
+package ua.artcode.model.codingbat;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -13,7 +13,6 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String description;
     private String examples;
     private String template;
-
     private String groupName;
 
     private TaskTestData taskTestData;
@@ -83,6 +82,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public TaskTestData getTaskTestData() {
+        return taskTestData;
+    }
+
+    public void setTaskTestData(TaskTestData taskTestData) {
+        this.taskTestData = taskTestData;
     }
 
     // generate alt+ins

@@ -10,6 +10,7 @@
     <packaging>jar</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mockito-all.version>1.10.19</mockito-all.version>
         <junit.version>4.12</junit.version>
         <jsoup.version>1.8.3</jsoup.version>
@@ -17,10 +18,13 @@
         <org.eclipse.persistence.moxy.version>2.6.1</org.eclipse.persistence.moxy.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <compilator.java.version>1.8</compilator.java.version>
+        <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
         <morphia.version>1.0.1</morphia.version>
         <mongo-java-driver.version>2.11.0</mongo-java-driver.version>
         <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
         <gson.version>2.4</gson.version>
+        <spring.version>4.2.2.RELEASE</spring.version>
     </properties>
 
 
@@ -75,6 +79,24 @@
             <version>${log4j.version}</version>
         </dependency>
 
+        <!--SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -89,6 +111,32 @@
                     <target>${compilator.java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <!--read about advanced settings for the project if you want jacoco will be more useful -->
+                <!--http://www.petrikainulainen.net/programming/maven/creating-code-coverage-reports-for-unit-and-integration-tests-with-the-jacoco-maven-plugin/ -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals><goal>prepare-agent</goal></goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>compile</phase>
+                        <goals><goal>report</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
