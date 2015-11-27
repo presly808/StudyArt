@@ -57,6 +57,11 @@ public class CodingBatTaskGrabber {
         }
     }
 
+    private String getCodingBatId(String taskLink) {
+        String[] separatedLink = taskLink.split("/");
+        return separatedLink[4];
+    }
+
     private String[] getFullTitle(Document doc) {
         // This method give array of strings:
         // 0 - name of site
@@ -109,18 +114,16 @@ public class CodingBatTaskGrabber {
 
             try {
 
-                Document doc;
-                String title;
+                Document doc = Jsoup.connect(taskLink).get();
+
+                String codingBatId = getCodingBatId(taskLink);
+                String groupName = getGroupName(doc);
+                String title = getTitle(doc);;
                 String description;
                 String examples;
-                String template;
-                String groupName;
+                String template = getTemplate(doc);
 
-                doc = Jsoup.connect(taskLink).get();
 
-                title = getTitle(doc);
-                groupName = getGroupName(doc);
-                template = getTemplate(doc);
                 // get table with needed information(descriptions, examples)
                 Elements tables = doc.body().getElementsByAttributeValue("width", "700");
 
@@ -129,7 +132,7 @@ public class CodingBatTaskGrabber {
                         description = getDescription(infoTable);
                         examples = getExamples(infoTable, title);
 
-                        taskCollection.add(new CodingBatTask(title, description, examples, template, groupName));
+                        taskCollection.add(new CodingBatTask(codingBatId, title, description, examples, template, groupName));
                 }
             } catch (IOException e) {
                 LOG.error(e);
