@@ -10,11 +10,12 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     @Id
 
     private String id;
+    private String codingBatId;
+    private String groupName;
     private String title;
     private String description;
     private String examples;
     private String template;
-    private String groupName;
 
     // parsed template
     private MethodSignature methodSignature;
@@ -26,6 +27,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     public CodingBatTask(String title, String description,
                          String examples, String template, String groupName) {
+        this.codingBatId = codingBatId;
         this.title = title;
         this.description = description;
         this.examples = examples;
@@ -36,6 +38,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     public CodingBatTask(String id, String title,
                          String description, String examples, String template, String groupName) {
         this.id = id;
+        this.codingBatId = codingBatId;
         this.title = title;
         this.description = description;
         this.examples = examples;
@@ -49,6 +52,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCodingBatId() {
+        return codingBatId;
+    }
+
+    public void setCodingBatId(String codingBatId) {
+        this.codingBatId = codingBatId;
     }
 
     public String getTitle() {
@@ -112,6 +123,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     public String toString() {
         final StringBuilder sb = new StringBuilder("CodingBatTask{");
         sb.append("id='").append(id).append('\'');
+        sb.append(", codingBatId='").append(codingBatId).append('\'');
+        sb.append(", groupName='").append(groupName).append('\'');
         sb.append(", title='").append(title).append('\'');
         sb.append(", description='").append(description).append('\'');
         sb.append(", examples='").append(examples).append('\'');
