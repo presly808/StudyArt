@@ -1,6 +1,5 @@
 package ua.artcode.db;
 
-import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.ClassPathResourceLoader;
 import ua.artcode.utils.serialization.Serializator;
 
@@ -27,8 +26,8 @@ public class InitDataProcessor {
 
     private void initData(){
         container = new CodingBatTaskContainer();
-        container.addTask(new CodingBatTask("1", "sum", "sum tree numbers", "-", "public int sum(int a, int b,int c){}"));
-        container.addTask(new CodingBatTask("2", "mul", "multiply two numbers", "-", "public int mul(int a, int b){}"));
+        //container.addTask(new CodingBatTask("1", "sum", "sum tree numbers", "-", "public int sum(int a, int b,int c){}"));
+        //container.addTask(new CodingBatTask("2", "mul", "multiply two numbers", "-", "public int mul(int a, int b){}"));
     }
 
     public CodingBatTaskContainer getContainer() {

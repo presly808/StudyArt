@@ -131,8 +131,7 @@ public class CodingBatTaskGrabber {
 
                         description = getDescription(infoTable);
                         examples = getExamples(infoTable, title);
-
-                        taskCollection.add(new CodingBatTask(codingBatId, title, description, examples, template, groupName));
+                        taskCollection.add(new CodingBatTask(title, description, examples, template, groupName,codingBatId));
                 }
             } catch (IOException e) {
                 LOG.error(e);

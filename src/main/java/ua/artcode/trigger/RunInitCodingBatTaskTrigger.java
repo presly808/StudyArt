@@ -4,6 +4,6 @@ public class RunInitCodingBatTaskTrigger {
 
     public static void main(String[] args) {
         InitCodingBatTaskTrigger.loadTasksIfNeeded();
-        InitCodingBatTaskTrigger.loadTasksToDataBase();
+        //InitCodingBatTaskTrigger.loadTasksToDataBase();
     }
 }

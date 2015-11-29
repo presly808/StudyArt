@@ -65,7 +65,7 @@ public class TaskServiceTest {
 
     @Test
     public void addTask() throws AppException {
-        CodingBatTask task = new CodingBatTask("5", "TestTask", "description", "examples", "template");
+        CodingBatTask task = new CodingBatTask("5", "TestTask", "description", "examples", "template","343");
         simpleTaskService.addTask(task);
         assertEquals(0, simpleTaskService.getTask("5").compareTo(task));
     }

@@ -8,7 +8,6 @@ import java.io.Serializable;
 @Entity
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     @Id
-
     private String id;
     private String codingBatId;
     private String groupName;
@@ -26,7 +25,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     }
 
     public CodingBatTask(String title, String description,
-                         String examples, String template, String groupName) {
+                         String examples, String template, String groupName,String codingBatId) {
         this.codingBatId = codingBatId;
         this.title = title;
         this.description = description;
@@ -36,7 +35,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     }
 
     public CodingBatTask(String id, String title,
-                         String description, String examples, String template, String groupName) {
+                         String description, String examples, String template, String groupName,String codingBatId) {
         this.id = id;
         this.codingBatId = codingBatId;
         this.title = title;
