@@ -1,6 +1,5 @@
 package ua.artcode.db;
 
-import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.ImplementedTask;
 
 import java.io.Serializable;

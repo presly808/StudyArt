@@ -11,7 +11,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static junit.framework.TestCase.assertEquals;
 import static ua.artcode.utils.RandomDataGenerator.generateNameWith;
 import static ua.artcode.utils.RandomDataGenerator.generateRandomId;
 
@@ -34,7 +35,7 @@ public class TestTaskJsonSerializer {
 
         codingBatTasks = Stream.generate(() -> new CodingBatTask(generateRandomId(),
                 generateNameWith("title", 100),
-                generateNameWith("desc ", 100), generateNameWith("example ", 100), generateNameWith("tamplate ", 100))).
+                generateNameWith("desc ", 100), generateNameWith("example ", 100), generateNameWith("tamplate ", 100),generateRandomId())).
                 limit(10).
                 collect(Collectors.toList());
 
@@ -58,9 +59,9 @@ public class TestTaskJsonSerializer {
 
     @Test
     public void _02testSimpleLoading() {
-        Collection<CodingBatTask> loadedTasks = appDataJsonSerializer.load(CodingBatTask.class, dbTaskPath.getPath());
+        Collection<CodingBatTask> loadedTasks = appDataJsonSerializer.load(dbTaskPath.getPath());
         //TODO use logger
-        loadedTasks.stream().forEach(System.out::println);
+        //loadedTasks.stream().forEach(System.out::println);
 
         assertTrue(loadedTasks.containsAll(codingBatTasks));
     }

@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import ua.artcode.db.DataBaseManager;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
@@ -10,11 +11,16 @@ import java.util.List;
  * Created by Razer on 09.11.15.
  */
 public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
+    private DataBaseManager dataBaseManager;
 
-    //Morphia morphia = new Morphia();
+    public SimpleTaskDaoMongoImpl(DataBaseManager dataBaseManager) {
+        this.dataBaseManager = dataBaseManager;
+    }
+
     @Override
     public CodingBatTask create(CodingBatTask task) {
-        return null;
+        dataBaseManager.addTask(task);
+        return task;
     }
 
     @Override
@@ -28,6 +34,16 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
     }
 
     @Override
+    public List<CodingBatTask> search() {
+        return null;
+    }
+
+    @Override
+    public int size() {
+        return dataBaseManager.size();
+    }
+
+    @Override
     public CodingBatTask update(CodingBatTask task) {
         return null;
     }
@@ -37,24 +53,11 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
         return null;
     }
 
-    @Override
-    public List<CodingBatTask> getAllByGroup(String groupName) throws AppException {
-        return null;
-    }
 
     @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) {
         return null;
     }
 
-    @Override
-    public List<CodingBatTask> searchByName(String name) {
-        return null;
-    }
-
-    @Override
-    public List<CodingBatTask> searchById(String id) {
-        return null;
-    }
 
 }

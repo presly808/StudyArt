@@ -19,11 +19,9 @@ public interface SimpleTaskDao {
 
     List<CodingBatTask> getAll() throws AppException;
 
-    List<CodingBatTask> getAllByGroup(String groupName) throws AppException;
-
     CodingBatTask addTask(CodingBatTask codingBatTask);
 
-    List<CodingBatTask> searchByName(String name);
+    List<CodingBatTask> search();
 
-    List<CodingBatTask> searchById(String id);
+    int size();
 }

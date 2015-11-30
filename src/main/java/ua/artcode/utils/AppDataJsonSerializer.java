@@ -1,70 +1,59 @@
 package ua.artcode.utils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.apache.log4j.Logger;
-import org.eclipse.persistence.jaxb.MarshallerProperties;
-import org.eclipse.persistence.jaxb.UnmarshallerProperties;
-import org.eclipse.persistence.oxm.MediaType;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import ua.artcode.model.codingbat.CodingBatTask;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.util.*;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.Collection;
 
-@Component(value = "jsonSerializer")// <bean declaring>
+
 public class AppDataJsonSerializer {
 
     private static final Logger LOG = Logger.getLogger(AppDataJsonSerializer.class);
 
-    private JAXBContext jaxbContext;
-    private Marshaller marshaller;
-    private Unmarshaller unmarshaller;
+    private Gson gson;
+    private FileWriter fileWriter;
 
-    public AppDataJsonSerializer() {
-    }
 
     public AppDataJsonSerializer(Class... classes) {
-
-        LOG.trace("init jaxb context, marshaller, unmarshaller");
-
-        try {
-            jaxbContext = JAXBContext.newInstance(classes);
-
-            marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_JSON);
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            unmarshaller = jaxbContext.createUnmarshaller();
-            unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_JSON);
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-            LOG.error(e);
-        }
-
+        LOG.trace("init Gson");
+        gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     public <T> void save(Collection<T> collection, String path) {
         LOG.trace("save entities into file " + path);
+        Type typeOfCollection = new TypeToken<Collection<CodingBatTask>>() {
+        }.getType();
+        //serialize collection to json
+        String json = gson.toJson(collection, typeOfCollection);
         try {
-            marshaller.marshal(collection, new File(path));
-        } catch (JAXBException e) {
+            //create file
+            fileWriter = new FileWriter(new File(path));
+            //write data to file
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e) {
             LOG.error(e);
         }
     }
 
 
-    public <T> Collection<T> load(Class<T> tClass, String path) {
+    public <T> Collection<T> load(String path) {
         LOG.trace("load entities from file " + path);
         Collection<T> codingBatTasks = null;
         try {
             if (FileUtils.exists(path)) {
-                codingBatTasks = (Collection<T>) unmarshaller.unmarshal(new File(path));
+                //get type of collection
+                Type collectionType = new TypeToken<Collection<CodingBatTask>>() {
+                }.getType();
+                //deserialize json from file to
+                codingBatTasks = gson.fromJson(new FileReader(path), collectionType);
             }
-        } catch (JAXBException e) {
+        } catch (FileNotFoundException e) {
             LOG.error(e);
         }
 

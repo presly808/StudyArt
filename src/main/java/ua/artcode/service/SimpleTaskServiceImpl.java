@@ -6,15 +6,11 @@ import org.springframework.stereotype.Service;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.model.ImplementedTask;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.ResultContainer;
 import ua.artcode.model.codingbat.TaskTestResult;
-import ua.artcode.validation.CodingBatTaskValidator;
-import ua.artcode.validation.Validator;
-import ua.artcode.model.ImplementedTask;
-
 import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 
 import java.util.List;
