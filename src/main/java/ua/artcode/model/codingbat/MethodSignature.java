@@ -21,6 +21,14 @@ public class MethodSignature {
             this.type = type;
             this.name = name;
         }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     public void addInArg(String type, String name){

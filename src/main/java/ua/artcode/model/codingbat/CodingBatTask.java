@@ -1,6 +1,9 @@
 package ua.artcode.model.codingbat;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
+import java.util.Arrays;
 
 
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
@@ -29,6 +32,16 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.examples = examples;
         this.template = template;
         this.groupName = groupName;
+
+        System.out.println(title + "  " + groupName);
+
+        initMethodSignature();
+
+
+        for (MethodSignature.InArg inArg : methodSignature.getInArgList()) {
+            System.out.print(inArg.getType() + "   ");
+        }
+        System.out.println("\n");
     }
 
     public CodingBatTask(String id, String codingBatId, String title,
@@ -40,6 +53,14 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.examples = examples;
         this.template = template;
         this.groupName = groupName;
+
+        initMethodSignature();
+
+        System.out.println(methodSignature.getReturnType());
+        for (MethodSignature.InArg inArg : methodSignature.getInArgList()) {
+            System.out.println(inArg.getType() + "   " + inArg.getName());
+        }
+
     }
 
     public String getId() {
@@ -148,6 +169,19 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     @Override
     public int compareTo(CodingBatTask o) {
         return this.id.compareTo(o.id);
+    }
+
+    private void initMethodSignature() {
+        methodSignature = new MethodSignature();
+        methodSignature.setReturnType(StringUtils.substringBetween(template, " ", " "));
+        String inParams = StringUtils.substringBetween(template, "(", ")");
+        if (!inParams.equals("")) {
+            for (String param : inParams.split(",")) {
+                String[] typeName = param.trim().split(" ");
+                methodSignature.addInArg(typeName[0], typeName[1]);
+            }
+        }
+
     }
 
 }
