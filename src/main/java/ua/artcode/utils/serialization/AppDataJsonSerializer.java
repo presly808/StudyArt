@@ -1,10 +1,11 @@
-package ua.artcode.utils;
+package ua.artcode.utils.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.log4j.Logger;
 import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.utils.FileUtils;
 
 import java.io.*;
 import java.lang.reflect.Type;

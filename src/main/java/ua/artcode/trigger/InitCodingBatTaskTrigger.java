@@ -4,7 +4,7 @@ import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.dao.SimpleTaskDaoMongoImpl;
 import ua.artcode.db.DataBaseManager;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.utils.AppDataJsonSerializer;
+import ua.artcode.utils.serialization.AppDataJsonSerializer;
 import ua.artcode.utils.AppPropertiesHolder;
 import ua.artcode.utils.CodingBatTaskGrabber;
 import ua.artcode.utils.FileUtils;
@@ -43,7 +43,7 @@ public class InitCodingBatTaskTrigger {
      */
     public static void loadTasksToDataBase() {
         //if()
-        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(new DataBaseManager());
+        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(DataBaseManager.getInstance());
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);

@@ -4,6 +4,7 @@ import jdk.nashorn.internal.runtime.Source;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.utils.serialization.AppDataJsonSerializer;
 
 import java.io.File;
 import java.io.IOException;
