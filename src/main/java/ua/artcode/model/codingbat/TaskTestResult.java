@@ -9,7 +9,6 @@ public class TaskTestResult {
 
     private UserAccount userAccount;
 
-
     private CodingBatTask codingBatTask;
 
     // in data and expected values
@@ -17,7 +16,7 @@ public class TaskTestResult {
     // practical result
     private List<String> actualValues;
 
-    private boolean passed;
+    private boolean passedAll;
 
 
     public TaskTestResult() {
@@ -27,7 +26,7 @@ public class TaskTestResult {
                           TaskTestDataContainer taskTestDataContainer, UserAccount userAccount) {
         this.actualValues = actualValues;
         this.codingBatTask = codingBatTask;
-        this.passed = passed;
+        this.passedAll = passed;
         this.taskTestDataContainer = taskTestDataContainer;
         this.userAccount = userAccount;
     }
