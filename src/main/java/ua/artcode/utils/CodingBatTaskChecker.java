@@ -1,5 +1,6 @@
 package ua.artcode.utils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -9,6 +10,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import ua.artcode.model.codingbat.TaskTestData;
+import ua.artcode.model.codingbat.TaskTestDataContainer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,11 +26,13 @@ public class CodingBatTaskChecker {
     /* This method takes id and code in format like example
        id = "p187868"
        code = "public boolean sleepIn(boolean weekday, boolean vacation) {
-    return true;
-        }"
+              return true;
+        }
 
-      return map with key = expected, value = current   */
-    public void checkTask(String id, String code) {
+        method return result as TaskTestDataContainer"
+    */
+    public TaskTestDataContainer checkTask(String id, String code) {
+        TaskTestDataContainer container = new TaskTestDataContainer();
         String url = "http://codingbat.com/run";
         HttpClient client = HttpClientBuilder.create().build(); // create client
         HttpPost post = new HttpPost(url);
@@ -48,9 +53,16 @@ public class CodingBatTaskChecker {
                 InputStream inStream = entity.getContent();
                 try {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
-                    String data;
-                    while ((data = reader.readLine()) != null) {
-                        System.out.println(data + "\n");
+                    String dataHtml;
+
+                    while ((dataHtml = reader.readLine()) != null) {
+                        TaskTestData taskTestData = new TaskTestData();
+                        taskTestData.setExpectedValue(getExpectedValueFromHtml(dataHtml));
+                        taskTestData.setInData(getInDataFromHtml(dataHtml));
+
+                        if (taskTestData.getExpectedValue() != null && taskTestData.getInData() != null) {
+                            container.addTaskTestData(taskTestData);
+                        }
                     }
                 } catch (RuntimeException e) {
                     e.printStackTrace();
@@ -66,6 +78,22 @@ public class CodingBatTaskChecker {
             e.printStackTrace();
         }
 
+        return container;
+    }
 
+    private String getExpectedValueFromHtml(String dataHtml) {
+        System.out.println("EXPECTED - " + StringUtils.substringBetween(dataHtml, "&rarr;", "<"));
+        return StringUtils.substringBetween(dataHtml, "&rarr;", "<");
+    }
+
+    private List<String> getInDataFromHtml(String dataHtml) {
+        List<String> inData = null;
+        String params = StringUtils.substringBetween(dataHtml, "(", ")");
+        System.out.println(params);
+        if (params != "") {
+
+        }
+        //System.out.println(inData);
+        return inData;
     }
 }

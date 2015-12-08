@@ -123,7 +123,6 @@ public class CodingBatTaskGrabber {
                 String examples;
                 String template = getTemplate(doc);
 
-
                 // get table with needed information(descriptions, examples)
                 Elements tables = doc.body().getElementsByAttributeValue("width", "700");
 

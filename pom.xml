@@ -26,6 +26,7 @@
         <gson.version>2.4</gson.version>
         <spring.version>4.2.2.RELEASE</spring.version>
         <httpclient.version>4.5.1</httpclient.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
     </properties>
 
 
@@ -84,12 +85,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>4.4.4</version>
         </dependency>
 
         <!--SPRING -->
