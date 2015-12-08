@@ -1,3 +1,5 @@
-1) Download mongoDb https://www.mongodb.org/downloads#production
+1) Download mongodb https://www.mongodb.org/downloads#production
 2) Unarchive tar/zip
-3)
+3) Append to PATH system variable location of mongodb
+4) Create mkdir /data/db where locate your db(usually Mongodb/data/db)
+5) Start server mongod --dbpath ..data/

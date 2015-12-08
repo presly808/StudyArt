@@ -1,0 +1,2250 @@
+[
+  {
+    "codingBatId": "p187868",
+    "groupName": "Warmup-1",
+    "title": "sleepIn",
+    "description": "The parameter weekday is true if it is a weekday, and the parameter vacation is true if we are on vacation. We sleep in if it is not a weekday or we\u0027re on vacation. Return true if we sleep in. ",
+    "examples": "nullsleepIn(false, false) → true \nsleepIn(true, false) → false \nsleepIn(false, true) → true",
+    "template": "public boolean sleepIn(boolean weekday, boolean vacation) {\n  \n}"
+  },
+  {
+    "codingBatId": "p181646",
+    "groupName": "Warmup-1",
+    "title": "monkeyTrouble",
+    "description": "We have two monkeys, a and b, and the parameters aSmile and bSmile indicate if each is smiling. We are in trouble if they are both smiling or if neither of them is smiling. Return true if we are in trouble. ",
+    "examples": "nullmonkeyTrouble(true, true) → true \nmonkeyTrouble(false, false) → true \nmonkeyTrouble(true, false) → false",
+    "template": "public boolean monkeyTrouble(boolean aSmile, boolean bSmile) {\n  \n}"
+  },
+  {
+    "codingBatId": "p154485",
+    "groupName": "Warmup-1",
+    "title": "sumDouble",
+    "description": "Given two int values, return their sum. Unless the two values are the same, then return double their sum. ",
+    "examples": "nullsumDouble(1, 2) → 3 \nsumDouble(3, 2) → 5 \nsumDouble(2, 2) → 8",
+    "template": "public int sumDouble(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p116624",
+    "groupName": "Warmup-1",
+    "title": "diff21",
+    "description": "Given an int n, return the absolute difference between n and 21, except return double the absolute difference if n is over 21. ",
+    "examples": "nulldiff21(19) → 2 \ndiff21(10) → 11 \ndiff21(21) → 0",
+    "template": "public int diff21(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p140449",
+    "groupName": "Warmup-1",
+    "title": "parrotTrouble",
+    "description": "We have a loud talking parrot. The \"hour\" parameter is the current hour time in the range 0..23. We are in trouble if the parrot is talking and the hour is before 7 or after 20. Return true if we are in trouble. ",
+    "examples": "nullparrotTrouble(true, 6) → true \nparrotTrouble(true, 7) → false \nparrotTrouble(false, 6) → false",
+    "template": "public boolean parrotTrouble(boolean talking, int hour) {\n  \n}"
+  },
+  {
+    "codingBatId": "p182873",
+    "groupName": "Warmup-1",
+    "title": "makes10",
+    "description": "Given 2 ints, a and b, return true if one if them is 10 or if their sum is 10. ",
+    "examples": "nullmakes10(9, 10) → true \nmakes10(9, 9) → false \nmakes10(1, 9) → true",
+    "template": "public boolean makes10(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p184004",
+    "groupName": "Warmup-1",
+    "title": "nearHundred",
+    "description": "Given an int n, return true if it is within 10 of 100 or 200. Note: Math.abs(num) computes the absolute value of a number. ",
+    "examples": "nullnearHundred(93) → true \nnearHundred(90) → true \nnearHundred(89) → false",
+    "template": "public boolean nearHundred(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p159227",
+    "groupName": "Warmup-1",
+    "title": "posNeg",
+    "description": "Given 2 int values, return true if one is negative and one is positive. Except if the parameter \"negative\" is true, then return true only if both are negative. ",
+    "examples": "nullposNeg(1, -1, false) → true \nposNeg(-1, 1, false) → true \nposNeg(-4, -5, true) → true",
+    "template": "public boolean posNeg(int a, int b, boolean negative) {\n  \n}"
+  },
+  {
+    "codingBatId": "p191914",
+    "groupName": "Warmup-1",
+    "title": "notString",
+    "description": "Given a string, return a new string where \"not \" has been added to the front. However, if the string already begins with \"not\", return the string unchanged. Note: use .equals() to compare 2 strings. ",
+    "examples": "nullnotString(\"candy\") → \"not candy\" \nnotString(\"x\") → \"not x\" \nnotString(\"not bad\") → \"not bad\"",
+    "template": "public String notString(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p190570",
+    "groupName": "Warmup-1",
+    "title": "missingChar",
+    "description": "Given a non-empty string and an int n, return a new string where the char at index n has been removed. The value of n will be a valid index of a char in the original string (i.e. n will be in the range 0..str.length()-1 inclusive). ",
+    "examples": "nullmissingChar(\"kitten\", 1) → \"ktten\" \nmissingChar(\"kitten\", 0) → \"itten\" \nmissingChar(\"kitten\", 4) → \"kittn\"",
+    "template": "public String missingChar(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p123384",
+    "groupName": "Warmup-1",
+    "title": "frontBack",
+    "description": "Given a string, return a new string where the first and last chars have been exchanged. ",
+    "examples": "nullfrontBack(\"code\") → \"eodc\" \nfrontBack(\"a\") → \"a\" \nfrontBack(\"ab\") → \"ba\"",
+    "template": "public String frontBack(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p136351",
+    "groupName": "Warmup-1",
+    "title": "front3",
+    "description": "Given a string, we\u0027ll say that the front is the first 3 chars of the string. If the string length is less than 3, the front is whatever is there. Return a new string which is 3 copies of the front. ",
+    "examples": "nullfront3(\"Java\") → \"JavJavJav\" \nfront3(\"Chocolate\") → \"ChoChoCho\" \nfront3(\"abc\") → \"abcabcabc\"",
+    "template": "public String front3(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p161642",
+    "groupName": "Warmup-1",
+    "title": "backAround",
+    "description": "Given a string, take the last char and return a new string with the last char added at the front and back, so \"cat\" yields \"tcatt\". The original string will be length 1 or more. ",
+    "examples": "nullbackAround(\"cat\") → \"tcatt\" \nbackAround(\"Hello\") → \"oHelloo\" \nbackAround(\"a\") → \"aaa\"",
+    "template": "public String backAround(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p112564",
+    "groupName": "Warmup-1",
+    "title": "or35",
+    "description": "Return true if the given non-negative number is a multiple of 3 or a multiple of 5. Use the % \"mod\" operator -- see \u003ca href\u003d\"/doc/practice/mod-introduction.html\"\u003eIntroduction to Mod\u003c/a\u003e ",
+    "examples": "nullor35(3) → true \nor35(10) → true \nor35(8) → false",
+    "template": "public boolean or35(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183592",
+    "groupName": "Warmup-1",
+    "title": "front22",
+    "description": "Given a string, take the first 2 chars and return the string with the 2 chars added at both the front and back, so \"kitten\" yields\"kikittenki\". If the string length is less than 2, use whatever chars are there. ",
+    "examples": "nullfront22(\"kitten\") → \"kikittenki\" \nfront22(\"Ha\") → \"HaHaHa\" \nfront22(\"abc\") → \"ababcab\"",
+    "template": "public String front22(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p191022",
+    "groupName": "Warmup-1",
+    "title": "startHi",
+    "description": "Given a string, return true if the string starts with \"hi\" and false otherwise. ",
+    "examples": "nullstartHi(\"hi there\") → true \nstartHi(\"hi\") → true \nstartHi(\"hello hi\") → false",
+    "template": "public boolean startHi(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p192082",
+    "groupName": "Warmup-1",
+    "title": "icyHot",
+    "description": "Given two temperatures, return true if one is less than 0 and the other is greater than 100. ",
+    "examples": "nullicyHot(120, -1) → true \nicyHot(-1, 120) → true \nicyHot(2, 120) → false",
+    "template": "public boolean icyHot(int temp1, int temp2) {\n  \n}"
+  },
+  {
+    "codingBatId": "p144535",
+    "groupName": "Warmup-1",
+    "title": "in1020",
+    "description": "Given 2 int values, return true if either of them is in the range 10..20 inclusive. ",
+    "examples": "nullin1020(12, 99) → true \nin1020(21, 12) → true \nin1020(8, 99) → false",
+    "template": "public boolean in1020(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p178986",
+    "groupName": "Warmup-1",
+    "title": "hasTeen",
+    "description": "We\u0027ll say that a number is \"teen\" if it is in the range 13..19 inclusive. Given 3 int values, return true if 1 or more of them are teen. ",
+    "examples": "nullhasTeen(13, 20, 10) → true \nhasTeen(20, 19, 10) → true \nhasTeen(20, 10, 13) → true",
+    "template": "public boolean hasTeen(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p165701",
+    "groupName": "Warmup-1",
+    "title": "loneTeen",
+    "description": "We\u0027ll say that a number is \"teen\" if it is in the range 13..19 inclusive. Given 2 int values, return true if one or the other is teen, but not both. ",
+    "examples": "nullloneTeen(13, 99) → true \nloneTeen(21, 19) → true \nloneTeen(13, 13) → false",
+    "template": "public boolean loneTeen(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p100905",
+    "groupName": "Warmup-1",
+    "title": "delDel",
+    "description": "Given a string, if the string \"del\" appears starting at index 1, return a string where that \"del\" has been deleted. Otherwise, return the string unchanged. ",
+    "examples": "nulldelDel(\"adelbc\") → \"abc\" \ndelDel(\"adelHello\") → \"aHello\" \ndelDel(\"adedbc\") → \"adedbc\"",
+    "template": "public String delDel(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p151713",
+    "groupName": "Warmup-1",
+    "title": "mixStart",
+    "description": "Return true if the given string begins with \"mix\", except the \u0027m\u0027 can be anything, so \"pix\", \"9ix\" .. all count. ",
+    "examples": "nullmixStart(\"mix snacks\") → true \nmixStart(\"pix snacks\") → true \nmixStart(\"piz snacks\") → false",
+    "template": "public boolean mixStart(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p199720",
+    "groupName": "Warmup-1",
+    "title": "startOz",
+    "description": "Given a string, return a string made of the first 2 chars (if present), however include first char only if it is \u0027o\u0027 and include the second only if it is \u0027z\u0027, so \"ozymandias\" yields \"oz\". ",
+    "examples": "nullstartOz(\"ozymandias\") → \"oz\" \nstartOz(\"bzoo\") → \"z\" \nstartOz(\"oxx\") → \"o\"",
+    "template": "public String startOz(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p101887",
+    "groupName": "Warmup-1",
+    "title": "intMax",
+    "description": "Given three int values, a b c, return the largest. ",
+    "examples": "nullintMax(1, 2, 3) → 3 \nintMax(1, 3, 2) → 3 \nintMax(3, 2, 1) → 3",
+    "template": "public int intMax(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p172021",
+    "groupName": "Warmup-1",
+    "title": "close10",
+    "description": "Given 2 int values, return whichever value is nearest to the value 10, or return 0 in the event of a tie. Note that Math.abs(n) returns the absolute value of a number. ",
+    "examples": "nullclose10(8, 13) → 8 \nclose10(13, 8) → 8 \nclose10(13, 7) → 0",
+    "template": "public int close10(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p132134",
+    "groupName": "Warmup-1",
+    "title": "in3050",
+    "description": "Given 2 int values, return true if they are both in the range 30..40 inclusive, or they are both in the range 40..50 inclusive. ",
+    "examples": "nullin3050(30, 31) → true \nin3050(30, 41) → false \nin3050(40, 50) → true",
+    "template": "public boolean in3050(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p177372",
+    "groupName": "Warmup-1",
+    "title": "max1020",
+    "description": "Given 2 positive int values, return the larger value that is in the range 10..20 inclusive, or return 0 if neither is in that range. ",
+    "examples": "nullmax1020(11, 19) → 19 \nmax1020(19, 11) → 19 \nmax1020(11, 9) → 11",
+    "template": "public int max1020(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p173784",
+    "groupName": "Warmup-1",
+    "title": "stringE",
+    "description": "Return true if the given string contains between 1 and 3 \u0027e\u0027 chars. ",
+    "examples": "nullstringE(\"Hello\") → true \nstringE(\"Heelle\") → true \nstringE(\"Heelele\") → false",
+    "template": "public boolean stringE(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p125339",
+    "groupName": "Warmup-1",
+    "title": "lastDigit",
+    "description": "Given two non-negative int values, return true if they have the same last digit, such as with 27 and 57. Note that the % \"mod\" operator computes remainders, so 17 % 10 is 7. ",
+    "examples": "nulllastDigit(7, 17) → true \nlastDigit(6, 17) → false \nlastDigit(3, 113) → true",
+    "template": "public boolean lastDigit(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p125268",
+    "groupName": "Warmup-1",
+    "title": "endUp",
+    "description": "Given a string, return a new string where the last 3 chars are now in upper case. If the string has less than 3 chars, uppercase whatever is there. Note that str.toUpperCase() returns the uppercase version of a string. ",
+    "examples": "nullendUp(\"Hello\") → \"HeLLO\" \nendUp(\"hi there\") → \"hi thERE\" \nendUp(\"hi\") → \"HI\"",
+    "template": "public String endUp(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p196441",
+    "groupName": "Warmup-1",
+    "title": "everyNth",
+    "description": "Given a non-empty string and an int N, return the string made starting with char 0, and then every Nth char of the string. So if N is 3, use char 0, 3, 6, ... and so on. N is 1 or more. ",
+    "examples": "nulleveryNth(\"Miracle\", 2) → \"Mrce\" \neveryNth(\"abcdefg\", 2) → \"aceg\" \neveryNth(\"abcdefg\", 3) → \"adg\"",
+    "template": "public String everyNth(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p142270",
+    "groupName": "Warmup-2",
+    "title": "stringTimes",
+    "description": "Given a string and a non-negative int n, return a larger string that is n copies of the original string. ",
+    "examples": "nullstringTimes(\"Hi\", 2) → \"HiHi\" \nstringTimes(\"Hi\", 3) → \"HiHiHi\" \nstringTimes(\"Hi\", 1) → \"Hi\"",
+    "template": "public String stringTimes(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p101475",
+    "groupName": "Warmup-2",
+    "title": "frontTimes",
+    "description": "Given a string and a non-negative int n, we\u0027ll say that the front of the string is the first 3 chars, or whatever is there if the string is less than length 3. Return n copies of the front; ",
+    "examples": "nullfrontTimes(\"Chocolate\", 2) → \"ChoCho\" \nfrontTimes(\"Chocolate\", 3) → \"ChoChoCho\" \nfrontTimes(\"Abc\", 3) → \"AbcAbcAbc\"",
+    "template": "public String frontTimes(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p194667",
+    "groupName": "Warmup-2",
+    "title": "countXX",
+    "description": "Count the number of \"xx\" in the given string. We\u0027ll say that overlapping is allowed, so \"xxx\" contains 2 \"xx\". ",
+    "examples": "nullcountXX(\"abcxx\") → 1 \ncountXX(\"xxx\") → 2 \ncountXX(\"xxxx\") → 3",
+    "template": "int countXX(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p186759",
+    "groupName": "Warmup-2",
+    "title": "doubleX",
+    "description": "Given a string, return true if the first instance of \"x\" in the string is immediately followed by another \"x\". ",
+    "examples": "nulldoubleX(\"axxbb\") → true \ndoubleX(\"axaxax\") → false \ndoubleX(\"xxxxx\") → true",
+    "template": "boolean doubleX(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p165666",
+    "groupName": "Warmup-2",
+    "title": "stringBits",
+    "description": "Given a string, return a new string made of every other char starting with the first, so \"Hello\" yields \"Hlo\". ",
+    "examples": "nullstringBits(\"Hello\") → \"Hlo\" \nstringBits(\"Hi\") → \"H\" \nstringBits(\"Heeololeo\") → \"Hello\"",
+    "template": "public String stringBits(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p117334",
+    "groupName": "Warmup-2",
+    "title": "stringSplosion",
+    "description": "Given a non-empty string like \"Code\" return a string like \"CCoCodCode\". ",
+    "examples": "nullstringSplosion(\"Code\") → \"CCoCodCode\" \nstringSplosion(\"abc\") → \"aababc\" \nstringSplosion(\"ab\") → \"aab\"",
+    "template": "public String stringSplosion(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p178318",
+    "groupName": "Warmup-2",
+    "title": "last2",
+    "description": "Given a string, return the count of the number of times that a substring length 2 appears in the string and also as the last 2 chars of the string, so \"hixxxhi\" yields 1 (we won\u0027t count the end substring). ",
+    "examples": "nulllast2(\"hixxhi\") → 1 \nlast2(\"xaxxaxaxx\") → 1 \nlast2(\"axxxaaxx\") → 2",
+    "template": "public int last2(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p184031",
+    "groupName": "Warmup-2",
+    "title": "arrayCount9",
+    "description": "Given an array of ints, return the number of 9\u0027s in the array. ",
+    "examples": "nullarrayCount9({1, 2, 9}) → 1 \narrayCount9({1, 9, 9}) → 2 \narrayCount9({1, 9, 9, 3, 9}) → 3",
+    "template": "public int arrayCount9(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p186031",
+    "groupName": "Warmup-2",
+    "title": "arrayFront9",
+    "description": "Given an array of ints, return true if one of the first 4 elements in the array is a 9. The array length may be less than 4. ",
+    "examples": "nullarrayFront9({1, 2, 9, 3, 4}) → true \narrayFront9({1, 2, 3, 4, 9}) → false \narrayFront9({1, 2, 3, 4, 5}) → false",
+    "template": "public boolean arrayFront9(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p136041",
+    "groupName": "Warmup-2",
+    "title": "array123",
+    "description": "Given an array of ints, return true if .. 1, 2, 3, .. appears in the array somewhere. ",
+    "examples": "nullarray123({1, 1, 2, 3, 1}) → true \narray123({1, 1, 2, 4, 1}) → false \narray123({1, 1, 2, 1, 2, 3}) → true",
+    "template": "public boolean array123(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p198640",
+    "groupName": "Warmup-2",
+    "title": "stringMatch",
+    "description": "Given 2 strings, a and b, return the number of the positions where they contain the same length 2 substring. So \"xxcaazz\" and \"xxbaaz\" yields 3, since the \"xx\", \"aa\", and \"az\" substrings appear in the same place in both strings. ",
+    "examples": "nullstringMatch(\"xxcaazz\", \"xxbaaz\") → 3 \nstringMatch(\"abc\", \"abc\") → 2 \nstringMatch(\"abc\", \"axc\") → 0",
+    "template": "public int stringMatch(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p171260",
+    "groupName": "Warmup-2",
+    "title": "stringX",
+    "description": "Given a string, return a version where all the \"x\" have been removed. Except an \"x\" at the very start or end should not be removed. ",
+    "examples": "nullstringX(\"xxHxix\") → \"xHix\" \nstringX(\"abxxxcd\") → \"abcd\" \nstringX(\"xabxxxcdx\") → \"xabcdx\"",
+    "template": "public String stringX(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p121596",
+    "groupName": "Warmup-2",
+    "title": "altPairs",
+    "description": "Given a string, return a string made of the chars at indexes 0,1, 4,5, 8,9 ... so \"kittens\" yields \"kien\". ",
+    "examples": "nullaltPairs(\"kitten\") → \"kien\" \naltPairs(\"Chocolate\") → \"Chole\" \naltPairs(\"CodingHorror\") → \"Congrr\"",
+    "template": "public String altPairs(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p126212",
+    "groupName": "Warmup-2",
+    "title": "stringYak",
+    "description": "Suppose the string \"yak\" is unlucky. Given a string, return a version where all the \"yak\" are removed, but the \"a\" can be any char. The \"yak\" strings will not overlap. ",
+    "examples": "nullstringYak(\"yakpak\") → \"pak\" \nstringYak(\"pakyak\") → \"pak\" \nstringYak(\"yak123ya\") → \"123ya\"",
+    "template": "public String stringYak(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p110019",
+    "groupName": "Warmup-2",
+    "title": "array667",
+    "description": "Given an array of ints, return the number of times that two 6\u0027s are next to each other in the array. Also count instances where the second \"6\" is actually a 7. ",
+    "examples": "nullarray667({6, 6, 2}) → 1 \narray667({6, 6, 2, 6}) → 1 \narray667({6, 7, 2, 6}) → 1",
+    "template": "public int array667(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p170221",
+    "groupName": "Warmup-2",
+    "title": "noTriples",
+    "description": "Given an array of ints, we\u0027ll say that a triple is a value appearing 3 times in a row in the array. Return true if the array does not contain any triples. ",
+    "examples": "nullnoTriples({1, 1, 2, 2, 1}) → true \nnoTriples({1, 1, 2, 2, 2, 1}) → false \nnoTriples({1, 1, 1, 2, 2, 2, 1}) → false",
+    "template": "public boolean noTriples(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p167430",
+    "groupName": "Warmup-2",
+    "title": "has271",
+    "description": "Given an array of ints, return true if it contains a 2, 7, 1 pattern -- a value, followed by the value plus 5, followed by the value minus 1. Additionally the 271 counts even if the \"1\" differs by 2 or less from the correct value. ",
+    "examples": "nullhas271({1, 2, 7, 1}) → true \nhas271({1, 2, 8, 1}) → false \nhas271({2, 7, 1}) → true",
+    "template": "public boolean has271(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p171896",
+    "groupName": "String-1",
+    "title": "helloName",
+    "description": "Given a string name, e.g. \"Bob\", return a greeting of the form \"Hello Bob!\". ",
+    "examples": "nullhelloName(\"Bob\") → \"Hello Bob!\" \nhelloName(\"Alice\") → \"Hello Alice!\" \nhelloName(\"X\") → \"Hello X!\"",
+    "template": "public String helloName(String name) {\n  \n}"
+  },
+  {
+    "codingBatId": "p161056",
+    "groupName": "String-1",
+    "title": "makeAbba",
+    "description": "Given two strings, a and b, return the result of putting them together in the order abba, e.g. \"Hi\" and \"Bye\" returns \"HiByeByeHi\". ",
+    "examples": "nullmakeAbba(\"Hi\", \"Bye\") → \"HiByeByeHi\" \nmakeAbba(\"Yo\", \"Alice\") → \"YoAliceAliceYo\" \nmakeAbba(\"What\", \"Up\") → \"WhatUpUpWhat\"",
+    "template": "public String makeAbba(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p147483",
+    "groupName": "String-1",
+    "title": "makeTags",
+    "description": "The web is built with HTML strings like \"\u0026lt;i\u0026gt;Yay\u0026lt;/i\u0026gt;\" which draws Yay as italic text. In this example, the \"i\" tag makes \u0026lt;i\u0026gt; and \u0026lt;/i\u0026gt; which surround the word \"Yay\". Given tag and word strings, create the HTML string with tags around the word, e.g. \"\u0026lt;i\u0026gt;Yay\u0026lt;/i\u0026gt;\". ",
+    "examples": "nullmakeTags(\"i\", \"Yay\") → \"\u003ci\u003eYay\u003c/i\u003e\" \nmakeTags(\"i\", \"Hello\") → \"\u003ci\u003eHello\u003c/i\u003e\" \nmakeTags(\"cite\", \"Yay\") → \"\u003ccite\u003eYay\u003c/cite\u003e\"",
+    "template": "public String makeTags(String tag, String word) {\n  \n}"
+  },
+  {
+    "codingBatId": "p184030",
+    "groupName": "String-1",
+    "title": "makeOutWord",
+    "description": "Given an \"out\" string length 4, such as \"\u0026lt;\u0026lt;\u0026gt;\u0026gt;\", and a word, return a new string where the word is in the middle of the out string, e.g. \"\u0026lt;\u0026lt;word\u0026gt;\u0026gt;\". Note: use str.substring(i, j) to extract the String starting at index i and going up to but not including index j. ",
+    "examples": "nullmakeOutWord(\"\u003c\u003c\u003e\u003e\", \"Yay\") → \"\u003c\u003cYay\u003e\u003e\" \nmakeOutWord(\"\u003c\u003c\u003e\u003e\", \"WooHoo\") → \"\u003c\u003cWooHoo\u003e\u003e\" \nmakeOutWord(\"[[]]\", \"word\") → \"[[word]]\"",
+    "template": "public String makeOutWord(String out, String word) {\n  \n}"
+  },
+  {
+    "codingBatId": "p108853",
+    "groupName": "String-1",
+    "title": "extraEnd",
+    "description": "Given a string, return a new string made of 3 copies of the last 2 chars of the original string. The string length will be at least 2. ",
+    "examples": "nullextraEnd(\"Hello\") → \"lololo\" \nextraEnd(\"ab\") → \"ababab\" \nextraEnd(\"Hi\") → \"HiHiHi\"",
+    "template": "public String extraEnd(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p163411",
+    "groupName": "String-1",
+    "title": "firstTwo",
+    "description": "Given a string, return the string made of its first two chars, so the String \"Hello\" yields \"He\". If the string is shorter than length 2, return whatever there is, so \"X\" yields \"X\", and the empty string \"\" yields the empty string \"\". Note that str.length() returns the length of a string. ",
+    "examples": "nullfirstTwo(\"Hello\") → \"He\" \nfirstTwo(\"abcdefg\") → \"ab\" \nfirstTwo(\"ab\") → \"ab\"",
+    "template": "public String firstTwo(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p172267",
+    "groupName": "String-1",
+    "title": "firstHalf",
+    "description": "Given a string of even length, return the first half. So the string \"WooHoo\" yields \"Woo\". ",
+    "examples": "nullfirstHalf(\"WooHoo\") → \"Woo\" \nfirstHalf(\"HelloThere\") → \"Hello\" \nfirstHalf(\"abcdef\") → \"abc\"",
+    "template": "public String firstHalf(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p130896",
+    "groupName": "String-1",
+    "title": "withoutEnd",
+    "description": "Given a string, return a version without the first and last char, so \"Hello\" yields \"ell\". The string length will be at least 2. ",
+    "examples": "nullwithoutEnd(\"Hello\") → \"ell\" \nwithoutEnd(\"java\") → \"av\" \nwithoutEnd(\"coding\") → \"odin\"",
+    "template": "public String withoutEnd(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p168564",
+    "groupName": "String-1",
+    "title": "comboString",
+    "description": "Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length 0). ",
+    "examples": "nullcomboString(\"Hello\", \"hi\") → \"hiHellohi\" \ncomboString(\"hi\", \"Hello\") → \"hiHellohi\" \ncomboString(\"aaa\", \"b\") → \"baaab\"",
+    "template": "public String comboString(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p143825",
+    "groupName": "String-1",
+    "title": "nonStart",
+    "description": "Given 2 strings, return their concatenation, except omit the first char of each. The strings will be at least length 1. ",
+    "examples": "nullnonStart(\"Hello\", \"There\") → \"ellohere\" \nnonStart(\"java\", \"code\") → \"avaode\" \nnonStart(\"shotl\", \"java\") → \"hotlava\"",
+    "template": "public String nonStart(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p197720",
+    "groupName": "String-1",
+    "title": "left2",
+    "description": "Given a string, return a \"rotated left 2\" version where the first 2 chars are moved to the end. The string length will be at least 2. ",
+    "examples": "nullleft2(\"Hello\") → \"lloHe\" \nleft2(\"java\") → \"vaja\" \nleft2(\"Hi\") → \"Hi\"",
+    "template": "public String left2(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p130781",
+    "groupName": "String-1",
+    "title": "right2",
+    "description": "Given a string, return a \"rotated right 2\" version where the last 2 chars are moved to the start. The string length will be at least 2. ",
+    "examples": "nullright2(\"Hello\") → \"loHel\" \nright2(\"java\") → \"vaja\" \nright2(\"Hi\") → \"Hi\"",
+    "template": "public String right2(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p162477",
+    "groupName": "String-1",
+    "title": "theEnd",
+    "description": "Given a string, return a string length 1 from its front, unless \u003cb\u003efront\u003c/b\u003e is false, in which case return a string length 1 from its back. The string will be non-empty. ",
+    "examples": "nulltheEnd(\"Hello\", true) → \"H\" \ntheEnd(\"Hello\", false) → \"o\" \ntheEnd(\"oh\", true) → \"o\"",
+    "template": "public String theEnd(String str, boolean front) {\n  \n}"
+  },
+  {
+    "codingBatId": "p174254",
+    "groupName": "String-1",
+    "title": "withouEnd2",
+    "description": "Given a string, return a version without both the first and last char of the string. The string may be any length, including 0. ",
+    "examples": "nullwithouEnd2(\"Hello\") → \"ell\" \nwithouEnd2(\"abc\") → \"b\" \nwithouEnd2(\"ab\") → \"\"",
+    "template": "public String withouEnd2(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p137729",
+    "groupName": "String-1",
+    "title": "middleTwo",
+    "description": "Given a string of even length, return a string made of the middle two chars, so the string \"string\" yields \"ri\". The string length will be at least 2. ",
+    "examples": "nullmiddleTwo(\"string\") → \"ri\" \nmiddleTwo(\"code\") → \"od\" \nmiddleTwo(\"Practice\") → \"ct\"",
+    "template": "public String middleTwo(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p103895",
+    "groupName": "String-1",
+    "title": "endsLy",
+    "description": "Given a string, return true if it ends in \"ly\". ",
+    "examples": "nullendsLy(\"oddly\") → true \nendsLy(\"y\") → false \nendsLy(\"oddy\") → false",
+    "template": "public boolean endsLy(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p174148",
+    "groupName": "String-1",
+    "title": "nTwice",
+    "description": "Given a string and an int n, return a string made of the first and last n chars from the string. The string length will be at least n. ",
+    "examples": "nullnTwice(\"Hello\", 2) → \"Helo\" \nnTwice(\"Chocolate\", 3) → \"Choate\" \nnTwice(\"Chocolate\", 1) → \"Ce\"",
+    "template": "public String nTwice(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p144623",
+    "groupName": "String-1",
+    "title": "twoChar",
+    "description": "Given a string and an index, return a string length 2 starting at the given index. If the index is too big or too small to define a string length 2, use the first 2 chars. The string length will be at least 2. ",
+    "examples": "nulltwoChar(\"java\", 0) → \"ja\" \ntwoChar(\"java\", 2) → \"va\" \ntwoChar(\"java\", 3) → \"ja\"",
+    "template": "public String twoChar(String str, int index) {\n  \n}"
+  },
+  {
+    "codingBatId": "p115863",
+    "groupName": "String-1",
+    "title": "middleThree",
+    "description": "Given a string of odd length, return the string length 3 from its middle, so \"Candy\" yields \"and\". The string length will be at least 3. ",
+    "examples": "nullmiddleThree(\"Candy\") → \"and\" \nmiddleThree(\"and\") → \"and\" \nmiddleThree(\"solving\") → \"lvi\"",
+    "template": "public String middleThree(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p139075",
+    "groupName": "String-1",
+    "title": "hasBad",
+    "description": "Given a string, return true if \"bad\" appears starting at index 0 or 1 in the string, such as with \"badxxx\" or \"xbadxx\" but not \"xxbadxx\". The string may be any length, including 0. Note: use .equals() to compare 2 strings. ",
+    "examples": "nullhasBad(\"badxx\") → true \nhasBad(\"xbadxx\") → true \nhasBad(\"xxbadxx\") → false",
+    "template": "public boolean hasBad(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p139076",
+    "groupName": "String-1",
+    "title": "atFirst",
+    "description": "Given a string, return a string length 2 made of its first 2 chars. If the string length is less than 2, use \u0027@\u0027 for the missing chars. ",
+    "examples": "nullatFirst(\"hello\") → \"he\" \natFirst(\"hi\") → \"hi\" \natFirst(\"h\") → \"h@\"",
+    "template": "public String atFirst(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p138183",
+    "groupName": "String-1",
+    "title": "lastChars",
+    "description": "Given 2 strings, a and b, return a new string made of the first char of a and the last char of b, so \"yo\" and \"java\" yields \"ya\". If either string is length 0, use \u0027@\u0027 for its missing char. ",
+    "examples": "nulllastChars(\"last\", \"chars\") → \"ls\" \nlastChars(\"yo\", \"java\") → \"ya\" \nlastChars(\"hi\", \"\") → \"h@\"",
+    "template": "public String lastChars(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p132118",
+    "groupName": "String-1",
+    "title": "conCat",
+    "description": "Given two strings, append them together (known as \"concatenation\") and return the result. However, if the concatenation creates a double-char, then omit one of the chars, so \"abc\" and \"cat\" yields \"abcat\". ",
+    "examples": "nullconCat(\"abc\", \"cat\") → \"abcat\" \nconCat(\"dog\", \"cat\") → \"dogcat\" \nconCat(\"abc\", \"\") → \"abc\"",
+    "template": "public String conCat(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p194786",
+    "groupName": "String-1",
+    "title": "lastTwo",
+    "description": "Given a string of any length, return a new string where the last 2 chars, if present, are swapped, so \"coding\" yields \"codign\". ",
+    "examples": "nulllastTwo(\"coding\") → \"codign\" \nlastTwo(\"cat\") → \"cta\" \nlastTwo(\"ab\") → \"ba\"",
+    "template": "public String lastTwo(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p199216",
+    "groupName": "String-1",
+    "title": "seeColor",
+    "description": "Given a string, if the string begins with \"red\" or \"blue\" return that color string, otherwise return the empty string. ",
+    "examples": "nullseeColor(\"redxx\") → \"red\" \nseeColor(\"xxred\") → \"\" \nseeColor(\"blueTimes\") → \"blue\"",
+    "template": "public String seeColor(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p196652",
+    "groupName": "String-1",
+    "title": "frontAgain",
+    "description": "Given a string, return true if the first 2 chars in the string also appear at the end of the string, such as with \"edited\". ",
+    "examples": "nullfrontAgain(\"edited\") → true \nfrontAgain(\"edit\") → false \nfrontAgain(\"ed\") → true",
+    "template": "public boolean frontAgain(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p105745",
+    "groupName": "String-1",
+    "title": "minCat",
+    "description": "Given two strings, append them together (known as \"concatenation\") and return the result. However, if the strings are different lengths, omit chars from the longer string so it is the same length as the shorter string. So \"Hello\" and \"Hi\" yield \"loHi\". The strings may be any length. ",
+    "examples": "nullminCat(\"Hello\", \"Hi\") → \"loHi\" \nminCat(\"Hello\", \"java\") → \"ellojava\" \nminCat(\"java\", \"Hello\") → \"javaello\"",
+    "template": "public String minCat(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p172063",
+    "groupName": "String-1",
+    "title": "extraFront",
+    "description": "Given a string, return a new string made of 3 copies of the first 2 chars of the original string. The string may be any length. If there are fewer than 2 chars, use whatever is there. ",
+    "examples": "nullextraFront(\"Hello\") → \"HeHeHe\" \nextraFront(\"ab\") → \"ababab\" \nextraFront(\"H\") → \"HHH\"",
+    "template": "public String extraFront(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p142247",
+    "groupName": "String-1",
+    "title": "without2",
+    "description": "Given a string, if a length 2 substring appears at both its beginning and end, return a string without the substring at the beginning, so \"HelloHe\" yields \"lloHe\". The substring may overlap with itself, so \"Hi\" yields \"\". Otherwise, return the original string unchanged. ",
+    "examples": "nullwithout2(\"HelloHe\") → \"lloHe\" \nwithout2(\"HelloHi\") → \"HelloHi\" \nwithout2(\"Hi\") → \"\"",
+    "template": "public String without2(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p110141",
+    "groupName": "String-1",
+    "title": "deFront",
+    "description": "Given a string, return a version without the first 2 chars. Except keep the first char if it is \u0027a\u0027 and keep the second char if it is \u0027b\u0027. The string may be any length. Harder than it looks. ",
+    "examples": "nulldeFront(\"Hello\") → \"llo\" \ndeFront(\"java\") → \"va\" \ndeFront(\"away\") → \"aay\"",
+    "template": "public String deFront(String str) {    \n  \n}"
+  },
+  {
+    "codingBatId": "p141494",
+    "groupName": "String-1",
+    "title": "startWord",
+    "description": "Given a string and a second \"word\" string, we\u0027ll say that the word matches the string if it appears at the front of the string, except its first char does not need to match exactly. On a match, return the front of the string, or otherwise return the empty string. So, so with the string \"hippo\" the word \"hi\" returns \"hi\" and \"xip\" returns \"hip\". The word will be at least length 1. ",
+    "examples": "nullstartWord(\"hippo\", \"hi\") → \"hi\" \nstartWord(\"hippo\", \"xip\") → \"hip\" \nstartWord(\"hippo\", \"i\") → \"h\"",
+    "template": "public String startWord(String str, String word) {\n  \n}"
+  },
+  {
+    "codingBatId": "p151940",
+    "groupName": "String-1",
+    "title": "withoutX",
+    "description": "Given a string, if the first or last chars are \u0027x\u0027, return the string without those \u0027x\u0027 chars, and otherwise return the string unchanged. ",
+    "examples": "nullwithoutX(\"xHix\") → \"Hi\" \nwithoutX(\"xHi\") → \"Hi\" \nwithoutX(\"Hxix\") → \"Hxi\"",
+    "template": "public String withoutX(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p151359",
+    "groupName": "String-1",
+    "title": "withoutX2",
+    "description": "Given a string, if one or both of the first 2 chars is \u0027x\u0027, return the string without those \u0027x\u0027 chars, and otherwise return the string unchanged. This is a little harder than it looks. ",
+    "examples": "nullwithoutX2(\"xHi\") → \"Hi\" \nwithoutX2(\"Hxi\") → \"Hi\" \nwithoutX2(\"Hi\") → \"Hi\"",
+    "template": "public String withoutX2(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p185685",
+    "groupName": "Array-1",
+    "title": "firstLast6",
+    "description": "Given an array of ints, return true if 6 appears as either the first or last element in the array. The array will be length 1 or more. ",
+    "examples": "nullfirstLast6({1, 2, 6}) → true \nfirstLast6({6, 1, 2, 3}) → true \nfirstLast6({13, 6, 1, 2, 3}) → false",
+    "template": "public boolean firstLast6(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p118976",
+    "groupName": "Array-1",
+    "title": "sameFirstLast",
+    "description": "Given an array of ints, return true if the array is length 1 or more, and the first element and the last element are equal. ",
+    "examples": "nullsameFirstLast({1, 2, 3}) → false \nsameFirstLast({1, 2, 3, 1}) → true \nsameFirstLast({1, 2, 1}) → true",
+    "template": "public boolean sameFirstLast(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p167011",
+    "groupName": "Array-1",
+    "title": "makePi",
+    "description": "Return an int array length 3 containing the first 3 digits of pi, {3, 1, 4}. ",
+    "examples": "nullmakePi() → {3, 1, 4}",
+    "template": "public int[] makePi() {\n  \n}"
+  },
+  {
+    "codingBatId": "p191991",
+    "groupName": "Array-1",
+    "title": "commonEnd",
+    "description": "Given 2 arrays of ints, a and b, return true if they have the same first element or they have the same last element. Both arrays will be length 1 or more. ",
+    "examples": "nullcommonEnd({1, 2, 3}, {7, 3}) → true \ncommonEnd({1, 2, 3}, {7, 3, 2}) → false \ncommonEnd({1, 2, 3}, {1, 3}) → true",
+    "template": "public boolean commonEnd(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p175763",
+    "groupName": "Array-1",
+    "title": "sum3",
+    "description": "Given an array of ints length 3, return the sum of all the elements. ",
+    "examples": "nullsum3({1, 2, 3}) → 6 \nsum3({5, 11, 2}) → 18 \nsum3({7, 0, 0}) → 7",
+    "template": "public int sum3(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p185139",
+    "groupName": "Array-1",
+    "title": "rotateLeft3",
+    "description": "Given an array of ints length 3, return an array with the elements \"rotated left\" so {1, 2, 3} yields {2, 3, 1}. ",
+    "examples": "nullrotateLeft3({1, 2, 3}) → {2, 3, 1} \nrotateLeft3({5, 11, 9}) → {11, 9, 5} \nrotateLeft3({7, 0, 0}) → {0, 0, 7}",
+    "template": "public int[] rotateLeft3(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p112409",
+    "groupName": "Array-1",
+    "title": "reverse3",
+    "description": "Given an array of ints length 3, return a new array with the elements in reverse order, so {1, 2, 3} becomes {3, 2, 1}. ",
+    "examples": "nullreverse3({1, 2, 3}) → {3, 2, 1} \nreverse3({5, 11, 9}) → {9, 11, 5} \nreverse3({7, 0, 0}) → {0, 0, 7}",
+    "template": "public int[] reverse3(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p146256",
+    "groupName": "Array-1",
+    "title": "maxEnd3",
+    "description": "Given an array of ints length 3, figure out which is larger between the first and last elements in the array, and set all the other elements to be that value. Return the changed array. ",
+    "examples": "nullmaxEnd3({1, 2, 3}) → {3, 3, 3} \nmaxEnd3({11, 5, 9}) → {11, 11, 11} \nmaxEnd3({2, 11, 3}) → {3, 3, 3}",
+    "template": "public int[] maxEnd3(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p190968",
+    "groupName": "Array-1",
+    "title": "sum2",
+    "description": "Given an array of ints, return the sum of the first 2 elements in the array. If the array length is less than 2, just sum up the elements that exist, returning 0 if the array is length 0. ",
+    "examples": "nullsum2({1, 2, 3}) → 3 \nsum2({1, 1}) → 2 \nsum2({1, 1, 1, 1}) → 2",
+    "template": "public int sum2(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p146449",
+    "groupName": "Array-1",
+    "title": "middleWay",
+    "description": "Given 2 int arrays, a and b, each length 3, return a new array length 2 containing their middle elements. ",
+    "examples": "nullmiddleWay({1, 2, 3}, {4, 5, 6}) → {2, 5} \nmiddleWay({7, 7, 7}, {3, 8, 0}) → {7, 8} \nmiddleWay({5, 2, 9}, {1, 4, 5}) → {2, 4}",
+    "template": "public int[] middleWay(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p101230",
+    "groupName": "Array-1",
+    "title": "makeEnds",
+    "description": "Given an array of ints, return a new array length 2 containing the first and last elements from the original array. The original array will be length 1 or more. ",
+    "examples": "nullmakeEnds({1, 2, 3}) → {1, 3} \nmakeEnds({1, 2, 3, 4}) → {1, 4} \nmakeEnds({7, 4, 6, 2}) → {7, 2}",
+    "template": "public int[] makeEnds(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p171022",
+    "groupName": "Array-1",
+    "title": "has23",
+    "description": "Given an int array length 2, return true if it contains a 2 or a 3. ",
+    "examples": "nullhas23({2, 5}) → true \nhas23({4, 3}) → true \nhas23({4, 5}) → false",
+    "template": "public boolean has23(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p175689",
+    "groupName": "Array-1",
+    "title": "no23",
+    "description": "Given an int array length 2, return true if it does not contain a 2 or 3. ",
+    "examples": "nullno23({4, 5}) → true \nno23({4, 2}) → false \nno23({3, 5}) → false",
+    "template": "public boolean no23(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p137188",
+    "groupName": "Array-1",
+    "title": "makeLast",
+    "description": "Given an int array, return a new array with double the length where its last element is the same as the original array, and all the other elements are 0. The original array will be length 1 or more. Note: by default, a new int array contains all 0\u0027s. ",
+    "examples": "nullmakeLast({4, 5, 6}) → {0, 0, 0, 0, 0, 6} \nmakeLast({1, 2}) → {0, 0, 0, 2} \nmakeLast({3}) → {0, 3}",
+    "template": "public int[] makeLast(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p145365",
+    "groupName": "Array-1",
+    "title": "double23",
+    "description": "Given an int array, return true if the array contains 2 twice, or 3 twice. The array will be length 0, 1, or 2. ",
+    "examples": "nulldouble23({2, 2}) → true \ndouble23({3, 3}) → true \ndouble23({2, 3}) → false",
+    "template": "public boolean double23(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p120347",
+    "groupName": "Array-1",
+    "title": "fix23",
+    "description": "Given an int array length 3, if there is a 2 in the array immediately followed by a 3, set the 3 element to 0. Return the changed array. ",
+    "examples": "nullfix23({1, 2, 3}) → {1, 2, 0} \nfix23({2, 3, 5}) → {2, 0, 5} \nfix23({1, 2, 1}) → {1, 2, 1}",
+    "template": "public int[] fix23(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p109660",
+    "groupName": "Array-1",
+    "title": "start1",
+    "description": "Start with 2 int arrays, a and b, of any length. Return how many of the arrays have 1 as their first element. ",
+    "examples": "nullstart1({1, 2, 3}, {1, 3}) → 2 \nstart1({7, 2, 3}, {1}) → 1 \nstart1({1, 2}, {}) → 1",
+    "template": "public int start1(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p109537",
+    "groupName": "Array-1",
+    "title": "biggerTwo",
+    "description": "Start with 2 int arrays, a and b, each length 2. Consider the sum of the values in each array. Return the array which has the largest sum. In event of a tie, return a. ",
+    "examples": "nullbiggerTwo({1, 2}, {3, 4}) → {3, 4} \nbiggerTwo({3, 4}, {1, 2}) → {3, 4} \nbiggerTwo({1, 1}, {1, 2}) → {1, 2}",
+    "template": "public int[] biggerTwo(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p199519",
+    "groupName": "Array-1",
+    "title": "makeMiddle",
+    "description": "Given an array of ints of even length, return a new array length 2 containing the middle two elements from the original array. The original array will be length 2 or more. ",
+    "examples": "nullmakeMiddle({1, 2, 3, 4}) → {2, 3} \nmakeMiddle({7, 1, 2, 3, 4, 9}) → {2, 3} \nmakeMiddle({1, 2}) → {1, 2}",
+    "template": "public int[] makeMiddle(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p180840",
+    "groupName": "Array-1",
+    "title": "plusTwo",
+    "description": "Given 2 int arrays, each length 2, return a new array length 4 containing all their elements. ",
+    "examples": "nullplusTwo({1, 2}, {3, 4}) → {1, 2, 3, 4} \nplusTwo({4, 4}, {2, 2}) → {4, 4, 2, 2} \nplusTwo({9, 2}, {3, 4}) → {9, 2, 3, 4}",
+    "template": "public int[] plusTwo(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p118044",
+    "groupName": "Array-1",
+    "title": "swapEnds",
+    "description": "Given an array of ints, swap the first and last elements in the array. Return the modified array. The array length will be at least 1. ",
+    "examples": "nullswapEnds({1, 2, 3, 4}) → {4, 2, 3, 1} \nswapEnds({1, 2, 3}) → {3, 2, 1} \nswapEnds({8, 6, 7, 9, 5}) → {5, 6, 7, 9, 8}",
+    "template": "public int[] swapEnds(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p155713",
+    "groupName": "Array-1",
+    "title": "midThree",
+    "description": "Given an array of ints of odd length, return a new array length 3 containing the elements from the middle of the array. The array length will be at least 3. ",
+    "examples": "nullmidThree({1, 2, 3, 4, 5}) → {2, 3, 4} \nmidThree({8, 6, 7, 5, 3, 0, 9}) → {7, 5, 3} \nmidThree({1, 2, 3}) → {1, 2, 3}",
+    "template": "public int[] midThree(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p185176",
+    "groupName": "Array-1",
+    "title": "maxTriple",
+    "description": "Given an array of ints of odd length, look at the first, last, and middle values in the array and return the largest. The array length will be a least 1. ",
+    "examples": "nullmaxTriple({1, 2, 3}) → 3 \nmaxTriple({1, 5, 3}) → 5 \nmaxTriple({5, 2, 3}) → 5",
+    "template": "public int maxTriple(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p142455",
+    "groupName": "Array-1",
+    "title": "frontPiece",
+    "description": "Given an int array of any length, return a new array of its first 2 elements. If the array is smaller than length 2, use whatever elements are present. ",
+    "examples": "nullfrontPiece({1, 2, 3}) → {1, 2} \nfrontPiece({1, 2}) → {1, 2} \nfrontPiece({1}) → {1}",
+    "template": "public int[] frontPiece(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p197308",
+    "groupName": "Array-1",
+    "title": "unlucky1",
+    "description": "We\u0027ll say that a 1 immediately followed by a 3 in an array is an \"unlucky\" 1. Return true if the given array contains an unlucky 1 in the first 2 or last 2 positions in the array. ",
+    "examples": "nullunlucky1({1, 3, 4, 5}) → true \nunlucky1({2, 1, 3, 4, 5}) → true \nunlucky1({1, 1, 1}) → false",
+    "template": "public boolean unlucky1(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p143461",
+    "groupName": "Array-1",
+    "title": "make2",
+    "description": "Given 2 int arrays, a and b, return a new array length 2 containing, as much as will fit, the elements from a followed by the elements from b. The arrays may be any length, including 0, but there will be 2 or more elements available between the 2 arrays. ",
+    "examples": "nullmake2({4, 5}, {1, 2, 3}) → {4, 5} \nmake2({4}, {1, 2, 3}) → {4, 1} \nmake2({}, {1, 2}) → {1, 2}",
+    "template": "public int[] make2(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p128270",
+    "groupName": "Array-1",
+    "title": "front11",
+    "description": "Given 2 int arrays, a and b, of any length, return a new array with the first element of each array. If either array is length 0, ignore that array. ",
+    "examples": "nullfront11({1, 2, 3}, {7, 9, 8}) → {1, 7} \nfront11({1}, {2}) → {1, 2} \nfront11({1, 7}, {}) → {1}",
+    "template": "public int[] front11(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p159531",
+    "groupName": "Logic-1",
+    "title": "cigarParty",
+    "description": "When squirrels get together for a party, they like to have cigars. A squirrel party is successful when the number of cigars is between 40 and 60, inclusive. Unless it is the weekend, in which case there is no upper bound on the number of cigars. Return true if the party with the given values is successful, or false otherwise. ",
+    "examples": "nullcigarParty(30, false) → false \ncigarParty(50, false) → true \ncigarParty(70, true) → true",
+    "template": "public boolean cigarParty(int cigars, boolean isWeekend) {\n  \n}"
+  },
+  {
+    "codingBatId": "p103360",
+    "groupName": "Logic-1",
+    "title": "dateFashion",
+    "description": "You and your date are trying to get a table at a restaurant. The parameter \"you\" is the stylishness of your clothes, in the range 0..10, and \"date\" is the stylishness of your date\u0027s clothes. The result getting the table is encoded as an int value with 0\u003dno, 1\u003dmaybe, 2\u003dyes. If either of you is very stylish, 8 or more, then the result is 2 (yes). With the exception that if either of you has style of 2 or less, then the result is 0 (no). Otherwise the result is 1 (maybe). ",
+    "examples": "nulldateFashion(5, 10) → 2 \ndateFashion(5, 2) → 0 \ndateFashion(5, 5) → 1",
+    "template": "public int dateFashion(int you, int date) {\n  \n}"
+  },
+  {
+    "codingBatId": "p141061",
+    "groupName": "Logic-1",
+    "title": "squirrelPlay",
+    "description": "The squirrels in Palo Alto spend most of the day playing. In particular, they play if the temperature is between 60 and 90 (inclusive). Unless it is summer, then the upper limit is 100 instead of 90. Given an int temperature and a boolean isSummer, return true if the squirrels play and false otherwise. ",
+    "examples": "nullsquirrelPlay(70, false) → true \nsquirrelPlay(95, false) → false \nsquirrelPlay(95, true) → true",
+    "template": "public boolean squirrelPlay(int temp, boolean isSummer) {\n  \n}"
+  },
+  {
+    "codingBatId": "p157733",
+    "groupName": "Logic-1",
+    "title": "caughtSpeeding",
+    "description": "You are driving a little too fast, and a police officer stops you. Write code to compute the result, encoded as an int value: 0\u003dno ticket, 1\u003dsmall ticket, 2\u003dbig ticket. If speed is 60 or less, the result is 0. If speed is between 61 and 80 inclusive, the result is 1. If speed is 81 or more, the result is 2. Unless it is your birthday -- on that day, your speed can be 5 higher in all cases. ",
+    "examples": "nullcaughtSpeeding(60, false) → 0 \ncaughtSpeeding(65, false) → 1 \ncaughtSpeeding(65, true) → 0",
+    "template": "public int caughtSpeeding(int speed, boolean isBirthday) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183071",
+    "groupName": "Logic-1",
+    "title": "sortaSum",
+    "description": "Given 2 ints, a and b, return their sum. However, sums in the range 10..19 inclusive, are forbidden, so in that case just return 20. ",
+    "examples": "nullsortaSum(3, 4) → 7 \nsortaSum(9, 4) → 20 \nsortaSum(10, 11) → 21",
+    "template": "public int sortaSum(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p160543",
+    "groupName": "Logic-1",
+    "title": "alarmClock",
+    "description": "Given a day of the week encoded as 0\u003dSun, 1\u003dMon, 2\u003dTue, ...6\u003dSat, and a boolean indicating if we are on vacation, return a string of the form \"7:00\" indicating when the alarm clock should ring. Weekdays, the alarm should be \"7:00\" and on the weekend it should be \"10:00\". Unless we are on vacation -- then on weekdays it should be \"10:00\" and weekends it should be \"off\". ",
+    "examples": "nullalarmClock(1, false) → \"7:00\" \nalarmClock(5, false) → \"7:00\" \nalarmClock(0, false) → \"10:00\"",
+    "template": "public String alarmClock(int day, boolean vacation) {\n  \n}"
+  },
+  {
+    "codingBatId": "p137742",
+    "groupName": "Logic-1",
+    "title": "love6",
+    "description": "The number 6 is a truly great number. Given two int values, a and b, return true if either one is 6. Or if their sum or difference is 6. Note: the function Math.abs(num) computes the absolute value of a number. ",
+    "examples": "nulllove6(6, 4) → true \nlove6(4, 5) → false \nlove6(1, 5) → true",
+    "template": "public boolean love6(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p137365",
+    "groupName": "Logic-1",
+    "title": "in1To10",
+    "description": "Given a number n, return true if n is in the range 1..10, inclusive. Unless \"outsideMode\" is true, in which case return true if the number is less or equal to 1, or greater or equal to 10. ",
+    "examples": "nullin1To10(5, false) → true \nin1To10(11, false) → false \nin1To10(11, true) → true",
+    "template": "public boolean in1To10(int n, boolean outsideMode) {\n  \n}"
+  },
+  {
+    "codingBatId": "p100962",
+    "groupName": "Logic-1",
+    "title": "specialEleven",
+    "description": "We\u0027ll say a number is special if it is a multiple of 11 or if it is one more than a multiple of 11. Return true if the given non-negative number is special. Use the % \"mod\" operator -- see \u003ca href\u003d\"/doc/practice/mod-introduction.html\"\u003eIntroduction to Mod\u003c/a\u003e ",
+    "examples": "nullspecialEleven(22) → true \nspecialEleven(23) → true \nspecialEleven(24) → false",
+    "template": "public boolean specialEleven(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p118290",
+    "groupName": "Logic-1",
+    "title": "more20",
+    "description": "Return true if the given non-negative number is 1 or 2 more than a multiple of 20. See also: \u003ca href\u003d\"/doc/practice/mod-introduction.html\"\u003eIntroduction to Mod\u003c/a\u003e ",
+    "examples": "nullmore20(20) → false \nmore20(21) → true \nmore20(22) → true",
+    "template": "public boolean more20(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p159612",
+    "groupName": "Logic-1",
+    "title": "old35",
+    "description": "Return true if the given non-negative number is a multiple of 3 or 5, but not both. Use the % \"mod\" operator -- see \u003ca href\u003d\"/doc/practice/mod-introduction.html\"\u003eIntroduction to Mod\u003c/a\u003e ",
+    "examples": "nullold35(3) → true \nold35(10) → true \nold35(15) → false",
+    "template": "public boolean old35(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p133158",
+    "groupName": "Logic-1",
+    "title": "less20",
+    "description": "Return true if the given non-negative number is 1 or 2 \u003cb\u003eless\u003c/b\u003e than a multiple of 20. So for example 38 and 39 return true, but 40 returns false. See also: \u003ca href\u003d\"/doc/practice/mod-introduction.html\"\u003eIntroduction to Mod\u003c/a\u003e ",
+    "examples": "nullless20(18) → true \nless20(19) → true \nless20(20) → false",
+    "template": "public boolean less20(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p193613",
+    "groupName": "Logic-1",
+    "title": "nearTen",
+    "description": "Given a non-negative number \"num\", return true if num is within 2 of a multiple of 10. Note: (a % b) is the remainder of dividing a by b, so (7 % 5) is 2. See also: \u003ca href\u003d\"/doc/practice/mod-introduction.html\"\u003eIntroduction to Mod\u003c/a\u003e ",
+    "examples": "nullnearTen(12) → true \nnearTen(17) → false \nnearTen(19) → true",
+    "template": "public boolean nearTen(int num) {\n  \n}"
+  },
+  {
+    "codingBatId": "p178728",
+    "groupName": "Logic-1",
+    "title": "teenSum",
+    "description": "Given 2 ints, a and b, return their sum. However, \"teen\" values in the range 13..19 inclusive, are extra lucky. So if either value is a teen, just return 19. ",
+    "examples": "nullteenSum(3, 4) → 7 \nteenSum(10, 13) → 19 \nteenSum(13, 2) → 19",
+    "template": "public int teenSum(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p110973",
+    "groupName": "Logic-1",
+    "title": "answerCell",
+    "description": "Your cell phone rings. Return true if you should answer it. Normally you answer, except in the morning you only answer if it is your mom calling. In all cases, if you are asleep, you do not answer. ",
+    "examples": "nullanswerCell(false, false, false) → true \nanswerCell(false, false, true) → false \nanswerCell(true, false, false) → false",
+    "template": "public boolean answerCell(boolean isMorning, boolean isMom, boolean isAsleep) {\n  \n}"
+  },
+  {
+    "codingBatId": "p177181",
+    "groupName": "Logic-1",
+    "title": "teaParty",
+    "description": "We are having a party with amounts of tea and candy. Return the int outcome of the party encoded as 0\u003dbad, 1\u003dgood, or 2\u003dgreat. A party is good (1) if both tea and candy are at least 5. However, if either tea or candy is at least double the amount of the other one, the party is great (2). However, in all cases, if either tea or candy is less than 5, the party is always bad (0). ",
+    "examples": "nullteaParty(6, 8) → 1 \nteaParty(3, 8) → 0 \nteaParty(20, 6) → 2",
+    "template": "public int teaParty(int tea, int candy) {\n  \n}"
+  },
+  {
+    "codingBatId": "p137136",
+    "groupName": "Logic-1",
+    "title": "fizzString",
+    "description": "Given a string str, if the string starts with \"f\" return \"Fizz\". If the string ends with \"b\" return \"Buzz\". If both the \"f\" and \"b\" conditions are true, return \"FizzBuzz\". In all other cases, return the string unchanged. (See also: \u003ca href\u003d\"/doc/practice/fizzbuzz-code.html\"\u003eFizzBuzz Code\u003c/a\u003e) ",
+    "examples": "nullfizzString(\"fig\") → \"Fizz\" \nfizzString(\"dib\") → \"Buzz\" \nfizzString(\"fib\") → \"FizzBuzz\"",
+    "template": "public String fizzString(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p115243",
+    "groupName": "Logic-1",
+    "title": "fizzString2",
+    "description": "Given an int n, return the string form of the number followed by \"!\". So the int 6 yields \"6!\". Except if the number is divisible by 3 use \"Fizz\" instead of the number, and if the number is divisible by 5 use \"Buzz\", and if divisible by both 3 and 5, use \"FizzBuzz\". Note: the % \"mod\" operator computes the remainder after division, so 23 % 10 yields 3. What will the remainder be when one number divides evenly into another? (See also: \u003ca href\u003d\"/doc/practice/fizzbuzz-code.html\"\u003eFizzBuzz Code\u003c/a\u003e and \u003ca href\u003d\"/doc/practice/mod-introduction.html\"\u003eIntroduction to Mod\u003c/a\u003e) ",
+    "examples": "nullfizzString2(1) → \"1!\" \nfizzString2(2) → \"2!\" \nfizzString2(3) → \"Fizz!\"",
+    "template": "public String fizzString2(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p113261",
+    "groupName": "Logic-1",
+    "title": "twoAsOne",
+    "description": "Given three ints, a b c, return true if it is possible to add two of the ints to get the third. ",
+    "examples": "nulltwoAsOne(1, 2, 3) → true \ntwoAsOne(3, 1, 2) → true \ntwoAsOne(3, 2, 2) → false",
+    "template": "public boolean twoAsOne(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p154188",
+    "groupName": "Logic-1",
+    "title": "inOrder",
+    "description": "Given three ints, a b c, return true if b is greater than a, and c is greater than b. However, with the exception that if \"bOk\" is true, b does not need to be greater than a. ",
+    "examples": "nullinOrder(1, 2, 4, false) → true \ninOrder(1, 2, 1, false) → false \ninOrder(1, 1, 2, true) → true",
+    "template": "public boolean inOrder(int a, int b, int c, boolean bOk) {\n  \n}"
+  },
+  {
+    "codingBatId": "p140272",
+    "groupName": "Logic-1",
+    "title": "inOrderEqual",
+    "description": "Given three ints, a b c, return true if they are in strict increasing order, such as 2 5 11, or 5 6 7, but not 6 5 7 or 5 5 7. However, with the exception that if \"equalOk\" is true, equality is allowed, such as 5 5 7 or 5 5 5. ",
+    "examples": "nullinOrderEqual(2, 5, 11, false) → true \ninOrderEqual(5, 7, 6, false) → false \ninOrderEqual(5, 5, 7, true) → true",
+    "template": "public boolean inOrderEqual(int a, int b, int c, boolean equalOk) {\n  \n}"
+  },
+  {
+    "codingBatId": "p169213",
+    "groupName": "Logic-1",
+    "title": "lastDigit",
+    "description": "Given three ints, a b c, return true if two or more of them have the same rightmost digit. The ints are non-negative. Note: the % \"mod\" operator computes the remainder, e.g. 17 % 10 is 7. ",
+    "examples": "nulllastDigit(23, 19, 13) → true \nlastDigit(23, 19, 12) → false \nlastDigit(23, 19, 3) → true",
+    "template": "public boolean lastDigit(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p179196",
+    "groupName": "Logic-1",
+    "title": "lessBy10",
+    "description": "Given three ints, a b c, return true if one of them is 10 or more less than one of the others. ",
+    "examples": "nulllessBy10(1, 7, 11) → true \nlessBy10(1, 7, 10) → false \nlessBy10(11, 1, 7) → true",
+    "template": "public boolean lessBy10(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p115233",
+    "groupName": "Logic-1",
+    "title": "withoutDoubles",
+    "description": "Return the sum of two 6-sided dice rolls, each in the range 1..6. However, if noDoubles is true, if the two dice show the same value, increment one die to the next value, wrapping around to 1 if its value was 6. ",
+    "examples": "nullwithoutDoubles(2, 3, true) → 5 \nwithoutDoubles(3, 3, true) → 7 \nwithoutDoubles(3, 3, false) → 6",
+    "template": "public int withoutDoubles(int die1, int die2, boolean noDoubles) {\n  \n}"
+  },
+  {
+    "codingBatId": "p115384",
+    "groupName": "Logic-1",
+    "title": "maxMod5",
+    "description": "Given two int values, return whichever value is larger. However if the two values have the same remainder when divided by 5, then the return the smaller value. However, in all cases, if the two values are the same, return 0. Note: the % \"mod\" operator computes the remainder, e.g. 7 % 5 is 2. ",
+    "examples": "nullmaxMod5(2, 3) → 3 \nmaxMod5(6, 2) → 6 \nmaxMod5(3, 2) → 3",
+    "template": "public int maxMod5(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p170833",
+    "groupName": "Logic-1",
+    "title": "redTicket",
+    "description": "You have a red lottery ticket showing ints a, b, and c, each of which is 0, 1, or 2. If they are all the value 2, the result is 10. Otherwise if they are all the same, the result is 5. Otherwise so long as both b and c are different from a, the result is 1. Otherwise the result is 0. ",
+    "examples": "nullredTicket(2, 2, 2) → 10 \nredTicket(2, 2, 1) → 0 \nredTicket(0, 0, 0) → 5",
+    "template": "public int redTicket(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p120633",
+    "groupName": "Logic-1",
+    "title": "greenTicket",
+    "description": "You have a green lottery ticket, with ints a, b, and c on it. If the numbers are all different from each other, the result is 0. If all of the numbers are the same, the result is 20. If two of the numbers are the same, the result is 10. ",
+    "examples": "nullgreenTicket(1, 2, 3) → 0 \ngreenTicket(2, 2, 2) → 20 \ngreenTicket(1, 1, 2) → 10",
+    "template": "public int greenTicket(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p192267",
+    "groupName": "Logic-1",
+    "title": "blueTicket",
+    "description": "You have a blue lottery ticket, with ints a, b, and c on it. This makes three pairs, which we\u0027ll call ab, bc, and ac. Consider the sum of the numbers in each pair. If any pair sums to exactly 10, the result is 10. Otherwise if the ab sum is exactly 10 more than either bc or ac sums, the result is 5. Otherwise the result is 0. ",
+    "examples": "nullblueTicket(9, 1, 0) → 10 \nblueTicket(9, 2, 0) → 0 \nblueTicket(6, 1, 4) → 10",
+    "template": "public int blueTicket(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p153748",
+    "groupName": "Logic-1",
+    "title": "shareDigit",
+    "description": "Given two ints, each in the range 10..99, return true if there is a digit that appears in both numbers, such as the 2 in 12 and 23. (Note: division, e.g. n/10, gives the left digit while the % \"mod\" n%10 gives the right digit.) ",
+    "examples": "nullshareDigit(12, 23) → true \nshareDigit(12, 43) → false \nshareDigit(12, 44) → false",
+    "template": "public boolean shareDigit(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p118077",
+    "groupName": "Logic-1",
+    "title": "sumLimit",
+    "description": "Given 2 non-negative ints, a and b, return their sum, so long as the sum has the same number of digits as a. If the sum has more digits than a, just return a without b. (Note: one way to compute the number of digits of a non-negative int n is to convert it to a string with String.valueOf(n) and then check the length of the string.) ",
+    "examples": "nullsumLimit(2, 3) → 5 \nsumLimit(8, 3) → 8 \nsumLimit(8, 1) → 9",
+    "template": "public int sumLimit(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183562",
+    "groupName": "Logic-2",
+    "title": "makeBricks",
+    "description": "We want to make a row of bricks that is \u003cb\u003egoal\u003c/b\u003e inches long. We have a number of small bricks (1 inch each) and big bricks (5 inches each). Return true if it is possible to make the goal by choosing from the given bricks. This is a little harder than it looks and can be done without any loops. See also: \u003ca href\u003d\"/doc/practice/makebricks-introduction.html\"\u003eIntroduction to MakeBricks\u003c/a\u003e ",
+    "examples": "nullmakeBricks(3, 1, 8) → true \nmakeBricks(3, 1, 9) → false \nmakeBricks(3, 2, 10) → true",
+    "template": "public boolean makeBricks(int small, int big, int goal) {\n  \n}"
+  },
+  {
+    "codingBatId": "p148972",
+    "groupName": "Logic-2",
+    "title": "loneSum",
+    "description": "Given 3 int values, a b c, return their sum. However, if one of the values is the same as another of the values, it does not count towards the sum. ",
+    "examples": "nullloneSum(1, 2, 3) → 6 \nloneSum(3, 2, 3) → 2 \nloneSum(3, 3, 3) → 0",
+    "template": "public int loneSum(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p130788",
+    "groupName": "Logic-2",
+    "title": "luckySum",
+    "description": "Given 3 int values, a b c, return their sum. However, if one of the values is 13 then it does not count towards the sum and values to its right do not count. So for example, if b is 13, then both b and c do not count. ",
+    "examples": "nullluckySum(1, 2, 3) → 6 \nluckySum(1, 2, 13) → 3 \nluckySum(1, 13, 3) → 1",
+    "template": "public int luckySum(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p182879",
+    "groupName": "Logic-2",
+    "title": "noTeenSum",
+    "description": "Given 3 int values, a b c, return their sum. However, if any of the values is a teen -- in the range 13..19 inclusive -- then that value counts as 0, except 15 and 16 do not count as a teens. Write a separate helper \"public int fixTeen(int n) {\"that takes in an int value and returns that value fixed for the teen rule. In this way, you avoid repeating the teen code 3 times (i.e. \"decomposition\"). Define the helper below and at the same indent level as the main noTeenSum(). ",
+    "examples": "nullnoTeenSum(). \nnoTeenSum(1, 2, 3) → 6 \nnoTeenSum(2, 13, 1) → 3 \nnoTeenSum(2, 1, 14) → 3",
+    "template": "public int noTeenSum(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p186753",
+    "groupName": "Logic-2",
+    "title": "roundSum",
+    "description": "For this problem, we\u0027ll round an int value up to the next multiple of 10 if its rightmost digit is 5 or more, so 15 rounds up to 20. Alternately, round down to the previous multiple of 10 if its rightmost digit is less than 5, so 12 rounds down to 10. Given 3 ints, a b c, return the sum of their rounded values. To avoid code repetition, write a separate helper \"public int round10(int num) {\" and call it 3 times. Write the helper entirely below and at the same indent level as roundSum(). ",
+    "examples": "nullroundSum(). \nroundSum(16, 17, 18) → 60 \nroundSum(12, 13, 14) → 30 \nroundSum(6, 4, 4) → 10",
+    "template": "public int roundSum(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p138990",
+    "groupName": "Logic-2",
+    "title": "closeFar",
+    "description": "Given three ints, a b c, return true if one of b or c is \"close\" (differing from a by at most 1), while the other is \"far\", differing from both other values by 2 or more. Note: Math.abs(num) computes the absolute value of a number. ",
+    "examples": "nullcloseFar(1, 2, 10) → true \ncloseFar(1, 2, 3) → false \ncloseFar(4, 1, 3) → true",
+    "template": "public boolean closeFar(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p117019",
+    "groupName": "Logic-2",
+    "title": "blackjack",
+    "description": "Given 2 int values greater than 0, return whichever value is nearest to 21 without going over. Return 0 if they both go over. ",
+    "examples": "nullblackjack(19, 21) → 21 \nblackjack(21, 19) → 21 \nblackjack(19, 22) → 19",
+    "template": "public int blackjack(int a, int b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p198700",
+    "groupName": "Logic-2",
+    "title": "evenlySpaced",
+    "description": "Given three ints, a b c, one of them is small, one is medium and one is large. Return true if the three values are evenly spaced, so the difference between small and medium is the same as the difference between medium and large. ",
+    "examples": "nullevenlySpaced(2, 4, 6) → true \nevenlySpaced(4, 6, 2) → true \nevenlySpaced(4, 6, 3) → false",
+    "template": "public boolean evenlySpaced(int a, int b, int c) {\n  \n}"
+  },
+  {
+    "codingBatId": "p191363",
+    "groupName": "Logic-2",
+    "title": "makeChocolate",
+    "description": "We want make a package of \u003cb\u003egoal\u003c/b\u003e kilos of chocolate. We have small bars (1 kilo each) and big bars (5 kilos each). Return the number of small bars to use, assuming we always use big bars before small bars. Return -1 if it can\u0027t be done. ",
+    "examples": "nullmakeChocolate(4, 1, 9) → 4 \nmakeChocolate(4, 1, 10) → -1 \nmakeChocolate(4, 1, 7) → 2",
+    "template": "public int makeChocolate(int small, int big, int goal) {\n  \n}"
+  },
+  {
+    "codingBatId": "p165312",
+    "groupName": "String-2",
+    "title": "doubleChar",
+    "description": "Given a string, return a string where for every char in the original, there are two chars. ",
+    "examples": "nulldoubleChar(\"The\") → \"TThhee\" \ndoubleChar(\"AAbb\") → \"AAAAbbbb\" \ndoubleChar(\"Hi-There\") → \"HHii--TThheerree\"",
+    "template": "public String doubleChar(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p147448",
+    "groupName": "String-2",
+    "title": "countHi",
+    "description": "Return the number of times that the string \"hi\" appears anywhere in the given string. ",
+    "examples": "nullcountHi(\"abc hi ho\") → 1 \ncountHi(\"ABChi hi\") → 2 \ncountHi(\"hihi\") → 2",
+    "template": "public int countHi(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p111624",
+    "groupName": "String-2",
+    "title": "catDog",
+    "description": "Return true if the string \"cat\" and \"dog\" appear the same number of times in the given string. ",
+    "examples": "nullcatDog(\"catdog\") → true \ncatDog(\"catcat\") → false \ncatDog(\"1cat1cadodog\") → true",
+    "template": "public boolean catDog(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p123614",
+    "groupName": "String-2",
+    "title": "countCode",
+    "description": "Return the number of times that the string \"code\" appears anywhere in the given string, except we\u0027ll accept any letter for the \u0027d\u0027, so \"cope\" and \"cooe\" count. ",
+    "examples": "nullcountCode(\"aaacodebbb\") → 1 \ncountCode(\"codexxcode\") → 2 \ncountCode(\"cozexxcope\") → 2",
+    "template": "public int countCode(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p126880",
+    "groupName": "String-2",
+    "title": "endOther",
+    "description": "Given two strings, return true if either of the strings appears at the very end of the other string, ignoring upper/lower case differences (in other words, the computation should not be \"case sensitive\"). Note: str.toLowerCase() returns the lowercase version of a string. ",
+    "examples": "nullendOther(\"Hiabc\", \"abc\") → true \nendOther(\"AbC\", \"HiaBc\") → true \nendOther(\"abc\", \"abXabc\") → true",
+    "template": "public boolean endOther(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p136594",
+    "groupName": "String-2",
+    "title": "xyzThere",
+    "description": "Return true if the given string contains an appearance of \"xyz\" where the xyz is not directly preceeded by a period (.). So \"xxyz\" counts but \"x.xyz\" does not. ",
+    "examples": "nullxyzThere(\"abcxyz\") → true \nxyzThere(\"abc.xyz\") → false \nxyzThere(\"xyz.abc\") → true",
+    "template": "public boolean xyzThere(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p175762",
+    "groupName": "String-2",
+    "title": "bobThere",
+    "description": "Return true if the given string contains a \"bob\" string, but where the middle \u0027o\u0027 char can be any char. ",
+    "examples": "nullbobThere(\"abcbob\") → true \nbobThere(\"b9b\") → true \nbobThere(\"bac\") → false",
+    "template": "public boolean bobThere(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p134250",
+    "groupName": "String-2",
+    "title": "xyBalance",
+    "description": "We\u0027ll say that a String is xy-balanced if for all the \u0027x\u0027 chars in the string, there exists a \u0027y\u0027 char somewhere later in the string. So \"xxy\" is balanced, but \"xyx\" is not. One \u0027y\u0027 can balance multiple \u0027x\u0027s. Return true if the given string is xy-balanced. ",
+    "examples": "nullxyBalance(\"aaxbby\") → true \nxyBalance(\"aaxbb\") → false \nxyBalance(\"yaaxbb\") → false",
+    "template": "public boolean xyBalance(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p125185",
+    "groupName": "String-2",
+    "title": "mixString",
+    "description": "Given two strings, \u003cb\u003ea\u003c/b\u003e and \u003cb\u003eb\u003c/b\u003e, create a bigger string made of the first char of a, the first char of b, the second char of a, the second char of b, and so on. Any leftover chars go at the end of the result. ",
+    "examples": "nullmixString(\"abc\", \"xyz\") → \"axbycz\" \nmixString(\"Hi\", \"There\") → \"HTihere\" \nmixString(\"xxxx\", \"There\") → \"xTxhxexre\"",
+    "template": "public String mixString(String a, String b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p152339",
+    "groupName": "String-2",
+    "title": "repeatEnd",
+    "description": "Given a string and an int n, return a string made of n repetitions of the last n characters of the string. You may assume that n is between 0 and the length of the string, inclusive. ",
+    "examples": "nullrepeatEnd(\"Hello\", 3) → \"llollollo\" \nrepeatEnd(\"Hello\", 2) → \"lolo\" \nrepeatEnd(\"Hello\", 1) → \"o\"",
+    "template": "public String repeatEnd(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p128796",
+    "groupName": "String-2",
+    "title": "repeatFront",
+    "description": "Given a string and an int n, return a string made of the first n characters of the string, followed by the first n-1 characters of the string, and so on. You may assume that n is between 0 and the length of the string, inclusive (i.e. n \u0026gt;\u003d 0 and n \u0026lt;\u003d str.length()). ",
+    "examples": "nullrepeatFront(\"Chocolate\", 4) → \"ChocChoChC\" \nrepeatFront(\"Chocolate\", 3) → \"ChoChC\" \nrepeatFront(\"Ice Cream\", 2) → \"IcI\"",
+    "template": "public String repeatFront(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p109637",
+    "groupName": "String-2",
+    "title": "repeatSeparator",
+    "description": "Given two strings, \u003cb\u003eword\u003c/b\u003e and a separator \u003cb\u003esep\u003c/b\u003e, return a big string made of \u003cb\u003ecount\u003c/b\u003e occurrences of the word, separated by the separator string. ",
+    "examples": "nullrepeatSeparator(\"Word\", \"X\", 3) → \"WordXWordXWord\" \nrepeatSeparator(\"This\", \"And\", 2) → \"ThisAndThis\" \nrepeatSeparator(\"This\", \"And\", 1) → \"This\"",
+    "template": "public String repeatSeparator(String word, String sep, int count) {\n  \n}"
+  },
+  {
+    "codingBatId": "p136417",
+    "groupName": "String-2",
+    "title": "prefixAgain",
+    "description": "Given a string, consider the prefix string made of the first N chars of the string. Does that prefix string appear somewhere else in the string? Assume that the string is not empty and that N is in the range 1..str.length(). ",
+    "examples": "nullprefixAgain(\"abXYabc\", 1) → true \nprefixAgain(\"abXYabc\", 2) → true \nprefixAgain(\"abXYabc\", 3) → false",
+    "template": "public boolean prefixAgain(String str, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p159772",
+    "groupName": "String-2",
+    "title": "xyzMiddle",
+    "description": "Given a string, does \"xyz\" appear in the middle of the string? To define middle, we\u0027ll say that the number of chars to the left and right of the \"xyz\" must differ by at most one. This problem is harder than it looks. ",
+    "examples": "nullxyzMiddle(\"AAxyzBB\") → true \nxyzMiddle(\"AxyzBB\") → true \nxyzMiddle(\"AxyzBBB\") → false",
+    "template": "public boolean xyzMiddle(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p129952",
+    "groupName": "String-2",
+    "title": "getSandwich",
+    "description": "A sandwich is two pieces of bread with something in between. Return the string that is between the first and last appearance of \"bread\" in the given string, or return the empty string \"\" if there are not two pieces of bread. ",
+    "examples": "nullgetSandwich(\"breadjambread\") → \"jam\" \ngetSandwich(\"xxbreadjambreadyy\") → \"jam\" \ngetSandwich(\"xxbreadyy\") → \"\"",
+    "template": "public String getSandwich(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p194491",
+    "groupName": "String-2",
+    "title": "sameStarChar",
+    "description": "Returns true if for every \u0027*\u0027 (star) in the string, if there are chars both immediately before and after the star, they are the same. ",
+    "examples": "nullsameStarChar(\"xy*yzz\") → true \nsameStarChar(\"xy*zzz\") → false \nsameStarChar(\"*xa*az\") → true",
+    "template": "public boolean sameStarChar(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p122943",
+    "groupName": "String-2",
+    "title": "oneTwo",
+    "description": "Given a string, compute a new string by moving the first char to come after the next two chars, so \"abc\" yields \"bca\". Repeat this process for each subsequent group of 3 chars, so \"abcdef\" yields \"bcaefd\". Ignore any group of fewer than 3 chars at the end. ",
+    "examples": "nulloneTwo(\"abc\") → \"bca\" \noneTwo(\"tca\") → \"cat\" \noneTwo(\"tcagdo\") → \"catdog\"",
+    "template": "public String oneTwo(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p180759",
+    "groupName": "String-2",
+    "title": "zipZap",
+    "description": "Look for patterns like \"zip\" and \"zap\" in the string -- length-3, starting with \u0027z\u0027 and ending with \u0027p\u0027. Return a string where for all such words, the middle letter is gone, so \"zipXzap\" yields \"zpXzp\". ",
+    "examples": "nullzipZap(\"zipXzap\") → \"zpXzp\" \nzipZap(\"zopzop\") → \"zpzp\" \nzipZap(\"zzzopzop\") → \"zzzpzp\"",
+    "template": "public String zipZap(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p139564",
+    "groupName": "String-2",
+    "title": "starOut",
+    "description": "Return a version of the given string, where for every star (*) in the string the star and the chars immediately to its left and right are gone. So \"ab*cd\" yields \"ad\" and \"ab**cd\" also yields \"ad\". ",
+    "examples": "nullstarOut(\"ab*cd\") → \"ad\" \nstarOut(\"ab**cd\") → \"ad\" \nstarOut(\"sm*eilly\") → \"silly\"",
+    "template": "public String starOut(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p170829",
+    "groupName": "String-2",
+    "title": "plusOut",
+    "description": "Given a string and a non-empty \u003cb\u003eword\u003c/b\u003e string, return a version of the original String where all chars have been replaced by pluses (\"+\"), except for appearances of the word string which are preserved unchanged. ",
+    "examples": "nullplusOut(\"12xy34\", \"xy\") → \"++xy++\" \nplusOut(\"12xy34\", \"1\") → \"1+++++\" \nplusOut(\"12xy34xyabcxy\", \"xy\") → \"++xy++xy+++xy\"",
+    "template": "public String plusOut(String str, String word) {\n  \n}"
+  },
+  {
+    "codingBatId": "p147538",
+    "groupName": "String-2",
+    "title": "wordEnds",
+    "description": "Given a string and a non-empty \u003cb\u003eword\u003c/b\u003e string, return a string made of each char just before and just after every appearance of the word in the string. Ignore cases where there is no char before or after the word, and a char may be included twice if it is between two words. ",
+    "examples": "nullwordEnds(\"abcXY123XYijk\", \"XY\") → \"c13i\" \nwordEnds(\"XY123XY\", \"XY\") → \"13\" \nwordEnds(\"XY1XY\", \"XY\") → \"11\"",
+    "template": "public String wordEnds(String str, String word) {\n  \n}"
+  },
+  {
+    "codingBatId": "p199171",
+    "groupName": "String-3",
+    "title": "countYZ",
+    "description": "Given a string, count the number of words ending in \u0027y\u0027 or \u0027z\u0027 -- so the \u0027y\u0027 in \"heavy\" and the \u0027z\u0027 in \"fez\" count, but not the \u0027y\u0027 in \"yellow\" (not case sensitive). We\u0027ll say that a y or z is at the end of a word if there is not an alphabetic letter immediately following it. (Note: Character.isLetter(char) tests if a char is an alphabetic letter.) ",
+    "examples": "nullcountYZ(\"fez day\") → 2 \ncountYZ(\"day fez\") → 2 \ncountYZ(\"day fyyyz\") → 2",
+    "template": "public int countYZ(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p192570",
+    "groupName": "String-3",
+    "title": "withoutString",
+    "description": "Given two strings, \u003cb\u003ebase\u003c/b\u003e and \u003cb\u003eremove\u003c/b\u003e, return a version of the base string where all instances of the remove string have been removed (not case sensitive). You may assume that the remove string is length 1 or more. Remove only non-overlapping instances, so with \"xxx\" removing \"xx\" leaves \"x\". ",
+    "examples": "nullwithoutString(\"Hello there\", \"llo\") → \"He there\" \nwithoutString(\"Hello there\", \"e\") → \"Hllo thr\" \nwithoutString(\"Hello there\", \"x\") → \"Hello there\"",
+    "template": "public String withoutString(String base, String remove) {\n  \n}"
+  },
+  {
+    "codingBatId": "p141736",
+    "groupName": "String-3",
+    "title": "equalIsNot",
+    "description": "Given a string, return true if the number of appearances of \"is\" anywhere in the string is equal to the number of appearances of \"not\" anywhere in the string (case sensitive). ",
+    "examples": "nullequalIsNot(\"This is not\") → false \nequalIsNot(\"This is notnot\") → true \nequalIsNot(\"noisxxnotyynotxisi\") → true",
+    "template": "public boolean equalIsNot(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p198664",
+    "groupName": "String-3",
+    "title": "gHappy",
+    "description": "We\u0027ll say that a lowercase \u0027g\u0027 in a string is \"happy\" if there is another \u0027g\u0027 immediately to its left or right. Return true if all the g\u0027s in the given string are happy. ",
+    "examples": "nullgHappy(\"xxggxx\") → true \ngHappy(\"xxgxx\") → false \ngHappy(\"xxggyygxx\") → false",
+    "template": "public boolean gHappy(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p195714",
+    "groupName": "String-3",
+    "title": "countTriple",
+    "description": "We\u0027ll say that a \"triple\" in a string is a char appearing three times in a row. Return the number of triples in the given string. The triples may overlap. ",
+    "examples": "nullcountTriple(\"abcXXXabc\") → 1 \ncountTriple(\"xxxabyyyycd\") → 3 \ncountTriple(\"a\") → 0",
+    "template": "public int countTriple(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p197890",
+    "groupName": "String-3",
+    "title": "sumDigits",
+    "description": "Given a string, return the sum of the digits 0-9 that appear in the string, ignoring all other characters. Return 0 if there are no digits in the string. (Note: Character.isDigit(char) tests if a char is one of the chars \u00270\u0027, \u00271\u0027, .. \u00279\u0027. Integer.parseInt(string) converts a string to an int.) ",
+    "examples": "nullsumDigits(\"aa1bc2d3\") → 6 \nsumDigits(\"aa11b33\") → 8 \nsumDigits(\"Chocolate\") → 0",
+    "template": "public int sumDigits(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p131516",
+    "groupName": "String-3",
+    "title": "sameEnds",
+    "description": "Given a string, return the longest substring that appears at both the beginning and end of the string without overlapping. For example, sameEnds(\"abXab\") is \"ab\". ",
+    "examples": "nullsameEnds(\"abXab\") is \"ab\". \nsameEnds(\"abXYab\") → \"ab\" \nsameEnds(\"xx\") → \"x\" \nsameEnds(\"xxx\") → \"x\"",
+    "template": "public String sameEnds(String string) {\n  \n}"
+  },
+  {
+    "codingBatId": "p139411",
+    "groupName": "String-3",
+    "title": "mirrorEnds",
+    "description": "Given a string, look for a mirror image (backwards) string at both the beginning and end of the given string. In other words, zero or more characters at the very begining of the given string, and at the very end of the string in reverse order (possibly overlapping). For example, the string \"abXYZba\" has the mirror end \"ab\". ",
+    "examples": "nullmirrorEnds(\"abXYZba\") → \"ab\" \nmirrorEnds(\"abca\") → \"a\" \nmirrorEnds(\"aba\") → \"aba\"",
+    "template": "public String mirrorEnds(String string) {\n  \n}"
+  },
+  {
+    "codingBatId": "p179479",
+    "groupName": "String-3",
+    "title": "maxBlock",
+    "description": "Given a string, return the length of the largest \"block\" in the string. A block is a run of adjacent chars that are the same. ",
+    "examples": "nullmaxBlock(\"hoopla\") → 2 \nmaxBlock(\"abbCCCddBBBxx\") → 3 \nmaxBlock(\"\") → 0",
+    "template": "public int maxBlock(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p121193",
+    "groupName": "String-3",
+    "title": "sumNumbers",
+    "description": "Given a string, return the sum of the numbers appearing in the string, ignoring all other characters. A number is a series of 1 or more digit chars in a row. (Note: Character.isDigit(char) tests if a char is one of the chars \u00270\u0027, \u00271\u0027, .. \u00279\u0027. Integer.parseInt(string) converts a string to an int.) ",
+    "examples": "nullsumNumbers(\"abc123xyz\") → 123 \nsumNumbers(\"aa11b33\") → 44 \nsumNumbers(\"7 11\") → 18",
+    "template": "public int sumNumbers(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p154137",
+    "groupName": "String-3",
+    "title": "notReplace",
+    "description": "Given a string, return a string where every appearance of the lowercase word \"is\" has been replaced with \"is not\". The word \"is\" should not be immediately preceeded or followed by a letter -- so for example the \"is\" in \"this\" does not count. (Note: Character.isLetter(char) tests if a char is a letter.) ",
+    "examples": "nullnotReplace(\"is test\") → \"is not test\" \nnotReplace(\"is-is\") → \"is not-is not\" \nnotReplace(\"This is right\") → \"This is not right\"",
+    "template": "public String notReplace(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p162010",
+    "groupName": "Array-2",
+    "title": "countEvens",
+    "description": "Return the number of even ints in the given array. Note: the % \"mod\" operator computes the remainder, e.g. 5 % 2 is 1. ",
+    "examples": "nullcountEvens({2, 1, 2, 3, 4}) → 3 \ncountEvens({2, 2, 0}) → 3 \ncountEvens({1, 3, 5}) → 0",
+    "template": "public int countEvens(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p196640",
+    "groupName": "Array-2",
+    "title": "bigDiff",
+    "description": "Given an array length 1 or more of ints, return the difference between the largest and smallest values in the array. Note: the built-in Math.min(v1, v2) and Math.max(v1, v2) methods return the smaller or larger of two values. ",
+    "examples": "nullbigDiff({10, 3, 5, 6}) → 7 \nbigDiff({7, 2, 10, 9}) → 8 \nbigDiff({2, 10, 7, 2}) → 8",
+    "template": "public int bigDiff(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p136585",
+    "groupName": "Array-2",
+    "title": "centeredAverage",
+    "description": "Return the \"centered\" average of an array of ints, which we\u0027ll say is the mean average of the values, except ignoring the largest and smallest values in the array. If there are multiple copies of the smallest value, ignore just one copy, and likewise for the largest value. Use int division to produce the final average. You may assume that the array is length 3 or more. ",
+    "examples": "nullcenteredAverage({1, 2, 3, 4, 100}) → 3 \ncenteredAverage({1, 1, 5, 5, 10, 8, 7}) → 5 \ncenteredAverage({-10, -4, -2, -4, -2, 0}) → -3",
+    "template": "public int centeredAverage(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p127384",
+    "groupName": "Array-2",
+    "title": "sum13",
+    "description": "Return the sum of the numbers in the array, returning 0 for an empty array. Except the number 13 is very unlucky, so it does not count and numbers that come immediately after a 13 also do not count. ",
+    "examples": "nullsum13({1, 2, 2, 1}) → 6 \nsum13({1, 1}) → 2 \nsum13({1, 2, 2, 1, 13}) → 6",
+    "template": "public int sum13(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p111327",
+    "groupName": "Array-2",
+    "title": "sum67",
+    "description": "Return the sum of the numbers in the array, except ignore sections of numbers starting with a 6 and extending to the next 7 (every 6 will be followed by at least one 7). Return 0 for no numbers. ",
+    "examples": "nullsum67({1, 2, 2}) → 5 \nsum67({1, 2, 2, 6, 99, 99, 7}) → 5 \nsum67({1, 1, 6, 7, 2}) → 4",
+    "template": "public int sum67(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p121853",
+    "groupName": "Array-2",
+    "title": "has22",
+    "description": "Given an array of ints, return true if the array contains a 2 next to a 2 somewhere. ",
+    "examples": "nullhas22({1, 2, 2}) → true \nhas22({1, 2, 1, 2}) → false \nhas22({2, 1, 2}) → false",
+    "template": "public boolean has22(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p194525",
+    "groupName": "Array-2",
+    "title": "lucky13",
+    "description": "Given an array of ints, return true if the array contains no 1\u0027s and no 3\u0027s. ",
+    "examples": "nulllucky13({0, 2, 4}) → true \nlucky13({1, 2, 3}) → false \nlucky13({1, 2, 4}) → false",
+    "template": "public boolean lucky13(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p199612",
+    "groupName": "Array-2",
+    "title": "sum28",
+    "description": "Given an array of ints, return true if the sum of all the 2\u0027s in the array is exactly 8. ",
+    "examples": "nullsum28({2, 3, 2, 2, 4, 2}) → true \nsum28({2, 3, 2, 2, 4, 2, 2}) → false \nsum28({1, 2, 3, 4}) → false",
+    "template": "public boolean sum28(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p104627",
+    "groupName": "Array-2",
+    "title": "more14",
+    "description": "Given an array of ints, return true if the number of 1\u0027s is greater than the number of 4\u0027s ",
+    "examples": "nullmore14({1, 4, 1}) → true \nmore14({1, 4, 1, 4}) → false \nmore14({1, 1}) → true",
+    "template": "public boolean more14(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p180920",
+    "groupName": "Array-2",
+    "title": "fizzArray",
+    "description": "Given a number n, create and return a new int array of length n, containing the numbers 0, 1, 2, ... n-1. The given n may be 0, in which case just return a length 0 array. You do not need a separate if-statement for the length-0 case; the for-loop should naturally execute 0 times in that case, so it just works. The syntax to make a new int array is: new int[desired_length] \u0026nbsp; (See also: \u003ca href\u003d\"/doc/practice/fizzbuzz-code.html\"\u003eFizzBuzz Code\u003c/a\u003e) ",
+    "examples": "nullfizzArray(4) → {0, 1, 2, 3} \nfizzArray(1) → {0} \nfizzArray(10) → {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}",
+    "template": "public int[] fizzArray(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p186672",
+    "groupName": "Array-2",
+    "title": "only14",
+    "description": "Given an array of ints, return true if every element is a 1 or a 4. ",
+    "examples": "nullonly14({1, 4, 1, 4}) → true \nonly14({1, 4, 2, 4}) → false \nonly14({1, 1}) → true",
+    "template": "public boolean only14(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p178353",
+    "groupName": "Array-2",
+    "title": "fizzArray2",
+    "description": "Given a number n, create and return a new string array of length n, containing the strings \"0\", \"1\" \"2\" .. through n-1. N may be 0, in which case just return a length 0 array. Note: String.valueOf(xxx) will make the String form of most types. The syntax to make a new string array is: new String[desired_length] \u0026nbsp;(See also: \u003ca href\u003d\"/doc/practice/fizzbuzz-code.html\"\u003eFizzBuzz Code\u003c/a\u003e) ",
+    "examples": "nullfizzArray2(4) → {\"0\", \"1\", \"2\", \"3\"} \nfizzArray2(10) → {\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"} \nfizzArray2(2) → {\"0\", \"1\"}",
+    "template": "public String[] fizzArray2(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p136648",
+    "groupName": "Array-2",
+    "title": "no14",
+    "description": "Given an array of ints, return true if it contains no 1\u0027s or it contains no 4\u0027s. ",
+    "examples": "nullno14({1, 2, 3}) → true \nno14({1, 2, 3, 4}) → false \nno14({2, 3, 4}) → true",
+    "template": "public boolean no14(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p110222",
+    "groupName": "Array-2",
+    "title": "isEverywhere",
+    "description": "We\u0027ll say that a value is \"everywhere\" in an array if for every pair of adjacent elements in the array, at least one of the pair is that value. Return true if the given value is everywhere in the array. ",
+    "examples": "nullisEverywhere({1, 2, 1, 3}, 1) → true \nisEverywhere({1, 2, 1, 3}, 2) → false \nisEverywhere({1, 2, 1, 3, 4}, 1) → false",
+    "template": "public boolean isEverywhere(int[] nums, int val) {\n  \n}"
+  },
+  {
+    "codingBatId": "p191878",
+    "groupName": "Array-2",
+    "title": "either24",
+    "description": "Given an array of ints, return true if the array contains a 2 next to a 2 or a 4 next to a 4, but not both. ",
+    "examples": "nulleither24({1, 2, 2}) → true \neither24({4, 4, 1}) → true \neither24({4, 4, 1, 2, 2}) → false",
+    "template": "public boolean either24(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p136254",
+    "groupName": "Array-2",
+    "title": "matchUp",
+    "description": "Given arrays nums1 and nums2 of the same length, for every element in nums1, consider the corresponding element in nums2 (at the same index). Return the count of the number of times that the two elements differ by 2 or less, but are not equal. ",
+    "examples": "nullmatchUp({1, 2, 3}, {2, 3, 10}) → 2 \nmatchUp({1, 2, 3}, {2, 3, 5}) → 3 \nmatchUp({1, 2, 3}, {2, 3, 3}) → 2",
+    "template": "public int matchUp(int[] nums1, int[] nums2) {\n  \n}"
+  },
+  {
+    "codingBatId": "p168357",
+    "groupName": "Array-2",
+    "title": "has77",
+    "description": "Given an array of ints, return true if the array contains two 7\u0027s next to each other, or there are two 7\u0027s separated by one element, such as with {7, 1, 7}. ",
+    "examples": "nullhas77({1, 7, 7}) → true \nhas77({1, 7, 1, 7}) → true \nhas77({1, 7, 1, 1, 7}) → false",
+    "template": "public boolean has77(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p169260",
+    "groupName": "Array-2",
+    "title": "has12",
+    "description": "Given an array of ints, return true if there is a 1 in the array with a 2 somewhere later in the array. ",
+    "examples": "nullhas12({1, 3, 2}) → true \nhas12({3, 1, 2}) → true \nhas12({3, 1, 4, 5, 2}) → true",
+    "template": "public boolean has12(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p159979",
+    "groupName": "Array-2",
+    "title": "modThree",
+    "description": "Given an array of ints, return true if the array contains either 3 even or 3 odd values all next to each other. ",
+    "examples": "nullmodThree({2, 1, 3, 5}) → true \nmodThree({2, 1, 2, 5}) → false \nmodThree({2, 4, 2, 5}) → true",
+    "template": "public boolean modThree(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p109783",
+    "groupName": "Array-2",
+    "title": "haveThree",
+    "description": "Given an array of ints, return true if the value 3 appears in the array exactly 3 times, and no 3\u0027s are next to each other. ",
+    "examples": "nullhaveThree({3, 1, 3, 1, 3}) → true \nhaveThree({3, 1, 3, 3}) → false \nhaveThree({3, 4, 3, 3, 4}) → false",
+    "template": "public boolean haveThree(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p102145",
+    "groupName": "Array-2",
+    "title": "twoTwo",
+    "description": "Given an array of ints, return true if every 2 that appears in the array is next to another 2. ",
+    "examples": "nulltwoTwo({4, 2, 2, 3}) → true \ntwoTwo({2, 2, 4}) → true \ntwoTwo({2, 2, 4, 2}) → false",
+    "template": "public boolean twoTwo(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p134300",
+    "groupName": "Array-2",
+    "title": "sameEnds",
+    "description": "Return true if the group of N numbers at the start and end of the array are the same. For example, with {5, 6, 45, 99, 13, 5, 6}, the ends are the same for n\u003d0 and n\u003d2, and false for n\u003d1 and n\u003d3. You may assume that n is in the range 0..nums.length inclusive. ",
+    "examples": "nullsameEnds({5, 6, 45, 99, 13, 5, 6}, 1) → false \nsameEnds({5, 6, 45, 99, 13, 5, 6}, 2) → true \nsameEnds({5, 6, 45, 99, 13, 5, 6}, 3) → false",
+    "template": "public boolean sameEnds(int[] nums, int len) {\n  \n}"
+  },
+  {
+    "codingBatId": "p137874",
+    "groupName": "Array-2",
+    "title": "tripleUp",
+    "description": "Return true if the array contains, somewhere, three increasing adjacent numbers like .... 4, 5, 6, ... or 23, 24, 25. ",
+    "examples": "nulltripleUp({1, 4, 5, 6, 2}) → true \ntripleUp({1, 2, 3}) → true \ntripleUp({1, 2, 4}) → false",
+    "template": "public boolean tripleUp(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p142539",
+    "groupName": "Array-2",
+    "title": "fizzArray3",
+    "description": "Given \u003cb\u003estart\u003c/b\u003e and \u003cb\u003eend\u003c/b\u003e numbers, return a new array containing the sequence of integers from start up to but not including end, so start\u003d5 and end\u003d10 yields {5, 6, 7, 8, 9}. The end number will be greater or equal to the start number. Note that a length-0 array is valid. (See also: \u003ca href\u003d\"/doc/practice/fizzbuzz-code.html\"\u003eFizzBuzz Code\u003c/a\u003e) ",
+    "examples": "nullfizzArray3(5, 10) → {5, 6, 7, 8, 9} \nfizzArray3(11, 18) → {11, 12, 13, 14, 15, 16, 17} \nfizzArray3(1, 3) → {1, 2}",
+    "template": "public int[] fizzArray3(int start, int end) {\n  \n}"
+  },
+  {
+    "codingBatId": "p105031",
+    "groupName": "Array-2",
+    "title": "shiftLeft",
+    "description": "Return an array that is \"left shifted\" by one -- so {6, 2, 5, 3} returns {2, 5, 3, 6}. You may modify and return the given array, or return a new array. ",
+    "examples": "nullshiftLeft({6, 2, 5, 3}) → {2, 5, 3, 6} \nshiftLeft({1, 2}) → {2, 1} \nshiftLeft({1}) → {1}",
+    "template": "public int[] shiftLeft(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p199484",
+    "groupName": "Array-2",
+    "title": "tenRun",
+    "description": "For each multiple of 10 in the given array, change all the values following it to be that multiple of 10, until encountering another multiple of 10. So {2, 10, 3, 4, 20, 5} yields {2, 10, 10, 10, 20, 20}. ",
+    "examples": "nulltenRun({2, 10, 3, 4, 20, 5}) → {2, 10, 10, 10, 20, 20} \ntenRun({10, 1, 20, 2}) → {10, 10, 20, 20} \ntenRun({10, 1, 9, 20}) → {10, 10, 10, 20}",
+    "template": "public int[] tenRun(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p100246",
+    "groupName": "Array-2",
+    "title": "pre4",
+    "description": "Given a non-empty array of ints, return a new array containing the elements from the original array that come before the first 4 in the original array. The original array will contain at least one 4. Note that it is valid in java to create an array of length 0. ",
+    "examples": "nullpre4({1, 2, 4, 1}) → {1, 2} \npre4({3, 1, 4}) → {3, 1} \npre4({1, 4, 4}) → {1}",
+    "template": "public int[] pre4(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p164144",
+    "groupName": "Array-2",
+    "title": "post4",
+    "description": "Given a non-empty array of ints, return a new array containing the elements from the original array that come after the last 4 in the original array. The original array will contain at least one 4. Note that it is valid in java to create an array of length 0. ",
+    "examples": "nullpost4({2, 4, 1, 2}) → {1, 2} \npost4({4, 1, 4, 2}) → {2} \npost4({4, 4, 1, 2, 3}) → {1, 2, 3}",
+    "template": "public int[] post4(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p169506",
+    "groupName": "Array-2",
+    "title": "notAlone",
+    "description": "We\u0027ll say that an element in an array is \"alone\" if there are values before and after it, and those values are different from it. Return a version of the given array where every instance of the given value which is alone is replaced by whichever value to its left or right is larger. ",
+    "examples": "nullnotAlone({1, 2, 3}, 2) → {1, 3, 3} \nnotAlone({1, 2, 3, 2, 5, 2}, 2) → {1, 3, 3, 5, 5, 2} \nnotAlone({3, 4}, 3) → {3, 4}",
+    "template": "public int[] notAlone(int[] nums, int val) {\n  \n}"
+  },
+  {
+    "codingBatId": "p193753",
+    "groupName": "Array-2",
+    "title": "zeroFront",
+    "description": "Return an array that contains the exact same numbers as the given array, but rearranged so that all the zeros are grouped at the start of the array. The order of the non-zero numbers does not matter. So {1, 0, 0, 1} becomes {0 ,0, 1, 1}. You may modify and return the given array or make a new array. ",
+    "examples": "nullzeroFront({1, 0, 0, 1}) → {0, 0, 1, 1} \nzeroFront({0, 1, 1, 0, 1}) → {0, 0, 1, 1, 1} \nzeroFront({1, 0}) → {0, 1}",
+    "template": "public int[] zeroFront(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p196976",
+    "groupName": "Array-2",
+    "title": "withoutTen",
+    "description": "Return a version of the given array where all the 10\u0027s have been removed. The remaining elements should shift left towards the start of the array as needed, and the empty spaces a the end of the array should be 0. So {1, 10, 10, 2} yields {1, 2, 0, 0}. You may modify and return the given array or make a new array. ",
+    "examples": "nullwithoutTen({1, 10, 10, 2}) → {1, 2, 0, 0} \nwithoutTen({10, 2, 10}) → {2, 0, 0} \nwithoutTen({1, 99, 10}) → {1, 99, 0}",
+    "template": "public int[] withoutTen(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p187050",
+    "groupName": "Array-2",
+    "title": "zeroMax",
+    "description": "Return a version of the given array where each zero value in the array is replaced by the largest odd value to the right of the zero in the array. If there is no odd value to the right of the zero, leave the zero as a zero. ",
+    "examples": "nullzeroMax({0, 5, 0, 3}) → {5, 5, 3, 3} \nzeroMax({0, 4, 0, 3}) → {3, 4, 3, 3} \nzeroMax({0, 1, 0}) → {1, 1, 0}",
+    "template": "public int[] zeroMax(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p105771",
+    "groupName": "Array-2",
+    "title": "evenOdd",
+    "description": "Return an array that contains the exact same numbers as the given array, but rearranged so that all the even numbers come before all the odd numbers. Other than that, the numbers can be in any order. You may modify and return the given array, or make a new array. ",
+    "examples": "nullevenOdd({1, 0, 1, 0, 0, 1, 1}) → {0, 0, 0, 1, 1, 1, 1} \nevenOdd({3, 3, 2}) → {2, 3, 3} \nevenOdd({2, 2, 2}) → {2, 2, 2}",
+    "template": "public int[] evenOdd(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p153059",
+    "groupName": "Array-2",
+    "title": "fizzBuzz",
+    "description": "This is slightly more difficult version of the famous FizzBuzz problem which is sometimes given as a first problem for job interviews. (See also: \u003ca href\u003d\"/doc/practice/fizzbuzz-code.html\"\u003eFizzBuzz Code\u003c/a\u003e.) Consider the series of numbers beginning at \u003cb\u003estart\u003c/b\u003e and running up to but not including \u003cb\u003eend\u003c/b\u003e, so for example start\u003d1 and end\u003d5 gives the series 1, 2, 3, 4. Return a new String[] array containing the string form of these numbers, except for multiples of 3, use \"Fizz\" instead of the number, for multiples of 5 use \"Buzz\", and for multiples of both 3 and 5 use \"FizzBuzz\". In Java, String.valueOf(xxx) will make the String form of an int or other type. This version is a little more complicated than the usual version since you have to allocate and index into an array instead of just printing, and we vary the start/end instead of just always doing 1..100. ",
+    "examples": "nullfizzBuzz(1, 6) → {\"1\", \"2\", \"Fizz\", \"4\", \"Buzz\"} \nfizzBuzz(1, 8) → {\"1\", \"2\", \"Fizz\", \"4\", \"Buzz\", \"Fizz\", \"7\"} \nfizzBuzz(1, 11) → {\"1\", \"2\", \"Fizz\", \"4\", \"Buzz\", \"Fizz\", \"7\", \"8\", \"Fizz\", \"Buzz\"}",
+    "template": "public String[] fizzBuzz(int start, int end) {\n  \n}"
+  },
+  {
+    "codingBatId": "p189576",
+    "groupName": "Array-3",
+    "title": "maxSpan",
+    "description": "Consider the leftmost and righmost appearances of some value in an array. We\u0027ll say that the \"span\" is the number of elements between the two inclusive. A single value has a span of 1. Returns the largest span found in the given array. (Efficiency is not a priority.) ",
+    "examples": "nullmaxSpan({1, 2, 1, 1, 3}) → 4 \nmaxSpan({1, 4, 2, 1, 4, 1, 4}) → 6 \nmaxSpan({1, 4, 2, 1, 4, 4, 4}) → 6",
+    "template": "public int maxSpan(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p159339",
+    "groupName": "Array-3",
+    "title": "fix34",
+    "description": "Return an array that contains exactly the same numbers as the given array, but rearranged so that every 3 is immediately followed by a 4. Do not move the 3\u0027s, but every other number may move. The array contains the same number of 3\u0027s and 4\u0027s, every 3 has a number after it that is not a 3 or 4, and a 3 appears in the array before any 4. ",
+    "examples": "nullfix34({1, 3, 1, 4}) → {1, 3, 4, 1} \nfix34({1, 3, 1, 4, 4, 3, 1}) → {1, 3, 4, 1, 1, 3, 4} \nfix34({3, 2, 2, 4}) → {3, 4, 2, 2}",
+    "template": "public int[] fix34(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p125819",
+    "groupName": "Array-3",
+    "title": "fix45",
+    "description": "(This is a slightly harder version of the fix34 problem.) Return an array that contains exactly the same numbers as the given array, but rearranged so that every 4 is immediately followed by a 5. Do not move the 4\u0027s, but every other number may move. The array contains the same number of 4\u0027s and 5\u0027s, and every 4 has a number after it that is not a 4. In this version, 5\u0027s may appear anywhere in the original array. ",
+    "examples": "nullfix45({5, 4, 9, 4, 9, 5}) → {9, 4, 5, 4, 5, 9} \nfix45({1, 4, 1, 5}) → {1, 4, 5, 1} \nfix45({1, 4, 1, 5, 5, 4, 1}) → {1, 4, 5, 1, 1, 4, 5}",
+    "template": "public int[] fix45(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p158767",
+    "groupName": "Array-3",
+    "title": "canBalance",
+    "description": "Given a non-empty array, return true if there is a place to split the array so that the sum of the numbers on one side is equal to the sum of the numbers on the other side. ",
+    "examples": "nullcanBalance({1, 1, 1, 2, 1}) → true \ncanBalance({2, 1, 1, 2, 1}) → false \ncanBalance({10, 10}) → true",
+    "template": "public boolean canBalance(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p134022",
+    "groupName": "Array-3",
+    "title": "linearIn",
+    "description": "Given two arrays of ints sorted in increasing order, \u003cb\u003eouter\u003c/b\u003e and \u003cb\u003einner\u003c/b\u003e, return true if all of the numbers in inner appear in outer. The best solution makes only a single \"linear\" pass of both arrays, taking advantage of the fact that both arrays are already in sorted order. ",
+    "examples": "nulllinearIn({1, 2, 4, 6}, {2, 4}) → true \nlinearIn({1, 2, 4, 6}, {2, 3, 4}) → false \nlinearIn({1, 2, 4, 4, 6}, {2, 4}) → true",
+    "template": "public boolean linearIn(int[] outer, int[] inner) {\n  \n}"
+  },
+  {
+    "codingBatId": "p155405",
+    "groupName": "Array-3",
+    "title": "squareUp",
+    "description": "Given n\u0026gt;\u003d0, create an array length n*n with the following pattern, shown here for n\u003d3 : {0, 0, 1, \u0026nbsp;\u0026nbsp; 0, 2, 1, \u0026nbsp;\u0026nbsp; 3, 2, 1} (spaces added to show the 3 groups). ",
+    "examples": "nullsquareUp(3) → {0, 0, 1, 0, 2, 1, 3, 2, 1} \nsquareUp(2) → {0, 1, 2, 1} \nsquareUp(4) → {0, 0, 0, 1, 0, 0, 2, 1, 0, 3, 2, 1, 4, 3, 2, 1}",
+    "template": "public int[] squareUp(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p104090",
+    "groupName": "Array-3",
+    "title": "seriesUp",
+    "description": "Given n\u0026gt;\u003d0, create an array with the pattern {1, \u0026nbsp;\u0026nbsp; 1, 2, \u0026nbsp;\u0026nbsp; 1, 2, 3, \u0026nbsp;\u0026nbsp;... 1, 2, 3 .. n} (spaces added to show the grouping). Note that the length of the array will be 1 + 2 + 3 ... + n, which is known to sum to exactly n*(n + 1)/2. ",
+    "examples": "nullseriesUp(3) → {1, 1, 2, 1, 2, 3} \nseriesUp(4) → {1, 1, 2, 1, 2, 3, 1, 2, 3, 4} \nseriesUp(2) → {1, 1, 2}",
+    "template": "public int[] seriesUp(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p196409",
+    "groupName": "Array-3",
+    "title": "maxMirror",
+    "description": "We\u0027ll say that a \"mirror\" section in an array is a group of contiguous elements such that somewhere in the array, the same group appears in reverse order. For example, the largest mirror section in {1, 2, 3, 8, 9, 3, 2, 1} is length 3 (the {1, 2, 3} part). Return the size of the largest mirror section found in the given array. ",
+    "examples": "nullmaxMirror({1, 2, 3, 8, 9, 3, 2, 1}) → 3 \nmaxMirror({1, 2, 1, 4}) → 3 \nmaxMirror({7, 1, 2, 9, 7, 2, 1}) → 2",
+    "template": "public int maxMirror(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p193817",
+    "groupName": "Array-3",
+    "title": "countClumps",
+    "description": "Say that a \"clump\" in an array is a series of 2 or more adjacent elements of the same value. Return the number of clumps in the given array. ",
+    "examples": "nullcountClumps({1, 2, 2, 3, 4, 4}) → 2 \ncountClumps({1, 1, 2, 1, 1}) → 2 \ncountClumps({1, 1, 1, 1, 1}) → 1",
+    "template": "public int countClumps(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p146974",
+    "groupName": "AP-1",
+    "title": "scoresIncreasing",
+    "description": "Given an array of scores, return true if each score is equal or greater than the one before. The array will be length 2 or more. ",
+    "examples": "nullscoresIncreasing({1, 3, 4}) → true \nscoresIncreasing({1, 3, 2}) → false \nscoresIncreasing({1, 1, 4}) → true",
+    "template": "public boolean scoresIncreasing(int[] scores) {\n  \n}"
+  },
+  {
+    "codingBatId": "p179487",
+    "groupName": "AP-1",
+    "title": "scores100",
+    "description": "Given an array of scores, return true if there are scores of 100 next to each other in the array. The array length will be at least 2. ",
+    "examples": "nullscores100({1, 100, 100}) → true \nscores100({1, 100, 99, 100}) → false \nscores100({100, 1, 100, 100}) → true",
+    "template": "public boolean scores100(int[] scores) {\n  \n}"
+  },
+  {
+    "codingBatId": "p194530",
+    "groupName": "AP-1",
+    "title": "scoresClump",
+    "description": "Given an array of scores sorted in increasing order, return true if the array contains 3 adjacent scores that differ from each other by at most 2, such as with {3, 4, 5} or {3, 5, 5}. ",
+    "examples": "nullscoresClump({3, 4, 5}) → true \nscoresClump({3, 4, 6}) → false \nscoresClump({1, 3, 5, 5}) → true",
+    "template": "public boolean scoresClump(int[] scores) {\n  \n}"
+  },
+  {
+    "codingBatId": "p123837",
+    "groupName": "AP-1",
+    "title": "scoresAverage",
+    "description": "Given an array of scores, compute the int average of the first half and the second half, and return whichever is larger. We\u0027ll say that the second half begins at index length/2. The array length will be at least 2. To practice decomposition, write a separate helper method \u0026lt;br\u0026gt;\u003ccode\u003eint average(int[] scores, int start, int end) { \u003c/code\u003e which computes the average of the elements between indexes start..end. Call your helper method twice to implement scoresAverage(). Write your helper method after your scoresAverage() method in the JavaBat text area. Normally you would compute averages with doubles, but here we use ints so the expected results are exact. ",
+    "examples": "nullscoresAverage(). Write your helper method after your \nscoresAverage() method in the JavaBat text area. Normally you would compute averages with doubles, but here we use ints so the expected results are exact. \nscoresAverage({2, 2, 4, 4}) → 4 \nscoresAverage({4, 4, 4, 2, 2, 2}) → 4 \nscoresAverage({3, 4, 5, 1, 2, 3}) → 4",
+    "template": "public int scoresAverage(int[] scores) {\n  \n}"
+  },
+  {
+    "codingBatId": "p124620",
+    "groupName": "AP-1",
+    "title": "wordsCount",
+    "description": "Given an array of strings, return the count of the number of strings with the given length. ",
+    "examples": "nullwordsCount({\"a\", \"bb\", \"b\", \"ccc\"}, 1) → 2 \nwordsCount({\"a\", \"bb\", \"b\", \"ccc\"}, 3) → 1 \nwordsCount({\"a\", \"bb\", \"b\", \"ccc\"}, 4) → 0",
+    "template": "public int wordsCount(String[] words, int len) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183837",
+    "groupName": "AP-1",
+    "title": "wordsFront",
+    "description": "Given an array of strings, return a new array containing the first N strings. N will be in the range 1..length. ",
+    "examples": "nullwordsFront({\"a\", \"b\", \"c\", \"d\"}, 1) → {\"a\"} \nwordsFront({\"a\", \"b\", \"c\", \"d\"}, 2) → {\"a\", \"b\"} \nwordsFront({\"a\", \"b\", \"c\", \"d\"}, 3) → {\"a\", \"b\", \"c\"}",
+    "template": "public String[] wordsFront(String[] words, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183407",
+    "groupName": "AP-1",
+    "title": "wordsWithoutList",
+    "description": "Given an array of strings, return a new List (e.g. an ArrayList) where all the strings of the given length are omitted. See wordsWithout() below which is more difficult because it uses arrays. ",
+    "examples": "nullwordsWithoutList({\"a\", \"bb\", \"b\", \"ccc\"}, 1) → {\"bb\", \"ccc\"} \nwordsWithoutList({\"a\", \"bb\", \"b\", \"ccc\"}, 3) → {\"a\", \"bb\", \"b\"} \nwordsWithoutList({\"a\", \"bb\", \"b\", \"ccc\"}, 4) → {\"a\", \"bb\", \"b\", \"ccc\"}",
+    "template": "public List wordsWithoutList(String[] words, int len) {\n  \n}"
+  },
+  {
+    "codingBatId": "p191212",
+    "groupName": "AP-1",
+    "title": "hasOne",
+    "description": "Given a positive int n, return true if it contains a 1 digit. Note: use % to get the rightmost digit, and / to discard the rightmost digit. ",
+    "examples": "nullhasOne(10) → true \nhasOne(22) → false \nhasOne(220) → false",
+    "template": "public boolean hasOne(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p165941",
+    "groupName": "AP-1",
+    "title": "dividesSelf",
+    "description": "We\u0027ll say that a positive int divides itself if every digit in the number divides into the number evenly. So for example 128 divides itself since 1, 2, and 8 all divide into 128 evenly. We\u0027ll say that 0 does not divide into anything evenly, so no number with a 0 digit divides itself. Note: use % to get the rightmost digit, and / to discard the rightmost digit. ",
+    "examples": "nulldividesSelf(128) → true \ndividesSelf(12) → true \ndividesSelf(120) → false",
+    "template": "public boolean dividesSelf(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p134174",
+    "groupName": "AP-1",
+    "title": "copyEvens",
+    "description": "Given an array of positive ints, return a new array of length \"count\" containing the first even numbers from the original array. The original array will contain at least \"count\" even numbers. ",
+    "examples": "nullcopyEvens({3, 2, 4, 5, 8}, 2) → {2, 4} \ncopyEvens({3, 2, 4, 5, 8}, 3) → {2, 4, 8} \ncopyEvens({6, 1, 2, 4, 5, 8}, 3) → {6, 2, 4}",
+    "template": "public int[] copyEvens(int[] nums, int count) {\n  \n}"
+  },
+  {
+    "codingBatId": "p130124",
+    "groupName": "AP-1",
+    "title": "copyEndy",
+    "description": "We\u0027ll say that a positive int n is \"endy\" if it is in the range 0..10 or 90..100 (inclusive). Given an array of positive ints, return a new array of length \"count\" containing the first endy numbers from the original array. Decompose out a separate isEndy(int n) method to test if a number is endy. The original array will contain at least \"count\" endy numbers. ",
+    "examples": "nullcopyEndy({9, 11, 90, 22, 6}, 2) → {9, 90} \ncopyEndy({9, 11, 90, 22, 6}, 3) → {9, 90, 6} \ncopyEndy({12, 1, 1, 13, 0, 20}, 2) → {1, 1}",
+    "template": "public int[] copyEndy(int[] nums, int count) {\n  \n}"
+  },
+  {
+    "codingBatId": "p139677",
+    "groupName": "AP-1",
+    "title": "matchUp",
+    "description": "Given 2 arrays that are the same length containing strings, compare the 1st string in one array to the 1st string in the other array, the 2nd to the 2nd and so on. Count the number of times that the 2 strings are non-empty and start with the same char. The strings may be any length, including 0. ",
+    "examples": "nullmatchUp({\"aa\", \"bb\", \"cc\"}, {\"aaa\", \"xx\", \"bb\"}) → 1 \nmatchUp({\"aa\", \"bb\", \"cc\"}, {\"aaa\", \"b\", \"bb\"}) → 2 \nmatchUp({\"aa\", \"bb\", \"cc\"}, {\"\", \"\", \"ccc\"}) → 1",
+    "template": "public int matchUp(String[] a, String[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p180365",
+    "groupName": "AP-1",
+    "title": "scoreUp",
+    "description": "The \"key\" array is an array containing the correct answers to an exam, like {\"a\", \"a\", \"b\", \"b\"}. the \"answers\" array contains a student\u0027s answers, with \"?\" representing a question left blank. The two arrays are not empty and are the same length. Return the score for this array of answers, giving +4 for each correct answer, -1 for each incorrect answer, and +0 for each blank answer. ",
+    "examples": "nullscoreUp({\"a\", \"a\", \"b\", \"b\"}, {\"a\", \"c\", \"b\", \"c\"}) → 6 \nscoreUp({\"a\", \"a\", \"b\", \"b\"}, {\"a\", \"a\", \"b\", \"c\"}) → 11 \nscoreUp({\"a\", \"a\", \"b\", \"b\"}, {\"a\", \"a\", \"b\", \"b\"}) → 16",
+    "template": "public int scoreUp(String[] key, String[] answers) {\n  \n}"
+  },
+  {
+    "codingBatId": "p121236",
+    "groupName": "AP-1",
+    "title": "wordsWithout",
+    "description": "Given an array of strings, return a new array without the strings that are equal to the target string. One approach is to count the occurrences of the target string, make a new array of the correct length, and then copy over the correct strings. ",
+    "examples": "nullwordsWithout({\"a\", \"b\", \"c\", \"a\"}, \"a\") → {\"b\", \"c\"} \nwordsWithout({\"a\", \"b\", \"c\", \"a\"}, \"b\") → {\"a\", \"c\", \"a\"} \nwordsWithout({\"a\", \"b\", \"c\", \"a\"}, \"c\") → {\"a\", \"b\", \"a\"}",
+    "template": "public String[] wordsWithout(String[] words, String target) {\n  \n}"
+  },
+  {
+    "codingBatId": "p140485",
+    "groupName": "AP-1",
+    "title": "scoresSpecial",
+    "description": "Given two arrays, A and B, of non-negative int scores. A \"special\" score is one which is a multiple of 10, such as 40 or 90. Return the sum of largest special score in A and the largest special score in B. To practice decomposition, write a separate helper method which finds the largest special score in an array. Write your helper method after your scoresSpecial() method in the JavaBat text area. ",
+    "examples": "nullscoresSpecial() method in the JavaBat text area. \nscoresSpecial({12, 10, 4}, {2, 20, 30}) → 40 \nscoresSpecial({20, 10, 4}, {2, 20, 10}) → 40 \nscoresSpecial({12, 11, 4}, {2, 20, 31}) → 20",
+    "template": "public int scoresSpecial(int[] a, int[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p148138",
+    "groupName": "AP-1",
+    "title": "sumHeights",
+    "description": "We have an array of heights, representing the altitude along a walking trail. Given start/end indexes into the array, return the sum of the changes for a walk beginning at the start index and ending at the end index. For example, with the heights {5, 3, 6, 7, 2} and start\u003d2, end\u003d4 yields a sum of 1 + 5 \u003d 6. The start end end index will both be valid indexes into the array with start \u0026lt;\u003d end. ",
+    "examples": "nullsumHeights({5, 3, 6, 7, 2}, 2, 4) → 6 \nsumHeights({5, 3, 6, 7, 2}, 0, 1) → 2 \nsumHeights({5, 3, 6, 7, 2}, 0, 4) → 11",
+    "template": "public int sumHeights(int[] heights, int start, int end) {\n  \n}"
+  },
+  {
+    "codingBatId": "p157900",
+    "groupName": "AP-1",
+    "title": "sumHeights2",
+    "description": "(A variation on the sumHeights problem.) We have an array of heights, representing the altitude along a walking trail. Given start/end indexes into the array, return the sum of the changes for a walk beginning at the start index and ending at the end index, however increases in height count double. For example, with the heights {5, 3, 6, 7, 2} and start\u003d2, end\u003d4 yields a sum of 1*2 + 5 \u003d 7. The start end end index will both be valid indexes into the array with start \u0026lt;\u003d end. ",
+    "examples": "nullsumHeights2({5, 3, 6, 7, 2}, 2, 4) → 7 \nsumHeights2({5, 3, 6, 7, 2}, 0, 1) → 2 \nsumHeights2({5, 3, 6, 7, 2}, 0, 4) → 15",
+    "template": "public int sumHeights2(int[] heights, int start, int end) {\n  \n}"
+  },
+  {
+    "codingBatId": "p197710",
+    "groupName": "AP-1",
+    "title": "bigHeights",
+    "description": "(A variation on the sumHeights problem.) We have an array of heights, representing the altitude along a walking trail. Given start/end indexes into the array, return the number of \"big\" steps for a walk starting at the start index and ending at the end index. We\u0027ll say that step is big if it is 5 or more up or down. The start end end index will both be valid indexes into the array with start \u0026lt;\u003d end. ",
+    "examples": "nullbigHeights({5, 3, 6, 7, 2}, 2, 4) → 1 \nbigHeights({5, 3, 6, 7, 2}, 0, 1) → 0 \nbigHeights({5, 3, 6, 7, 2}, 0, 4) → 1",
+    "template": "public int bigHeights(int[] heights, int start, int end) {\n  \n}"
+  },
+  {
+    "codingBatId": "p143482",
+    "groupName": "AP-1",
+    "title": "userCompare",
+    "description": "We have data for two users, A and B, each with a String name and an int id. The goal is to order the users such as for sorting. Return -1 if A comes before B, 1 if A comes after B, and 0 if they are the same. Order first by the string names, and then by the id numbers if the names are the same. Note: with Strings str1.compareTo(str2) returns an int value which is negative/0/positive to indicate how str1 is ordered to str2 (the value is not limited to -1/0/1). (On the AP, there would be two User objects, but here the code simply takes the two strings and two ints directly. The code logic is the same.) ",
+    "examples": "nulluserCompare(\"bb\", 1, \"zz\", 2) → -1 \nuserCompare(\"bb\", 1, \"aa\", 2) → 1 \nuserCompare(\"bb\", 1, \"bb\", 1) → 0",
+    "template": "public int userCompare(String aName, int aId, String bName, int bId) {\n  \n}"
+  },
+  {
+    "codingBatId": "p139150",
+    "groupName": "AP-1",
+    "title": "mergeTwo",
+    "description": "Start with two arrays of strings, A and B, each with its elements in alphabetical order and without duplicates. Return a new array containing the first N elements from the two arrays. The result array should be in alphabetical order and without duplicates. A and B will both have a length which is N or more. The best \"linear\" solution makes a single pass over A and B, taking advantage of the fact that they are in alphabetical order, copying elements directly to the new array. ",
+    "examples": "nullmergeTwo({\"a\", \"c\", \"z\"}, {\"b\", \"f\", \"z\"}, 3) → {\"a\", \"b\", \"c\"} \nmergeTwo({\"a\", \"c\", \"z\"}, {\"c\", \"f\", \"z\"}, 3) → {\"a\", \"c\", \"f\"} \nmergeTwo({\"f\", \"g\", \"z\"}, {\"c\", \"f\", \"g\"}, 3) → {\"c\", \"f\", \"g\"}",
+    "template": "public String[] mergeTwo(String[] a, String[] b, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p100369",
+    "groupName": "AP-1",
+    "title": "commonTwo",
+    "description": "Start with two arrays of strings, a and b, each in alphabetical order, possibly with duplicates. Return the count of the number of strings which appear in both arrays. The best \"linear\" solution makes a single pass over both arrays, taking advantage of the fact that they are in alphabetical order. ",
+    "examples": "nullcommonTwo({\"a\", \"c\", \"x\"}, {\"b\", \"c\", \"d\", \"x\"}) → 2 \ncommonTwo({\"a\", \"c\", \"x\"}, {\"a\", \"b\", \"c\", \"x\", \"z\"}) → 3 \ncommonTwo({\"a\", \"b\", \"c\"}, {\"a\", \"b\", \"c\"}) → 3",
+    "template": "public int commonTwo(String[] a, String[] b) {\n  \n}"
+  },
+  {
+    "codingBatId": "p154669",
+    "groupName": "Recursion-1",
+    "title": "factorial",
+    "description": "Given n of 1 or more, return the factorial of n, which is n * (n-1) * (n-2) ... 1. Compute the result recursively (without loops). ",
+    "examples": "nullfactorial of n, which is n * (n-1) * (n-2) ... 1. Compute the result recursively (without loops). \nfactorial(1) → 1 \nfactorial(2) → 2 \nfactorial(3) → 6",
+    "template": "public int factorial(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183649",
+    "groupName": "Recursion-1",
+    "title": "bunnyEars",
+    "description": "We have a number of bunnies and each bunny has two big floppy ears. We want to compute the total number of ears across all the bunnies recursively (without loops or multiplication). ",
+    "examples": "nullbunnyEars(0) → 0 \nbunnyEars(1) → 2 \nbunnyEars(2) → 4",
+    "template": "public int bunnyEars(int bunnies) {\n  \n}"
+  },
+  {
+    "codingBatId": "p120015",
+    "groupName": "Recursion-1",
+    "title": "fibonacci",
+    "description": "The fibonacci sequence is a famous bit of mathematics, and it happens to have a recursive definition. The first two values in the sequence are 0 and 1 (essentially 2 base cases). Each subsequent value is the sum of the previous two values, so the whole sequence is: 0, 1, 1, 2, 3, 5, 8, 13, 21 and so on. Define a recursive fibonacci(n) method that returns the nth fibonacci number, with n\u003d0 representing the start of the sequence. ",
+    "examples": "nullfibonacci sequence is a famous bit of mathematics, and it happens to have a recursive definition. The first two values in the sequence are 0 and 1 (essentially 2 base cases). Each subsequent value is the sum of the previous two values, so the whole sequence is: 0, 1, 1, 2, 3, 5, 8, 13, 21 and so on. Define a recursive \nfibonacci(n) method that returns the nth \nfibonacci number, with n\u003d0 representing the start of the sequence. \nfibonacci(0) → 0 \nfibonacci(1) → 1 \nfibonacci(2) → 1",
+    "template": "public int fibonacci(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p107330",
+    "groupName": "Recursion-1",
+    "title": "bunnyEars2",
+    "description": "We have bunnies standing in a line, numbered 1, 2, ... The odd bunnies (1, 3, ..) have the normal 2 ears. The even bunnies (2, 4, ..) we\u0027ll say have 3 ears, because they each have a raised foot. Recursively return the number of \"ears\" in the bunny line 1, 2, ... n (without loops or multiplication). ",
+    "examples": "nullbunnyEars2(0) → 0 \nbunnyEars2(1) → 2 \nbunnyEars2(2) → 5",
+    "template": "public int bunnyEars2(int bunnies) {\n  \n}"
+  },
+  {
+    "codingBatId": "p194781",
+    "groupName": "Recursion-1",
+    "title": "triangle",
+    "description": "We have triangle made of blocks. The topmost row has 1 block, the next row down has 2 blocks, the next row has 3 blocks, and so on. Compute recursively (no loops or multiplication) the total number of blocks in such a triangle with the given number of rows. ",
+    "examples": "nulltriangle made of blocks. The topmost row has 1 block, the next row down has 2 blocks, the next row has 3 blocks, and so on. Compute recursively (no loops or multiplication) the total number of blocks in such a \ntriangle with the given number of rows. \ntriangle(0) → 0 \ntriangle(1) → 1 \ntriangle(2) → 3",
+    "template": "public int triangle(int rows) {\n  \n}"
+  },
+  {
+    "codingBatId": "p163932",
+    "groupName": "Recursion-1",
+    "title": "sumDigits",
+    "description": "Given a non-negative int n, return the sum of its digits recursively (no loops). Note that mod (%) by 10 yields the rightmost digit (126 % 10 is 6), while divide (/) by 10 removes the rightmost digit (126 / 10 is 12). ",
+    "examples": "nullsumDigits(126) → 9 \nsumDigits(49) → 13 \nsumDigits(12) → 3",
+    "template": "public int sumDigits(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p101409",
+    "groupName": "Recursion-1",
+    "title": "count7",
+    "description": "Given a non-negative int n, return the count of the occurrences of 7 as a digit, so for example 717 yields 2. (no loops). Note that mod (%) by 10 yields the rightmost digit (126 % 10 is 6), while divide (/) by 10 removes the rightmost digit (126 / 10 is 12). ",
+    "examples": "nullcount7(717) → 2 \ncount7(7) → 1 \ncount7(123) → 0",
+    "template": "public int count7(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p192383",
+    "groupName": "Recursion-1",
+    "title": "count8",
+    "description": "Given a non-negative int n, compute recursively (no loops) the count of the occurrences of 8 as a digit, except that an 8 with another 8 immediately to its left counts double, so 8818 yields 4. Note that mod (%) by 10 yields the rightmost digit (126 % 10 is 6), while divide (/) by 10 removes the rightmost digit (126 / 10 is 12). ",
+    "examples": "nullcount8(8) → 1 \ncount8(818) → 2 \ncount8(8818) → 4",
+    "template": "public int count8(int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p158888",
+    "groupName": "Recursion-1",
+    "title": "powerN",
+    "description": "Given \u003cb\u003ebase\u003c/b\u003e and \u003cb\u003en\u003c/b\u003e that are both 1 or more, compute recursively (no loops) the value of base to the n power, so powerN(3, 2) is 9 (3 squared). ",
+    "examples": "nullpowerN(3, 2) is 9 (3 squared). \npowerN(3, 1) → 3 \npowerN(3, 2) → 9 \npowerN(3, 3) → 27",
+    "template": "public int powerN(int base, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p170371",
+    "groupName": "Recursion-1",
+    "title": "countX",
+    "description": "Given a string, compute recursively (no loops) the number of lowercase \u0027x\u0027 chars in the string. ",
+    "examples": "nullcountX(\"xxhixx\") → 4 \ncountX(\"xhixhix\") → 3 \ncountX(\"hi\") → 0",
+    "template": "public int countX(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p184029",
+    "groupName": "Recursion-1",
+    "title": "countHi",
+    "description": "Given a string, compute recursively (no loops) the number of times lowercase \"hi\" appears in the string. ",
+    "examples": "nullcountHi(\"xxhixx\") → 1 \ncountHi(\"xhixhix\") → 2 \ncountHi(\"hi\") → 1",
+    "template": "public int countHi(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p101372",
+    "groupName": "Recursion-1",
+    "title": "changeXY",
+    "description": "Given a string, compute recursively (no loops) a new string where all the lowercase \u0027x\u0027 chars have been changed to \u0027y\u0027 chars. ",
+    "examples": "nullchangeXY(\"codex\") → \"codey\" \nchangeXY(\"xxhixx\") → \"yyhiyy\" \nchangeXY(\"xhixhix\") → \"yhiyhiy\"",
+    "template": "public String changeXY(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p170924",
+    "groupName": "Recursion-1",
+    "title": "changePi",
+    "description": "Given a string, compute recursively (no loops) a new string where all appearances of \"pi\" have been replaced by \"3.14\". ",
+    "examples": "nullchangePi(\"xpix\") → \"x3.14x\" \nchangePi(\"pipi\") → \"3.143.14\" \nchangePi(\"pip\") → \"3.14p\"",
+    "template": "public String changePi(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p118230",
+    "groupName": "Recursion-1",
+    "title": "noX",
+    "description": "Given a string, compute recursively a new string where all the \u0027x\u0027 chars have been removed. ",
+    "examples": "nullnoX(\"xaxb\") → \"ab\" \nnoX(\"abc\") → \"abc\" \nnoX(\"xx\") → \"\"",
+    "template": "public String noX(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p108997",
+    "groupName": "Recursion-1",
+    "title": "array6",
+    "description": "Given an array of ints, compute recursively if the array contains a 6. We\u0027ll use the convention of considering only the part of the array that begins at the given index. In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0. ",
+    "examples": "nullarray6({1, 6, 4}, 0) → true \narray6({1, 4}, 0) → false \narray6({6}, 0) → true",
+    "template": "public boolean array6(int[] nums, int index) {\n  \n}"
+  },
+  {
+    "codingBatId": "p135988",
+    "groupName": "Recursion-1",
+    "title": "array11",
+    "description": "Given an array of ints, compute recursively the number of times that the value 11 appears in the array. We\u0027ll use the convention of considering only the part of the array that begins at the given index. In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0. ",
+    "examples": "nullarray11({1, 2, 11}, 0) → 1 \narray11({11, 11}, 0) → 2 \narray11({1, 2, 3, 4}, 0) → 0",
+    "template": "public int array11(int[] nums, int index) {\n  \n}"
+  },
+  {
+    "codingBatId": "p173469",
+    "groupName": "Recursion-1",
+    "title": "array220",
+    "description": "Given an array of ints, compute recursively if the array contains somewhere a value followed in the array by that value times 10. We\u0027ll use the convention of considering only the part of the array that begins at the given index. In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0. ",
+    "examples": "nullarray220({1, 2, 20}, 0) → true \narray220({3, 30}, 0) → true \narray220({3}, 0) → false",
+    "template": "public boolean array220(int[] nums, int index) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183394",
+    "groupName": "Recursion-1",
+    "title": "allStar",
+    "description": "Given a string, compute recursively a new string where all the adjacent chars are now separated by a \"*\". ",
+    "examples": "nullallStar(\"hello\") → \"h*e*l*l*o\" \nallStar(\"abc\") → \"a*b*c\" \nallStar(\"ab\") → \"a*b\"",
+    "template": "public String allStar(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p158175",
+    "groupName": "Recursion-1",
+    "title": "pairStar",
+    "description": "Given a string, compute recursively a new string where identical chars that are adjacent in the original string are separated from each other by a \"*\". ",
+    "examples": "nullpairStar(\"hello\") → \"hel*lo\" \npairStar(\"xxyy\") → \"x*xy*y\" \npairStar(\"aaaa\") → \"a*a*a*a\"",
+    "template": "public String pairStar(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p105722",
+    "groupName": "Recursion-1",
+    "title": "endX",
+    "description": "Given a string, compute recursively a new string where all the lowercase \u0027x\u0027 chars have been moved to the end of the string. ",
+    "examples": "nullendX(\"xxre\") → \"rexx\" \nendX(\"xxhixx\") → \"hixxxx\" \nendX(\"xhixhix\") → \"hihixxx\"",
+    "template": "public String endX(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p154048",
+    "groupName": "Recursion-1",
+    "title": "countPairs",
+    "description": "We\u0027ll say that a \"pair\" in a string is two instances of a char separated by a char. So \"AxA\" the A\u0027s make a pair. Pair\u0027s can overlap, so \"AxAxA\" contains 3 pairs -- 2 for A and 1 for x. Recursively compute the number of pairs in the given string. ",
+    "examples": "nullcountPairs(\"axa\") → 1 \ncountPairs(\"axax\") → 2 \ncountPairs(\"axbx\") → 1",
+    "template": "public int countPairs(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p161124",
+    "groupName": "Recursion-1",
+    "title": "countAbc",
+    "description": "Count recursively the total number of \"abc\" and \"aba\" substrings that appear in the given string. ",
+    "examples": "nullcountAbc(\"abc\") → 1 \ncountAbc(\"abcxxabc\") → 2 \ncountAbc(\"abaxxaba\") → 2",
+    "template": "public int countAbc(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p167015",
+    "groupName": "Recursion-1",
+    "title": "count11",
+    "description": "Given a string, compute recursively (no loops) the number of \"11\" substrings in the string. The \"11\" substrings should not overlap. ",
+    "examples": "nullcount11(\"11abc11\") → 2 \ncount11(\"abc11x11x11\") → 3 \ncount11(\"111\") → 1",
+    "template": "public int count11(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p104029",
+    "groupName": "Recursion-1",
+    "title": "stringClean",
+    "description": "Given a string, return recursively a \"cleaned\" string where adjacent chars that are the same have been reduced to a single char. So \"yyzzza\" yields \"yza\". ",
+    "examples": "nullstringClean(\"yyzzza\") → \"yza\" \nstringClean(\"abbbcdd\") → \"abcd\" \nstringClean(\"Hello\") → \"Helo\"",
+    "template": "public String stringClean(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p143900",
+    "groupName": "Recursion-1",
+    "title": "countHi2",
+    "description": "Given a string, compute recursively the number of times lowercase \"hi\" appears in the string, however do not count \"hi\" that have an \u0027x\u0027 immedately before them. ",
+    "examples": "nullcountHi2(\"ahixhi\") → 1 \ncountHi2(\"ahibhi\") → 2 \ncountHi2(\"xhixhi\") → 0",
+    "template": "public int countHi2(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p137918",
+    "groupName": "Recursion-1",
+    "title": "parenBit",
+    "description": "Given a string that contains a single pair of parenthesis, compute recursively a new string made of only of the parenthesis and their contents, so \"xyz(abc)123\" yields \"(abc)\". ",
+    "examples": "nullparenBit(\"xyz(abc)123\") → \"(abc)\" \nparenBit(\"x(hello)\") → \"(hello)\" \nparenBit(\"(xy)1\") → \"(xy)\"",
+    "template": "public String parenBit(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p183174",
+    "groupName": "Recursion-1",
+    "title": "nestParen",
+    "description": "Given a string, return true if it is a nesting of zero or more pairs of parenthesis, like \"(())\" or \"((()))\". Suggestion: check the first and last chars, and then recur on what\u0027s inside them. ",
+    "examples": "nullnestParen(\"(())\") → true \nnestParen(\"((()))\") → true \nnestParen(\"(((x))\") → false",
+    "template": "public boolean nestParen(String str) {\n  \n}"
+  },
+  {
+    "codingBatId": "p186177",
+    "groupName": "Recursion-1",
+    "title": "strCount",
+    "description": "Given a string and a non-empty substring \u003cb\u003esub\u003c/b\u003e, compute recursively the number of times that sub appears in the string, without the sub strings overlapping. ",
+    "examples": "nullstrCount(\"catcowcat\", \"cat\") → 2 \nstrCount(\"catcowcat\", \"cow\") → 1 \nstrCount(\"catcowcat\", \"dog\") → 0",
+    "template": "public int strCount(String str, String sub) {\n  \n}"
+  },
+  {
+    "codingBatId": "p118182",
+    "groupName": "Recursion-1",
+    "title": "strCopies",
+    "description": "Given a string and a non-empty substring \u003cb\u003esub\u003c/b\u003e, compute recursively if at least n copies of sub appear in the string somewhere, possibly with overlapping. N will be non-negative. ",
+    "examples": "nullstrCopies(\"catcowcat\", \"cat\", 2) → true \nstrCopies(\"catcowcat\", \"cow\", 2) → false \nstrCopies(\"catcowcat\", \"cow\", 1) → true",
+    "template": "public boolean strCopies(String str, String sub, int n) {\n  \n}"
+  },
+  {
+    "codingBatId": "p195413",
+    "groupName": "Recursion-1",
+    "title": "strDist",
+    "description": "Given a string and a non-empty substring \u003cb\u003esub\u003c/b\u003e, compute recursively the largest substring which starts and ends with sub and return its length. ",
+    "examples": "nullstrDist(\"catcowcat\", \"cat\") → 9 \nstrDist(\"catcowcat\", \"cow\") → 3 \nstrDist(\"cccatcowcatxx\", \"cat\") → 9",
+    "template": "public int strDist(String str, String sub) {\n  \n}"
+  },
+  {
+    "codingBatId": "p145416",
+    "groupName": "Recursion-2",
+    "title": "groupSum",
+    "description": "Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target? This is a classic backtracking recursion problem. Once you understand the recursive backtracking strategy in this problem, you can use the same pattern for many problems to search a space of choices. Rather than looking at the whole array, our convention is to consider the part of the array starting at index \u003cb\u003estart\u003c/b\u003e and continuing to the end of the array. The caller can specify the whole array simply by passing start as 0. No loops are needed -- the recursive calls progress down the array. ",
+    "examples": "nullgroupSum(0, {2, 4, 8}, 10) → true \ngroupSum(0, {2, 4, 8}, 14) → true \ngroupSum(0, {2, 4, 8}, 9) → false",
+    "template": "public boolean groupSum(int start, int[] nums, int target) {\n  \n}"
+  },
+  {
+    "codingBatId": "p199368",
+    "groupName": "Recursion-2",
+    "title": "groupSum6",
+    "description": "Given an array of ints, is it possible to choose a group of some of the ints, beginning at the start index, such that the group sums to the given target? However, with the additional constraint that all 6\u0027s must be chosen. (No loops needed.) ",
+    "examples": "nullgroupSum6(0, {5, 6, 2}, 8) → true \ngroupSum6(0, {5, 6, 2}, 9) → false \ngroupSum6(0, {5, 6, 2}, 7) → false",
+    "template": "public boolean groupSum6(int start, int[] nums, int target) {\n  \n}"
+  },
+  {
+    "codingBatId": "p169605",
+    "groupName": "Recursion-2",
+    "title": "groupNoAdj",
+    "description": "Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target with this additional constraint: If a value in the array is chosen to be in the group, the value immediately following it in the array must not be chosen. (No loops needed.) ",
+    "examples": "nullgroupNoAdj(0, {2, 5, 10, 4}, 12) → true \ngroupNoAdj(0, {2, 5, 10, 4}, 14) → false \ngroupNoAdj(0, {2, 5, 10, 4}, 7) → false",
+    "template": "public boolean groupNoAdj(int start, int[] nums, int target) {\n  \n}"
+  },
+  {
+    "codingBatId": "p138907",
+    "groupName": "Recursion-2",
+    "title": "groupSum5",
+    "description": "Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target with these additional constraints: all multiples of 5 in the array must be included in the group. If the value immediately following a multiple of 5 is 1, it must not be chosen. (No loops needed.) ",
+    "examples": "nullgroupSum5(0, {2, 5, 10, 4}, 19) → true \ngroupSum5(0, {2, 5, 10, 4}, 17) → true \ngroupSum5(0, {2, 5, 10, 4}, 12) → false",
+    "template": "public boolean groupSum5(int start, int[] nums, int target) {\n  \n}"
+  },
+  {
+    "codingBatId": "p105136",
+    "groupName": "Recursion-2",
+    "title": "groupSumClump",
+    "description": "Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target, with this additional constraint: if there are numbers in the array that are adjacent and the identical value, they must either all be chosen, or none of them chosen. For example, with the array {1, 2, 2, 2, 5, 2}, either all three 2\u0027s in the middle must be chosen or not, all as a group. (one loop can be used to find the extent of the identical values). ",
+    "examples": "nullgroupSumClump(0, {2, 4, 8}, 10) → true \ngroupSumClump(0, {1, 2, 4, 8, 1}, 14) → true \ngroupSumClump(0, {2, 4, 4, 8}, 14) → false",
+    "template": "public boolean groupSumClump(int start, int[] nums, int target) {\n  \n}"
+  },
+  {
+    "codingBatId": "p185204",
+    "groupName": "Recursion-2",
+    "title": "splitArray",
+    "description": "Given an array of ints, is it possible to divide the ints into two groups, so that the sums of the two groups are the same. Every int must be in one group or the other. Write a recursive helper method that takes whatever arguments you like, and make the initial call to your recursive helper from splitArray(). (No loops needed.) ",
+    "examples": "nullsplitArray(). (No loops needed.) \nsplitArray({2, 2}) → true \nsplitArray({2, 3}) → false \nsplitArray({5, 2, 3}) → true",
+    "template": "public boolean splitArray(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p171660",
+    "groupName": "Recursion-2",
+    "title": "splitOdd10",
+    "description": "Given an array of ints, is it possible to divide the ints into two groups, so that the sum of one group is a multiple of 10, and the sum of the other group is odd. Every int must be in one group or the other. Write a recursive helper method that takes whatever arguments you like, and make the initial call to your recursive helper from splitOdd10(). (No loops needed.) ",
+    "examples": "nullsplitOdd10(). (No loops needed.) \nsplitOdd10({5, 5, 5}) → true \nsplitOdd10({5, 5, 6}) → false \nsplitOdd10({5, 5, 6, 1}) → true",
+    "template": "public boolean splitOdd10(int[] nums) {\n  \n}"
+  },
+  {
+    "codingBatId": "p168295",
+    "groupName": "Recursion-2",
+    "title": "split53",
+    "description": "Given an array of ints, is it possible to divide the ints into two groups, so that the sum of the two groups is the same, with these constraints: all the values that are multiple of 5 must be in one group, and all the values that are a multiple of 3 (and not a multiple of 5) must be in the other. (No loops needed.) ",
+    "examples": "nullsplit53({1,1}) → true \nsplit53({1, 1, 1}) → false \nsplit53({2, 4, 2}) → true",
+    "template": "public boolean split53(int[] nums) {\n  \n}"
+  }
+]
