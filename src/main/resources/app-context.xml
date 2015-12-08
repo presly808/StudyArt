@@ -6,18 +6,24 @@
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-       <context:property-placeholder location="app.properties"/>
+    <context:property-placeholder location="app.properties"/>
 
-       <context:annotation-config/>
+    <context:annotation-config/>
 
-       <context:component-scan base-package="ua.artcode"/>
+    <context:component-scan base-package="ua.artcode"/>
 
-       <bean id="mongoClient" class="com.mongodb.MongoClient">
-              <constructor-arg name="host" value="${host}"/>
-              <constructor-arg name="port" value="${port}"/>
-       </bean>
+    <bean id="mongoClient" class="com.mongodb.MongoClient">
+        <constructor-arg name="host" value="${mongo.host}"/>
+        <constructor-arg name="port" value="${mongo.port}"/>
+    </bean>
 
-       <bean id="morphia" class="org.mongodb.morphia.Morphia"/>
+    <bean id="morphia" class="org.mongodb.morphia.Morphia"/>
+
+    <bean id="datastore" class="org.mongodb.morphia.Datastore" factory-bean="morphia" factory-method="createDatastore">
+        <!-- constructor args pass args to factoryMethod-->
+        <constructor-arg name="mongoClient" ref="mongoClient"/>
+        <constructor-arg name="dbName" value="${mongo.db}"/>
+    </bean>
 
 
 </beans>

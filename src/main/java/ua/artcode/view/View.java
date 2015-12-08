@@ -1,8 +1,6 @@
 package ua.artcode.view;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.service.SimpleTaskService;
 import ua.artcode.service.SimpleUserService;
@@ -14,7 +12,7 @@ import java.util.Scanner;
  * Created by Family on 11/7/2015.
  */
 
-@Component
+//@Component
 public class View {
 
     private static final Logger LOGGER = Logger.getLogger(View.class);
@@ -28,7 +26,7 @@ public class View {
     private static final int USER_LOG_IN = 6;
     private static final int USER_REGISTRATION = 7;
 
-    @Autowired
+    //@Autowired
     private SimpleTaskService taskService;
 
     private SimpleUserService userService;

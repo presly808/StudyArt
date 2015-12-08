@@ -1,8 +1,6 @@
 package ua.artcode.service;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
@@ -16,15 +14,15 @@ import ua.artcode.utils.serialization.AppDataStandartJavaSerializator;
 import java.util.List;
 import java.util.Scanner;
 
-@Service
+//@Service
 public class SimpleTaskServiceImpl implements SimpleTaskService {
 
     private String path;
 
-    @Autowired
+    //@Autowired
     private AppDataStandartJavaSerializator appDataStandartJavaSerializator;
 
-    @Autowired
+    //@Autowired
     private SimpleTaskDao simpleTaskDao;
 
     private Scanner scanner;
