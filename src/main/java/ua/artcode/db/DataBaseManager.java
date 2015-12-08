@@ -11,6 +11,7 @@ import java.io.IOException;
  * Created by Razer on 09.11.15.
  */
 public class DataBaseManager {
+
     private static DataBaseManager dataBaseManager = null;
     private MongoClient mongo;
     private Datastore datastore;
@@ -34,7 +35,8 @@ public class DataBaseManager {
 
     public void createDumpOfDataBase() {
         try {
-            Runtime.getRuntime().exec("/Users/johnsmith/Mongodb/bin/mongodump", new String[]{"./mongodump"});
+            // TODO each must append ${MONGO_hOME}/bin to PATH
+            Runtime.getRuntime().exec("mongodumb", new String[]{"./mongodump"});
         } catch (IOException e) {
             e.printStackTrace();
         }
