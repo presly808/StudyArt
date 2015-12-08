@@ -7,11 +7,13 @@ import java.util.*;
  */
 public class CodingBatHtmlDataParser {
 
-    // {1,2,3,4},4,5,6,"sdfsd","sdfsdf,2.87,{2,2,2,2},2,2
+    // {1,2,3,4},4,5,6,"word1","word2",2.87,{2,2,2,2},2,2
 
 
 
     public static List<String> parseTestData(String line){
+
+        line = line.trim();
 
         if(line.isEmpty()){
             return new LinkedList<>();

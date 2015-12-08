@@ -15,8 +15,6 @@ public class HtmlDataParserTest {
         Assert.assertEquals(lines3.stream().count(), 4);
     }
 
-
-
     @Test
     public void testParseMixedDataTypes(){
         String arg1 = "{1,2,3,4},4,5,6,\"sdfsd\",\"sdfsdf\",2.87,{2,2,2,2},2,2";
@@ -58,6 +56,25 @@ public class HtmlDataParserTest {
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
 
         Assert.assertEquals(lines1.stream().count(), 3);;
+    }
+
+    @Test
+    public void testParseMixedDataTypesWithSpaces() {
+        String arg1 = "8.7, {\"cat\", \"dog\", \"monkey\"}, 77, 69, \"fish\", {1, 2, 3}";
+
+        List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
+
+        Assert.assertEquals(lines1.stream().count(), 6);;
+    }
+
+    @Test
+    public void testParsedDataEquals() {
+        String arg1 = "8.7, {\"cat\", \"dog\", \"monkey\"}, 77, 69, \"fish\", {1, 2, 3}";
+
+        List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
+
+        Assert.assertEquals(lines1.get(3), "69");;
+
     }
 
 }

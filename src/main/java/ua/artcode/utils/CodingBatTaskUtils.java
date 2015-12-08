@@ -117,13 +117,8 @@ public class CodingBatTaskUtils {
     }
 
     private List<String> getInDataFromHtml(String dataHtml) {
-        List<String> inData = null;
         String params = StringUtils.substringBetween(dataHtml, "(", ")");
-        if (params != "") {
-            // TODO Serega, write parser code(RegEx)
-        }
-        System.out.println(inData);
-        return inData;
+        return CodingBatHtmlDataParser.parseTestData(params);
     }
 
     public TaskTestResult checkCodingBatTask(CodingBatTask task, String code) {
