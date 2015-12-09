@@ -21,7 +21,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     // parsed template
     private MethodSignature methodSignature;
 
-    private TaskTestDataContainer taskTestDataContainer;
+    private TaskTestDataContainer taskTestDataContainer = new TaskTestDataContainer();
 
     public CodingBatTask() {
     }

@@ -5,11 +5,13 @@ import ua.artcode.model.common.UserAccount;
 import java.util.ArrayList;
 import java.util.List;
 
-// todo change global structure,
+// todo change global structure(add userCode for task)
 public class TaskTestResult {
 
+    // will be ref in mongo db
     private UserAccount userAccount;
 
+    // will be ref in mongo db
     private CodingBatTask codingBatTask;
 
     // in data and expected values
@@ -18,13 +20,15 @@ public class TaskTestResult {
 
     private List<String> status;
 
+    private String userCode;
+
     private boolean passedAll;
 
 
     public TaskTestResult() {
     }
 
-
+    // TODO extract ot service layer
     public boolean checkPassed() {
         for (String variant : status) {
             if (!variant.equals("OK")) {

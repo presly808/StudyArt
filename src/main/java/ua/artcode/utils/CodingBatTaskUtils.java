@@ -18,6 +18,7 @@ import ua.artcode.model.codingbat.TaskTestResult;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -113,7 +114,7 @@ public class CodingBatTaskUtils {
 
     private List<String> getInDataFromHtml(String dataHtml) {
         String params = StringUtils.substringBetween(dataHtml, "(", ")");
-        return CodingBatHtmlDataParser.parseTestData(params);
+        return params != null ? CodingBatHtmlDataParser.parseTestData(params) : new LinkedList<>();
     }
 
     public TaskTestResult checkCodingBatTask(final CodingBatTask task, final String code) {

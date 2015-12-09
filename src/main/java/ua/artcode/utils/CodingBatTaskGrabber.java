@@ -21,6 +21,7 @@ public class CodingBatTaskGrabber {
 
     public static final String CODINGBAT_BASE_URL = "http://codingbat.com";
     private List<String> taskLinksContainer;
+    private CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
 
     public CodingBatTaskGrabber() {
 
@@ -130,7 +131,7 @@ public class CodingBatTaskGrabber {
                     description = getDescription(infoTable);
                     examples = getExamples(infoTable, title);
 
-                    CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
+
 
                     CodingBatTask codingBatTask = new CodingBatTask(codingBatId, title, description, examples, template, groupName);
 

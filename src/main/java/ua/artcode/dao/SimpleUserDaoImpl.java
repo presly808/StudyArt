@@ -53,7 +53,7 @@ public class SimpleUserDaoImpl implements SimpleUserDao {
     public UserAccount authenticate(String username, String password) throws NoSuchUserException, UserAuthenticationFailException{
 
         UserAccount user = findByUserName(username);
-        if (user.getPassword() != password) {
+        if (user.getPassword().equals(password)) {
             throw new UserAuthenticationFailException("Incorrect password");
         }
         return user;
