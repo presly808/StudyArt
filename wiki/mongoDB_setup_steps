@@ -3,3 +3,4 @@
 3) Append to PATH system variable location of mongodb
 4) Create mkdir /data/db where locate your db(usually Mongodb/data/db)
 5) Start server mongod --dbpath ..data/
+6) Run method dataBaseManager.restoreDataBaseFromDump() to restore db from dump
