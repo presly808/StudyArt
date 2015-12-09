@@ -1,13 +1,15 @@
 package ua.artcode.trigger;
 
+import org.springframework.context.ApplicationContext;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.dao.SimpleTaskDaoMongoImpl;
 import ua.artcode.db.DataBaseManager;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.utils.serialization.AppDataJsonSerializer;
 import ua.artcode.utils.AppPropertiesHolder;
 import ua.artcode.utils.CodingBatTaskGrabber;
 import ua.artcode.utils.FileUtils;
+import ua.artcode.utils.SpringContext;
+import ua.artcode.utils.serialization.AppDataJsonSerializer;
 
 import java.util.Collection;
 
@@ -42,17 +44,15 @@ public class InitCodingBatTaskTrigger {
      * @download tasks to database if it need
      */
     public static void loadTasksToDataBase() {
-        //if()
-        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(DataBaseManager.getInstance());
+        ApplicationContext context= SpringContext.getContext();
+        DataBaseManager dataBaseManager= (DataBaseManager) context.getBean("dbManager");
+        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(dataBaseManager);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
-        String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
+        String dbJsonPath = (String) context.getBean("dbJsonTaskPath");
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
-        int i = 0;
         for (CodingBatTask task : collection) {
             simpleTaskDao.create(task);
-            //System.out.println(i++);
         }
-        // System.out.println(simpleTaskDao.size());
     }
 
 }
