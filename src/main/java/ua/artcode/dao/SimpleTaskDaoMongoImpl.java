@@ -25,12 +25,13 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
 
     @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {
+        dataBaseManager.findById(id);
         return null;
     }
 
     @Override
     public boolean delete(String id) {
-        return false;
+        return dataBaseManager.deleteTaskById(id);
     }
 
     @Override
@@ -53,10 +54,10 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
         return null;
     }
 
-
     @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) {
-        return null;
+        dataBaseManager.addTask(codingBatTask);
+        return codingBatTask;
     }
 
 

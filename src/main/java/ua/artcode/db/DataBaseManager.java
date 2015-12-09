@@ -1,7 +1,9 @@
 package ua.artcode.db;
 
 import com.mongodb.MongoClient;
+import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
+import org.springframework.context.ApplicationContext;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.MongoDbConnectionHelper;
 
@@ -11,23 +13,15 @@ import java.io.IOException;
  * Created by Razer on 09.11.15.
  */
 public class DataBaseManager {
-
-    private static DataBaseManager dataBaseManager = null;
+    private final Logger LOG = Logger.getLogger(MongoDbConnectionHelper.class);
     private MongoClient mongo;
     private Datastore datastore;
+    private ApplicationContext context;
 
     private DataBaseManager() {
-        initDataStore();
     }
 
-    public static synchronized DataBaseManager getInstance() {
-        if (dataBaseManager == null) {
-            dataBaseManager = new DataBaseManager();
-        }
-        return dataBaseManager;
-    }
-
-    private void initDataStore() {
+    public void initDataStore() {
         MongoDbConnectionHelper mongoDbConnectionHelper = new MongoDbConnectionHelper();
         mongo = mongoDbConnectionHelper.initMongoClient();
         datastore = mongoDbConnectionHelper.createDatastore(mongo, CodingBatTask.class);
@@ -35,25 +29,45 @@ public class DataBaseManager {
 
     public void createDumpOfDataBase() {
         try {
-            // TODO each must append ${MONGO_hOME}/bin to PATH
-            Runtime.getRuntime().exec("mongodumb", new String[]{"./mongodump"});
+            LOG.trace("create dump from db");
+            Runtime.getRuntime().exec("mongodump --db CodingBat");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
     }
 
     public void restoreDataBaseFromDump() {
+        try {
+            LOG.trace("Restore db from dump");
+            Runtime.getRuntime().exec("mongorestore dump");
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+    }
+
+    public void findById(String id) {
+        datastore.find(CodingBatTask.class, "CodingBatId", id);
     }
 
     public void addTask(CodingBatTask codingBatTask) {
         datastore.save(codingBatTask);
     }
 
-    public void deleteTask(CodingBatTask codingBatTask) {
+    public boolean deleteTaskById(String id) {
+        if (true) {
+            datastore.delete(null);
+            return true;
+        }
+        return false;
     }
 
     public int size() {
-        return (int) datastore.getDB().getCollection("CodingBatTask").getCount();
+        //TODO create bean with name of collection
+        return (int) datastore.getDB().getCollection("CodingBatTask").count();
+    }
+
+    public CodingBatTask getById() {
+        return null;
     }
 }
 

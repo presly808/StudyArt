@@ -10,18 +10,20 @@ import org.springframework.context.ApplicationContext;
  * Created by Razer on 09.11.15.
  */
 public class MongoDbConnectionHelper {
+    public MongoDbConnectionHelper() {
+        context = SpringContext.getContext();
+    }
+
     private final Logger LOG = Logger.getLogger(MongoDbConnectionHelper.class);
+    private ApplicationContext context;
     private MongoClient mongoClient;
     private Datastore datastore;
     private Morphia morphia;
 
     public MongoClient initMongoClient() {
-        ApplicationContext context = SpringContext.getContext();
         if (mongoClient == null) {
-            //String host = AppPropertiesHolder.getProperty("MongoDBhost");
-            //int port = Integer.parseInt(AppPropertiesHolder.getProperty("MongoDBport"));
+            LOG.trace("Create mongo client");
             mongoClient = (MongoClient) context.getBean("mongoClient");
-            //mongoClient = new MongoClient(host, port);
         }
         return mongoClient;
     }
@@ -29,10 +31,9 @@ public class MongoDbConnectionHelper {
     public <T> Datastore createDatastore(MongoClient mongoClient, Class<T> tClass) {
         if (datastore == null) {
             LOG.trace("Create data store");
-            morphia = new Morphia();
+            morphia = (Morphia) context.getBean("morphia");
             morphia.map(tClass);
-            final String dataBaseName = AppPropertiesHolder.getProperty("mongo.db");
-            datastore = morphia.createDatastore(mongoClient, dataBaseName);
+            datastore= (Datastore) context.getBean("datastore");
         }
         return datastore;
     }
