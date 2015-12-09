@@ -45,10 +45,14 @@ public class InitCodingBatTaskTrigger {
      */
     public static void loadTasksToDataBase() {
         ApplicationContext context= SpringContext.getContext();
-        DataBaseManager dataBaseManager= (DataBaseManager) context.getBean("dbManager");
+
+        DataBaseManager dataBaseManager=  context.getBean(DataBaseManager.class);
+
         SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(dataBaseManager);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
-        String dbJsonPath = (String) context.getBean("dbJsonTaskPath");
+
+        String dbJsonPath = context.getEnvironment().getProperty("db.json.task.path");
+
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
         for (CodingBatTask task : collection) {
             simpleTaskDao.create(task);

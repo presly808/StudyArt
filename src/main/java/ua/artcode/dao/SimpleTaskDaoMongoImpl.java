@@ -11,6 +11,7 @@ import java.util.List;
  * Created by Razer on 09.11.15.
  */
 public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
+
     private DataBaseManager dataBaseManager;
 
     public SimpleTaskDaoMongoImpl(DataBaseManager dataBaseManager) {

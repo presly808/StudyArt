@@ -13,6 +13,7 @@ import java.io.IOException;
  * Created by Razer on 09.11.15.
  */
 public class DataBaseManager {
+
     private final Logger LOG = Logger.getLogger(MongoDbConnectionHelper.class);
     private MongoClient mongo;
     private Datastore datastore;
