@@ -14,8 +14,8 @@ public class RunInitCodingBatTaskTrigger {
         ApplicationContext context = SpringContext.getContext();
         DataBaseManager dataBaseManager = (DataBaseManager) context.getBean("dbManager");
         SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(dataBaseManager);
-        //dataBaseManager.restoreDataBaseFromDump();
+        dataBaseManager.restoreDataBaseFromDump();
         //dataBaseManager.createDumpOfDataBase();
-        //simpleTaskDao.size();
+        System.out.println(simpleTaskDao.size());
     }
 }
