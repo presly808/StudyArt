@@ -9,6 +9,7 @@ import ua.artcode.model.codingbat.MethodSignature;
  * Created by Maxim on 08.12.2015.
  */
 public class GetMethodSignatureTest {
+
     private static CodingBatTaskUtils taskUtils;
 
     @BeforeClass

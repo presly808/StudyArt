@@ -31,10 +31,6 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.examples = examples;
         this.template = template;
         this.groupName = groupName;
-
-        CodingBatTaskUtils taskUtils = new CodingBatTaskUtils();
-        methodSignature = taskUtils.getMethodSignature(template);
-        taskUtils.initTaskTestDataContainer(this);
     }
 
     public CodingBatTask(String id, String codingBatId, String title,
@@ -47,10 +43,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.template = template;
         this.groupName = groupName;
 
-        CodingBatTaskUtils taskUtils = new CodingBatTaskUtils();
-        methodSignature = taskUtils.getMethodSignature(template);
-        taskUtils.initTaskTestDataContainer(this);
     }
+
 
     public String getId() {
         return id;

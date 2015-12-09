@@ -13,7 +13,6 @@ public class TaskTestResult {
     private CodingBatTask codingBatTask;
 
     // in data and expected values
-    private TaskTestDataContainer taskTestDataContainer;// this container already exist in CodingBatTask
     // practical result
     private List<String> actualValues;// change to map actualValues - passed
 
@@ -25,22 +24,14 @@ public class TaskTestResult {
     public TaskTestResult() {
     }
 
-    public TaskTestResult(List<String> actualValues, CodingBatTask codingBatTask, boolean passed,
-                          TaskTestDataContainer taskTestDataContainer, UserAccount userAccount) {
-        this.actualValues = actualValues;
-        this.codingBatTask = codingBatTask;
-        this.passedAll = passed;
-        this.taskTestDataContainer = taskTestDataContainer;
-        this.userAccount = userAccount;
-    }
 
     public boolean checkPassed() {
-        boolean result = true;
         for (String variant : status) {
             if (!variant.equals("OK")) {
                 return false;
             }
-        }return result;
+        }
+        return true;
     }
 
     public CodingBatTask getCodingBatTask() {

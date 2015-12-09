@@ -58,7 +58,7 @@ public class CodingBatTaskUtils {
         return response;
     }
 
-    private String getCodeForRequestToCodingBat(CodingBatTask task){
+    private String getCodeForRequestToCodingBat(CodingBatTask task) {
         StringBuilder code = new StringBuilder(task.getTemplate().split("}")[0]);
 
         if (task.getMethodSignature().getReturnType().equals("boolean")) {
@@ -83,28 +83,23 @@ public class CodingBatTaskUtils {
         HttpEntity entity = response.getEntity(); // incoming data
 
         if (entity != null) {
-            InputStream inStream = null;
-            try {
-                inStream = entity.getContent();
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
-                    String dataHtml;
 
-                    while ((dataHtml = reader.readLine()) != null) {
-                        TaskTestData taskTestData = new TaskTestData();
-                        taskTestData.setExpectedValue(getExpectedValueFromHtml(dataHtml));
-                        taskTestData.setInData(getInDataFromHtml(dataHtml));
+            try (InputStream inStream = entity.getContent();
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inStream))) {
 
-                        if (taskTestData.getExpectedValue() != null && taskTestData.getInData() != null) {
-                            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-                            LOG.trace("added new taskTestData to taskTestDataContainer");
-                        }
+                String dataHtml;
+
+                while ((dataHtml = reader.readLine()) != null) {
+                    TaskTestData taskTestData = new TaskTestData();
+                    taskTestData.setExpectedValue(getExpectedValueFromHtml(dataHtml));
+                    taskTestData.setInData(getInDataFromHtml(dataHtml));
+
+                    if (taskTestData.getExpectedValue() != null && taskTestData.getInData() != null) {
+                        task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+                        LOG.trace("added new taskTestData to taskTestDataContainer");
                     }
-                } catch (RuntimeException e) {
-                    LOG.error(e);
-                } finally {
-                    inStream.close();
                 }
+
             } catch (IOException e) {
                 LOG.error(e);
             }
@@ -121,7 +116,7 @@ public class CodingBatTaskUtils {
         return CodingBatHtmlDataParser.parseTestData(params);
     }
 
-    public TaskTestResult checkCodingBatTask(CodingBatTask task, String code) {
+    public TaskTestResult checkCodingBatTask(final CodingBatTask task, final String code) {
         TaskTestResult result = new TaskTestResult();
         result.setCodingBatTask(task);
 
@@ -129,25 +124,20 @@ public class CodingBatTaskUtils {
         HttpEntity entity = response.getEntity(); // incoming data
 
         if (entity != null) {
-            InputStream inStream = null;
-            try {
-                inStream = entity.getContent();
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
-                    String dataHtml;
 
-                    while ((dataHtml = reader.readLine()) != null) {
-                        String[] actualValue = StringUtils.substringsBetween(dataHtml, "<td>", "</td>");
-                        if (actualValue != null) {
-                            result.getActualValues().add(actualValue[1]);
-                            result.getStatus().add(actualValue[2]);
-                        }
+            try (InputStream inStream = entity.getContent();
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inStream))) {
+
+                String dataHtml;
+
+                while ((dataHtml = reader.readLine()) != null) {
+                    String[] actualValue = StringUtils.substringsBetween(dataHtml, "<td>", "</td>");
+                    if (actualValue != null) {
+                        result.getActualValues().add(actualValue[1]);
+                        result.getStatus().add(actualValue[2]);
                     }
-                } catch (RuntimeException e) {
-                    LOG.error(e);
-                } finally {
-                    inStream.close();
                 }
+
             } catch (IOException e) {
                 LOG.error(e);
             }
@@ -157,12 +147,16 @@ public class CodingBatTaskUtils {
     }
 
     public MethodSignature getMethodSignature(String template) {
+
         MethodSignature methodSignature = new MethodSignature();
-        if (template.contains("public")) {
+        /*if (template.contains("public")) {
             methodSignature.setReturnType(template.split(" ")[1]);
         } else {
             methodSignature.setReturnType(template.split(" ")[0]);
-        }
+        }*/
+
+        String[] parts = template.split(" ");
+        methodSignature.setReturnType(template.contains("public") ? parts[1] : parts[0]);
 
         String inParams = StringUtils.substringBetween(template, "(", ")");
         if (!inParams.equals("")) {
