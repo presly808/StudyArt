@@ -1,12 +1,15 @@
 package ua.artcode.model.codingbat;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import ua.artcode.utils.CodingBatTaskUtils;
 
 import java.io.Serializable;
 
-
+@Entity
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
+    @Id
     private String id;
     private String codingBatId;
     private String groupName;
