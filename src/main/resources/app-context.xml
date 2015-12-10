@@ -20,9 +20,6 @@
     <bean id="dbname" class="java.lang.String">
         <constructor-arg value="${mongo.db}"/>
     </bean>
-    <bean id="dbJsonTaskPath" class="java.lang.String">
-        <constructor-arg value="${db.json.task.path}"/>
-    </bean>
 
     <bean id="dbManager" class="ua.artcode.db.DataBaseManager" init-method="initDataStore" lazy-init="true"/>
 

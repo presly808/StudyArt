@@ -2,11 +2,13 @@ package ua.artcode.model.codingbat;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import ua.artcode.utils.CodingBatTaskUtils;
 
 import java.io.Serializable;
 
 @Entity
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
+
     @Id
     private String id;
     private String codingBatId;
@@ -19,13 +21,13 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     // parsed template
     private MethodSignature methodSignature;
 
-    private TaskTestDataContainer taskTestDataContainer;
+    private TaskTestDataContainer taskTestDataContainer = new TaskTestDataContainer();
 
     public CodingBatTask() {
     }
 
-    public CodingBatTask(String title, String description,
-                         String examples, String template, String groupName,String codingBatId) {
+    public CodingBatTask(String codingBatId, String title, String description,
+                         String examples, String template, String groupName) {
         this.codingBatId = codingBatId;
         this.title = title;
         this.description = description;
@@ -34,8 +36,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.groupName = groupName;
     }
 
-    public CodingBatTask(String id, String title,
-                         String description, String examples, String template, String groupName,String codingBatId) {
+    public CodingBatTask(String id, String codingBatId, String title,
+                         String description, String examples, String template, String groupName) {
         this.id = id;
         this.codingBatId = codingBatId;
         this.title = title;
@@ -43,7 +45,9 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.examples = examples;
         this.template = template;
         this.groupName = groupName;
+
     }
+
 
     public String getId() {
         return id;

@@ -18,8 +18,8 @@ import static org.mockito.Mockito.mock;
  */
 
 public class SimpleTaskDaoImplTest {
-    private static SimpleTaskDao simpleTaskDao;
 
+    private static SimpleTaskDao simpleTaskDao;
 
     @Before
     public void initTask() {

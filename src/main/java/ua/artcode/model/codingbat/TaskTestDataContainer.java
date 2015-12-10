@@ -27,4 +27,8 @@ public class TaskTestDataContainer {
     public void setTaskTestDataList(List<TaskTestData> taskTestDataList) {
         this.taskTestDataList = taskTestDataList;
     }
+
+    public void addTaskTestData(TaskTestData taskTestData) {
+        taskTestDataList.add(taskTestData);
+    }
 }

@@ -15,13 +15,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-
 public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
 
     public static final String CODINGBAT_BASE_URL = "http://codingbat.com";
     private List<String> taskLinksContainer;
+    private CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
 
     public CodingBatTaskGrabber() {
 
@@ -53,7 +53,7 @@ public class CodingBatTaskGrabber {
         Elements taskLinks = doc.getElementsByAttributeValueContaining("href", "prob");
         for (Element link : taskLinks) {
             // create and add actual task link
-                taskLinksContainer.add(CODINGBAT_BASE_URL + link.attr("href"));
+            taskLinksContainer.add(CODINGBAT_BASE_URL + link.attr("href"));
         }
     }
 
@@ -95,8 +95,7 @@ public class CodingBatTaskGrabber {
         for (int j = 1; j < taskInfo.length; j++) {
             if (j == taskInfo.length - 1) {
                 examples = examples + title + taskInfo[j];
-            }
-            else {
+            } else {
                 examples = examples + title + taskInfo[j] + "\n";
             }
         }
@@ -118,20 +117,28 @@ public class CodingBatTaskGrabber {
 
                 String codingBatId = getCodingBatId(taskLink);
                 String groupName = getGroupName(doc);
-                String title = getTitle(doc);;
+                String title = getTitle(doc);
+                ;
                 String description;
                 String examples;
                 String template = getTemplate(doc);
-
 
                 // get table with needed information(descriptions, examples)
                 Elements tables = doc.body().getElementsByAttributeValue("width", "700");
 
                 for (Element infoTable : tables) {
 
-                        description = getDescription(infoTable);
-                        examples = getExamples(infoTable, title);
-                        taskCollection.add(new CodingBatTask(title, description, examples, template, groupName,codingBatId));
+                    description = getDescription(infoTable);
+                    examples = getExamples(infoTable, title);
+
+
+
+                    CodingBatTask codingBatTask = new CodingBatTask(codingBatId, title, description, examples, template, groupName);
+
+                    codingBatTask.setMethodSignature(codingBatTaskUtils.getMethodSignature(codingBatTask.getTemplate()));
+                    codingBatTaskUtils.initTaskTestDataContainer(codingBatTask);
+
+                    taskCollection.add(codingBatTask);
                 }
             } catch (IOException e) {
                 LOG.error(e);

@@ -8,11 +8,14 @@ import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.MongoDbConnectionHelper;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
 /**
  * Created by Razer on 09.11.15.
  */
 public class DataBaseManager {
+
     private final Logger LOG = Logger.getLogger(MongoDbConnectionHelper.class);
     private MongoClient mongo;
     private Datastore datastore;
@@ -40,7 +43,9 @@ public class DataBaseManager {
     public void restoreDataBaseFromDump() {
         try {
             LOG.trace("Restore db from dump");
-            Runtime.getRuntime().exec("mongorestore dump");
+            Process process = Runtime.getRuntime().exec("mongorestore dump");
+            LOG.debug(getData(process.getInputStream()));
+            LOG.debug(getData(process.getErrorStream()));
         } catch (IOException e) {
             LOG.error(e);
         }
@@ -65,6 +70,16 @@ public class DataBaseManager {
     public int size() {
         //TODO create bean with name of collection
         return (int) datastore.getDB().getCollection("CodingBatTask").count();
+    }
+
+
+    public String getData(InputStream is) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(is);
+        while(sc.hasNextLine()){
+            sb.append(sc.nextLine()).append("\n");
+        }
+        return sb.toString();
     }
 
     public CodingBatTask getById() {

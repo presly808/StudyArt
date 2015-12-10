@@ -2,33 +2,63 @@ package ua.artcode.model.codingbat;
 
 import ua.artcode.model.common.UserAccount;
 
+import java.util.ArrayList;
 import java.util.List;
 
-// todo change global structure,
+// todo change global structure(add userCode for task)
 public class TaskTestResult {
 
+    // will be ref in mongo db
     private UserAccount userAccount;
 
-
+    // will be ref in mongo db
     private CodingBatTask codingBatTask;
 
     // in data and expected values
-    private TaskTestDataContainer taskTestDataContainer;
     // practical result
-    private List<String> actualValues;
+    private List<String> actualValues;// change to map actualValues - passed
 
-    private boolean passed;
+    private List<String> status;
+
+    private String userCode;
+
+    private boolean passedAll;
 
 
     public TaskTestResult() {
     }
 
-    public TaskTestResult(List<String> actualValues, CodingBatTask codingBatTask, boolean passed,
-                          TaskTestDataContainer taskTestDataContainer, UserAccount userAccount) {
-        this.actualValues = actualValues;
+    // TODO extract ot service layer
+    public boolean checkPassed() {
+        for (String variant : status) {
+            if (!variant.equals("OK")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public CodingBatTask getCodingBatTask() {
+        return codingBatTask;
+    }
+
+    public void setCodingBatTask(CodingBatTask codingBatTask) {
         this.codingBatTask = codingBatTask;
-        this.passed = passed;
-        this.taskTestDataContainer = taskTestDataContainer;
-        this.userAccount = userAccount;
+    }
+
+    public List<String> getActualValues() {
+        return actualValues;
+    }
+
+    public void setActualValues(List<String> actualValues) {
+        this.actualValues = actualValues;
+    }
+
+    public List<String> getStatus() {
+        return status;
+    }
+
+    public void setStatus(List<String> status) {
+        this.status = status;
     }
 }

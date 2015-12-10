@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
  */
 public class MongoDbConnectionHelper {
     public MongoDbConnectionHelper() {
+
         context = SpringContext.getContext();
     }
 
@@ -23,7 +24,7 @@ public class MongoDbConnectionHelper {
     public MongoClient initMongoClient() {
         if (mongoClient == null) {
             LOG.trace("Create mongo client");
-            mongoClient = (MongoClient) context.getBean("mongoClient");
+            mongoClient = context.getBean(MongoClient.class);
         }
         return mongoClient;
     }
@@ -31,9 +32,9 @@ public class MongoDbConnectionHelper {
     public <T> Datastore createDatastore(MongoClient mongoClient, Class<T> tClass) {
         if (datastore == null) {
             LOG.trace("Create data store");
-            morphia = (Morphia) context.getBean("morphia");
+            morphia = context.getBean(Morphia.class);
             morphia.map(tClass);
-            datastore= (Datastore) context.getBean("datastore");
+            datastore= context.getBean(Datastore.class);
         }
         return datastore;
     }
