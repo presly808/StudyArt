@@ -12,10 +12,10 @@ public class RunInitCodingBatTaskTrigger {
         //InitCodingBatTaskTrigger.loadTasksIfNeeded();
         //InitCodingBatTaskTrigger.loadTasksToDataBase();
         ApplicationContext context = SpringContext.getContext();
-        DataBaseManager dataBaseManager = (DataBaseManager) context.getBean("dbManager");
+        DataBaseManager dataBaseManager =  context.getBean(DataBaseManager.class);
         SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(dataBaseManager);
-        //dataBaseManager.restoreDataBaseFromDump();
+        dataBaseManager.restoreDataBaseFromDump();
         //dataBaseManager.createDumpOfDataBase();
-        //simpleTaskDao.size();
+        System.out.println(simpleTaskDao.size());
     }
 }

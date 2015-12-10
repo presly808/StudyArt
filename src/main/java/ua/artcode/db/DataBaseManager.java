@@ -24,6 +24,7 @@ public class DataBaseManager {
     public void initDataStore() {
         MongoDbConnectionHelper mongoDbConnectionHelper = new MongoDbConnectionHelper();
         mongo = mongoDbConnectionHelper.initMongoClient();
+        //datastore=context.getBean(Datastore.class);
         datastore = mongoDbConnectionHelper.createDatastore(mongo, CodingBatTask.class);
     }
 
