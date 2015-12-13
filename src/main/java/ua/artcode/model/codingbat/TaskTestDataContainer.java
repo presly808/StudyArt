@@ -31,4 +31,12 @@ public class TaskTestDataContainer {
     public void addTaskTestData(TaskTestData taskTestData) {
         taskTestDataList.add(taskTestData);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("TaskTestDataContainer{");
+        sb.append("taskTestDataList=").append(taskTestDataList);
+        sb.append('}');
+        return sb.toString();
+    }
 }
