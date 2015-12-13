@@ -21,11 +21,11 @@
         <constructor-arg value="${mongo.db}"/>
     </bean>
 
-    <bean id="dbManager" class="ua.artcode.db.DataBaseManager" init-method="initDataStore" lazy-init="true"/>
+    <!--<bean id="dbManager" class="ua.artcode.db.DataBaseManager" init-method="initDataStore" lazy-init="true"/>-->
 
-    <bean id="morphia" class="org.mongodb.morphia.Morphia"/>
+    <bean id="morphia" class="org.mongodb.morphia.Morphia" />
 
-    <bean id="datastore" class="org.mongodb.morphia.Datastore" factory-bean="morphia" factory-method="createDatastore">
+    <bean id="datastore" class="org.mongodb.morphia.Datastore"  factory-bean="morphia"  factory-method="createDatastore"  >
         <!-- constructor args pass args to factoryMethod-->
         <constructor-arg name="mongoClient" ref="mongoClient"/>
         <constructor-arg name="dbName" value="${mongo.db}"/>
