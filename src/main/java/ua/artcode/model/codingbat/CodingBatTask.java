@@ -1,5 +1,6 @@
 package ua.artcode.model.codingbat;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     @Id
-    private String id;
+    private ObjectId id;
     private String codingBatId;
     private String groupName;
     private String title;
@@ -37,7 +38,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.groupName = groupName;
     }
 
-    public CodingBatTask(String id, String codingBatId, String title,
+    public CodingBatTask(ObjectId id, String codingBatId, String title,
                          String description, String examples, String template, String groupName) {
         this.id = id;
         this.codingBatId = codingBatId;
@@ -50,11 +51,11 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     }
 
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
