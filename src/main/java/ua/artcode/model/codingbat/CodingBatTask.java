@@ -1,8 +1,8 @@
 package ua.artcode.model.codingbat;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import ua.artcode.utils.CodingBatTaskUtils;
 
 import java.io.Serializable;
 
@@ -19,6 +19,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String template;
 
     // parsed template
+    @Embedded
     private MethodSignature methodSignature;
 
     private TaskTestDataContainer taskTestDataContainer = new TaskTestDataContainer();
@@ -132,6 +133,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         sb.append(", description='").append(description).append('\'');
         sb.append(", examples='").append(examples).append('\'');
         sb.append(", template='").append(template).append('\'');
+        sb.append(", method signature='").append(methodSignature).append('\'');
+        sb.append(", task test data container='").append(taskTestDataContainer).append('\'');
         sb.append('}');
         return sb.toString();
     }
