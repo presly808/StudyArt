@@ -17,7 +17,7 @@ public class ImplementedTaskContainer implements Serializable {
     }
 
     public ImplementedTask addImplementedTask(ImplementedTask implementedTask){
-        implementedTaskMap.put(implementedTask.getCodingBatTask().getId(),implementedTask);
+        implementedTaskMap.put(implementedTask.getCodingBatTask().getCodingBatId(),implementedTask);
         return implementedTask;
     }
 
