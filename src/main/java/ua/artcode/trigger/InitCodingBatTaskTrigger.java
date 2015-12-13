@@ -1,9 +1,10 @@
 package ua.artcode.trigger;
 
+import org.apache.log4j.Logger;
+import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.dao.SimpleTaskDao;
 import ua.artcode.dao.SimpleTaskDaoMongoImpl;
-import ua.artcode.db.DataBaseManager;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.AppPropertiesHolder;
 import ua.artcode.utils.CodingBatTaskGrabber;
@@ -11,9 +12,13 @@ import ua.artcode.utils.FileUtils;
 import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.serialization.AppDataJsonSerializer;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
+import java.util.Scanner;
 
 public class InitCodingBatTaskTrigger {
+    private static final Logger LOG = Logger.getLogger(InitCodingBatTaskTrigger.class);
 
 
     /**
@@ -44,14 +49,15 @@ public class InitCodingBatTaskTrigger {
      * @download tasks to database if it need
      */
     public static void loadTasksToDataBase() {
-        ApplicationContext context= SpringContext.getContext();
+        ApplicationContext context = SpringContext.getContext();
 
-        DataBaseManager dataBaseManager=  context.getBean(DataBaseManager.class);
+        Datastore datastore = context.getBean(Datastore.class);
 
-        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(dataBaseManager);
+        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(datastore);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
-
-        String dbJsonPath = context.getEnvironment().getProperty("db.json.task.path");
+        //TODO do with spring property
+        //String dbJsonPath = context.getEnvironment().getProperty("db.json.task.path");
+        String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
         for (CodingBatTask task : collection) {
@@ -59,4 +65,37 @@ public class InitCodingBatTaskTrigger {
         }
     }
 
+    /**
+     * @create dump of database if it need
+     */
+    public static void createDumpOfDataBase() {
+        try {
+            LOG.trace("create dump from db");
+            Runtime.getRuntime().exec("mongodump --db CodingBat");
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+    }
+
+    /**
+     * @restore dump of database if it need
+     */
+    public static void restoreDataBaseFromDump() {
+        try {
+            LOG.trace("Restore db from dump");
+            Process process = Runtime.getRuntime().exec("mongorestore dump");
+            LOG.debug(getData(process.getErrorStream()));
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+    }
+
+    private static String  getData(InputStream is) {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(is);
+        while (sc.hasNextLine()) {
+            sb.append(sc.nextLine()).append("\n");
+        }
+        return sb.toString();
+    }
 }
