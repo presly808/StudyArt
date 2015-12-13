@@ -8,7 +8,7 @@ import java.util.List;
 
 // CRUD
 public interface SimpleTaskDao {
-
+    //TODO different create addTask?
     CodingBatTask create(CodingBatTask task);
 
     CodingBatTask findById(String id) throws NoSuchTaskException;
