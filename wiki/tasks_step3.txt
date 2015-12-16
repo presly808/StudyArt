@@ -1,9 +1,0 @@
-1) add validation to all input data
-2) write tests for each module
-3) grab task test data (Selenium + PhantomJS), grab group of task and id (ex. WarmUp1, Recursion1..) -> additional to grabber
-4) Finish all unfinished task
-5) think about dynamic(compiler and class loading)
-    draw architecture of task runner with test data(see 3)
-
-6) read about mongodb and Morphia framework
-

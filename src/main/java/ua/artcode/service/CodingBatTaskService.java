@@ -1,6 +1,5 @@
 package ua.artcode.service;
 
-import ua.artcode.db.ImplementedTaskContainer;
 import ua.artcode.exception.AppException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.ResultContainer;
@@ -10,7 +9,7 @@ import ua.artcode.model.codingbat.TaskTestResult;
 
 import java.util.List;
 
-public interface SimpleTaskService {
+public interface CodingBatTaskService {
 
     List<CodingBatTask> getAllByGroup(String groupName) throws AppException;
 
@@ -30,7 +29,6 @@ public interface SimpleTaskService {
 
     ImplementedTask loadImplementedTaskFromFile();
 
-    void saveHistory(ImplementedTaskContainer implementedTaskContainer);
 
 
 

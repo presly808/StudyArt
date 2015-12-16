@@ -3,6 +3,7 @@ package ua.artcode.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ua.artcode.utils.codingbat.CodingBatHtmlDataParser;
 
 import java.util.List;
 

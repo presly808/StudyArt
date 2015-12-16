@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.codingbat;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;

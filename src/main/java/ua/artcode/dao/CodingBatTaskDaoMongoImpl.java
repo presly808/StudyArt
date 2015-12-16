@@ -7,14 +7,11 @@ import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 
-/**
- * Created by Razer on 09.11.15.
- */
-public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
+public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
     private DataBaseManager dataBaseManager;
 
-    public SimpleTaskDaoMongoImpl(DataBaseManager dataBaseManager) {
+    public CodingBatTaskDaoMongoImpl(DataBaseManager dataBaseManager) {
         this.dataBaseManager = dataBaseManager;
     }
 
@@ -33,11 +30,6 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
     @Override
     public boolean delete(String id) {
         return dataBaseManager.deleteTaskById(id);
-    }
-
-    @Override
-    public List<CodingBatTask> search() {
-        return null;
     }
 
     @Override

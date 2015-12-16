@@ -1,13 +1,13 @@
 package ua.artcode.validation;
 
 import ua.artcode.exception.AppValidationException;
-import ua.artcode.model.common.UserAccount;
+import ua.artcode.model.common.User;
 
 import java.util.regex.Pattern;
 
 // http://www.mkyong.com/regular-expressions/how-to-validate-password-with-regular-expression/
 // TODO finsih validator
-public class UserAccountValidator implements Validator<UserAccount> {
+public class UserAccountValidator implements Validator<User> {
 
     // took that from inet
     private static final String EMAIL_PATTERN = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"" +
@@ -27,7 +27,7 @@ public class UserAccountValidator implements Validator<UserAccount> {
     public UserAccountValidator() {}
 
     @Override
-    public boolean validate(UserAccount entity) throws AppValidationException {
+    public boolean validate(User entity) throws AppValidationException {
 
         AppValidationException exceptionMessageContainer = new AppValidationException();
 

@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.artcode.model.codingbat.MethodSignature;
+import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 /**
  * Created by Maxim on 08.12.2015.

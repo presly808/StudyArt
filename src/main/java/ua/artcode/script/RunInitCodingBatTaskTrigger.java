@@ -1,10 +1,4 @@
-package ua.artcode.trigger;
-
-import org.springframework.context.ApplicationContext;
-import ua.artcode.dao.SimpleTaskDao;
-import ua.artcode.dao.SimpleTaskDaoMongoImpl;
-import ua.artcode.db.DataBaseManager;
-import ua.artcode.utils.SpringContext;
+package ua.artcode.script;
 
 public class RunInitCodingBatTaskTrigger {
 

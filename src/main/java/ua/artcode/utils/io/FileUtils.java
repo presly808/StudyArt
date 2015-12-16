@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.io;
 
 import ua.artcode.exception.PathNotFoundException;
 

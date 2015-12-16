@@ -3,7 +3,7 @@ package ua.artcode.model.common;
 
 import java.io.Serializable;
 
-public class UserAccount implements Serializable {
+public class User implements Serializable {
 
     private String username;
     private String password;
@@ -11,14 +11,14 @@ public class UserAccount implements Serializable {
     private AccountType accountType;
 
 
-    public UserAccount(String username, String password, String email) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.accountType = AccountType.USER;
     }
 
-    public UserAccount(String username, String password, String email, AccountType accountType) {
+    public User(String username, String password, String email, AccountType accountType) {
         this.username = username;
         this.password = password;
         this.email = email;

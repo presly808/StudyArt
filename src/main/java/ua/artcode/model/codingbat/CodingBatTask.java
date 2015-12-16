@@ -2,7 +2,6 @@ package ua.artcode.model.codingbat;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import ua.artcode.utils.CodingBatTaskUtils;
 
 import java.io.Serializable;
 

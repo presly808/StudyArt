@@ -1,8 +1,7 @@
 package ua.artcode.service;
 
 import org.apache.log4j.Logger;
-import ua.artcode.dao.SimpleTaskDao;
-import ua.artcode.db.ImplementedTaskContainer;
+import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.ImplementedTask;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 //@Service
-public class SimpleTaskServiceImpl implements SimpleTaskService {
+public class SimpleTaskServiceImpl implements CodingBatTaskService {
 
     private String path;
 
@@ -23,17 +22,17 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
     private AppDataStandartJavaSerializator appDataStandartJavaSerializator;
 
     //@Autowired
-    private SimpleTaskDao simpleTaskDao;
+    private CodingBatTaskDao codingBatTaskDao;
 
     private Scanner scanner;
 
-    private static final Logger LOGGER = Logger.getLogger(SimpleTaskService.class);
+    private static final Logger LOGGER = Logger.getLogger(CodingBatTaskService.class);
 
     public SimpleTaskServiceImpl() {
     }
 
-    public SimpleTaskServiceImpl(SimpleTaskDao simpleTaskDao){
-        this.simpleTaskDao = simpleTaskDao;
+    public SimpleTaskServiceImpl(CodingBatTaskDao codingBatTaskDao){
+        this.codingBatTaskDao = codingBatTaskDao;
 
         scanner = new Scanner(System.in);
     }
@@ -45,17 +44,17 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
 
     @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException {
-        return simpleTaskDao.addTask(codingBatTask) ;
+        return codingBatTaskDao.addTask(codingBatTask) ;
     }
 
     @Override
     public List<CodingBatTask> getAll() throws AppException {
-        return simpleTaskDao.getAll();
+        return codingBatTaskDao.getAll();
     }
 
     @Override
     public CodingBatTask getTask(String id) throws NoSuchTaskException {
-        return simpleTaskDao.findById(id);
+        return codingBatTaskDao.findById(id);
     }
 
 
@@ -80,13 +79,6 @@ public class SimpleTaskServiceImpl implements SimpleTaskService {
         return (ImplementedTask) appDataStandartJavaSerializator.load(path);
 
     }
-
-    @Override
-    public void saveHistory(ImplementedTaskContainer implementedTaskContainer) {
-        appDataStandartJavaSerializator.save(path,implementedTaskContainer);
-    }
-
-
 
     @Override
     public CodingBatTask taskCreation() {
