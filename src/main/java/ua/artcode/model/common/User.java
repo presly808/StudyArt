@@ -3,22 +3,24 @@ package ua.artcode.model.common;
 
 import java.io.Serializable;
 
-public class UserAccount implements Serializable {
+public class User implements Serializable {
 
     private String username;
     private String password;
     private String email;
     private AccountType accountType;
 
+    private int score; // TODO should be changed on something else
 
-    public UserAccount(String username, String password, String email) {
+
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.accountType = AccountType.USER;
     }
 
-    public UserAccount(String username, String password, String email, AccountType accountType) {
+    public User(String username, String password, String email, AccountType accountType) {
         this.username = username;
         this.password = password;
         this.email = email;

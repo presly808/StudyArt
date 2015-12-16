@@ -1,34 +1,34 @@
 package ua.artcode.dao;
 
-import ua.artcode.db.UserAccountContainer;
+import ua.artcode.db.UserContainer;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.exception.UserAuthenticationFailException;
-import ua.artcode.model.common.UserAccount;
+import ua.artcode.model.common.User;
 
 import java.util.Set;
 
 public class SimpleUserDaoImpl implements SimpleUserDao {
 
-    private UserAccountContainer userContainer;
+    private UserContainer userContainer;
 
-    public SimpleUserDaoImpl(UserAccountContainer userContainer) {
+    public SimpleUserDaoImpl(UserContainer userContainer) {
 
         this.userContainer = userContainer;
     }
 
-    public UserAccount create(UserAccount user) throws  UserAccountExistException {
+    public User create(User user) throws  UserAccountExistException {
 
-        UserAccount newuser = userContainer.addUser(user);
+        User newuser = userContainer.addUser(user);
         if (newuser == null) {
             throw new UserAccountExistException("Account already exists for " + user.getUsername());
         }
         return user;
     }
 
-    public UserAccount findByUserName(String username) throws NoSuchUserException {
+    public User findByUserName(String username) throws NoSuchUserException {
 
-        UserAccount user = userContainer.getByUserName(username);
+        User user = userContainer.getByUserName(username);
         if (user == null) {
             throw new NoSuchUserException("Have no Account for " + username);
         }
@@ -37,12 +37,12 @@ public class SimpleUserDaoImpl implements SimpleUserDao {
 
     public boolean delete(String username) throws NoSuchUserException {
 
-        UserAccount user = findByUserName(username);
+        User user = findByUserName(username);
         return userContainer.remove(user);
     }
 
     @Override
-    public Set<UserAccount> getAllUser() {
+    public Set<User> getAllUser() {
         return null;
     }
 
@@ -50,9 +50,9 @@ public class SimpleUserDaoImpl implements SimpleUserDao {
         return userContainer.getUserNames();
     }
 
-    public UserAccount authenticate(String username, String password) throws NoSuchUserException, UserAuthenticationFailException{
+    public User authenticate(String username, String password) throws NoSuchUserException, UserAuthenticationFailException{
 
-        UserAccount user = findByUserName(username);
+        User user = findByUserName(username);
         if (user.getPassword().equals(password)) {
             throw new UserAuthenticationFailException("Incorrect password");
         }

@@ -8,14 +8,13 @@ import java.util.LinkedList;
  */
 public class AppException extends Exception {
 
-    private Collection<String> exceptionMessageList;
+    private Collection<String> exceptionMessageList = new LinkedList<>();
 
     public AppException() {
     }
 
     public AppException(String message) {
         super(message);
-        exceptionMessageList = new LinkedList<>();
         exceptionMessageList.add(message);
     }
 
