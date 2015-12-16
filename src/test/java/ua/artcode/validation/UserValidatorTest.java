@@ -4,12 +4,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.common.User;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-/**
- * Created by Maxim on 15.12.2015.
- */
 public class UserValidatorTest {
+
     private static UserValidator validator;
 
     @BeforeClass
@@ -20,7 +18,7 @@ public class UserValidatorTest {
     @Test
     public void testCorrectUser() throws AppValidationException {
         User user = new User("user1879", "password", "some_mail@gmail.com");
-        assertEquals(true, validator.validate(user));
+        assertTrue(validator.validate(user));
     }
 
     @Test(expected = AppValidationException.class)
