@@ -54,27 +54,27 @@ public class GetMethodSignatureTest {
         Assert.assertEquals(3, methodSignature.getInArgList().size());
     }
 
-//    @Test
-//    public void testArgsName() {
-//        MethodSignature methodSignature = taskUtils.getMethodSignature(
-//                "public boolean method(int start, int[] nums, String str) {\n" +
-//                        "  \n" +
-//                        "}");
-//        Assert.assertEquals("start", methodSignature.getInArgList().get(0).getName());
-//        Assert.assertEquals("nums", methodSignature.getInArgList().get(1).getName());
-//        Assert.assertEquals("str", methodSignature.getInArgList().get(2).getName());
-//
-//    }
-//
-//    @Test
-//    public void testArgsType() {
-//        MethodSignature methodSignature = taskUtils.getMethodSignature(
-//                "public boolean method(int start, int[] nums, String str) {\n" +
-//                        "  \n" +
-//                        "}");
-//        Assert.assertEquals("int", methodSignature.getInArgList().get(0).getType());
-//        Assert.assertEquals("int[]", methodSignature.getInArgList().get(1).getType());
-//        Assert.assertEquals("String", methodSignature.getInArgList().get(2).getType());
-//
-//    }
+    @Test
+    public void testArgsName() {
+        MethodSignature methodSignature = taskUtils.getMethodSignature(
+                "public boolean method(int start, int[] nums, String str) {\n" +
+                        "  \n" +
+                        "}");
+        Assert.assertEquals("start", methodSignature.getInArgList().get(0).getName());
+        Assert.assertEquals("nums", methodSignature.getInArgList().get(1).getName());
+        Assert.assertEquals("str", methodSignature.getInArgList().get(2).getName());
+
+    }
+
+    @Test
+    public void testArgsType() {
+        MethodSignature methodSignature = taskUtils.getMethodSignature(
+                "public boolean method(int start, int[] nums, String str) {\n" +
+                        "  \n" +
+                        "}");
+        Assert.assertEquals("int", methodSignature.getInArgList().get(0).getType());
+        Assert.assertEquals("int[]", methodSignature.getInArgList().get(1).getType());
+        Assert.assertEquals("String", methodSignature.getInArgList().get(2).getType());
+
+    }
 }

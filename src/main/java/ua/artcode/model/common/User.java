@@ -10,6 +10,8 @@ public class User implements Serializable {
     private String email;
     private AccountType accountType;
 
+    private int score; // TODO should be changed on something else
+
 
     public User(String username, String password, String email) {
         this.username = username;

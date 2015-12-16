@@ -25,7 +25,7 @@ public class MethodSignature {
         this.returnType = returnType;
     }
 
-    public List getInArgList() {
+    public List<InArg> getInArgList() {
         return inArgList;
     }
 

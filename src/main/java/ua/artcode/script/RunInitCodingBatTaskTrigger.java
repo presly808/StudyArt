@@ -1,6 +1,4 @@
-package ua.artcode.trigger;
-
-import ua.artcode.script.InitCodingBatTaskTrigger;
+package ua.artcode.script;
 
 public class RunInitCodingBatTaskTrigger {
 
