@@ -1,5 +1,7 @@
 package ua.artcode.model.codingbat;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -9,7 +11,7 @@ import java.io.Serializable;
 public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
 
     @Id
-    private String id;
+    private ObjectId id;
     private String codingBatId;
     private String groupName;
     private String title;
@@ -18,6 +20,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String template;
 
     // parsed template
+    @Embedded
     private MethodSignature methodSignature;
 
     private TaskTestDataContainer taskTestDataContainer = new TaskTestDataContainer();
@@ -35,7 +38,7 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         this.groupName = groupName;
     }
 
-    public CodingBatTask(String id, String codingBatId, String title,
+    public CodingBatTask(ObjectId id, String codingBatId, String title,
                          String description, String examples, String template, String groupName) {
         this.id = id;
         this.codingBatId = codingBatId;
@@ -48,11 +51,11 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     }
 
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -131,6 +134,8 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         sb.append(", description='").append(description).append('\'');
         sb.append(", examples='").append(examples).append('\'');
         sb.append(", template='").append(template).append('\'');
+        sb.append(", method signature='").append(methodSignature).append('\'');
+        sb.append(", task test data container='").append(taskTestDataContainer).append('\'');
         sb.append('}');
         return sb.toString();
     }

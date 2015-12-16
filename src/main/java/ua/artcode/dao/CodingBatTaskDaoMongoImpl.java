@@ -1,57 +1,75 @@
 package ua.artcode.dao;
 
-import ua.artcode.db.DataBaseManager;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 
+/**
+ * Created by Razer on 09.11.15.
+ */
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
-    private DataBaseManager dataBaseManager;
+    private Datastore datastore;
 
-    public CodingBatTaskDaoMongoImpl(DataBaseManager dataBaseManager) {
-        this.dataBaseManager = dataBaseManager;
+    public CodingBatTaskDaoMongoImpl(Datastore datastore) {
+        this.datastore = datastore;
     }
 
     @Override
     public CodingBatTask create(CodingBatTask task) {
-        dataBaseManager.addTask(task);
+        datastore.save(task);
         return task;
     }
 
     @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {
-        dataBaseManager.findById(id);
-        return null;
+        CodingBatTask codingBatTask = datastore.find(CodingBatTask.class, "codingBatId", id).get();
+        if (codingBatTask == null) {
+            throw new NoSuchTaskException("No task with id " + id);
+        }
+        return codingBatTask;
     }
 
     @Override
     public boolean delete(String id) {
-        return dataBaseManager.deleteTaskById(id);
+        CodingBatTask codingBatTask = datastore.find(CodingBatTask.class).field("codingBatId").equal(id).get();
+        if (codingBatTask != null) {
+            datastore.delete(CodingBatTask.class, codingBatTask.getId());
+            return true;
+        }
+        return false;
     }
 
     @Override
     public int size() {
-        return dataBaseManager.size();
+        return (int) datastore.getDB().getCollection("CodingBatTask").count();
     }
 
     @Override
     public CodingBatTask update(CodingBatTask task) {
-        return null;
+        UpdateOperations<CodingBatTask> ops;
+        Query<CodingBatTask> updateQuery = datastore.createQuery(CodingBatTask.class).field("id").equal(task.getId());
+        ops = datastore.createUpdateOperations(CodingBatTask.class);
+        //datastore.findAndModify(updateQuery,ops);
+        datastore.update(updateQuery, ops);
+        return task;
     }
 
     @Override
     public List<CodingBatTask> getAll() throws AppException {
-        return null;
+        List<CodingBatTask> tasks = datastore.find(CodingBatTask.class).asList();
+        return tasks;
     }
 
     @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) {
-        dataBaseManager.addTask(codingBatTask);
+        datastore.save(codingBatTask);
         return codingBatTask;
     }
-
 
 }

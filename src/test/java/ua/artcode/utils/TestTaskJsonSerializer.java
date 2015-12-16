@@ -50,7 +50,7 @@ public class TestTaskJsonSerializer {
         try {
             String fileContent = new String(Source.readFully(dbTaskPath));
 
-            long savedTasks = codingBatTasks.stream().filter(codingBatTask -> fileContent.contains(codingBatTask.getId())).count();
+            long savedTasks = codingBatTasks.stream().filter(codingBatTask -> fileContent.contains(codingBatTask.getCodingBatId())).count();
 
             assertEquals(savedTasks, codingBatTasks.size());
 

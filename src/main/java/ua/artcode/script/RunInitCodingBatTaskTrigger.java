@@ -1,15 +1,20 @@
-package ua.artcode.script;
+package ua.artcode.trigger;
+
+import ua.artcode.script.InitCodingBatTaskTrigger;
 
 public class RunInitCodingBatTaskTrigger {
 
     public static void main(String[] args) {
-        InitCodingBatTaskTrigger.loadTasksIfNeeded();
+        //InitCodingBatTaskTrigger.loadTasksIfNeeded();
         //InitCodingBatTaskTrigger.loadTasksToDataBase();
-       /* ApplicationContext context = SpringContext.getContext();
-        DataBaseManager dataBaseManager = (DataBaseManager) context.getBean("dbManager");
-        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(dataBaseManager);
-        dataBaseManager.restoreDataBaseFromDump();*/
-        //dataBaseManager.createDumpOfDataBase();
-        //System.out.println(simpleTaskDao.size());
+//        ApplicationContext context = SpringContext.getContext();
+//        Morphia morphia = context.getBean(Morphia.class);
+//        morphia.map(CodingBatTask.class);
+//        Datastore datastore = context.getBean(Datastore.class);
+//        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(datastore);
+        //InitCodingBatTaskTrigger.loadTasksIfNeeded();
+        InitCodingBatTaskTrigger.loadTasksToDataBase();
+        //InitCodingBatTaskTrigger.createDumpOfDataBase();
+        //InitCodingBatTaskTrigger.restoreDataBaseFromDump();
     }
 }

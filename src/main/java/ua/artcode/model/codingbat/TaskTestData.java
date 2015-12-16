@@ -4,12 +4,10 @@ import java.util.List;
 
 /**
  * sleepIn(false, false) → true	true	OK
- *
+ * <p>
  * EXAMPLE of FILL IN Object
  * inData = {"false","false"}
  * expectedValue = "true"
- *
- *
  */
 public class TaskTestData {
 
@@ -38,5 +36,14 @@ public class TaskTestData {
 
     public void setInData(List<String> inData) {
         this.inData = inData;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("TaskTestData{");
+        sb.append("inData=").append(inData);
+        sb.append(", expectedValue='").append(expectedValue).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
