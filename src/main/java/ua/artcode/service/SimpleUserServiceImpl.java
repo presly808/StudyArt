@@ -3,7 +3,7 @@ package ua.artcode.service;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.UserAuthenticationFailException;
-import ua.artcode.model.common.AccountType;
+import ua.artcode.model.common.UserType;
 import ua.artcode.model.common.User;
 import ua.artcode.validation.Validator;
 
@@ -32,11 +32,11 @@ public class SimpleUserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(String username, String password, String email, AccountType accountType) throws AppException {
+    public User register(String username, String password, String email, UserType userType) throws AppException {
 
         accountValidator.validate(new User(username,password,email));
 
-        return userDao.create(new User(username, password, email, accountType));
+        return userDao.create(new User(username, password, email, userType));
     }
 
     @Override
