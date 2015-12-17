@@ -1,11 +1,4 @@
-package ua.artcode.trigger;
-
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.springframework.context.ApplicationContext;
-import ua.artcode.dao.SimpleTaskDaoMongoImpl;
-import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.utils.SpringContext;
+package ua.artcode.script;
 
 public class RunInitCodingBatTaskTrigger {
 
@@ -18,10 +11,8 @@ public class RunInitCodingBatTaskTrigger {
 //        Datastore datastore = context.getBean(Datastore.class);
 //        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(datastore);
         //InitCodingBatTaskTrigger.loadTasksIfNeeded();
-        //InitCodingBatTaskTrigger.loadTasksToDataBase();
+        InitCodingBatTaskTrigger.loadTasksToDataBase();
         //InitCodingBatTaskTrigger.createDumpOfDataBase();
         //InitCodingBatTaskTrigger.restoreDataBaseFromDump();
-
-
     }
 }

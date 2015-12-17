@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.codingbat;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;

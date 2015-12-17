@@ -1,15 +1,17 @@
-package ua.artcode.trigger;
+package ua.artcode.script;
 
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
-import ua.artcode.dao.SimpleTaskDao;
-import ua.artcode.dao.SimpleTaskDaoMongoImpl;
+
+import ua.artcode.dao.CodingBatTaskDao;
+import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.utils.AppPropertiesHolder;
-import ua.artcode.utils.CodingBatTaskGrabber;
-import ua.artcode.utils.FileUtils;
+
 import ua.artcode.utils.SpringContext;
+import ua.artcode.utils.codingbat.CodingBatTaskGrabber;
+import ua.artcode.utils.io.AppPropertiesHolder;
+import ua.artcode.utils.io.FileUtils;
 import ua.artcode.utils.serialization.AppDataJsonSerializer;
 
 import java.io.IOException;
@@ -53,7 +55,7 @@ public class InitCodingBatTaskTrigger {
 
         Datastore datastore = context.getBean(Datastore.class);
 
-        SimpleTaskDao simpleTaskDao = new SimpleTaskDaoMongoImpl(datastore);
+        CodingBatTaskDao simpleTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
         //TODO do with spring property
         //String dbJsonPath = context.getEnvironment().getProperty("db.json.task.path");

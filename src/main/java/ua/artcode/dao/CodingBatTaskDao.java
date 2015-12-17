@@ -7,8 +7,8 @@ import ua.artcode.model.codingbat.CodingBatTask;
 import java.util.List;
 
 // CRUD
-public interface SimpleTaskDao {
-    //TODO different create addTask?
+public interface CodingBatTaskDao {
+
     CodingBatTask create(CodingBatTask task);
 
     CodingBatTask findById(String id) throws NoSuchTaskException;
@@ -20,8 +20,6 @@ public interface SimpleTaskDao {
     List<CodingBatTask> getAll() throws AppException;
 
     CodingBatTask addTask(CodingBatTask codingBatTask);
-    //TODO ?
-    List<CodingBatTask> search();
 
     int size();
 }

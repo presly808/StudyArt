@@ -8,7 +8,7 @@ import java.util.List;
 public class TaskTestResult {
 
     // will be ref in mongo db
-    private User userAccount;
+    private User user;
 
     // will be ref in mongo db
     private CodingBatTask codingBatTask;

@@ -7,7 +7,7 @@ import ua.artcode.model.common.User;
 import java.util.Set;
 
 
-public interface SimpleUserDao {
+public interface UserDao {
 
     User create(User user) throws UserAccountExistException;
 

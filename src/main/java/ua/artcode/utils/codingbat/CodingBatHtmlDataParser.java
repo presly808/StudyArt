@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.codingbat;
 
 import java.util.*;
 

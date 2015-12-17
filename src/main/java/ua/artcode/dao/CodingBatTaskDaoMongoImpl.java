@@ -12,11 +12,11 @@ import java.util.List;
 /**
  * Created by Razer on 09.11.15.
  */
-public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
+public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
     private Datastore datastore;
 
-    public SimpleTaskDaoMongoImpl(Datastore datastore) {
+    public CodingBatTaskDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
     }
 
@@ -43,11 +43,6 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public List<CodingBatTask> search() {
-        return null;
     }
 
     @Override
