@@ -1,15 +1,14 @@
 package ua.artcode.model.codingbat;
 
-import ua.artcode.model.common.UserAccount;
+import ua.artcode.model.common.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // todo change global structure(add userCode for task)
 public class TaskTestResult {
 
     // will be ref in mongo db
-    private UserAccount userAccount;
+    private User user;
 
     // will be ref in mongo db
     private CodingBatTask codingBatTask;

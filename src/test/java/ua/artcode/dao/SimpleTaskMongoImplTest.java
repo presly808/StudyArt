@@ -7,20 +7,20 @@ import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.utils.AppPropertiesHolder;
+import ua.artcode.utils.io.AppPropertiesHolder;
 import ua.artcode.utils.SpringContext;
 
 import java.io.IOException;
 
-import static junit.framework.Assert.assertEquals;
-import static ua.artcode.trigger.InitCodingBatTaskTrigger.getData;
+import static org.junit.Assert.assertEquals;
+import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
 /**
  * Created by Razer on 14.12.15.
  */
 public class SimpleTaskMongoImplTest {
     private static final Logger LOG = Logger.getLogger(SimpleTaskMongoImplTest.class);
-    private static SimpleTaskDao simpleTaskDao;
+    private static CodingBatTaskDao codingBatTaskDao;
     private static ApplicationContext context;
     private static Datastore datastore;
 
@@ -36,39 +36,39 @@ public class SimpleTaskMongoImplTest {
         }
         context = SpringContext.getContext();
         datastore = (Datastore) context.getBean("testStore");
-        simpleTaskDao = new SimpleTaskDaoMongoImpl(datastore);
+        codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         //CodingBatTask mockTask = mock(CodingBatTask.class);
-        simpleTaskDao.addTask(new CodingBatTask("342324", "2", "2", "2", "2", "2"));
+        codingBatTaskDao.addTask(new CodingBatTask("342324", "2", "2", "2", "2", "2"));
 //        for (int i = 0; i < 5; i++) {
 //            when(mockTask.getCodingBatId()).thenReturn(Integer.toString(i));
-//            simpleTaskDao.addTask(mockTask);
+//            codingBatTaskDao.addTask(mockTask);
 //        }
     }
 
 
     @Test
     public void sizeTest() {
-        int sizeOfdb = simpleTaskDao.size();
+        int sizeOfdb = codingBatTaskDao.size();
         assertEquals(sizeOfdb, 1);
     }
 
     @Test
     public void removeTest() {
-        simpleTaskDao.addTask(new CodingBatTask("123785", "1", "1", "1", "1", "1"));
-        int sizeBeforeRemove = simpleTaskDao.size();
-        simpleTaskDao.delete("123785");
-        int sizeAfterDel = simpleTaskDao.size();
+        codingBatTaskDao.addTask(new CodingBatTask("123785", "1", "1", "1", "1", "1"));
+        int sizeBeforeRemove = codingBatTaskDao.size();
+        codingBatTaskDao.delete("123785");
+        int sizeAfterDel = codingBatTaskDao.size();
         assertEquals(sizeBeforeRemove, sizeAfterDel + 1);
     }
 
     @Test
     public void invalidRemoveTest() {
-        simpleTaskDao.addTask(new CodingBatTask("45678", "1", "1", "1", "1", "1"));
-        int sizeBeforeRemove = simpleTaskDao.size();
-        simpleTaskDao.delete("");
-        int sizeAfterDel = simpleTaskDao.size();
+        codingBatTaskDao.addTask(new CodingBatTask("45678", "1", "1", "1", "1", "1"));
+        int sizeBeforeRemove = codingBatTaskDao.size();
+        codingBatTaskDao.delete("");
+        int sizeAfterDel = codingBatTaskDao.size();
         assertEquals(sizeBeforeRemove, sizeAfterDel);
-        simpleTaskDao.delete("45678");
+        codingBatTaskDao.delete("45678");
     }
 
     @AfterClass

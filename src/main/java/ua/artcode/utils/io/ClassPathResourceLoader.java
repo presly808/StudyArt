@@ -1,4 +1,4 @@
-package ua.artcode.utils;
+package ua.artcode.utils.io;
 
 import java.io.File;
 import java.net.URL;

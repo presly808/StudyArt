@@ -12,19 +12,13 @@ import java.util.List;
 /**
  * Created by Razer on 09.11.15.
  */
-public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
+public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
     private Datastore datastore;
 
-    public SimpleTaskDaoMongoImpl(Datastore datastore) {
+    public CodingBatTaskDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
     }
-
-//    @Override
-//    public CodingBatTask create(CodingBatTask task) {
-//        datastore.save(task);
-//        return task;
-//    }
 
     @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {

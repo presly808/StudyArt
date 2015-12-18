@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.log4j.Logger;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.utils.FileUtils;
+import ua.artcode.utils.io.FileUtils;
 
 import java.io.*;
 import java.lang.reflect.Type;
