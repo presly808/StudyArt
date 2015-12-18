@@ -20,11 +20,11 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
         this.datastore = datastore;
     }
 
-    @Override
-    public CodingBatTask create(CodingBatTask task) {
-        datastore.save(task);
-        return task;
-    }
+//    @Override
+//    public CodingBatTask create(CodingBatTask task) {
+//        datastore.save(task);
+//        return task;
+//    }
 
     @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {
@@ -45,10 +45,10 @@ public class SimpleTaskDaoMongoImpl implements SimpleTaskDao {
         return false;
     }
 
-    @Override
-    public List<CodingBatTask> search() {
-        return null;
-    }
+//    @Override
+//    public List<CodingBatTask> search() {
+//        return null;
+//    }
 
     @Override
     public int size() {
