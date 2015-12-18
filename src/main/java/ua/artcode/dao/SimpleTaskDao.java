@@ -8,9 +8,7 @@ import java.util.List;
 
 // CRUD
 public interface SimpleTaskDao {
-    //TODO different create addTask?
-    CodingBatTask create(CodingBatTask task);
-
+    
     CodingBatTask findById(String id) throws NoSuchTaskException;
 
     boolean delete(String id);
@@ -20,8 +18,6 @@ public interface SimpleTaskDao {
     List<CodingBatTask> getAll() throws AppException;
 
     CodingBatTask addTask(CodingBatTask codingBatTask);
-    //TODO ?
-    List<CodingBatTask> search();
 
     int size();
 }
