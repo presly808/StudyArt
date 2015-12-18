@@ -8,7 +8,7 @@ import java.util.List;
 
 // CRUD
 public interface SimpleTaskDao {
-    
+
     CodingBatTask findById(String id) throws NoSuchTaskException;
 
     boolean delete(String id);
