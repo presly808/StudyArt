@@ -61,7 +61,7 @@ public class InitCodingBatTaskTrigger {
 
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
         for (CodingBatTask task : collection) {
-            simpleTaskDao.create(task);
+            simpleTaskDao.addTask(task);
         }
     }
 
@@ -90,7 +90,7 @@ public class InitCodingBatTaskTrigger {
         }
     }
 
-    private static String  getData(InputStream is) {
+    public static String getData(InputStream is) {
         StringBuilder sb = new StringBuilder();
         Scanner sc = new Scanner(is);
         while (sc.hasNextLine()) {
