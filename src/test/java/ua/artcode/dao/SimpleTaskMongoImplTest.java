@@ -6,11 +6,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
+import ua.artcode.exception.AppException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.io.AppPropertiesHolder;
 import ua.artcode.utils.SpringContext;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
@@ -45,6 +47,18 @@ public class SimpleTaskMongoImplTest {
 //        }
     }
 
+    @Test
+    public void getAllTest() {
+        List<CodingBatTask> codingBatTasks = null;
+        try {
+            codingBatTasks = codingBatTaskDao.getAll();
+        } catch (AppException e) {
+            LOG.error(e);
+        }
+        int sizeOfList = codingBatTasks.size();
+        int sizeOfDb = codingBatTaskDao.size();
+        assertEquals(sizeOfDb, sizeOfList);
+    }
 
     @Test
     public void sizeTest() {
