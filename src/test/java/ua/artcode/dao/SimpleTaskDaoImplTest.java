@@ -1,10 +1,9 @@
 //package ua.artcode.dao;
 //
 //
-//import org.junit.After;
 //import org.junit.Before;
 //import org.junit.Test;
-//import ua.artcode.db.CodingBatTaskContainer;
+//import org.mongodb.morphia.Datastore;
 //import ua.artcode.exception.AppException;
 //import ua.artcode.model.codingbat.CodingBatTask;
 //
@@ -21,19 +20,17 @@
 //
 //    private static SimpleTaskDao simpleTaskDao;
 //
+//
 //    @Before
 //    public void initTask() {
-//        CodingBatTaskContainer codingBatTaskContainer = new CodingBatTaskContainer();
-//        simpleTaskDao = new SimpleTaskDaoImpl(codingBatTaskContainer);
+//        //ApplicationContext context = SpringContext.getContext();
+//        //Datastore datastore = context.getBean(Datastore.class);
+//        Datastore datastore = mock(Datastore.class);
+//        simpleTaskDao = new SimpleTaskDaoMongoImpl(datastore);
 //        for (int i = 0; i < 5; i++) {
 //            CodingBatTask mockTask = mock(CodingBatTask.class);
 //            simpleTaskDao.addTask(mockTask);
 //        }
-//    }
-//
-//    @After
-//    public void cleanCount() {
-//        CodingBatTaskContainer.setCount(0);
 //    }
 //
 //    @Test
@@ -49,7 +46,7 @@
 //    }
 //
 //    public int getSize() throws AppException {
-//        return simpleTaskDao.getAll().size();
+//        return simpleTaskDao.size();
 //    }
 //
 //
