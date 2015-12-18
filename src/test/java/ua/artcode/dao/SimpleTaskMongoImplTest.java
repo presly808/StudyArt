@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.io.AppPropertiesHolder;
 import ua.artcode.utils.SpringContext;
@@ -45,6 +46,22 @@ public class SimpleTaskMongoImplTest {
 //            when(mockTask.getCodingBatId()).thenReturn(Integer.toString(i));
 //            codingBatTaskDao.addTask(mockTask);
 //        }
+    }
+
+    @Test
+    public void findByIdTest() {
+        CodingBatTask task = null;
+        CodingBatTask taskTofind = new CodingBatTask("3247", "0", "0", "0", "0", "0");
+        codingBatTaskDao.addTask(taskTofind);
+
+        try {
+            task = codingBatTaskDao.findById("3247");
+        } catch (NoSuchTaskException e) {
+            LOG.error(e);
+        }
+        assertEquals(taskTofind.getId(), task.getId());
+
+
     }
 
     @Test
