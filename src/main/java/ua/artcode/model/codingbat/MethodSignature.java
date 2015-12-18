@@ -16,7 +16,7 @@ public class MethodSignature {
     public MethodSignature() {
         inArgList = new ArrayList<>();
     }
-    
+
     public void addInArg(String type, String name) {
         inArgList.add(new InArg(type, name));
     }
@@ -25,7 +25,7 @@ public class MethodSignature {
         this.returnType = returnType;
     }
 
-    public List getInArgList() {
+    public List<InArg> getInArgList() {
         return inArgList;
     }
 
