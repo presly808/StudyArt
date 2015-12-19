@@ -18,7 +18,7 @@ public class UserDaoMongoImpl implements UserDao{
     }
 
     @Override
-    public User create(User user) throws UserAccountExistException {
+    public User addUser(User user) throws UserAccountExistException {
         datastore.save(user);
         return user;
     }
