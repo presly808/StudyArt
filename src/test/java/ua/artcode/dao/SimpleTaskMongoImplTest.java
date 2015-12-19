@@ -9,8 +9,8 @@ import org.springframework.context.ApplicationContext;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.utils.io.AppPropertiesHolder;
 import ua.artcode.utils.SpringContext;
+import ua.artcode.utils.io.AppPropertiesHolder;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +26,7 @@ public class SimpleTaskMongoImplTest {
     private static CodingBatTaskDao codingBatTaskDao;
     private static ApplicationContext context;
     private static Datastore datastore;
+    private static final int AMOUNT_OF_ELEMENTS = 1000;
 
     @BeforeClass
     public static void initializeDB() throws InterruptedException {
@@ -40,12 +41,11 @@ public class SimpleTaskMongoImplTest {
         context = SpringContext.getContext();
         datastore = (Datastore) context.getBean("testStore");
         codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
-        //CodingBatTask mockTask = mock(CodingBatTask.class);
-        codingBatTaskDao.addTask(new CodingBatTask("342324", "2", "2", "2", "2", "2"));
-//        for (int i = 0; i < 5; i++) {
-//            when(mockTask.getCodingBatId()).thenReturn(Integer.toString(i));
-//            codingBatTaskDao.addTask(mockTask);
-//        }
+        String value;
+        for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
+            value = Integer.toString(i);
+            codingBatTaskDao.addTask(new CodingBatTask("1000".concat(value), value, value, value, value, value));
+        }
     }
 
     @Test
@@ -60,6 +60,7 @@ public class SimpleTaskMongoImplTest {
             LOG.error(e);
         }
         assertEquals(taskTofind.getId(), task.getId());
+        codingBatTaskDao.delete("3247");
 
 
     }
@@ -80,7 +81,7 @@ public class SimpleTaskMongoImplTest {
     @Test
     public void sizeTest() {
         int sizeOfdb = codingBatTaskDao.size();
-        assertEquals(sizeOfdb, 1);
+        assertEquals(sizeOfdb, AMOUNT_OF_ELEMENTS);
     }
 
     @Test
