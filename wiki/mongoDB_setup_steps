@@ -2,5 +2,6 @@
 2) Unarchive tar/zip
 3) Append to PATH system variable location of ${MONGO_HOME}/bin
 4) Create mkdir /data/db where locate your db(usually Mongodb/data/db)
-5) Start server mongod --dbpath ..data/
-6) Run method dataBaseManager.restoreDataBaseFromDump() to restore db from dump
+5) Write value of mongo.data.db.path  /data/db in app.properties
+6) Start server mongod --dbpath ..data/
+7) Run method dataBaseManager.restoreDataBaseFromDump() to restore db from dump
