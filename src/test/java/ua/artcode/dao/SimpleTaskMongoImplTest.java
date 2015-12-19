@@ -64,6 +64,10 @@ public class SimpleTaskMongoImplTest {
 
 
     }
+    @Test
+    public void findByIdExceptionTest(){
+
+    }
 
     @Test
     public void getAllTest() {
