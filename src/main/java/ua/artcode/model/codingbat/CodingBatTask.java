@@ -5,10 +5,9 @@ import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-import java.io.Serializable;
 
 @Entity
-public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
+public class CodingBatTask implements Comparable<CodingBatTask> {
 
     @Id
     private ObjectId id;
@@ -19,7 +18,6 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
     private String examples;
     private String template;
 
-    // parsed template
     @Embedded
     private MethodSignature methodSignature;
 
@@ -148,7 +146,6 @@ public class CodingBatTask implements Serializable, Comparable<CodingBatTask> {
         CodingBatTask that = (CodingBatTask) o;
 
         return !(id != null ? !id.equals(that.id) : that.id != null);
-
     }
 
     @Override

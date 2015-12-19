@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class UserValidator implements Validator<User> {
 
     private static final String EMAIL_PATTERN = "([a-z0-9]+([\\.-_]?[a-z0-9])+)"
-            +"@([a-z0-9]+([\\.-_]?[a-z0-9])+)"
+            + "@([a-z0-9]+([\\.-_]?[a-z0-9])+)"
             + "([\\.][a-z]{2,4})+";
 
     private static final String NAME_PATTERN = "[a-z0-9[\\._-]]{6,20}";
@@ -20,46 +20,52 @@ public class UserValidator implements Validator<User> {
     private Pattern passwordPattern = Pattern.compile(PASSWORD_PATTERN);
     private Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
 
-    public UserValidator() {}
+    public UserValidator() {
+    }
 
     @Override
     public boolean validate(User entity) throws AppValidationException {
 
         AppValidationException exceptionMessageContainer = new AppValidationException();
 
-        if(!isValidUserName(entity.getUsername())){
-            exceptionMessageContainer.addMessage(String.format("username %s is invalid, recomendation %s",
-                    entity.getUsername(), "example of valid username"));
+        if (!isValidUserName(entity.getUserName())) {
+            exceptionMessageContainer.addMessage(String.format("userName %s is invalid, recommendation %s",
+                    entity.getUserName(), "can contains letters from a-z\n" +
+                            "can contains digits from 0-9\n" +
+                            "can contains special symbols \"_ . -\"\n" +
+                            "length at least 6 characters and maximum of 20\te"
+            ));
         }
 
-        if(!isValidPassword(entity.getPassword())){
-            exceptionMessageContainer.addMessage(String.format("password %s is invalid, recomendation %s",
-                    entity.getPassword(), "can contains only digits from 0-9\n" +
-                            " can contains one special symbols in the list \"_ . -\"\n" +
-                            " length at least 6 characters and maximum of 20\te"));
+        if (!isValidPassword(entity.getPassword())) {
+            exceptionMessageContainer.addMessage(String.format("password %s is invalid, recommendation %s",
+                    entity.getPassword(), "can contains letters from a-z\n" +
+                            "can contains digits from 0-9\n" +
+                            "can contains special symbols \"_ . -\"\n" +
+                            "length at least 6 characters and maximum of 20\te"));
         }
 
-        if(!isValidEmail(entity.getEmail())){
-            exceptionMessageContainer.addMessage(String.format("email %s is invalid, recomendation %s",
-                    entity.getUsername(), "example of valid email"));
+        if (!isValidEmail(entity.getEmail())) {
+            exceptionMessageContainer.addMessage(String.format("email %s is invalid, recommendation %s",
+                    entity.getUserName(), "example of valid email  something@mail.ua"));
         }
 
-        if(!exceptionMessageContainer.getExceptionMessageList().isEmpty()){
+        if (!exceptionMessageContainer.getExceptionMessageList().isEmpty()) {
             throw exceptionMessageContainer;
         }
 
         return true;
     }
 
-    private boolean isValidUserName(final String username) {
-        return namePattern.matcher(username.toLowerCase()).matches();
+    private boolean isValidUserName(String userName) {
+        return namePattern.matcher(userName.toLowerCase()).matches();
     }
 
-    private boolean isValidPassword(final String password) {
+    private boolean isValidPassword(String password) {
         return passwordPattern.matcher(password.toLowerCase()).matches();
     }
 
-    private boolean isValidEmail(final String email) {
+    private boolean isValidEmail(String email) {
         return emailPattern.matcher(email.toLowerCase()).matches();
     }
 

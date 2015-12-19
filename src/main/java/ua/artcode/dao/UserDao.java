@@ -4,6 +4,7 @@ import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -15,6 +16,8 @@ public interface UserDao {
 
     boolean delete(String username) throws NoSuchUserException;
 
-    Set<User> getAllUser();
+    List<User> getAllUser();
+
+    int size();
 
 }
