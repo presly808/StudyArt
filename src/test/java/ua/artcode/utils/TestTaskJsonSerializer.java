@@ -18,7 +18,7 @@ import static junit.framework.TestCase.assertEquals;
 import static ua.artcode.utils.RandomDataGenerator.generateNameWith;
 import static ua.artcode.utils.RandomDataGenerator.generateRandomId;
 
-@Ignore
+//@Ignore
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestTaskJsonSerializer {
 

@@ -32,7 +32,7 @@ public class SimpleTaskMongoImplTest {
     public static void initializeDB() throws InterruptedException {
         try {
             //TODO show commandline result of start server
-            Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
+            Process process = Runtime.getRuntime().exec("mongod --dbpath c:\\mongodb\\data\\db");
             LOG.debug((getData(process.getErrorStream())));
             process.waitFor();
         } catch (IOException e) {
