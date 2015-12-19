@@ -36,7 +36,7 @@ public class SimpleUserServiceImpl implements UserService {
 
         accountValidator.validate(new User(username,password,email));
 
-        return userDao.create(new User(username, password, email, userType));
+        return userDao.addUser(new User(username, password, email, userType));
     }
 
     @Override
