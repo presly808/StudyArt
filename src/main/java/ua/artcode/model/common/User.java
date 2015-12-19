@@ -1,11 +1,15 @@
 package ua.artcode.model.common;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
-import java.io.Serializable;
+@Entity
+public class User implements Comparable<User> {
 
-public class User implements Serializable {
-
-    private String username;
+    @Id
+    private ObjectId id;
+    private String userName;
     // before saving, hash first by md5 algorithms
     // 1234 -> MD5 -> ab23ff2198fcd(stored in db)
     private String password;
@@ -15,15 +19,15 @@ public class User implements Serializable {
     private int score; // TODO should be changed on something else
 
 
-    public User(String username, String password, String email) {
-        this.username = username;
+    public User(String userName, String password, String email) {
+        this.userName = userName;
         this.password = password;
         this.email = email;
         this.userType = UserType.USER;
     }
 
-    public User(String username, String password, String email, UserType userType) {
-        this.username = username;
+    public User(String userName, String password, String email, UserType userType) {
+        this.userName = userName;
         this.password = password;
         this.email = email;
         this.userType = userType;
@@ -34,16 +38,16 @@ public class User implements Serializable {
         return password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 
@@ -63,5 +67,23 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        User that = (User) o;
+
+        return !(id != null ? !id.equals(that.id) : that.id != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.id.compareTo(o.id);
+    }
 }
