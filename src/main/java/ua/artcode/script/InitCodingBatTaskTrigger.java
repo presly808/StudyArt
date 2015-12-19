@@ -53,7 +53,7 @@ public class InitCodingBatTaskTrigger {
     public static void loadTasksToDataBase() {
         ApplicationContext context = SpringContext.getContext();
 
-        Datastore datastore = context.getBean(Datastore.class);
+        Datastore datastore = (Datastore) context.getBean("datastore");
 
         CodingBatTaskDao simpleTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
@@ -72,7 +72,7 @@ public class InitCodingBatTaskTrigger {
      */
     public static void createDumpOfDataBase() {
         try {
-            LOG.trace("create dump from db");
+            LOG.trace("addUser dump from db");
             Runtime.getRuntime().exec("mongodump --db CodingBat");
         } catch (IOException e) {
             LOG.error(e);
