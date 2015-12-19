@@ -21,8 +21,8 @@ import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 /**
  * Created by Razer on 14.12.15.
  */
-public class SimpleTaskMongoImplTest {
-    private static final Logger LOG = Logger.getLogger(SimpleTaskMongoImplTest.class);
+public class CodingBatTaskMongoImplTest {
+    private static final Logger LOG = Logger.getLogger(CodingBatTaskMongoImplTest.class);
     private static CodingBatTaskDao codingBatTaskDao;
     private static ApplicationContext context;
     private static Datastore datastore;
