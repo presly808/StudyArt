@@ -18,7 +18,6 @@ import static junit.framework.TestCase.assertEquals;
 import static ua.artcode.utils.RandomDataGenerator.generateNameWith;
 import static ua.artcode.utils.RandomDataGenerator.generateRandomId;
 
-@Ignore
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestTaskJsonSerializer {
 
@@ -37,7 +36,7 @@ public class TestTaskJsonSerializer {
 
         codingBatTasks = Stream.generate(() -> new CodingBatTask(generateRandomId(),
                 generateNameWith("title", 100),
-                generateNameWith("desc ", 100), generateNameWith("example ", 100), generateNameWith("tamplate ", 100),generateRandomId())).
+                generateNameWith("desc ", 100), generateNameWith("example ", 100), generateNameWith("tamplate ", 100), generateRandomId())).
                 limit(10).
                 collect(Collectors.toList());
 

@@ -30,15 +30,16 @@ public class CodingBatTaskMongoImplTest {
 
     @BeforeClass
     public static void initializeDB() throws InterruptedException {
+        context = SpringContext.getContext();
+        String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
         try {
             //TODO show commandline result of start server
-            Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
+            Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
             LOG.debug((getData(process.getErrorStream())));
             process.waitFor();
         } catch (IOException e) {
             LOG.error(e);
         }
-        context = SpringContext.getContext();
         datastore = (Datastore) context.getBean("testStore");
         codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         String value;
@@ -64,9 +65,10 @@ public class CodingBatTaskMongoImplTest {
 
 
     }
-    @Test
-    public void findByIdExceptionTest(){
 
+    @Test(expected = NoSuchTaskException.class)
+    public void findByIdExceptionTest() throws NoSuchTaskException {
+        codingBatTaskDao.findById(" ");
     }
 
     @Test
