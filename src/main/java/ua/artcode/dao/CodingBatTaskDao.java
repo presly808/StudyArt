@@ -19,5 +19,8 @@ public interface CodingBatTaskDao {
 
     CodingBatTask addTask(CodingBatTask codingBatTask);
 
+    boolean isExist(CodingBatTask codingBatTask);
+
     int size();
+
 }
