@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
 /**
@@ -109,11 +110,19 @@ public class CodingBatTaskMongoImplTest {
         codingBatTaskDao.delete("45678");
     }
 
+    @Test
+    public void isExistTest() {
+        CodingBatTask codingBatTask = new CodingBatTask();
+        codingBatTask.setCodingBatId("1771");
+        codingBatTaskDao.addTask(codingBatTask);
+        boolean resultOfExist = codingBatTaskDao.isExist(codingBatTask);
+        assertTrue(resultOfExist);
+        codingBatTaskDao.delete("1771");
+    }
+
     @AfterClass
     public static void deleteDb() {
-        //camelcase
         String nameOfTestDb = AppPropertiesHolder.getProperty("mongo.test.db");
-        //String nameOfTestDb=context.getEnvironment().getProperty("mongo.test.db");
         datastore.getMongo().dropDatabase(nameOfTestDb);
     }
 
