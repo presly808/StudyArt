@@ -39,10 +39,6 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
         return false;
     }
 
-//    @Override
-//    public List<CodingBatTask> search() {
-//        return null;
-//    }
 
     @Override
     public int size() {
@@ -63,6 +59,16 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     public List<CodingBatTask> getAll() throws AppException {
         List<CodingBatTask> tasks = datastore.find(CodingBatTask.class).asList();
         return tasks;
+    }
+
+    @Override
+    public boolean isExist(CodingBatTask codingBatTask) {
+        //TODO read about exist
+        CodingBatTask existTask = datastore.find(CodingBatTask.class).field("codingBatId").equal(codingBatTask.getCodingBatId()).get();
+        if (existTask == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
