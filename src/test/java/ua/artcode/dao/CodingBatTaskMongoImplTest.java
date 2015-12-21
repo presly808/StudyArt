@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
 /**
@@ -118,6 +119,12 @@ public class CodingBatTaskMongoImplTest {
         boolean resultOfExist = codingBatTaskDao.isExist(codingBatTask);
         assertTrue(resultOfExist);
         codingBatTaskDao.delete("1771");
+    }
+
+    @Test
+    public void isExistNegativeTest() {
+        boolean resultOfExist = codingBatTaskDao.isExist(new CodingBatTask("89", "73", "25", "23", "46", "24"));
+        assertFalse(resultOfExist);
     }
 
     @AfterClass
