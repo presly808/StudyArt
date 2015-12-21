@@ -73,8 +73,11 @@ public class InitCodingBatTaskTrigger {
     public static void createDumpOfDataBase() {
         try {
             LOG.trace("addUser dump from db");
-            Runtime.getRuntime().exec("mongodump --db CodingBat");
+            Process process = Runtime.getRuntime().exec("mongodump --db CodingBat");
+            process.waitFor();
         } catch (IOException e) {
+            LOG.error(e);
+        } catch (InterruptedException e) {
             LOG.error(e);
         }
     }
@@ -86,8 +89,11 @@ public class InitCodingBatTaskTrigger {
         try {
             LOG.trace("Restore db from dump");
             Process process = Runtime.getRuntime().exec("mongorestore dump");
+            process.waitFor();
             LOG.debug(getData(process.getErrorStream()));
         } catch (IOException e) {
+            LOG.error(e);
+        } catch (InterruptedException e) {
             LOG.error(e);
         }
     }
