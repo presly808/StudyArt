@@ -22,7 +22,7 @@ public class SimpleUserServiceImpl implements UserService {
 
     @Override
     public User authenticate(String username, String password) throws AppException {
-        User user = userDao.findByUserName(username);
+        User user = userDao.findByUserEmail(username);
 
         if(!user.getPassword().equals(password)){
             throw new UserAuthenticationFailException("wrong username or pass");

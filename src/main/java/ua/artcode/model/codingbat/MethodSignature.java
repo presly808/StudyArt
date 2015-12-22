@@ -10,7 +10,6 @@ import java.util.List;
 @Embedded
 public class MethodSignature {
 
-    //TODO diamond operator dont work with morphia?
     @Embedded
     private List<InArg> inArgList;
     private String returnType;

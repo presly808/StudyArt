@@ -150,11 +150,6 @@ public class CodingBatTaskUtils {
     public MethodSignature getMethodSignature(String template) {
 
         MethodSignature methodSignature = new MethodSignature();
-        /*if (template.contains("public")) {
-            methodSignature.setReturnType(template.split(" ")[1]);
-        } else {
-            methodSignature.setReturnType(template.split(" ")[0]);
-        }*/
 
         String[] parts = template.split(" ");
         methodSignature.setReturnType(template.contains("public") ? parts[1] : parts[0]);

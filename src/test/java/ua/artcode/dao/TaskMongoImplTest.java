@@ -21,8 +21,8 @@ import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 /**
  * Created by Razer on 14.12.15.
  */
-public class SimpleTaskMongoImplTest {
-    private static final Logger LOG = Logger.getLogger(SimpleTaskMongoImplTest.class);
+public class TaskMongoImplTest {
+    private static final Logger LOG = Logger.getLogger(TaskMongoImplTest.class);
     private static CodingBatTaskDao codingBatTaskDao;
     private static ApplicationContext context;
     private static Datastore datastore;
@@ -32,7 +32,8 @@ public class SimpleTaskMongoImplTest {
     public static void initializeDB() throws InterruptedException {
         try {
             //TODO show commandline result of start server
-            Process process = Runtime.getRuntime().exec("mongod --dbpath c:\\mongodb\\data\\db");
+            Process process = Runtime.getRuntime().exec("mongod --dbpath C:\\mongodb\\data\\db");
+            Process process1 = Runtime.getRuntime().exec("mongod --storageEngine=mmapv1");
             LOG.debug((getData(process.getErrorStream())));
             process.waitFor();
         } catch (IOException e) {
@@ -51,15 +52,15 @@ public class SimpleTaskMongoImplTest {
     @Test
     public void findByIdTest() {
         CodingBatTask task = null;
-        CodingBatTask taskTofind = new CodingBatTask("3247", "0", "0", "0", "0", "0");
-        codingBatTaskDao.addTask(taskTofind);
+        CodingBatTask taskToFind = new CodingBatTask("3247", "0", "0", "0", "0", "0");
+        codingBatTaskDao.addTask(taskToFind);
 
         try {
             task = codingBatTaskDao.findById("3247");
         } catch (NoSuchTaskException e) {
             LOG.error(e);
         }
-        assertEquals(taskTofind.getId(), task.getId());
+        assertEquals(taskToFind.getId(), task.getId());
         codingBatTaskDao.delete("3247");
 
 

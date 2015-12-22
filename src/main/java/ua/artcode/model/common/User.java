@@ -10,8 +10,6 @@ public class User implements Comparable<User> {
     @Id
     private ObjectId id;
     private String userName;
-    // before saving, hash first by md5 algorithms
-    // 1234 -> MD5 -> ab23ff2198fcd(stored in db)
     private String password;
     private String email;
     private UserType userType;
