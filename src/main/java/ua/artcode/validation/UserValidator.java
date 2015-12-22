@@ -1,6 +1,7 @@
 package ua.artcode.validation;
 
 import ua.artcode.exception.AppValidationException;
+import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 
 import java.util.regex.Pattern;
@@ -8,13 +9,13 @@ import java.util.regex.Pattern;
 // TODO finish validator
 public class UserValidator implements Validator<User> {
 
-    private static final String EMAIL_PATTERN = "([a-z0-9]+([\\.-_]?[a-z0-9])+)"
-            + "@([a-z0-9]+([\\.-_]?[a-z0-9])+)"
-            + "([\\.][a-z]{2,4})+";
+    private static final String EMAIL_PATTERN = "([a-z0-9]+([\\-_.']?[a-z0-9])+)"
+            + "@([a-z0-9]+([\\-_.]?[a-z0-9])+)"
+            + "(\\.[a-z]{2,4})+";
 
-    private static final String NAME_PATTERN = "[a-z0-9[\\._-]]{6,20}";
+    private static final String NAME_PATTERN = "[a-z0-9[\\-_.]]{6,20}";
 
-    private static final String PASSWORD_PATTERN = "[a-z0-9[\\._-]]{6,20}";
+    private static final String PASSWORD_PATTERN = "[a-z0-9[\\-_.]]{6,20}";
 
     private Pattern namePattern = Pattern.compile(NAME_PATTERN);
     private Pattern passwordPattern = Pattern.compile(PASSWORD_PATTERN);
