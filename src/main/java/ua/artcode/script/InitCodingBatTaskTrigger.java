@@ -29,6 +29,8 @@ public class InitCodingBatTaskTrigger {
      * @return if task have been already loaded return false, otherwise return true
      */
     public static synchronized boolean loadTasksIfNeeded() {
+
+
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
         if (FileUtils.exists(dbJsonPath)) {

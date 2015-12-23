@@ -25,15 +25,15 @@ import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
  */
 @Ignore
 public class CodingBatTaskMongoImplTest {
+
     private static final Logger LOG = Logger.getLogger(CodingBatTaskMongoImplTest.class);
     private static CodingBatTaskDao codingBatTaskDao;
-    private static ApplicationContext context;
     private static Datastore datastore;
     private static final int AMOUNT_OF_ELEMENTS = 1000;
 
     @BeforeClass
     public static void initializeDB() throws InterruptedException, AppValidationException {
-        context = SpringContext.getContext();
+        ApplicationContext context = SpringContext.getContext();
         String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
         try {
             //TODO show commandline result of start server

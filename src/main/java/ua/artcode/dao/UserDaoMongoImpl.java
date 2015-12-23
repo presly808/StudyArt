@@ -31,6 +31,7 @@ public class UserDaoMongoImpl implements UserDao {
             throw new UserAccountExistException("User with this account already exist.");
         }
         // Encryption password to MD5
+        // todo extract to SecurityUtils class
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
 
         datastore.save(user);
@@ -50,6 +51,7 @@ public class UserDaoMongoImpl implements UserDao {
     @Override
     public boolean delete(String userEmail) throws NoSuchUserException {
         User user = datastore.find(User.class).field("email").equal(userEmail).get();
+        // TODO use next code line datastore.findAndDelete(datastore.find(User.class,"email",userEmail));
         if (user != null) {
             datastore.delete(User.class, user.getUserName());
             LOG.info("User with email -  " + userEmail + " was deleted from data base.");
@@ -59,8 +61,7 @@ public class UserDaoMongoImpl implements UserDao {
 
     @Override
     public List<User> getAllUser() {
-        List<User> allUsers = datastore.find(User.class).asList();
-        return allUsers;
+        return datastore.find(User.class).asList();
     }
 
     @Override

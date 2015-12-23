@@ -27,6 +27,8 @@ public class UserValidator implements Validator<User> {
     @Override
     public boolean validate(User entity) throws AppValidationException {
 
+
+
         AppValidationException exceptionMessageContainer = new AppValidationException();
 
         if (!isValidUserName(entity.getUserName())) {
@@ -54,6 +56,7 @@ public class UserValidator implements Validator<User> {
         if (!exceptionMessageContainer.getExceptionMessageList().isEmpty()) {
             throw exceptionMessageContainer;
         }
+
 
         return true;
     }

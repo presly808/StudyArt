@@ -52,6 +52,7 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
         UpdateOperations<CodingBatTask> ops;
         Query<CodingBatTask> updateQuery = datastore.createQuery(CodingBatTask.class).field("id").equal(task.getId());
         ops = datastore.createUpdateOperations(CodingBatTask.class);
+//        UpdateOperations<CodingBatTask> updateOper = datastore.createUpdateOperations(CodingBatTask.class);
         //datastore.findAndModify(updateQuery,ops);
         datastore.update(updateQuery, ops);
         return task;
