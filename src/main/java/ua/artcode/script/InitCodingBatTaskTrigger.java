@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 
 import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
+import ua.artcode.exception.AppValidationException;
+import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.codingbat.CodingBatTask;
 
 import ua.artcode.utils.SpringContext;
@@ -50,7 +52,7 @@ public class InitCodingBatTaskTrigger {
     /**
      * @download tasks to database if it need
      */
-    public static void loadTasksToDataBase() {
+    public static void loadTasksToDataBase() throws UserAccountExistException, AppValidationException {
         ApplicationContext context = SpringContext.getContext();
 
         Datastore datastore = (Datastore) context.getBean("datastore");

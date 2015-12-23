@@ -4,8 +4,10 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.validation.CodingBatTaskValidator;
 
 import java.util.List;
 
@@ -72,7 +74,9 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask addTask(CodingBatTask codingBatTask) {
+    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException {
+        CodingBatTaskValidator validator = new CodingBatTaskValidator();
+        validator.validate(codingBatTask);
         datastore.save(codingBatTask);
         return codingBatTask;
     }

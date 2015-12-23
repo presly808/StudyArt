@@ -1,6 +1,7 @@
 package ua.artcode.dao;
 
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 
@@ -17,7 +18,7 @@ public interface CodingBatTaskDao {
 
     List<CodingBatTask> getAll() throws AppException;
 
-    CodingBatTask addTask(CodingBatTask codingBatTask);
+    CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException;
 
     boolean isExist(CodingBatTask codingBatTask);
 

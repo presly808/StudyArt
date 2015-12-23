@@ -11,6 +11,7 @@ import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 import ua.artcode.utils.SpringContext;
+import ua.artcode.utils.io.AppPropertiesHolder;
 
 import java.io.IOException;
 
@@ -31,8 +32,8 @@ public class UserMongoImplTest {
     public static void initializeDB() throws InterruptedException, AppValidationException {
         try {
             //TODO show commandline result of start server
-            Process process = Runtime.getRuntime().exec("mongod --dbpath C:\\mongodb\\data\\");
-            Process process1 = Runtime.getRuntime().exec("mongod --storageEngine=mmapv1");
+            String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
+            Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
             LOG.debug((getData(process.getErrorStream())));
             process.waitFor();
         } catch (IOException e) {
