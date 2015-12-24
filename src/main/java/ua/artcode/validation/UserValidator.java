@@ -1,7 +1,6 @@
 package ua.artcode.validation;
 
 import ua.artcode.exception.AppValidationException;
-import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 
 import java.util.regex.Pattern;
@@ -26,6 +25,8 @@ public class UserValidator implements Validator<User> {
 
     @Override
     public boolean validate(User entity) throws AppValidationException {
+
+
 
         AppValidationException exceptionMessageContainer = new AppValidationException();
 
@@ -54,6 +55,7 @@ public class UserValidator implements Validator<User> {
         if (!exceptionMessageContainer.getExceptionMessageList().isEmpty()) {
             throw exceptionMessageContainer;
         }
+
 
         return true;
     }

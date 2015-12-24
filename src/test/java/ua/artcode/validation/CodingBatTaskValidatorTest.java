@@ -23,7 +23,7 @@ public class CodingBatTaskValidatorTest {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskValidator.class);
     private static CodingBatTaskValidator validator;
-    private static CodingBatTask task;
+    private CodingBatTask task;
 
 
     @BeforeClass

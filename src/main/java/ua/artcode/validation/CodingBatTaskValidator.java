@@ -17,12 +17,11 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
     private static final String EXAMPLES_PATTERN = ".{10,200}";
     private static final String TEMPLATE_PATTERN = "(public\\s+|private\\s+|protected\\s+)?(static\\s+)?" +
             ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{.*\\}";
+
+    //todo check pattern (\[.*\])
     private static final String RETURN_TYPE_PATTERN = "void|char(\\[.*\\])?|String(\\[.*\\])?|" +
             "byte(\\[.*\\])?|short(\\[.*\\])?|int(\\[.*\\])?|long(\\[.*\\])?|" +
-            "float(\\[.*\\])?|double(\\[.*\\])?|boolean(\\[.*\\])?|" +
-            "List(\\<.*\\>)|ArrayList(\\<.*\\>)|LinkedList(\\<.*\\>)|" +
-            "Set(\\<.*\\>)|TreeSet(\\<.*\\>)|HashSet(\\<.*\\>)";
-
+            "float(\\[.*\\])?|double(\\[.*\\])?|boolean(\\[.*\\])?|";
 
 
     private Pattern codingBatIdPattern = Pattern.compile(CODING_BAT_ID_PATTERN);
@@ -34,29 +33,33 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
     private Pattern returnTypePattern = Pattern.compile(RETURN_TYPE_PATTERN);
 
 
-
     private boolean isValidateCodingBatId(String codingBatId) {
         return codingBatIdPattern.matcher(codingBatId).matches();
     }
+
     private boolean isValidateGroupName(String groupName) {
         return groupNamePattern.matcher(groupName).matches();
     }
+
     private boolean isValidateTitle(String title) {
         return titlePattern.matcher(title).matches();
     }
-    private boolean isValidateDescription(String description){
+
+    private boolean isValidateDescription(String description) {
         return descriptionPattern.matcher(description).matches();
     }
+
     private boolean isValidateExamples(String examples) {
         return examplesPattern.matcher(examples).matches();
     }
+
     private boolean isValidTemplate(String template) {
         return templatePattern.matcher(template).matches();
     }
+
     private boolean isValidateReturnType(String returnType) {
         return returnTypePattern.matcher(returnType).matches();
     }
-
 
 
     @Override
@@ -98,13 +101,13 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
         }
         if (!isValidateReturnType(entity.getMethodSignature().getReturnType())) {
             exceptionMessageContainer.addMessage(String.format("returnType %s is invalid, recommendation %s",
-                    entity.getMethodSignature().getReturnType(),"can be all data types in java and arrays\n" +
-            "and some java collections"));
+                    entity.getMethodSignature().getReturnType(), "can be all data types in java and arrays\n" +
+                            "and some java collections"));
         }
         if (entity.getTaskTestDataContainer().getTaskTestDataList().size() < 3) {
             exceptionMessageContainer.addMessage("Not enough taskTestData. Min taskTestData = 3");
         }
-        if(!exceptionMessageContainer.getExceptionMessageList().isEmpty()){
+        if (!exceptionMessageContainer.getExceptionMessageList().isEmpty()) {
             throw exceptionMessageContainer;
         }
         return true;
