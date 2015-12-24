@@ -59,6 +59,7 @@ public class InitCodingBatTaskTrigger {
 
         CodingBatTaskDao simpleTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
+        //context.GetRecourse(datastore)
         //TODO do with spring property
         //String dbJsonPath = context.getEnvironment().getProperty("db.json.task.path");
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");

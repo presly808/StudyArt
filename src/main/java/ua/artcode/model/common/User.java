@@ -16,6 +16,8 @@ public class User implements Comparable<User> {
 
     private int score; // TODO should be changed on something else
 
+    public User() {
+    }
 
     public User(String userName, String password, String email) {
         this.userName = userName;

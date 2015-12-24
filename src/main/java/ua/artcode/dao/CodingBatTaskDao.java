@@ -20,7 +20,7 @@ public interface CodingBatTaskDao {
 
     CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException;
 
-    boolean isExist(CodingBatTask codingBatTask);
+    boolean isExist(String id);
 
     int size();
 

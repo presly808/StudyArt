@@ -3,7 +3,6 @@ package ua.artcode.dao;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
@@ -11,10 +10,13 @@ import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.MethodSignature;
+import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.io.AppPropertiesHolder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -23,7 +25,6 @@ import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 /**
  * Created by Razer on 14.12.15.
  */
-@Ignore
 public class CodingBatTaskMongoImplTest {
     private static final Logger LOG = Logger.getLogger(CodingBatTaskMongoImplTest.class);
     private static CodingBatTaskDao codingBatTaskDao;
@@ -31,13 +32,15 @@ public class CodingBatTaskMongoImplTest {
     private static Datastore datastore;
     private static final int AMOUNT_OF_ELEMENTS = 1000;
 
+
     @BeforeClass
     public static void initializeDB() throws InterruptedException, AppValidationException {
         context = SpringContext.getContext();
-        String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
+        //String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
         try {
             //TODO show commandline result of start server
-            Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
+            Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
+            System.out.println(getData(process.getInputStream()));
             LOG.debug((getData(process.getErrorStream())));
             process.waitFor();
         } catch (IOException e) {
@@ -48,25 +51,35 @@ public class CodingBatTaskMongoImplTest {
         String value;
         for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
             value = Integer.toString(i);
-            codingBatTaskDao.addTask(new CodingBatTask("1000".concat(value), value, value, value, value, value));
+            CodingBatTask task = new CodingBatTask("p1000".concat(value), "Title-".concat(value), "Simple description-".concat(value),
+                    "simple example() -> true",
+                    "public boolean $ome_Method(int arg".concat(value) + ", String arg".concat(value) + ", boolean arg".concat(value) + ") {}", "Group-".concat(value));
+
+            MethodSignature methodSignature = new MethodSignature();
+            methodSignature.setReturnType("boolean");
+            task.setMethodSignature(methodSignature);
+
+
+            List<String> inData = new ArrayList<String>();
+            inData.add("00".concat(value));
+            inData.add("some string");
+            inData.add("false");
+
+            String expectedValue = "true";
+
+            TaskTestData taskTestData = new TaskTestData(expectedValue, inData);
+
+            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+            codingBatTaskDao.addTask(task);
         }
     }
 
     @Test
-    public void findByIdTest() throws  AppValidationException {
-        CodingBatTask task = null;
-        CodingBatTask taskTofind = new CodingBatTask("3247", "0", "0", "0", "0", "0");
-        codingBatTaskDao.addTask(taskTofind);
-
-        try {
-            task = codingBatTaskDao.findById("3247");
-        } catch (NoSuchTaskException e) {
-            LOG.error(e);
-        }
-        assertEquals(taskTofind.getId(), task.getId());
-        codingBatTaskDao.delete("3247");
-
-
+    public void findByIdTest() throws AppValidationException, NoSuchTaskException {
+        CodingBatTask task = codingBatTaskDao.findById("p10009");
+        assertEquals(task.getCodingBatId(), "p10009");
     }
 
     @Test(expected = NoSuchTaskException.class)
@@ -94,38 +107,29 @@ public class CodingBatTaskMongoImplTest {
     }
 
     @Test
-    public void removeTest() throws AppValidationException {
-        codingBatTaskDao.addTask(new CodingBatTask("123785", "1", "1", "1", "1", "1"));
+    public void removeTest() throws AppValidationException, NoSuchTaskException {
+        CodingBatTask task = codingBatTaskDao.findById("p10005");
+        task.setCodingBatId("p666666");
+        codingBatTaskDao.addTask(task);
         int sizeBeforeRemove = codingBatTaskDao.size();
-        codingBatTaskDao.delete("123785");
+        codingBatTaskDao.delete("p666666");
         int sizeAfterDel = codingBatTaskDao.size();
         assertEquals(sizeBeforeRemove, sizeAfterDel + 1);
     }
 
     @Test
     public void invalidRemoveTest() throws AppValidationException {
-        codingBatTaskDao.addTask(new CodingBatTask("45678", "1", "1", "1", "1", "1"));
-        int sizeBeforeRemove = codingBatTaskDao.size();
-        codingBatTaskDao.delete("");
-        int sizeAfterDel = codingBatTaskDao.size();
-        assertEquals(sizeBeforeRemove, sizeAfterDel);
-        codingBatTaskDao.delete("45678");
+        assertFalse(codingBatTaskDao.delete(""));
     }
 
     @Test
     public void isExistTest() throws AppValidationException {
-        CodingBatTask codingBatTask = new CodingBatTask();
-        codingBatTask.setCodingBatId("1771");
-        codingBatTaskDao.addTask(codingBatTask);
-        boolean resultOfExist = codingBatTaskDao.isExist(codingBatTask);
-        assertTrue(resultOfExist);
-        codingBatTaskDao.delete("1771");
+        assertTrue(codingBatTaskDao.isExist("p10000"));
     }
 
     @Test
     public void isExistNegativeTest() {
-        boolean resultOfExist = codingBatTaskDao.isExist(new CodingBatTask("89", "73", "25", "23", "46", "24"));
-        assertFalse(resultOfExist);
+        assertFalse(codingBatTaskDao.isExist("p0"));
     }
 
     @AfterClass

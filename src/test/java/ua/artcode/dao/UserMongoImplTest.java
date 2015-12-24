@@ -2,7 +2,6 @@ package ua.artcode.dao;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
@@ -53,22 +52,20 @@ public class UserMongoImplTest {
         }
     }
 
-    @Ignore
     @Test
-    public void findByUseEmailTest() throws AppValidationException, UserAccountExistException {
+    public void findByUseEmailTest() throws UserAccountExistException {
         User user = null;
-        User userToFind = new User("Login", "1223password", "test@gmail.com");
-
-        userDao.addUser(userToFind);
-
+        User userToFind = new User("Loginl", "1223password", "test@gmail.com");
         try {
+            userDao.addUser(userToFind);
             user = userDao.findByUserEmail("test@gmail.com");
             assertEquals(userToFind, user);
             userDao.delete("test@gmail.com");
         } catch (NoSuchUserException e) {
             LOG.warn("There is no user with email: " + user.getEmail());
+        } catch (AppValidationException e) {
+            LOG.warn(e.getExceptionMessageList());
+
         }
-
-
     }
 }

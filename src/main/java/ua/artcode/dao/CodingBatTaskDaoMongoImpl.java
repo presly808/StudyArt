@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -11,11 +12,12 @@ import ua.artcode.validation.CodingBatTaskValidator;
 
 import java.util.List;
 
+
 /**
  * Created by Razer on 09.11.15.
  */
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
-
+    private static final Logger LOG = Logger.getLogger(CodingBatTaskDaoMongoImpl.class);
     private Datastore datastore;
 
     public CodingBatTaskDaoMongoImpl(Datastore datastore) {
@@ -64,9 +66,9 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public boolean isExist(CodingBatTask codingBatTask) {
+    public boolean isExist(String id) {
         //TODO read about exist
-        CodingBatTask existTask = datastore.find(CodingBatTask.class).field("codingBatId").equal(codingBatTask.getCodingBatId()).get();
+        CodingBatTask existTask = datastore.find(CodingBatTask.class).field("codingBatId").equal(id).get();
         if (existTask == null) {
             return false;
         }
@@ -74,9 +76,13 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException {
+    public CodingBatTask addTask(CodingBatTask codingBatTask) {
         CodingBatTaskValidator validator = new CodingBatTaskValidator();
-        validator.validate(codingBatTask);
+        try {
+            validator.validate(codingBatTask);
+        } catch (AppValidationException e) {
+            LOG.warn(e.getExceptionMessageList());
+        }
         datastore.save(codingBatTask);
         return codingBatTask;
     }
