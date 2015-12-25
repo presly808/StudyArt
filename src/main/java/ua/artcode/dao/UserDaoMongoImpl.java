@@ -35,7 +35,7 @@ public class UserDaoMongoImpl implements UserDao {
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
 
         datastore.save(user);
-        LOG.info("User with email: " + user.getEmail() + "was added to data base.");
+        LOG.info("User with email: " + user.getEmail() + " was added to data base.");
         return user;
     }
 

@@ -38,10 +38,8 @@ public class CodingBatTaskMongoImplTest {
         context = SpringContext.getContext();
         //String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
         try {
-            //TODO show commandline result of start server
             Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
-            System.out.println(getData(process.getInputStream()));
-            LOG.debug((getData(process.getErrorStream())));
+            LOG.warn((getData(process.getInputStream())));
             process.waitFor();
         } catch (IOException e) {
             LOG.error(e);
