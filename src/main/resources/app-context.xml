@@ -37,4 +37,16 @@
         <constructor-arg name="dbName" value="${mongo.test.db}"/>
     </bean>
 
+    <bean id="taskRunner" class="ua.artcode.process.TaskRunFacade">
+        <constructor-arg name="templatePath" value="${velocity.template}"/>
+        <constructor-arg name="srcRoot">
+            <bean class="java.io.File">
+                <constructor-arg type="java.lang.String" value="${root.dynamic}"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="dateConverter" ref="dataUnmarshaller"/>
+        <constructor-arg name="dynamicCompiler" ref="dynamicCompiler"/>
+        <constructor-arg name="templateProcessor" ref="templateProcessor"/>
+    </bean>
+
 </beans>

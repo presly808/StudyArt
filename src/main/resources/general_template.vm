@@ -1,0 +1,18 @@
+import ua.artcode.dynamic_compile.MethodInvoker;
+
+public class ${className} implements MethodInvoker {
+
+    public ${className}() {
+    }
+
+    @Override
+    public Object call(Object...args) {
+        #foreach($arg in $argsList)
+        $arg.type arg$arg.order = ($arg.type) args[$arg.order];
+        #end
+        return ${methodName}(#foreach($iter in $argsList)arg$iter.order#if($iter.order < $lastArgNum),#end#end);
+    }
+
+${allMethod}
+
+}

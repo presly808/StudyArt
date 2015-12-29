@@ -28,6 +28,7 @@
         <httpclient.version>4.5.1</httpclient.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-codec.version>1.10</commons-codec.version>
+        <velocity.version>1.7</velocity.version>
     </properties>
 
 
@@ -47,6 +48,11 @@
             <groupId>org.mongodb.morphia</groupId>
             <artifactId>morphia</artifactId>
             <version>${morphia.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>${velocity.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jacoco</groupId>
