@@ -1,7 +1,6 @@
 package ua.artcode.model.codingbat;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -18,7 +17,7 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
     private String examples;
     private String template;
 
-    @Embedded
+    //@Embedded
     private MethodSignature methodSignature;
 
     private TaskTestDataContainer taskTestDataContainer = new TaskTestDataContainer();
