@@ -7,7 +7,6 @@ public class TestArg implements Serializable {
     private Integer order;
     private String type;
     private Object value;
-    private String name;
 
     public TestArg() {
     }
@@ -22,7 +21,6 @@ public class TestArg implements Serializable {
         this.order = order;
         this.type = type;
         this.value = value;
-        this.name = name;
     }
 
     public TestArg(int order, String type, Object value) {
@@ -55,13 +53,6 @@ public class TestArg implements Serializable {
         this.value = value;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public String toString() {
