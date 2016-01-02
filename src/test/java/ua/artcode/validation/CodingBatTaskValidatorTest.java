@@ -4,16 +4,14 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.MethodSignature;
-import ua.artcode.model.codingbat.TaskTestData;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -48,11 +46,11 @@ public class CodingBatTaskValidatorTest {
 
         String expectedValue = "true";
 
-        TaskTestData taskTestData = new TaskTestData(expectedValue, inData);
+        //TaskTestData taskTestData = new TaskTestData(expectedValue, inData);
 
-        task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-        task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-        task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+//        task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+//        task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+//        task.getTaskTestDataContainer().addTaskTestData(taskTestData);
     }
 
     @Test
