@@ -2,42 +2,22 @@ package ua.artcode.preprocess;
 
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestData;
+import ua.artcode.model.codingbat.TestArg;
 
 
 public class DataUnmarshaller {
 
-    private class ValueType {
-
-        private String type;
-        private Object value;
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public void setValue(Object value) {
-            this.value = value;
-        }
-    }
-
     public void convert(CodingBatTask task) {
-        ValueType valueType;
+        TestArg testArg;
+        //ValueType valueType;
         //int k=0;
         for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
             for (int i = 0; i < data.getInData().size(); i++) {
-                valueType = convertDispatcher(task.getMethodSignature().getInArgList().get(i).getType(), data.getInData().get(i));
-                task.getMethodSignature().getInArgList().get(i).setType(valueType.getType());
+                testArg = convertDispatcher(task.getMethodSignature().getInArgList().get(i).getType(), data.getInData().get(i));
+                task.getMethodSignature().getInArgList().get(i).setType(testArg.getType());
                 //TODO expected value
                 data.getInData().remove(i);
-                data.getInData().add(i, valueType.getValue());
+                data.getInData().add(i, testArg.getValue());
             }
             //ValueType valueType1 = convertDispatcher(task.getMethodSignature().getReturnType(), task.getTaskTestDataContainer().getTaskTestDataList().get(k++).getExpectedValue());
             //data.setExpectedValue(task.getTaskTestDataContainer().getTaskTestDataList().get(0).getExpectedValue().toString());
@@ -46,40 +26,40 @@ public class DataUnmarshaller {
 
 
     //TODO think about collection (List, Set, Map)
-    private ValueType convertDispatcher(String type, Object val) {
+    private TestArg convertDispatcher(String type, Object val) {
         String value = val.toString();
-        ValueType valueType = new ValueType();
+        TestArg testArg = new TestArg();
         if ("byte".equals(type) || "java.lang.Byte".contains(type)) {
-            valueType.setType("Byte");
-            valueType.setValue(unmarshalByte(value));
+            testArg.setType("Byte");
+            testArg.setValue(unmarshalByte(value));
         } else if ("short".equals(type) || "java.lang.Short".contains(type)) {
-            valueType.setType("Short");
-            valueType.setValue(unmarshalShort(value));
+            testArg.setType("Short");
+            testArg.setValue(unmarshalShort(value));
         } else if ("int".equals(type) || "java.lang.Integer".contains(type)) {
-            valueType.setType("Integer");
-            valueType.setValue(unmarshalInteger(value));
+            testArg.setType("Integer");
+            testArg.setValue(unmarshalInteger(value));
         } else if ("long".equals(type) || "java.lang.Long".contains(type)) {
-            valueType.setType("Long");
-            valueType.setValue(unmarshalLong(value));
+            testArg.setType("Long");
+            testArg.setValue(unmarshalLong(value));
         } else if ("float".equals(type) || "java.lang.Float".contains(type)) {
-            valueType.setType("Float");
-            valueType.setValue(unmarshalFloat(value));
+            testArg.setType("Float");
+            testArg.setValue(unmarshalFloat(value));
         } else if ("double".equals(type) || "java.lang.Double".contains(type)) {
-            valueType.setType("Double");
-            valueType.setValue(unmarshalDouble(value));
+            testArg.setType("Double");
+            testArg.setValue(unmarshalDouble(value));
         } else if ("boolean".equals(type) || "java.lang.Boolean".contains(type)) {
-            valueType.setType("Boolean");
-            valueType.setValue(unmarshalBoolean(value));
+            testArg.setType("Boolean");
+            testArg.setValue(unmarshalBoolean(value));
         } else if ("char".equals(type) || "java.lang.Character".contains(type)) {
-            valueType.setType("Character");
-            valueType.setValue(unmarshalCharacter(value));
+            testArg.setType("Character");
+            testArg.setValue(unmarshalCharacter(value));
         } else if ("String".equals(type) || "java.lang.String".contains(type)) {
-            valueType.setType("String");
-            valueType.setValue(value);
+            testArg.setType("String");
+            testArg.setValue(value);
         } else {
             return null; // TODO refactor this place
         }
-        return valueType;
+        return testArg;
     }
 
     private Byte unmarshalByte(String s) {
