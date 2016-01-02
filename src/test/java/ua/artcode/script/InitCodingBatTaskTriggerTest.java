@@ -56,6 +56,11 @@ public class InitCodingBatTaskTriggerTest {
 
     @AfterClass
     public static void deleteDump() {
+//        try {
+//            //FileUtils.deleteDirectory(dataBase);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         removeDirectory(dataBase);
         if (original != null) {
             original.renameTo(dataBase);
