@@ -1,4 +1,4 @@
-package ua.artcode.javafun.dynamic_compile;
+package ua.artcode.utils.dynamic_compile;
 
 import java.io.File;
 import java.net.MalformedURLException;
