@@ -11,18 +11,19 @@ import java.util.List;
  */
 public class TaskTestData {
 
-    private List<String> inData;
+    private List inData;
+
     private String expectedValue;
 
     public TaskTestData() {
     }
 
-    public TaskTestData(String expectedValue, List<String> inData) {
+    public TaskTestData(String  expectedValue, List inData) {
         this.expectedValue = expectedValue;
         this.inData = inData;
     }
 
-    public String getExpectedValue() {
+    public Object getExpectedValue() {
         return expectedValue;
     }
 
@@ -30,11 +31,11 @@ public class TaskTestData {
         this.expectedValue = expectedValue;
     }
 
-    public List<String> getInData() {
+    public List<Object> getInData() {
         return inData;
     }
 
-    public void setInData(List<String> inData) {
+    public void setInData(List inData) {
         this.inData = inData;
     }
 
@@ -42,7 +43,7 @@ public class TaskTestData {
     public String toString() {
         final StringBuilder sb = new StringBuilder("TaskTestData{");
         sb.append("inData=").append(inData);
-        sb.append(", expectedValue='").append(expectedValue).append('\'');
+        sb.append(", expectedValue=").append(expectedValue);
         sb.append('}');
         return sb.toString();
     }
