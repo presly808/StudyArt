@@ -1,4 +1,4 @@
-package ua.artcode.javafun.model;
+package ua.artcode.model.codingbat;
 
 import java.io.Serializable;
 

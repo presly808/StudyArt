@@ -1,4 +1,4 @@
-package ua.artcode.javafun.preprocess;
+package ua.artcode.preprocess;
 
 /**
  * Created by Razer on 28.12.15.
@@ -7,7 +7,7 @@ package ua.artcode.javafun.preprocess;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import ua.artcode.javafun.model.TestArg;
+import ua.artcode.model.codingbat.TestArg;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

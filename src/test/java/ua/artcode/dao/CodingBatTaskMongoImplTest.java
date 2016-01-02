@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
 /**
  * Created by Razer on 14.12.15.
@@ -39,7 +38,7 @@ public class CodingBatTaskMongoImplTest {
         //String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
         try {
             Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
-            LOG.warn((getData(process.getInputStream())));
+            //LOG.warn((getData(process.getInputStream())));
             process.waitFor();
         } catch (IOException e) {
             LOG.error(e);
