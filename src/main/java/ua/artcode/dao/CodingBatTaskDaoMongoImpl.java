@@ -2,8 +2,6 @@ package ua.artcode.dao;
 
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
@@ -26,7 +24,7 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
     @Override
     public CodingBatTask findById(String id) throws NoSuchTaskException {
-        CodingBatTask codingBatTask =datastore.find(CodingBatTask.class, "codingBatId", id).get();
+        CodingBatTask codingBatTask = datastore.find(CodingBatTask.class, "codingBatId", id).get();
         if (codingBatTask == null) {
             throw new NoSuchTaskException("No task with id " + id);
         }
@@ -50,14 +48,11 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask update(CodingBatTask task) {
-        UpdateOperations<CodingBatTask> ops;
-        Query<CodingBatTask> updateQuery = datastore.createQuery(CodingBatTask.class).field("id").equal(task.getId());
-        ops = datastore.createUpdateOperations(CodingBatTask.class);
-        //UpdateOperations<CodingBatTask> updateOper = datastore.createUpdateOperations(CodingBatTask.class);
-        //datastore.findAndModify(updateQuery,ops);
-        datastore.update(updateQuery, ops);
-        return task;
+    public CodingBatTask update(CodingBatTask taskToDelete, CodingBatTask taskToAdd) {
+        delete(taskToAdd.getCodingBatId());
+        taskToAdd.setId(taskToDelete.getId());
+        addTask(taskToAdd);
+        return taskToAdd;
     }
 
     @Override
