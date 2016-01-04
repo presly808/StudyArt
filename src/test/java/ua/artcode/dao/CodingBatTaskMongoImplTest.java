@@ -104,6 +104,11 @@ public class CodingBatTaskMongoImplTest {
     }
 
     @Test
+    public void updateTest(){
+        //codingBatTaskDao.update();
+    }
+
+    @Test
     public void removeTest() throws AppValidationException, NoSuchTaskException {
         CodingBatTask task = codingBatTaskDao.findById("p10005");
         task.setCodingBatId("p666666");
