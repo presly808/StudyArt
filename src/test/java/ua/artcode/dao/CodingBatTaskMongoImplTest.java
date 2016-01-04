@@ -3,6 +3,7 @@ package ua.artcode.dao;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
@@ -103,9 +104,12 @@ public class CodingBatTaskMongoImplTest {
         assertEquals(sizeOfdb, AMOUNT_OF_ELEMENTS);
     }
 
-    @Test
-    public void updateTest(){
-        //codingBatTaskDao.update();
+    @Ignore
+    public void updateTest() throws NoSuchTaskException {
+        CodingBatTask newTask = codingBatTaskDao.findById("p100025");
+        String id=codingBatTaskDao.findById("p100017").getCodingBatId();
+        codingBatTaskDao.update("p100017", newTask);
+        assertEquals(id,codingBatTaskDao.findById("p100017").getCodingBatId());
     }
 
     @Test

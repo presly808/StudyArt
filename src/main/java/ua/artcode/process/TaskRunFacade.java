@@ -19,8 +19,8 @@ public class TaskRunFacade {
 
     //private String templatePath = "/src/main/resources/general_template.vm";
     private File srcRoot = new File("temp/");
-    private DataUnmarshaller dateConverter = new DataUnmarshaller();
-    private DynamicCompiler dynamicCompiler = new DynamicCompiler();
+    private DataUnmarshaller dateConverter= new DataUnmarshaller();
+    private DynamicCompiler dynamicCompiler= new DynamicCompiler();
     private TemplateProcessor templateProcessor = new TemplateProcessor();
 
     public TaskRunFacade() {

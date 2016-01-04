@@ -48,9 +48,15 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask update(CodingBatTask taskToDelete, CodingBatTask taskToAdd) {
-        delete(taskToAdd.getCodingBatId());
-        taskToAdd.setId(taskToDelete.getId());
+    public CodingBatTask update(String id, CodingBatTask taskToAdd) {
+        CodingBatTask codingBatTask = null;
+        try {
+            codingBatTask = findById(id);
+        } catch (NoSuchTaskException e) {
+            e.printStackTrace();
+        }
+        taskToAdd.setCodingBatId(codingBatTask.getCodingBatId());
+        delete(id);
         addTask(taskToAdd);
         return taskToAdd;
     }

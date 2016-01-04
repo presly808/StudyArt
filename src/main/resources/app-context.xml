@@ -38,4 +38,36 @@
     </bean>
 
 
+    <bean id="dynamicCompiler" class="ua.artcode.utils.dynamic_compile.DynamicCompiler"/>
+
+    <bean id="dataUnmarshaller" class="ua.artcode.preprocess.DataUnmarshaller"/>
+
+    <bean id="templateProcessor" class="ua.artcode.preprocess.TemplateProcessor">
+        <property name="velocityEngine" ref="velocityEngine"/>
+    </bean>
+
+    <bean id="velocityEngine"
+          class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <props>
+                <prop key="resource.loader">class</prop>
+                <prop key="class.resource.loader.class">
+                    org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="taskRunner" class="ua.artcode.process.TaskRunFacade">
+        <constructor-arg name="templatePath" value="${velocity.template}"/>
+        <constructor-arg name="srcRoot">
+            <bean class="java.io.File">
+                <constructor-arg type="java.lang.String" value="${root.dynamic}"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="dateConverter" ref="dataUnmarshaller"/>
+        <constructor-arg name="dynamicCompiler" ref="dynamicCompiler"/>
+        <constructor-arg name="templateProcessor" ref="templateProcessor"/>
+    </bean>
+
 </beans>
