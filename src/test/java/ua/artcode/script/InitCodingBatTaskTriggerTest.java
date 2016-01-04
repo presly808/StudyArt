@@ -1,15 +1,16 @@
 package ua.artcode.script;
 
+import org.codehaus.plexus.util.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.artcode.utils.io.AppPropertiesHolder;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
 public class InitCodingBatTaskTriggerTest {
 
     private static String nameOfDb;
@@ -34,19 +35,6 @@ public class InitCodingBatTaskTriggerTest {
 
     }
 
-    public static void removeDirectory(File dir) {
-        if (dir.isDirectory()) {
-            File[] files = dir.listFiles();
-            if (files != null && files.length > 0) {
-                for (File aFile : files) {
-                    removeDirectory(aFile);
-                }
-            }
-        }
-
-        dir.delete();
-    }
-
     @Test
     public void createDumpOfDataBaseTest() {
         InitCodingBatTaskTrigger.createDumpOfDataBase();
@@ -56,12 +44,11 @@ public class InitCodingBatTaskTriggerTest {
 
     @AfterClass
     public static void deleteDump() {
-//        try {
-//            //FileUtils.deleteDirectory(dataBase);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        removeDirectory(dataBase);
+        try {
+            FileUtils.deleteDirectory(dataBase);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (original != null) {
             original.renameTo(dataBase);
         }
