@@ -63,7 +63,6 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
     @Override
     public boolean isExist(String id) {
-        //TODO read about exist
         CodingBatTask existTask = datastore.find(CodingBatTask.class).field("codingBatId").equal(id).get();
         if (existTask == null) {
             return false;
