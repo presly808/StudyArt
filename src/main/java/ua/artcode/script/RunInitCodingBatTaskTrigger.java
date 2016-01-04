@@ -26,8 +26,8 @@ public class RunInitCodingBatTaskTrigger {
         morphia.map(CodingBatTask.class);
         Datastore datastore = (Datastore) context.getBean("datastore");
         CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
-        CodingBatTask task=codingBatTaskDao.findById("p187868");
-        taskRunFacade.runTask(task,task.getTemplate().substring(0,task.getTemplate().length()-1)+"return(!weekday||vacation);\n}");
+//        CodingBatTask task=codingBatTaskDao.findById("p187868");
+//        taskRunFacade.runTask(task,task.getTemplate().substring(0,task.getTemplate().length()-1)+"return(!weekday||vacation);\n}");
 //        InitCodingBatTaskTrigger.loadTasksIfNeeded();
         //InitCodingBatTaskTrigger.loadTasksToDataBase();
         // InitCodingBatTaskTrigger.createDumpOfDataBase();
