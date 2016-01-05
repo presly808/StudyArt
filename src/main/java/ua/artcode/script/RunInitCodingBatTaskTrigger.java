@@ -16,7 +16,7 @@ import ua.artcode.utils.SpringContext;
 public class RunInitCodingBatTaskTrigger {
 
     public static void main(String[] args) throws UserAccountExistException, AppValidationException, NoSuchTaskException, CompilationException {
-        TaskRunFacade taskRunFacade = new TaskRunFacade();
+        //TaskRunFacade taskRunFacade = new TaskRunFacade();
 
         //taskRunFacade.runTask();
         //InitCodingBatTaskTrigger.loadTasksIfNeeded();
@@ -27,7 +27,7 @@ public class RunInitCodingBatTaskTrigger {
         Datastore datastore = (Datastore) context.getBean("datastore");
         CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         CodingBatTask task = codingBatTaskDao.findById("p187868");
-        //TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
+        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
         taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
 //        InitCodingBatTaskTrigger.loadTasksIfNeeded();
         //InitCodingBatTaskTrigger.loadTasksToDataBase();
