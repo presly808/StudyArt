@@ -46,7 +46,7 @@
         <property name="velocityEngine" ref="velocityEngine"/>
     </bean>
 
-    <bean id="velocityEngine"
+    <!--<bean id="velocityEngine"
           class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
         <property name="velocityProperties">
             <props>
@@ -56,7 +56,9 @@
                 </prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
+    <bean id="velocityEngine" class=" org.apache.velocity.app.VelocityEngine"/>
+
 
     <bean id="taskRunner" class="ua.artcode.process.TaskRunFacade">
         <constructor-arg name="templatePath" value="${velocity.template}"/>
