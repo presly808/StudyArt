@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
@@ -28,7 +29,7 @@ public class UserMongoImplTest {
     private static final int AMOUNT_OF_USERS = 100;
 
     @BeforeClass
-    public static void initializeDB() throws InterruptedException, AppValidationException {
+    public static void initializeDB() throws InterruptedException, AppException {
         try {
             //TODO show commandline result of start server
             String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
@@ -53,7 +54,7 @@ public class UserMongoImplTest {
     }
 
     @Test
-    public void findByUseEmailTest() throws UserAccountExistException {
+    public void findByUseEmailTest() throws AppException {
         User user = null;
         User userToFind = new User("Loginl", "1223password", "test@gmail.com");
         try {

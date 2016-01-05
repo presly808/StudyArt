@@ -75,7 +75,7 @@ public class CodingBatTaskMongoImplTest {
     }
 
     @Test
-    public void findByIdTest() throws AppValidationException, NoSuchTaskException {
+    public void findByIdTest() throws AppException {
         CodingBatTask task = codingBatTaskDao.findById("p10009");
         assertEquals(task.getCodingBatId(), "p10009");
     }
@@ -105,7 +105,7 @@ public class CodingBatTaskMongoImplTest {
     }
 
     @Ignore
-    public void updateTest() throws NoSuchTaskException {
+    public void updateTest() throws AppException {
         CodingBatTask newTask = codingBatTaskDao.findById("p100025");
         String id=codingBatTaskDao.findById("p100017").getCodingBatId();
         codingBatTaskDao.update("p100017", newTask);
@@ -113,7 +113,7 @@ public class CodingBatTaskMongoImplTest {
     }
 
     @Test
-    public void removeTest() throws AppValidationException, NoSuchTaskException {
+    public void removeTest() throws AppException {
         CodingBatTask task = codingBatTaskDao.findById("p10005");
         task.setCodingBatId("p666666");
         codingBatTaskDao.addTask(task);

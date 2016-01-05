@@ -1,8 +1,7 @@
 package ua.artcode.dao;
 
-import ua.artcode.exception.AppValidationException;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
-import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 
 import java.util.List;
@@ -10,15 +9,17 @@ import java.util.List;
 
 public interface UserDao {
 
-    User addUser(User user) throws AppValidationException,UserAccountExistException;
+    User addUser(User user) throws AppException;
 
     User findByUserEmail(String email) throws NoSuchUserException;
 
     boolean delete(String email) throws NoSuchUserException;
 
+    User update(String email, User user) throws AppException;
+
     List<User> getAllUser();
 
-    boolean isExist(User user);
+    boolean isExist(String email);
 
     int size();
 
