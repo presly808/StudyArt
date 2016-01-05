@@ -3,6 +3,11 @@ package ua.artcode.model.common;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import ua.artcode.exception.AppException;
+import ua.artcode.model.codingbat.TaskTestResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class User implements Comparable<User> {
@@ -14,7 +19,7 @@ public class User implements Comparable<User> {
     private String email;
     private UserType userType;
 
-    private int score; // TODO should be changed on something else
+    private Map<String, TaskTestResult> solvedTaskContainer = new HashMap<>();
 
     public User() {
     }
@@ -85,5 +90,18 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User o) {
         return this.id.compareTo(o.id);
+    }
+
+
+    public void addSolvedTask(String codingBatId, TaskTestResult solvedTask) {
+        solvedTaskContainer.put(codingBatId, solvedTask);
+    }
+
+    public TaskTestResult getSolvedTask(String codingBatId) throws AppException {
+        TaskTestResult solvedTask = solvedTaskContainer.get(codingBatId);
+        if (solvedTask == null) {
+            throw new AppException("Solved task not found with id: " + codingBatId);
+        }
+        return solvedTask;
     }
 }
