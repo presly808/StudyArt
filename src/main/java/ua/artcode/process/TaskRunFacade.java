@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO make high level of abstraction (create interface) will be spring component
+
 public class TaskRunFacade {
 
     private String templatePath;
