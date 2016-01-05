@@ -14,7 +14,7 @@ public interface CodingBatTaskDao {
 
     boolean delete(String id);
 
-    CodingBatTask update(String id, CodingBatTask updateTask);
+    CodingBatTask update(String id, CodingBatTask updateTask) throws AppException;
 
     List<CodingBatTask> getAll() throws AppException;
 

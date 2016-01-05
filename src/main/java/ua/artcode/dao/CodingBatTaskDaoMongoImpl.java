@@ -48,13 +48,8 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask update(String id, CodingBatTask taskToAdd) {
-        CodingBatTask codingBatTask = null;
-        try {
-            codingBatTask = findById(id);
-        } catch (NoSuchTaskException e) {
-            e.printStackTrace();
-        }
+    public CodingBatTask update(String id, CodingBatTask taskToAdd) throws AppException {
+        CodingBatTask codingBatTask = findById(id);
         taskToAdd.setCodingBatId(codingBatTask.getCodingBatId());
         delete(id);
         addTask(taskToAdd);
@@ -77,13 +72,9 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask addTask(CodingBatTask codingBatTask) {
+    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException {
         CodingBatTaskValidator validator = new CodingBatTaskValidator();
-        try {
-            validator.validate(codingBatTask);
-        } catch (AppValidationException e) {
-            LOG.warn(e.getExceptionMessageList());
-        }
+        validator.validate(codingBatTask);
         datastore.save(codingBatTask);
         return codingBatTask;
     }
