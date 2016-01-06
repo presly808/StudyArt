@@ -4,7 +4,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
@@ -54,7 +53,7 @@ public class UserDaoMongoImpl implements UserDao {
         User user = datastore.find(User.class).field("email").equal(userEmail).get();
         // TODO use next code line datastore.findAndDelete(datastore.find(User.class,"email",userEmail));
         if (user != null) {
-            datastore.delete(User.class, user.getUserName());
+            datastore.delete(User.class, user.getId());
             LOG.info("User with email -  " + userEmail + " was deleted from data base.");
         }
         return false;

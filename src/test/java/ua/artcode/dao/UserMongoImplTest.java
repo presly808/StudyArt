@@ -1,12 +1,12 @@
 package ua.artcode.dao;
 
 import org.apache.log4j.Logger;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
@@ -54,19 +54,54 @@ public class UserMongoImplTest {
     }
 
     @Test
-    public void findByUseEmailTest() throws AppException {
-        User user = null;
-        User userToFind = new User("Loginl", "1223password", "test@gmail.com");
-        try {
-            userDao.addUser(userToFind);
-            user = userDao.findByUserEmail("test@gmail.com");
-            assertEquals(userToFind, user);
-            userDao.delete("test@gmail.com");
-        } catch (NoSuchUserException e) {
-            LOG.warn("There is no user with email: " + user.getEmail());
-        } catch (AppValidationException e) {
-            LOG.warn(e.getExceptionMessageList());
+    public void sizeTest() {
+        int dbSize = userDao.size();
+        assertEquals(AMOUNT_OF_USERS, dbSize);
+    }
 
+    @Test
+    public void findUserByExistentEmailTest() {
+        User foundedUser = null;
+        try {
+            foundedUser = userDao.findByUserEmail("something_33@gmail.com");
+        } catch (NoSuchUserException e) {
+            LOG.warn("There are no user with email: something_33@gmail.com");
         }
+        assertEquals("something_33@gmail.com", foundedUser.getEmail());
+    }
+
+    @Test(expected = NoSuchUserException.class)
+    public void findUserByNonexistentEmailTest() throws NoSuchUserException {
+        userDao.findByUserEmail("nonexistent_email@gmail.com");
+    }
+
+
+    @Test(expected = NoSuchUserException.class)
+    public void removeUserTest() throws AppException {
+        //User userForRemove = userDao.findByUserEmail("something_34@gmail.com");
+        //userForRemove.setEmail("test_1@gmail.com");
+        User userForRemove = new User("User666", "password666", "test_1@gmail.com");
+        try {
+            userDao.addUser(userForRemove);
+        } catch (AppException e) {
+            LOG.warn(e.getExceptionMessageList());
+            throw new AppException();
+        }
+        userDao.delete("test_1@gmail.com");
+        userDao.findByUserEmail("test_1@gmail.com");
+    }
+
+    @Test
+    public void addUserTest() throws AppException {
+        User user = new User("User_2b", "password_", "test_2@gmail.com");
+        userDao.addUser(user);
+        assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
+        userDao.delete("test_2@gmail.com");
+    }
+
+    @AfterClass
+    public static void deleteDb() {
+        String nameOfTestDb = AppPropertiesHolder.getProperty("mongo.test.db");
+        datastore.getMongo().dropDatabase(nameOfTestDb);
     }
 }

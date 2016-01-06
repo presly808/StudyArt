@@ -3,6 +3,7 @@ package ua.artcode.dao;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
@@ -29,7 +30,7 @@ public class CodingBatTaskMongoImplTest {
     private static CodingBatTaskDao codingBatTaskDao;
     private static ApplicationContext context;
     private static Datastore datastore;
-    private static final int AMOUNT_OF_ELEMENTS = 100;
+    private static final int AMOUNT_OF_ELEMENTS = 1000;
 
 
     @BeforeClass

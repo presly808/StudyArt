@@ -14,7 +14,7 @@ public class UserValidator implements Validator<User> {
 
     private static final String NAME_PATTERN = "[a-z0-9[\\-_.]]{6,20}";
 
-    private static final String PASSWORD_PATTERN = "[a-z0-9[\\-_.]]{6,20}";
+    private static final String PASSWORD_PATTERN = "[a-z0-9[\\-_.]]{6,30}";
 
     private Pattern namePattern = Pattern.compile(NAME_PATTERN);
     private Pattern passwordPattern = Pattern.compile(PASSWORD_PATTERN);

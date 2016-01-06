@@ -47,6 +47,14 @@ public class User implements Comparable<User> {
         return userName;
     }
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
