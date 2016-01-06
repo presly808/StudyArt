@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * Created by Razer on 09.11.15.
  */
+//TODO create bean???
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     private static final Logger LOG = Logger.getLogger(CodingBatTaskDaoMongoImpl.class);
     private Datastore datastore;

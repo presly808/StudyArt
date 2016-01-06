@@ -19,7 +19,7 @@ import java.util.List;
 //TODO velocity
 public class TemplateProcessor {
 
-    private VelocityEngine velocityEngine = new VelocityEngine();
+    private VelocityEngine velocityEngine;
 
     //TODO process(CodinngBatTask task)
     public void process(String templatePath, String srcFileDest, String className, String methodName, List<TestArg> args, String allMethod) {

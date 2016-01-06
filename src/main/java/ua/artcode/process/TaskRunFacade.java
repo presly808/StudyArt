@@ -8,20 +8,19 @@ import ua.artcode.preprocess.TemplateProcessor;
 import ua.artcode.utils.dynamic_compile.BaseClassLoader;
 import ua.artcode.utils.dynamic_compile.DynamicCompiler;
 import ua.artcode.utils.dynamic_compile.MethodInvoker;
-import ua.artcode.utils.io.AppPropertiesHolder;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO make high level of abstraction (create interface) will be spring component
+
 public class TaskRunFacade {
 
-    //private String templatePath = "/src/main/resources/general_template.vm";
-    private File srcRoot = new File("temp/");
-    private DataUnmarshaller dateConverter= new DataUnmarshaller();
-    private DynamicCompiler dynamicCompiler= new DynamicCompiler();
-    private TemplateProcessor templateProcessor = new TemplateProcessor();
+    private String templatePath;
+    private File srcRoot;
+    private DataUnmarshaller dateConverter;
+    private DynamicCompiler dynamicCompiler;
+    private TemplateProcessor templateProcessor;
 
     public TaskRunFacade() {
         // init temp folder for task sources
@@ -30,7 +29,7 @@ public class TaskRunFacade {
     public TaskRunFacade(String templatePath, File srcRoot, DataUnmarshaller dateConverter,
                          DynamicCompiler dynamicCompiler, TemplateProcessor templateProcessor) {
 
-        //this.templatePath = templatePath;
+        this.templatePath = templatePath;
         this.srcRoot = srcRoot;
         this.dateConverter = dateConverter;
         this.dynamicCompiler = dynamicCompiler;
@@ -47,7 +46,7 @@ public class TaskRunFacade {
     public void runTask(CodingBatTask task, String method) throws CompilationException {
         //Make method from template
         //TODO refactor this section
-        String templatePath = AppPropertiesHolder.getProperty("velocity.template");
+        //String templatePath = AppPropertiesHolder.getProperty("velocity.template");
         String className = generateMagicTempClassName(task);
         String generatedSrcFile = srcRoot.getPath() + "/" + className + ".java";
 
