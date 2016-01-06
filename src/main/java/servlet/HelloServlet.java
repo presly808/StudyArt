@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  */
 public class HelloServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
         pw.println("\n" +
                 "<!doctype html><head><style type='text/css'>body {font-size: small; font-family: verdana, arial, helvetica, sans-serif;}pre, code {font-size:medium;}a { text-decoration:none; }h1,.h1 { font-size:300%; }h2,.h2 { font-size:150%; }h3 { font-size:120%; }textarea[disabled]{background-color: #F8F8F8; }</style><title>StudyART </title></head><body>\n" +
