@@ -3,7 +3,6 @@ package ua.artcode.dao;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
@@ -110,8 +109,7 @@ public class CodingBatTaskMongoImplTest {
         CodingBatTask taskToUpdate = codingBatTaskDao.findById("p100017");
         codingBatTaskDao.update("p100017", newTask);
         assertEquals(taskToUpdate.getCodingBatId(), codingBatTaskDao.findById("p100017").getCodingBatId());
-        String value = Integer.toString(AMOUNT_OF_ELEMENTS);
-        taskToUpdate.setCodingBatId("p1000".concat(value + 1));
+        taskToUpdate.setCodingBatId("p1000".concat(String.valueOf(AMOUNT_OF_ELEMENTS) + 1));
         codingBatTaskDao.addTask(taskToUpdate);
     }
 

@@ -1,4 +1,4 @@
-package servlet;
+package ua.artcode.servlet;
 
 
 import javax.servlet.ServletException;

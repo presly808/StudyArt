@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>servlet.HelloServlet</servlet-class>
+        <servlet-class>ua.artcode.servlet.HelloServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
