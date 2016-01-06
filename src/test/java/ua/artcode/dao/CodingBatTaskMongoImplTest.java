@@ -107,7 +107,7 @@ public class CodingBatTaskMongoImplTest {
     @Ignore
     public void updateTest() throws AppException {
         CodingBatTask newTask = codingBatTaskDao.findById("p100025");
-        String id=codingBatTaskDao.findById("p100017").getCodingBatId();
+        String id = codingBatTaskDao.findById("p100017").getCodingBatId();
         codingBatTaskDao.update("p100017", newTask);
         assertEquals(id,codingBatTaskDao.findById("p100017").getCodingBatId());
     }
