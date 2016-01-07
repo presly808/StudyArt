@@ -21,8 +21,6 @@
         <constructor-arg value="${mongo.db}"/>
     </bean>
 
-    <!--<bean id="dbManager" class="ua.artcode.db.DataBaseManager" init-method="initDataStore" lazy-init="true"/>-->
-
     <bean id="morphia" class="org.mongodb.morphia.Morphia"/>
 
     <bean id="datastore" class="org.mongodb.morphia.Datastore" factory-bean="morphia" factory-method="createDatastore">
@@ -37,15 +35,13 @@
         <constructor-arg name="dbName" value="${mongo.test.db}"/>
     </bean>
 
-
     <bean id="dynamicCompiler" class="ua.artcode.utils.dynamic_compile.DynamicCompiler"/>
 
-    <bean id="dataUnmarshaller" class="ua.artcode.preprocess.DataUnmarshaller"/>
+    <bean id="dataUnmarshaller" class="ua.artcode.utils.codingbat.DataUnmarshaller"/>
 
     <bean id="templateProcessor" class="ua.artcode.preprocess.TemplateProcessor">
         <property name="velocityEngine" ref="velocityEngine"/>
     </bean>
-
     <!--<bean id="velocityEngine"
           class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
         <property name="velocityProperties">
@@ -58,7 +54,6 @@
         </property>
     </bean>-->
     <bean id="velocityEngine" class=" org.apache.velocity.app.VelocityEngine"/>
-
 
     <bean id="taskRunner" class="ua.artcode.process.TaskRunFacade">
         <constructor-arg name="templatePath" value="${velocity.template}"/>
