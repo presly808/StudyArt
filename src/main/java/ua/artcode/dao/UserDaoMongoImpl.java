@@ -52,11 +52,12 @@ public class UserDaoMongoImpl implements UserDao {
     public boolean delete(String userEmail) throws NoSuchUserException {
         User user = datastore.find(User.class).field("email").equal(userEmail).get();
         // TODO use next code line datastore.findAndDelete(datastore.find(User.class,"email",userEmail));
-        if (user != null) {
-            datastore.delete(User.class, user.getId());
-            LOG.info("User with email -  " + userEmail + " was deleted from data base.");
+        if (user == null) {
+            throw new NoSuchUserException("There are no user with email: " + userEmail);
         }
-        return false;
+        datastore.delete(User.class, user.getId());
+        LOG.info("User with email -  " + userEmail + " was deleted from data base.");
+        return true;
     }
 
     @Override

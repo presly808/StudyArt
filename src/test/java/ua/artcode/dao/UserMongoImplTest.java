@@ -14,8 +14,11 @@ import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.io.AppPropertiesHolder;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
 /**
@@ -60,12 +63,21 @@ public class UserMongoImplTest {
     }
 
     @Test
+    public void getAllUsersTest() {
+        List<User> users = userDao.getAllUser();
+        int sizeOfList = users.size();
+        int sizeOfDb = userDao.size();
+        assertEquals(sizeOfDb, sizeOfList);
+    }
+
+    @Test
     public void findUserByExistentEmailTest() {
         User foundedUser = null;
         try {
             foundedUser = userDao.findByUserEmail("something_33@gmail.com");
         } catch (NoSuchUserException e) {
             LOG.warn("There are no user with email: something_33@gmail.com");
+
         }
         assertEquals("something_33@gmail.com", foundedUser.getEmail());
     }
@@ -78,25 +90,52 @@ public class UserMongoImplTest {
 
     @Test(expected = NoSuchUserException.class)
     public void removeUserTest() throws AppException {
-        //User userForRemove = userDao.findByUserEmail("something_34@gmail.com");
-        //userForRemove.setEmail("test_1@gmail.com");
         User userForRemove = new User("User666", "password666", "test_1@gmail.com");
-        try {
-            userDao.addUser(userForRemove);
-        } catch (AppException e) {
-            LOG.warn(e.getExceptionMessageList());
-            throw new AppException();
-        }
+        userDao.addUser(userForRemove);
         userDao.delete("test_1@gmail.com");
         userDao.findByUserEmail("test_1@gmail.com");
     }
 
+    @Test(expected = NoSuchUserException.class)
+    public void removeNonexistentUserTest() throws AppException {
+        userDao.delete("test_1@gmail.com");
+    }
+
     @Test
-    public void addUserTest() throws AppException {
-        User user = new User("User_2b", "password_", "test_2@gmail.com");
-        userDao.addUser(user);
-        assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
-        userDao.delete("test_2@gmail.com");
+    public void addUserTest()  {
+        User user = new User("User_2b", "password_2b", "test_2@gmail.com");
+        try {
+            userDao.addUser(user);
+            assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
+            userDao.delete("test_2@gmail.com");
+        } catch (AppException e) {
+            LOG.warn(e.getExceptionMessageList());
+        }
+    }
+
+    @Test
+    public void updateUserTest() {
+        User newUser = null;
+        try {
+            newUser = userDao.findByUserEmail("something_24@gmail.com");
+            User userToUpdate = userDao.findByUserEmail("something_3@gmail.com");
+            userDao.update("something_3@gmail.com", newUser);
+            assertEquals(userToUpdate.getEmail(), userDao.findByUserEmail("something_3@gmail.com").getEmail());
+            userToUpdate.setEmail("something_" + String.valueOf(AMOUNT_OF_USERS + 1) + "@gmail.com");
+            userDao.addUser(userToUpdate);
+        } catch (AppException e) {
+            LOG.warn(e.getExceptionMessageList());
+        }
+    }
+
+    @Test
+    public void isExistTest()  {
+        assertTrue(userDao.isExist("something_12@gmail.com"));
+    }
+
+    @Test
+    public void isExistNegativeTest() {
+        assertFalse(userDao.isExist("nonexistent_email@gmail.com"));
     }
 
     @AfterClass

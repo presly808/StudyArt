@@ -29,7 +29,7 @@ public class CodingBatTaskMongoImplTest {
     private static CodingBatTaskDao codingBatTaskDao;
     private static ApplicationContext context;
     private static Datastore datastore;
-    private static final int AMOUNT_OF_ELEMENTS = 1000;
+    private static final int AMOUNT_OF_ELEMENTS = 100;
 
 
     @BeforeClass
@@ -109,7 +109,7 @@ public class CodingBatTaskMongoImplTest {
         CodingBatTask taskToUpdate = codingBatTaskDao.findById("p100017");
         codingBatTaskDao.update("p100017", newTask);
         assertEquals(taskToUpdate.getCodingBatId(), codingBatTaskDao.findById("p100017").getCodingBatId());
-        taskToUpdate.setCodingBatId("p1000".concat(String.valueOf(AMOUNT_OF_ELEMENTS) + 1));
+        taskToUpdate.setCodingBatId("p1000".concat(String.valueOf(AMOUNT_OF_ELEMENTS + 1)));
         codingBatTaskDao.addTask(taskToUpdate);
     }
 
