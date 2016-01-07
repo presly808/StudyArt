@@ -1,4 +1,4 @@
-package ua.artcode.preprocess;
+package ua.artcode.utils.codingbat;
 
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestData;

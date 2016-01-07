@@ -2,6 +2,7 @@ package ua.artcode.model.codingbat;
 
 import ua.artcode.model.common.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // todo change global structure(add userCode for task)
@@ -11,13 +12,22 @@ public class TaskTestResult {
     private User user;
 
     // will be ref in mongo db
-    private CodingBatTask codingBatTask;
+    private String codingBatId;
 
     // in data and expected values
     // practical result
+    private List<Object> expectedValues;
     private List<String> actualValues;// change to map actualValues - passed
 
-    private List<String> status;
+    private List<String> results;
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
 
     private String userCode;
 
@@ -25,24 +35,17 @@ public class TaskTestResult {
 
 
     public TaskTestResult() {
+        actualValues = new ArrayList<>();
+        expectedValues = new ArrayList<>();
+        results = new ArrayList<>();
     }
 
-    // TODO extract ot service layer
-    public boolean checkPassed() {
-        for (String variant : status) {
-            if (!variant.equals("OK")) {
-                return false;
-            }
-        }
-        return true;
+    public String getCodingBatId() {
+        return codingBatId;
     }
 
-    public CodingBatTask getCodingBatTask() {
-        return codingBatTask;
-    }
-
-    public void setCodingBatTask(CodingBatTask codingBatTask) {
-        this.codingBatTask = codingBatTask;
+    public void setCodingBatId(String codingBatId) {
+        this.codingBatId = codingBatId;
     }
 
     public List<String> getActualValues() {
@@ -53,11 +56,20 @@ public class TaskTestResult {
         this.actualValues = actualValues;
     }
 
-    public List<String> getStatus() {
-        return status;
+    public List<String> getResults() {
+        return results;
     }
 
-    public void setStatus(List<String> status) {
-        this.status = status;
+    public void addResult(String result) {
+        results.add(result);
     }
+
+    public void addActualValues(String actualValue) {
+        actualValues.add(actualValue);
+    }
+
+    public void addExpectedValues(Object expectedValue) {
+        expectedValues.add(expectedValue);
+    }
+
 }

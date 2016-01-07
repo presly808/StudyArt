@@ -42,7 +42,6 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
         return false;
     }
 
-
     @Override
     public int size() {
         return (int) datastore.getDB().getCollection("CodingBatTask").count();
