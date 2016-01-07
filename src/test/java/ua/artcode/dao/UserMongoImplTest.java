@@ -90,8 +90,7 @@ public class UserMongoImplTest {
 
     @Test(expected = NoSuchUserException.class)
     public void removeUserTest() throws AppException {
-        User userForRemove = new User("User666", "password666", "test_1@gmail.com");
-        userDao.addUser(userForRemove);
+        userDao.addUser(new User("User666", "password666", "test_1@gmail.com"));
         userDao.delete("test_1@gmail.com");
         userDao.findByUserEmail("test_1@gmail.com");
     }
@@ -102,6 +101,7 @@ public class UserMongoImplTest {
     }
 
     @Test
+    //TODO what to do with exception?
     public void addUserTest()  {
         User user = new User("User_2b", "password_2b", "test_2@gmail.com");
         try {
@@ -115,7 +115,7 @@ public class UserMongoImplTest {
 
     @Test
     public void updateUserTest() {
-        User newUser = null;
+        User newUser;
         try {
             newUser = userDao.findByUserEmail("something_24@gmail.com");
             User userToUpdate = userDao.findByUserEmail("something_3@gmail.com");
