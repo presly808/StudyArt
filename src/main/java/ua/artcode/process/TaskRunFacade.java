@@ -2,9 +2,10 @@ package ua.artcode.process;
 
 import ua.artcode.exception.CompilationException;
 import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.model.codingbat.TestArg;
-import ua.artcode.preprocess.DataUnmarshaller;
 import ua.artcode.preprocess.TemplateProcessor;
+import ua.artcode.utils.codingbat.DataUnmarshaller;
 import ua.artcode.utils.dynamic_compile.BaseClassLoader;
 import ua.artcode.utils.dynamic_compile.DynamicCompiler;
 import ua.artcode.utils.dynamic_compile.MethodInvoker;
@@ -63,13 +64,14 @@ public class TaskRunFacade {
         dynamicCompiler.compile(generatedSrcFile);
 
         Class cl = BaseClassLoader.uriLoadClass(srcRoot, className);
-
         //Convert types, which retrieved fromDB as String
         dateConverter.convert(task);
-
         try {
             MethodInvoker action = (MethodInvoker) cl.newInstance();
-            TestRunner.run(action, task.getTaskTestDataContainer());
+            TaskTestResult taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
+            taskTestResult.setCodingBatId(task.getCodingBatId());
+            taskTestResult.setUserCode(method);
+            System.out.println(taskTestResult.getResults().toString());
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
