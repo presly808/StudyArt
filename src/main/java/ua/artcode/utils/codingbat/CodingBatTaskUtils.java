@@ -119,7 +119,7 @@ public class CodingBatTaskUtils {
 
     public TaskTestResult checkCodingBatTask(final CodingBatTask task, final String code) {
         TaskTestResult result = new TaskTestResult();
-        result.setCodingBatTask(task);
+        //result.setCodingBatTask(task);
 
         HttpResponse response = getResponseFromCodingBat(task, code);
         HttpEntity entity = response.getEntity(); // incoming data
@@ -135,7 +135,7 @@ public class CodingBatTaskUtils {
                     String[] actualValue = StringUtils.substringsBetween(dataHtml, "<td>", "</td>");
                     if (actualValue != null) {
                         result.getActualValues().add(actualValue[1]);
-                        result.getStatus().add(actualValue[2]);
+                        result.getResults().add(actualValue[2]);
                     }
                 }
 
@@ -163,4 +163,13 @@ public class CodingBatTaskUtils {
         }
         return methodSignature;
     }
+
+    public String checkResult(String actualValue, Object expectedValue) {
+        if (expectedValue.equals(actualValue)) {
+            return "OK";
+        } else {
+            return "X";
+        }
+    }
 }
+
