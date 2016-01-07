@@ -1,6 +1,8 @@
 package ua.artcode.process;
 
 
+import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 import ua.artcode.utils.dynamic_compile.MethodInvoker;
 import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.model.codingbat.TaskTestDataContainer;
@@ -13,19 +15,20 @@ import java.util.List;
 public class TestRunner {
 
 
-    public static void run(MethodInvoker method, TaskTestDataContainer taskTestData) {
+    public static TaskTestResult run(MethodInvoker method, TaskTestDataContainer taskTestData) {
         List<TaskTestData> steps = taskTestData.getTaskTestDataList();
-
+        TaskTestResult taskTestResult = new TaskTestResult();
+        CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
         //TODO refactor this approach generate test result, dont modify exists data
-
         for (TaskTestData testData : steps) {
             Object[] convertedArg = testData.getInData().toArray();
-            Object real = method.call(convertedArg);
-            real=real.toString();
-
-            Object expectedValue=testData.getExpectedValue();
-            System.out.println((real.equals(expectedValue))); //TODO check this place
+            Object actualValue = method.call(convertedArg);
+            Object expectedValue = testData.getExpectedValue();
+            taskTestResult.addActualValues(actualValue.toString());
+            taskTestResult.addExpectedValues(expectedValue);
+            taskTestResult.addResult(codingBatTaskUtils.checkResult(actualValue.toString(), expectedValue));
         }
+        return taskTestResult;
     }
 
 }
