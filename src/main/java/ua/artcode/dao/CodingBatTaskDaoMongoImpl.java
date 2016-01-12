@@ -74,7 +74,7 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException {
         CodingBatTaskValidator validator = new CodingBatTaskValidator();
-        validator.validate(codingBatTask);
+        //validator.validate(codingBatTask);
         datastore.save(codingBatTask);
         return codingBatTask;
     }
