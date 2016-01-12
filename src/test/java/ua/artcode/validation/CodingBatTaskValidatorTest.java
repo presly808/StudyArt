@@ -3,7 +3,6 @@ package ua.artcode.validation;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.codingbat.CodingBatTask;
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Maxim on 19.12.2015.
  */
-@Ignore
+
 public class CodingBatTaskValidatorTest {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskValidator.class);
