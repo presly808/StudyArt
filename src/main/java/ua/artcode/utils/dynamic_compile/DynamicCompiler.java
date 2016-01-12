@@ -4,8 +4,9 @@ package ua.artcode.utils.dynamic_compile;
  * Created by Razer on 28.12.15.
  */
 
-import ua.artcode.exception.CompilationException;
+import org.apache.log4j.Logger;
 import ua.artcode.utils.io.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +19,8 @@ import java.net.URLClassLoader;
  */
 //TODO avoid static , add field root, resolve multithreading using stream
 public class DynamicCompiler {
-
-    //    public static final String LIBS_CLASSPATH = "/home/serhii/dev/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/classes/";
+    private static final Logger LOG = Logger.getLogger(DynamicCompiler.class);
+    //public static final String LIBS_CLASSPATH = "/home/serhii/dev/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/classes/";
     public static final String LIBS_CLASSPATH = getLibsClasspath();
 
     private static String getLibsClasspath() {
@@ -36,27 +37,27 @@ public class DynamicCompiler {
     public DynamicCompiler() {
     }
 
-    public String compile(String path) throws CompilationException {
+    public String compile(String path) {
         File sourceFile = new File(path); // TODO check if sourceFile redundant
+        String message = null;
         try {
             String absolutePath = sourceFile.getCanonicalPath();
             //String result=String.format("javac -cp  " + LIBS_CLASSPATH + " %s",absolutePath);
             String result = "javac -cp " + LIBS_CLASSPATH + " " + absolutePath;
-            System.out.println(result);
             Process pr = Runtime.getRuntime().exec(result);
 
             if (pr.waitFor() != 0) {
-                String message = FileUtils.getMessage(new BufferedReader(new InputStreamReader(pr.getErrorStream())));
-                System.err.println(message); // TODO wrap result of compilation and show user
-                throw new CompilationException(message);
+                message = FileUtils.getMessage(new BufferedReader(new InputStreamReader(pr.getErrorStream())));
+                //System.err.println(message);
+                //throw new CompilationException(message);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
 
-        return path; // return path to class
+        return message.substring(message.indexOf(".") + 1, message.length()); // return path to class
     }
 
 }
