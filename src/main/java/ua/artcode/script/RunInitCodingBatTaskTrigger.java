@@ -19,16 +19,16 @@ public class RunInitCodingBatTaskTrigger {
         //TaskRunFacade taskRunFacade = new TaskRunFacade();
 
         //taskRunFacade.runTask();
-        //InitCodingBatTaskTrigger.loadTasksIfNeeded();
-        //InitCodingBatTaskTrigger.loadTasksToDataBase();
-        ApplicationContext context = SpringContext.getContext();
-        Morphia morphia = context.getBean(Morphia.class);
-        morphia.map(CodingBatTask.class);
-        Datastore datastore = (Datastore) context.getBean("datastore");
-        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
-        CodingBatTask task = codingBatTaskDao.findById("p187868");
-        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
-        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
+//        InitCodingBatTaskTrigger.loadTasksIfNeeded();
+//        InitCodingBatTaskTrigger.loadTasksToDataBase();
+//        ApplicationContext context = SpringContext.getContext();
+//        Morphia morphia = context.getBean(Morphia.class);
+//        morphia.map(CodingBatTask.class);
+//        Datastore datastore = (Datastore) context.getBean("datastore");
+//        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
+//        CodingBatTask task = codingBatTaskDao.findById("p187868");
+//        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
+//        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
 //        InitCodingBatTaskTrigger.loadTasksIfNeeded();
         //InitCodingBatTaskTrigger.loadTasksToDataBase();
         // InitCodingBatTaskTrigger.createDumpOfDataBase();

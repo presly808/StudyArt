@@ -13,15 +13,14 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
     private static final String CODING_BAT_ID_PATTERN = "p\\d+";
     private static final String GROUP_NAME_PATTERN = "[\\w._-]{3,20}";
     private static final String TITLE_PATTERN = "[\\w._-]{3,20}";
-    private static final String DESCRIPTION_PATTERN = ".{10,200}";
-    private static final String EXAMPLES_PATTERN = ".{10,200}";
+    private static final String DESCRIPTION_PATTERN = "[\\s\\S]{10,1000}";
+    private static final String EXAMPLES_PATTERN = "[\\s\\S]{5,500}";
     private static final String TEMPLATE_PATTERN = "(public\\s+|private\\s+|protected\\s+)?(static\\s+)?" +
-            ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{.*\\}";
+            ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{[\\s\\S]*}";
 
-    //todo check pattern (\[.*\])
     private static final String RETURN_TYPE_PATTERN = "void|char(\\[.*\\])?|String(\\[.*\\])?|" +
             "byte(\\[.*\\])?|short(\\[.*\\])?|int(\\[.*\\])?|long(\\[.*\\])?|" +
-            "float(\\[.*\\])?|double(\\[.*\\])?|boolean(\\[.*\\])?|";
+            "float(\\[.*\\])?|double(\\[.*\\])?|boolean(\\[.*\\])?|List(\\<.*\\>)?";
 
 
     private Pattern codingBatIdPattern = Pattern.compile(CODING_BAT_ID_PATTERN);
@@ -87,25 +86,28 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
         if (!isValidateDescription(entity.getDescription())) {
             exceptionMessageContainer.addMessage(String.format("description %s is invalid, recommendation %s",
                     entity.getDescription(), "can contains any character\n" +
-                            "length at least 10 characters and maximum of 200"));
+                            "length at least 10 characters and maximum of 1000"));
         }
         if (!isValidateExamples(entity.getExamples())) {
             exceptionMessageContainer.addMessage(String.format("examples %s is invalid, recommendation %s",
                     entity.getExamples(), "can contains any character\n" +
-                            "length at least 10 characters and maximum of 200"));
+                            "length at least 5 characters and maximum 500\n" +
+                            "example(true, true) → true\n" +
+                            "example(false, false) → true\n" +
+                            "example(true, false) → false"));
         }
         if (!isValidTemplate(entity.getTemplate().trim())) {
             exceptionMessageContainer.addMessage(String.format("%s template is invalid, recommendation %s",
                     entity.getTemplate(), "example of valid template\n " +
-                            "public void method(argType1 argName1, argType1 argName1){}"));
+                            "public void method(argType1 argName1, argType1 argName1){ }"));
         }
         if (!isValidateReturnType(entity.getMethodSignature().getReturnType())) {
             exceptionMessageContainer.addMessage(String.format("returnType %s is invalid, recommendation %s",
                     entity.getMethodSignature().getReturnType(), "can be all data types in java and arrays\n" +
-                            "and some java collections"));
+                            "except collections and own objects"));
         }
-        if (entity.getTaskTestDataContainer().getTaskTestDataList().size() < 3) {
-            exceptionMessageContainer.addMessage("Not enough taskTestData. Min taskTestData = 3");
+        if (entity.getTaskTestDataContainer().getTaskTestDataList().size() < 0) {
+            exceptionMessageContainer.addMessage("Not enough taskTestData. Min taskTestData = 1");
         }
         if (!exceptionMessageContainer.getExceptionMessageList().isEmpty()) {
             throw exceptionMessageContainer;
