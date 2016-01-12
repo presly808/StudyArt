@@ -12,6 +12,14 @@
 
     <context:component-scan base-package="ua.artcode"/>
 
+    <bean id="CodingBatTaskMongoImpl" class="ua.artcode.dao.CodingBatTaskDaoMongoImpl">
+        <constructor-arg name="datastore" ref="datastore"/>
+    </bean>
+
+    <bean id="UserDaoMongoImpl" class="ua.artcode.dao.UserDaoMongoImpl">
+        <constructor-arg name="datastore" ref="datastore"/>
+    </bean>
+
     <bean id="mongoClient" class="com.mongodb.MongoClient">
         <constructor-arg name="host" value="${mongo.host}"/>
         <constructor-arg name="port" value="${mongo.port}"/>
