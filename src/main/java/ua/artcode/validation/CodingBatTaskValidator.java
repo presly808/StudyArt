@@ -14,9 +14,10 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
     private static final String GROUP_NAME_PATTERN = "[\\w._-]{3,20}";
     private static final String TITLE_PATTERN = "[\\w._-]{3,20}";
     private static final String DESCRIPTION_PATTERN = ".{10,200}";
-    private static final String EXAMPLES_PATTERN = ".{10,200}";
-    private static final String TEMPLATE_PATTERN = "(public\\s+|private\\s+|protected\\s+)?(static\\s+)?" +
-            ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{.*\\}";
+    private static final String EXAMPLES_PATTERN = "(.|\\n)*";
+    private static  final  String TEMPLATE_PATTERN="(.|\\n)*";
+    // private static final String TEMPLATE_PATTERN = "(public\\s+|private\\s+|protected\\s+)?(static\\s+)?" +
+       //     ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{.*\\}";
 
     //todo check pattern (\[.*\])
     private static final String RETURN_TYPE_PATTERN = "void|char(\\[.*\\])?|String(\\[.*\\])?|" +
