@@ -89,14 +89,14 @@ public class CodingBatTaskGrabber {
     }
 
     private String getExamples(Element infoTable, String title) {
-        String examples = null;
+        String examples="";
         String[] taskInfo = infoTable.ownText().split(title + "()");
 
         for (int j = 1; j < taskInfo.length; j++) {
             if (j == taskInfo.length - 1) {
                 examples = examples + title + taskInfo[j];
             } else {
-                examples = examples + title + taskInfo[j] + "\n";
+                examples = examples + title + taskInfo[j] + " ";//TODO delete /n
             }
         }
         return examples;
@@ -118,7 +118,6 @@ public class CodingBatTaskGrabber {
                 String codingBatId = getCodingBatId(taskLink);
                 String groupName = getGroupName(doc);
                 String title = getTitle(doc);
-                ;
                 String description;
                 String examples;
                 String template = getTemplate(doc);
