@@ -49,7 +49,7 @@ public class CodingBatTaskMongoImplTest {
         for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
             value = Integer.toString(i);
             CodingBatTask task = new CodingBatTask("p1000".concat(value), "Title-".concat(value), "Simple description-".concat(value),
-                    "example(true, false) → false",
+                    "methodName(true, false) → false",
                     "public boolean $ome_Method(int arg".concat(value) + ", String arg".concat(value) + ", boolean arg".concat(value) + ") {}", "Group-".concat(value));
 
             MethodSignature methodSignature = new MethodSignature();

@@ -1,6 +1,5 @@
 package ua.artcode.process;
 
-import ua.artcode.exception.CompilationException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.model.codingbat.TestArg;
@@ -22,6 +21,7 @@ public class TaskRunFacade {
     private DataUnmarshaller dateConverter;
     private DynamicCompiler dynamicCompiler;
     private TemplateProcessor templateProcessor;
+    private String message;
 
     public TaskRunFacade() {
         // init temp folder for task sources
@@ -44,10 +44,11 @@ public class TaskRunFacade {
     }
 
     //TODO check file
-    public void runTask(CodingBatTask task, String method) throws CompilationException {
+    public void runTask(CodingBatTask task, String method) {
+        TaskTestResult taskTestResult;
         //Make method from template
         //TODO refactor this section
-        //String templatePath = AppPropertiesHolder.getProperty("velocity.template");
+        //String templatePath = AppPrope
         String className = generateMagicTempClassName(task);
         String generatedSrcFile = srcRoot.getPath() + "/" + className + ".java";
 
@@ -61,19 +62,27 @@ public class TaskRunFacade {
         }
         templateProcessor.process(templatePath, generatedSrcFile, className, methodName, kostylList, method);
 
-        dynamicCompiler.compile(generatedSrcFile);
-
-        Class cl = BaseClassLoader.uriLoadClass(srcRoot, className);
-        //Convert types, which retrieved fromDB as String
-        dateConverter.convert(task);
-        try {
-            MethodInvoker action = (MethodInvoker) cl.newInstance();
-            TaskTestResult taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
-            taskTestResult.setCodingBatId(task.getCodingBatId());
-            taskTestResult.setUserCode(method);
-            System.out.println(taskTestResult.getResults().toString());
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+        message = dynamicCompiler.compile(generatedSrcFile);
+        if (message == null) {
+            Class cl = BaseClassLoader.uriLoadClass(srcRoot, className);
+            //Convert types, which retrieved fromDB as String
+            dateConverter.convert(task);
+            try {
+                MethodInvoker action = (MethodInvoker) cl.newInstance();
+                taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
+                taskTestResult.setCodingBatId(task.getCodingBatId());
+                taskTestResult.setUserCode(method);
+                if (message != null) {
+                    taskTestResult.setStatus(message);
+                }
+                System.out.println(taskTestResult.toString());
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        } else {
+            taskTestResult = new TaskTestResult();
+            taskTestResult.setStatus(message);
+            System.out.println(taskTestResult.getStatus().toString());
         }
 
     }

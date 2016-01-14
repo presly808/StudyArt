@@ -1,13 +1,12 @@
 package ua.artcode.model.codingbat;
 
-import ua.artcode.model.common.User;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // todo change global structure(add userCode for task)
 public class TaskTestResult {
-
     // will be ref in mongo db
     private String codingBatId;
 
@@ -15,6 +14,15 @@ public class TaskTestResult {
     // practical result
     private List<Object> expectedValues;
     private List<String> actualValues;// change to map actualValues - passed
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     private List<String> results;
 
@@ -30,6 +38,18 @@ public class TaskTestResult {
 
     private boolean passedAll;
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("codingBatId", codingBatId)
+                .append("expectedValues", expectedValues)
+                .append("actualValues", actualValues)
+                .append("status", status)
+                .append("results", results)
+                .append("userCode", userCode)
+                .append("passedAll", passedAll)
+                .toString();
+    }
 
     public TaskTestResult() {
         actualValues = new ArrayList<>();
