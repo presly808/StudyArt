@@ -48,8 +48,7 @@ public class DynamicCompiler {
 
             if (pr.waitFor() != 0) {
                 message = FileUtils.getMessage(new BufferedReader(new InputStreamReader(pr.getErrorStream())));
-                //System.err.println(message);
-                //throw new CompilationException(message);
+                message = message.substring(message.indexOf(".") + 1, message.length());
             }
         } catch (IOException e) {
             LOG.error(e);
@@ -57,7 +56,7 @@ public class DynamicCompiler {
             LOG.error(e);
         }
 
-        return message.substring(message.indexOf(".") + 1, message.length()); // return path to class
+        return message;//; // return path to class
     }
 
 }

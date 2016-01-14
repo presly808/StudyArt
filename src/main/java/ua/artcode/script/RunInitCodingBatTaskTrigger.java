@@ -1,9 +1,16 @@
 package ua.artcode.script;
 
+import org.mongodb.morphia.Datastore;
+import org.springframework.context.ApplicationContext;
+import ua.artcode.dao.CodingBatTaskDao;
+import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.CompilationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.exception.UserAccountExistException;
+import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.process.TaskRunFacade;
+import ua.artcode.utils.SpringContext;
 
 public class RunInitCodingBatTaskTrigger {
 
@@ -12,18 +19,18 @@ public class RunInitCodingBatTaskTrigger {
 
         //taskRunFacade.runTask();
         //InitCodingBatTaskTrigger.loadTasksIfNeeded();
-        InitCodingBatTaskTrigger.loadTasksToDataBase();
-        //ApplicationContext context = SpringContext.getContext();
+        //nitCodingBatTaskTrigger.loadTasksToDataBase();
+        ApplicationContext context = SpringContext.getContext();
         //Morphia morphia = context.getBean(Morphia.class);
         //morphia.map(CodingBatTask.class);
-        //Datastore datastore = (Datastore) context.getBean("datastore");
-        //CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
-        //CodingBatTask task = codingBatTaskDao.findById("p194667");//p183407
+        Datastore datastore = (Datastore) context.getBean("datastore");
+        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
+        CodingBatTask task = codingBatTaskDao.findById("p187868");//p183407
         //System.out.println(codingBatTaskDao.size());
         //codingBatTaskDao.addTask(task);
         //System.out.println(codingBatTaskDao.size());
-        //TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
-        //taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation)\n}");
+        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
+        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
 //        InitCodingBatTaskTrigger.loadTasksIfNeeded();
         //InitCodingBatTaskTrigger.loadTasksToDataBase();
         // InitCodingBatTaskTrigger.createDumpOfDataBase();

@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 /**
  * Created by Razer on 11.01.16.
  */
-@WebServlet(name = "doTask",urlPatterns = "/doTask")
+@WebServlet(name = "doTask", urlPatterns = "/doTask")
 public class DoTask extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,9 +36,11 @@ public class DoTask extends HttpServlet {
                 "</head>\n" +
                 "\t\n" +
                 "<body>\n" +
-                "\t<p>"+codingBatTask.toString()+"<p>\n" +
+                "\t<p>" + codingBatTask.toString() + "<p>\n" +
                 "</body>\n" +
                 "</html>");
         pw.flush();
+        //TODO create servlet,read about how to sent data from servlet to jsp!
+        //req.getRequestDispatcher("/pages/do-task.jsp").forward(req, resp);
     }
 }
