@@ -5,10 +5,6 @@ package ua.artcode.utils.dynamic_compile;
  */
 public interface MethodInvoker {
 
-
     Object call(Object... args);
-
-
-
 
 }

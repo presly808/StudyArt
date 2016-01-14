@@ -3,7 +3,6 @@ package ua.artcode.validation;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.codingbat.CodingBatTask;

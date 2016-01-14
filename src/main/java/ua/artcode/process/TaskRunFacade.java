@@ -4,6 +4,7 @@ import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.model.codingbat.TestArg;
 import ua.artcode.preprocess.TemplateProcessor;
+import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 import ua.artcode.utils.codingbat.DataUnmarshaller;
 import ua.artcode.utils.dynamic_compile.BaseClassLoader;
 import ua.artcode.utils.dynamic_compile.DynamicCompiler;
@@ -46,6 +47,7 @@ public class TaskRunFacade {
     //TODO check file
     public void runTask(CodingBatTask task, String method) {
         TaskTestResult taskTestResult;
+        CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
         //Make method from template
         //TODO refactor this section
         //String templatePath = AppPrope
@@ -72,17 +74,15 @@ public class TaskRunFacade {
                 taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
                 taskTestResult.setCodingBatId(task.getCodingBatId());
                 taskTestResult.setUserCode(method);
-                if (message != null) {
-                    taskTestResult.setStatus(message);
-                }
-                System.out.println(taskTestResult.toString());
+                taskTestResult.setStatus(codingBatTaskUtils.statusGenerator(taskTestResult.getResults()));
+                System.out.println(taskTestResult.getStatus());
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         } else {
             taskTestResult = new TaskTestResult();
             taskTestResult.setStatus(message);
-            System.out.println(taskTestResult.getStatus().toString());
+            System.out.println(taskTestResult.getStatus());
         }
 
     }

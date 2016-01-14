@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Razer on 10.01.16.
+ * Created by Maxim on 14.01.2016.
  */
-@WebServlet(name = "FindTask", urlPatterns = {"/find-task"})
-public class FindTask extends HttpServlet {
-
+@WebServlet(name = "checkTask", urlPatterns = "/checkTask")
+public class CheckTask extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/pages/find-task.jsp").forward(req, resp);
+        super.doGet(req, resp);
     }
 }

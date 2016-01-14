@@ -171,5 +171,21 @@ public class CodingBatTaskUtils {
             return "X";
         }
     }
+
+    public String statusGenerator(List<String> results) {
+        String result = "All tests failed";
+        int counter = 0;
+        for (int i = 0; i < results.size(); i++) {
+            if (results.get(i).equals("OK")) {
+                counter++;
+            }
+        }
+        if (counter == results.size()) {
+            result = "All correct";
+        } else if (counter > 0) {
+            result = counter + " passed from " + results.size() + " tests";
+        }
+        return result;
+    }
 }
 

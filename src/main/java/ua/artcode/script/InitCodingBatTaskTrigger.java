@@ -59,7 +59,7 @@ public class InitCodingBatTaskTrigger {
 
         Datastore datastore = (Datastore) context.getBean("datastore");
 
-        CodingBatTaskDao simpleTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
+        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
         //context.GetRecourse(datastore)
         //TODO do with spring property
@@ -69,7 +69,7 @@ public class InitCodingBatTaskTrigger {
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
         for (CodingBatTask task : collection) {
             try {
-                simpleTaskDao.addTask(task);
+                codingBatTaskDao.addTask(task);
             } catch (AppValidationException e) {
                 LOG.warn(e.getExceptionMessageList());
                 throw e;
