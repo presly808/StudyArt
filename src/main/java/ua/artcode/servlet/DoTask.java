@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by Razer on 11.01.16.
@@ -19,15 +20,28 @@ import java.io.IOException;
 public class DoTask extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CodingBatTask task;
         String taskId = req.getParameter("taskId");
         AdminService adminService = new AdminServiceImpl();
         try {
-            task = adminService.getTask(taskId);
-            req.setAttribute("task", task);
+            CodingBatTask task = adminService.getTask(taskId);
+            req.setAttribute("task",task);
         } catch (NoSuchTaskException e) {
             e.printStackTrace();
         }
+
         req.getRequestDispatcher("/pages/do-task.jsp").forward(req, resp);
+//        pw.println("<!DOCTYPE html>\n" +
+//                "<html>\n" +
+//                "<head>\n" +
+//                "    <title>Do task</title>\n" +
+//                "</head>\n" +
+//                "\t\n" +
+//                "<body>\n" +
+//                "\t<p>" + codingBatTask.toString() + "<p>\n" +
+//                "</body>\n" +
+//                "</html>");
+//        pw.flush();
+        //TODO create servlet,read about how to sent data from servlet to jsp!
+        //req.getRequestDispatcher("/pages/do-task.jsp").forward(req, resp);
     }
 }
