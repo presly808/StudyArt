@@ -1,4 +1,3 @@
-
 <%@ page import="ua.artcode.model.codingbat.CodingBatTask" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          errorPage="task-not-found.jsp" %>
@@ -16,9 +15,10 @@
 <br>
 <p><%=task.getExamples()%></p>
 <br>
-<form action="CheckTask"> // action=???
-    <textarea rows="24" cols="80" name="methodBody"><%=task.getTemplate()%></textarea>
 
+<form action="checkTask"> <%--action=???--%>
+    <textarea rows="24" cols="80" name="userCode"><%=task.getTemplate()%> </textarea>
+    <input type="hidden" name="id" value="<%=task.getCodingBatId()%>">
     <p><input type="submit" value="check"></p>
 </form>
 
