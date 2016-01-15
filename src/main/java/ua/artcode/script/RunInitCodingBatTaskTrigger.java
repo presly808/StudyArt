@@ -1,17 +1,9 @@
 package ua.artcode.script;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.springframework.context.ApplicationContext;
-import ua.artcode.dao.CodingBatTaskDao;
-import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.CompilationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.exception.UserAccountExistException;
-import ua.artcode.process.TaskRunFacade;
-import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.utils.SpringContext;
 
 public class RunInitCodingBatTaskTrigger {
 
