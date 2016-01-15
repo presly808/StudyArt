@@ -45,8 +45,8 @@ public class TaskRunFacade {
     }
 
     //TODO check file
-    public void runTask(CodingBatTask task, String method) {
-        TaskTestResult taskTestResult;
+    public TaskTestResult runTask(CodingBatTask task, String method) {
+        TaskTestResult taskTestResult = new TaskTestResult();
         CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
         //Make method from template
         //TODO refactor this section
@@ -58,11 +58,11 @@ public class TaskRunFacade {
 
         //TODO refactor getting argsForTemplate
         List argsForTemplate = task.getTaskTestDataContainer().getTaskTestDataList().get(0).getInData();
-        List<TestArg> kostylList = new ArrayList<>();
+        List<TestArg> adapterList = new ArrayList<>();
         for (int i = 0; i < argsForTemplate.size(); i++) {
-            kostylList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
+            adapterList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
         }
-        templateProcessor.process(templatePath, generatedSrcFile, className, methodName, kostylList, method);
+        templateProcessor.process(templatePath, generatedSrcFile, className, methodName, adapterList, method);
 
         message = dynamicCompiler.compile(generatedSrcFile);
         if (message == null) {
@@ -84,7 +84,7 @@ public class TaskRunFacade {
             taskTestResult.setStatus(message);
             System.out.println(taskTestResult.getStatus());
         }
-
+        return taskTestResult;
     }
 
     private String generateMagicTempClassName(CodingBatTask task) {
