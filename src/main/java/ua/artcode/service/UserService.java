@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface UserService {
 
-    User authenticate(String username, String password) throws AppException;
+    boolean authenticate(String username, String password) throws AppException;
 
     User register(String username, String password, String email, UserType userType) throws AppException;
 
