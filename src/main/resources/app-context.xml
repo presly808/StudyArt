@@ -50,8 +50,9 @@
     <bean id="templateProcessor" class="ua.artcode.preprocess.TemplateProcessor">
         <property name="velocityEngine" ref="velocityEngine"/>
     </bean>
-    <!--<bean id="velocityEngine"
-          class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+
+    <bean id="velocityEngine"
+          class="org.springframework.ui.velocity.VelocityEngineFactoryBean" init-method="newVelocityEngine">
         <property name="velocityProperties">
             <props>
                 <prop key="resource.loader">class</prop>
@@ -60,8 +61,7 @@
                 </prop>
             </props>
         </property>
-    </bean>-->
-    <bean id="velocityEngine" class=" org.apache.velocity.app.VelocityEngine"/>
+    </bean>
 
     <bean id="taskRunner" class="ua.artcode.process.TaskRunFacade">
         <constructor-arg name="templatePath" value="${velocity.template}"/>

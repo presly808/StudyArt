@@ -24,8 +24,7 @@ public class TemplateProcessor {
     //TODO process(CodinngBatTask task)
     public void process(String templatePath, String srcFileDest, String className, String methodName, List<TestArg> args, String allMethod) {
 
-        velocityEngine.init();
-
+        //velocityEngine.init();
         //TODO inti velocity via spring
         // инициализация Velocity
         VelocityContext vc = new VelocityContext(); // создание контекста Velocity
