@@ -7,7 +7,6 @@ import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 
-// CRUD
 public interface CodingBatTaskDao {
 
     CodingBatTask findById(String id) throws NoSuchTaskException;

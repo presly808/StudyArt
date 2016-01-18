@@ -16,6 +16,7 @@ import java.util.List;
  */
 //TODO create bean???
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
+    //TODO is need Logger here?
     private static final Logger LOG = Logger.getLogger(CodingBatTaskDaoMongoImpl.class);
     private Datastore datastore;
 
