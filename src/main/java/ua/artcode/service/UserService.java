@@ -10,7 +10,7 @@ public interface UserService {
 
     boolean authenticate(String username, String password) throws AppException;
 
-    User register(String username, String password, String email, UserType userType) throws AppException;
+    User register(String username, String password, String email) throws AppException;
 
     User getUserInfo(String username);
 

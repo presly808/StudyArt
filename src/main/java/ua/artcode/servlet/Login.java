@@ -18,16 +18,23 @@ import java.io.IOException;
 public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService userService = new UserServiceImpl();
-        String id = req.getParameter("id");
-        String password = req.getParameter("password");
-        try {
-            if (userService.authenticate(id, password)) {
-                resp.sendRedirect("/menu");
+        String logInButton = req.getParameter("log in");
+
+        if (logInButton != null) {
+            UserService userService = new UserServiceImpl();
+            String id = req.getParameter("email");
+            String password = req.getParameter("password");
+            try {
+                if (userService.authenticate(id, password)) {
+                    resp.sendRedirect("/menu");
+                }
+            } catch (AppException e) {
+                req.setAttribute("error", e.getMessage());
+                req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
             }
-        } catch (AppException e) {
-            req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
+        }
+        else {
+            req.getRequestDispatcher("/pages/regist-form.jsp").forward(req, resp);
         }
     }
 }
