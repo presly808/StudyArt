@@ -21,20 +21,19 @@ public class SimpleUserServiceImpl implements UserService {
     }
 
     @Override
-    public User authenticate(String username, String password) throws AppException {
+    public boolean authenticate(String username, String password) throws AppException {
         User user = userDao.findByUserEmail(username);
 
-        if(!user.getPassword().equals(password)){
+        if (!user.getPassword().equals(password)) {
             throw new UserAuthenticationFailException("wrong username or pass");
         }
-
-        return user;
+        return true;
     }
 
     @Override
     public User register(String username, String password, String email, UserType userType) throws AppException {
 
-        accountValidator.validate(new User(username,password,email));
+        accountValidator.validate(new User(username, password, email));
 
         return userDao.addUser(new User(username, password, email, userType));
     }
