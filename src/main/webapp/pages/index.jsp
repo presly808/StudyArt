@@ -7,19 +7,22 @@
 <body>
 <div style="float:right;">
     <form action="login" method="post">
-        email:<p><input name="id"></p>
+        id:<p><input name="id"></p>
         password:<p><input name="password"></p>
         <p><input type="submit" value="log in"></p>
-        <p><input type="submit" value="register"></p>
+    </form>
+    <form method="post" action="/registration">
+        <button type="submit">Registration</button>
     </form>
 </div>
 <%
-    String login_msg=(String)request.getAttribute("error");
-    if(login_msg!=null){
-    %>
-       <p style="color:red"><%=login_msg%></p>
-    <%
-        }
-    %>
+    String login_msg = (String) request.getAttribute("error");
+    if (login_msg != null) {
+%>
+<p style="color:red"><%=login_msg%>
+</p>
+<%
+    }
+%>
 </body>
 </html>

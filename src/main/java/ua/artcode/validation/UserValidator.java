@@ -12,7 +12,7 @@ public class UserValidator implements Validator<User> {
             + "@([a-z0-9]+([\\-_.]?[a-z0-9])+)"
             + "(\\.[a-z]{2,4})+";
 
-    private static final String NAME_PATTERN = "[a-z0-9[\\-_.]]{6,20}";
+    private static final String NAME_PATTERN = "[a-z0-9[\\-_.]]{4,20}";
 
     private static final String PASSWORD_PATTERN = "[a-z0-9[\\-_.]]{6,40}";
 

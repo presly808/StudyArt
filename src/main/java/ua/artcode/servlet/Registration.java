@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by Maxim on 18.01.2016.
  */
-@WebServlet(urlPatterns = "/register")
+@WebServlet(urlPatterns = "/registration")
 public class Registration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,10 +26,10 @@ public class Registration extends HttpServlet {
         UserService userService = new UserServiceImpl();
         try {
             userService.register(userName, password, email);
-            resp.sendRedirect("index.jsp");
+            resp.sendRedirect("/pages/index.jsp");
         } catch (AppException e) {
             req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/pages/regist-form.jsp").forward(req, resp);
         }
 
     }

@@ -1,12 +1,12 @@
 package ua.artcode.service;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.dao.UserDao;
 import ua.artcode.dao.UserDaoMongoImpl;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.common.User;
+import ua.artcode.utils.Security;
 import ua.artcode.utils.SpringContext;
 
 import java.util.Set;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authenticate(String username, String password) throws AppException {
         User user = userDao.findByUserEmail(username);
-        if (!user.getPassword().equals(DigestUtils.md5Hex(password))) {
+        if (!user.getPassword().equals(Security.toMd5(password))) {
             throw new UserAuthenticationFailException("Wrong username or password");
         }
         return true;

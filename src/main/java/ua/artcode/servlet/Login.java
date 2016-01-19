@@ -18,7 +18,8 @@ import java.io.IOException;
 public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String logInButton = req.getParameter("log in");
+        String logInButton = req.getParameter("log");
+        String registerButton = req.getParameter("reg");
 
         if (logInButton != null) {
             UserService userService = new UserServiceImpl();
@@ -33,8 +34,16 @@ public class Login extends HttpServlet {
                 req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
             }
         }
-        else {
+        else if(registerButton != null){
             req.getRequestDispatcher("/pages/regist-form.jsp").forward(req, resp);
+        }
+        else {
+            try {
+                throw new AppException();
+            } catch (AppException e) {
+                req.setAttribute("error", "buttons doesn't work");
+                req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
+            }
         }
     }
 }

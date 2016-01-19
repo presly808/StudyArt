@@ -28,7 +28,7 @@ public class CodingBatTaskUtils {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskUtils.class);
 
-    private HttpResponse getResponseFromCodingBat(CodingBatTask task, String codeForRequest) {
+    private static HttpResponse getResponseFromCodingBat(CodingBatTask task, String codeForRequest) {
         HttpResponse response = null;
 
         String url = "http://codingbat.com/run";
@@ -59,7 +59,7 @@ public class CodingBatTaskUtils {
         return response;
     }
 
-    private String getCodeForRequestToCodingBat(CodingBatTask task) {
+    private static String getCodeForRequestToCodingBat(CodingBatTask task) {
         StringBuilder code = new StringBuilder(task.getTemplate().split("}")[0]);
 
         if (task.getMethodSignature().getReturnType().equals("boolean")) {
@@ -78,7 +78,7 @@ public class CodingBatTaskUtils {
         return code.toString();
     }
 
-    public void initTaskTestDataContainer(CodingBatTask task) {
+    public static void initTaskTestDataContainer(CodingBatTask task) {
         String codeForRequest = getCodeForRequestToCodingBat(task);
         HttpResponse response = getResponseFromCodingBat(task, codeForRequest);
         HttpEntity entity = response.getEntity(); // incoming data
@@ -108,11 +108,11 @@ public class CodingBatTaskUtils {
         }
     }
 
-    private String getExpectedValueFromHtml(String dataHtml) {
+    private static String getExpectedValueFromHtml(String dataHtml) {
         return StringUtils.substringBetween(dataHtml, "&rarr; ", "<");
     }
 
-    private List<String> getInDataFromHtml(String dataHtml) {
+    private static List<String> getInDataFromHtml(String dataHtml) {
         String params = StringUtils.substringBetween(dataHtml, "(", ")");
         return params != null ? CodingBatHtmlDataParser.parseTestData(params) : new LinkedList<>();
     }
@@ -147,7 +147,7 @@ public class CodingBatTaskUtils {
         return result;
     }
 
-    public MethodSignature getMethodSignature(String template) {
+    public static MethodSignature getMethodSignature(String template) {
 
         MethodSignature methodSignature = new MethodSignature();
 
@@ -164,7 +164,7 @@ public class CodingBatTaskUtils {
         return methodSignature;
     }
 
-    public String checkResult(String actualValue, Object expectedValue) {
+    public static String checkResult(String actualValue, Object expectedValue) {
         if (expectedValue.equals(actualValue)) {
             return "OK";
         } else {
@@ -172,7 +172,7 @@ public class CodingBatTaskUtils {
         }
     }
 
-    public String statusGenerator(List<String> results) {
+    public static String statusGenerator(List<String> results) {
         String result = "All tests failed";
         int counter = 0;
         for (int i = 0; i < results.size(); i++) {

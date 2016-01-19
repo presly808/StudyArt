@@ -6,18 +6,18 @@
 
 <body>
 <div style="float:right;">
-    <form action="login" method="post">
+    <form action="/register" method="post">
         user name:<p><input name="userName"></p>
         email:<p><input name="email"></p>
-        password:<p><input name="password"></p>
+        password:<p><input type="password" name="password"></p>
         <p><input type="submit" value="register"></p>
     </form>
 </div>
 <%
-    String login_msg=(String)request.getAttribute("error");
-    if(login_msg!=null){
+    String regist_msg =(String)request.getAttribute("error");
+    if(regist_msg !=null){
 %>
-<p style="color:red"><%=login_msg%></p>
+<p style="color:red"><%=regist_msg%></p>
 <%
     }
 %>
