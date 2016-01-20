@@ -28,7 +28,7 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     public CodingBatTask findById(String id) throws NoSuchTaskException {
         CodingBatTask codingBatTask = datastore.find(CodingBatTask.class, "codingBatId", id).get();
         if (codingBatTask == null) {
-            throw new NoSuchTaskException("No task with id " + id);
+            throw new NoSuchTaskException("No task with id: " + id);
         }
         return codingBatTask;
     }
