@@ -6,8 +6,8 @@
 
 <body>
 <menu>
-    <li><a href="/add-task">Add task</a></li>
-    <li><a href="/find-task">Find task</a></li>
+    <li><a href="/StudyArt-1.0/add-task">Add task</a></li>
+    <li><a href="/StudyArt-1.0/find-task">Find task</a></li>
 </menu>
 </body>
 </html>

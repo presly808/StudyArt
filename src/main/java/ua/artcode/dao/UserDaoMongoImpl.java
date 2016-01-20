@@ -1,12 +1,12 @@
 package ua.artcode.dao;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
+import ua.artcode.utils.Security;
 import ua.artcode.validation.UserValidator;
 
 import java.util.List;
@@ -28,11 +28,10 @@ public class UserDaoMongoImpl implements UserDao {
 
         validator.validate(user);
         if (isExist(user.getEmail())) {
-            throw new UserAccountExistException("User with this account already exist.");
+            throw new UserAccountExistException("User with this email already exist.");
         }
-        // Encryption password to MD5
-        // todo extract to SecurityUtils class
-        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+
+        user.setPassword(Security.toMd5(user.getPassword()));
 
         datastore.save(user);
         LOG.info("User with email: " + user.getEmail() + " was added to data base.");

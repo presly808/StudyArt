@@ -13,7 +13,7 @@ public class TaskTestResult {
     // in data and expected values
     // practical result
     private List<Object> expectedValues;
-    private List<String> actualValues;// change to map actualValues - passed
+    private List<String> actualValues;
     private String status;
 
     public String getStatus() {
@@ -67,6 +67,10 @@ public class TaskTestResult {
 
     public List<String> getActualValues() {
         return actualValues;
+    }
+
+    public List<Object> getExpectedValues() {
+        return expectedValues;
     }
 
     public void setActualValues(List<String> actualValues) {

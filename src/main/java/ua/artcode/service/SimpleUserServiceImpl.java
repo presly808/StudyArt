@@ -31,12 +31,11 @@ public class SimpleUserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(String username, String password, String email, UserType userType) throws AppException {
-
-        accountValidator.validate(new User(username, password, email));
-
-        return userDao.addUser(new User(username, password, email, userType));
+    public User register(String username, String password, String email) throws AppException {
+        return userDao.addUser(new User(username, password, email));
     }
+
+
 
     @Override
     public User getUserInfo(String username) {

@@ -12,7 +12,7 @@ public class UserValidator implements Validator<User> {
             + "@([a-z0-9]+([\\-_.]?[a-z0-9])+)"
             + "(\\.[a-z]{2,4})+";
 
-    private static final String NAME_PATTERN = "[a-z0-9[\\-_.]]{5,20}";
+    private static final String NAME_PATTERN = "[a-z0-9[\\-_.]]{4,20}";
 
     private static final String PASSWORD_PATTERN = "[a-z0-9[\\-_.]]{6,40}";
 
@@ -35,7 +35,7 @@ public class UserValidator implements Validator<User> {
                     entity.getUserName(), "can contains letters from a-z\n" +
                             "can contains digits from 0-9\n" +
                             "can contains special symbols \"_ . -\"\n" +
-                            "length at least 5 characters and maximum of 20\te"
+                            "length at least 6 characters and maximum of 20\te"
             ));
         }
 

@@ -6,21 +6,22 @@ import org.junit.Test;
 import ua.artcode.model.codingbat.MethodSignature;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
+
 /**
  * Created by Maxim on 08.12.2015.
  */
 public class GetMethodSignatureTest {
 
-    private static CodingBatTaskUtils taskUtils;
+    //private static CodingBatTaskUtils taskUtils;
 
     @BeforeClass
     public static void initCodingBatTaskUtils() {
-        taskUtils = new CodingBatTaskUtils();
+       // taskUtils = new CodingBatTaskUtils();
     }
 
     @Test
     public void testReturnType() {
-        MethodSignature methodSignature = taskUtils.getMethodSignature(
+        MethodSignature methodSignature = CodingBatTaskUtils.getMethodSignature(
                 "public boolean groupSum5(int start, int[] nums, int target) {\n" +
                 "  \n" +
                 "}");
@@ -29,7 +30,7 @@ public class GetMethodSignatureTest {
 
     @Test
     public void testReturnTypeWithoutPublic() {
-        MethodSignature methodSignature = taskUtils.getMethodSignature(
+        MethodSignature methodSignature = CodingBatTaskUtils.getMethodSignature(
                 "boolean groupSum5(int start, int[] nums, int target) {\n" +
                         "  \n" +
                         "}");
@@ -38,7 +39,7 @@ public class GetMethodSignatureTest {
 
     @Test
     public void testNumInArgs() {
-        MethodSignature methodSignature = taskUtils.getMethodSignature(
+        MethodSignature methodSignature = CodingBatTaskUtils.getMethodSignature(
                 "public boolean groupSum5(int start, int[] nums, int target) {\n" +
                         "  \n" +
                         "}");
@@ -47,7 +48,7 @@ public class GetMethodSignatureTest {
 
     @Test
     public void testNumInArgsWithoutSpaces() {
-        MethodSignature methodSignature = taskUtils.getMethodSignature(
+        MethodSignature methodSignature = CodingBatTaskUtils.getMethodSignature(
                 "public boolean groupSum5(int start,int[] nums,int target) {\n" +
                         "  \n" +
                         "}");
@@ -56,7 +57,7 @@ public class GetMethodSignatureTest {
 
     @Test
     public void testArgsName() {
-        MethodSignature methodSignature = taskUtils.getMethodSignature(
+        MethodSignature methodSignature = CodingBatTaskUtils.getMethodSignature(
                 "public boolean method(int start, int[] nums, String str) {\n" +
                         "  \n" +
                         "}");
@@ -68,7 +69,7 @@ public class GetMethodSignatureTest {
 
     @Test
     public void testArgsType() {
-        MethodSignature methodSignature = taskUtils.getMethodSignature(
+        MethodSignature methodSignature = CodingBatTaskUtils.getMethodSignature(
                 "public boolean method(int start, int[] nums, String str) {\n" +
                         "  \n" +
                         "}");

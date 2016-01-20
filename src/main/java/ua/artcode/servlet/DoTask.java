@@ -23,10 +23,11 @@ public class DoTask extends HttpServlet {
         AdminService adminService = new AdminServiceImpl();
         try {
             CodingBatTask task = adminService.getTask(taskId);
-            req.setAttribute("task",task);
+            req.setAttribute("task", task);
         } catch (NoSuchTaskException e) {
-            e.printStackTrace();
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/pages/find-task.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/pages/do-task.jsp").forward(req,resp);
+        req.getRequestDispatcher("/pages/do-task.jsp").forward(req, resp);
     }
 }

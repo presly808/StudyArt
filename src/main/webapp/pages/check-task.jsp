@@ -6,7 +6,7 @@
 </head>
 <body>
 <%TaskTestResult result = (TaskTestResult) request.getAttribute("result");%>
-<p><%=result.getStatus()%></p>
 
+<p><%=result.getStatus()%></p>
 </body>
 </html>

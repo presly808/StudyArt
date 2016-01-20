@@ -1,7 +1,5 @@
-
 <%@ page import="ua.artcode.model.codingbat.CodingBatTask" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-         errorPage="task-not-found.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
     <title>Do task page</title>

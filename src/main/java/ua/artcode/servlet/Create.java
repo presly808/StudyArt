@@ -12,23 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Razer on 18.01.16.
+ * Created by Razer on 19.01.16.
  */
-@WebServlet(urlPatterns = "/login")
-public class Login extends HttpServlet {
+@WebServlet(urlPatterns = "/create")
+public class Create extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService userService = new UserServiceImpl();
-        String email = req.getParameter("email");
+        String userName = req.getParameter("userName");
         String password = req.getParameter("password");
+        String email = req.getParameter("email");
+
+        UserService userService = new UserServiceImpl();
         try {
-            if (userService.authenticate(email, password)) {
-                resp.sendRedirect("/StudyArt-1.0/menu");
-            }
+            userService.register(userName, password, email);
+            resp.sendRedirect("/StudyArt-1.0/index.html");
         } catch (AppException e) {
             req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/pages/registration-form.jsp").forward(req, resp);
         }
     }
 }
-
