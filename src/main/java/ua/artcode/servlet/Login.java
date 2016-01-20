@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
         String password = req.getParameter("password");
         try {
             if (userService.authenticate(email, password)) {
-                resp.sendRedirect("/StudyArt-1.0/menu");
+                req.getRequestDispatcher("/menu").forward(req, resp);
             }
         } catch (AppException e) {
             req.setAttribute("error", e.getMessage());
