@@ -14,6 +14,9 @@
     <form action="registration" method="get">
         <button type="submit">registration</button>
     </form>
+        <menu>
+            <li><a href="http://www.art-code.com.ua">art code</a></li>
+        </menu>
 </div>
 <%
     String login_msg=(String)request.getAttribute("error");

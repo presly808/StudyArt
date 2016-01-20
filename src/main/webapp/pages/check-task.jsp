@@ -6,7 +6,7 @@
 </head>
 <body>
 <%TaskTestResult result = (TaskTestResult) request.getAttribute("result");%>
-<table border="1" style="width:100%">
+<table border="1" style="width:40%">
     <tr>
         <th>in args</th>
         <th>real</th>
