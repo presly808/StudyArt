@@ -11,12 +11,9 @@
         password:<p><input type="password" name="password"></p>
         <p><input type="submit" value="log in"></p>
     </form>
-    <form action="registration" method="get">
+    <form action="registration" method="get" >
         <button type="submit">registration</button>
-    </form>
-        <menu>
-            <li><a href="http://www.art-code.com.ua">art code</a></li>
-        </menu>
+    </form>//a href только открытый доступ//servlet redirect
 </div>
 <%
     String login_msg=(String)request.getAttribute("error");

@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
             }
         } catch (AppException e) {
             req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
     }
 }

@@ -26,8 +26,8 @@ public class DoTask extends HttpServlet {
             req.setAttribute("task", task);
         } catch (NoSuchTaskException e) {
             req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/pages/find-task.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/pages/find-task.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/pages/do-task.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/pages/do-task.jsp").forward(req, resp);
     }
 }

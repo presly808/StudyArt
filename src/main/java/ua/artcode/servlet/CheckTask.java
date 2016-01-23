@@ -38,6 +38,6 @@ public class CheckTask extends HttpServlet {
         }
 
         req.setAttribute("result", taskTestResult);
-        req.getRequestDispatcher("/pages/check-task.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/pages/check-task.jsp").forward(req, resp);
     }
 }

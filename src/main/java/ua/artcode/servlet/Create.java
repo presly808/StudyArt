@@ -28,7 +28,7 @@ public class Create extends HttpServlet {
             resp.sendRedirect("/StudyArt-1.0/index.html");
         } catch (AppException e) {
             req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/pages/registration-form.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/pages/registration-form.jsp").forward(req, resp);
         }
     }
 }
