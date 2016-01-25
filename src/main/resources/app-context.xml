@@ -13,7 +13,7 @@
     <!--context:property-placeholder location="app.properties"/-->
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreResourceNotFound" value="false"/>
         <property name="locations">
             <list>
                 <value>classpath:app.properties</value>
@@ -27,15 +27,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="UserServiceImpl" class="ua.artcode.service.UserServiceImpl"/>
-
-    <bean id="CodingBatTaskMongoImpl" class="ua.artcode.dao.CodingBatTaskDaoMongoImpl">
-        <constructor-arg name="datastore" ref="datastore"/>
-    </bean>
-
-    <bean id="UserDaoMongoImpl" class="ua.artcode.dao.UserDaoMongoImpl">
-        <constructor-arg name="datastore" ref="datastore"/>
-    </bean>
 
     <bean id="mongoClient" class="com.mongodb.MongoClient">
         <constructor-arg name="host" value="${mongo.host}"/>

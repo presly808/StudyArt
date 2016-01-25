@@ -1,5 +1,6 @@
 package ua.artcode.service;
 
+import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.UserAuthenticationFailException;
@@ -9,11 +10,15 @@ import ua.artcode.validation.Validator;
 
 import java.util.Set;
 
+@Service
 public class SimpleUserServiceImpl implements UserService {
 
 
     private Validator<User> accountValidator;
     private UserDao userDao;
+
+    public SimpleUserServiceImpl() {
+    }
 
     public SimpleUserServiceImpl(UserDao userDao, Validator<User> accountValidator) {
         this.userDao = userDao;

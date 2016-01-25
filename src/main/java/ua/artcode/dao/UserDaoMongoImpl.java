@@ -2,6 +2,8 @@ package ua.artcode.dao;
 
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
@@ -14,9 +16,15 @@ import java.util.List;
 /**
  * Created by Maxim on 17.12.2015.
  */
+@Component
 public class UserDaoMongoImpl implements UserDao {
     private static final Logger LOG = Logger.getLogger(UserDaoMongoImpl.class);
+
+    @Autowired
     private Datastore datastore;
+
+    public UserDaoMongoImpl() {
+    }
 
     public UserDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;

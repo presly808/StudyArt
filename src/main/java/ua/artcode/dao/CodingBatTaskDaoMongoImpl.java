@@ -2,6 +2,8 @@ package ua.artcode.dao;
 
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
@@ -14,11 +16,17 @@ import java.util.List;
 /**
  * Created by Razer on 09.11.15.
  */
-//TODO create bean???
+//TODO create bean??
+@Component
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     //TODO is need Logger here?
     private static final Logger LOG = Logger.getLogger(CodingBatTaskDaoMongoImpl.class);
+
+    @Autowired
     private Datastore datastore;
+
+    public CodingBatTaskDaoMongoImpl() {
+    }
 
     public CodingBatTaskDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;

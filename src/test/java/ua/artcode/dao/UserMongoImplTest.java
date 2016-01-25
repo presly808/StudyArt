@@ -4,8 +4,11 @@ import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
@@ -21,13 +24,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
-/**
- * Created by Maxim on 19.12.2015.
- */
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserMongoImplTest {
     private static final Logger LOG = Logger.getLogger(UserMongoImplTest.class);
+
+    @Autowired
     private static UserDao userDao;
-    private static ApplicationContext context;
+    @Autowired
     private static Datastore datastore;
     private static final int AMOUNT_OF_USERS = 100;
 
@@ -42,9 +45,6 @@ public class UserMongoImplTest {
         } catch (IOException e) {
             LOG.error(e);
         }
-        context = SpringContext.getContext();
-        datastore = (Datastore) context.getBean("testStore");
-        userDao = new UserDaoMongoImpl(datastore);
 
         for (int i = 0; i < AMOUNT_OF_USERS; i++) {
             try {

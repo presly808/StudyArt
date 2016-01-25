@@ -4,8 +4,11 @@ import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
@@ -21,20 +24,22 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Razer on 14.12.15.
- */
+@RunWith(SpringJUnit4ClassRunner.class)
 public class CodingBatTaskMongoImplTest {
+
     private static final Logger LOG = Logger.getLogger(CodingBatTaskMongoImplTest.class);
+    @Autowired
     private static CodingBatTaskDao codingBatTaskDao;
-    private static ApplicationContext context;
+
+    @Autowired
     private static Datastore datastore;
+
+
     private static final int AMOUNT_OF_ELEMENTS = 100;
 
 
     @BeforeClass
     public static void initializeDB() throws InterruptedException, AppValidationException {
-        context = SpringContext.getContext();
         //String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
         try {
             Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
@@ -43,8 +48,6 @@ public class CodingBatTaskMongoImplTest {
         } catch (IOException e) {
             LOG.error(e);
         }
-        datastore = (Datastore) context.getBean("testStore");
-        codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         String value;
         for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
             value = Integer.toString(i);

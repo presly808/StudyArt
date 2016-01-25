@@ -12,7 +12,7 @@ public class SpringContext {
 
     public static ApplicationContext getContext() {
         if (context == null) {
-            context = new ClassPathXmlApplicationContext("app-context.xml");
+            context = new ClassPathXmlApplicationContext("classpath:app-context.xml");
         }
         return context;
     }

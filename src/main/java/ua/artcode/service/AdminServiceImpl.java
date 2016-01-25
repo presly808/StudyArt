@@ -1,6 +1,8 @@
 package ua.artcode.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
 import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
 import ua.artcode.dao.UserDao;
@@ -13,16 +15,17 @@ import ua.artcode.utils.SpringContext;
 /**
  * Created by Razer on 10.01.16.
  */
+@Service
 public class AdminServiceImpl implements AdminService {
 
+    @Autowired
     private CodingBatTaskDao codingBatTaskDao;
+    @Autowired
     private UserDao userDao;
-    private ApplicationContext context;
+
 
     public AdminServiceImpl() {
-        context = SpringContext.getContext();
-        codingBatTaskDao = context.getBean(CodingBatTaskDaoMongoImpl.class);
-        userDao = context.getBean(UserDaoMongoImpl.class);
+
     }
 
 

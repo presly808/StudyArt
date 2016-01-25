@@ -1,6 +1,9 @@
 package ua.artcode.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
 import ua.artcode.dao.UserDaoMongoImpl;
 import ua.artcode.exception.AppException;
@@ -11,17 +14,13 @@ import ua.artcode.utils.SpringContext;
 
 import java.util.Set;
 
-/**
- * Created by Razer on 18.01.16.
- */
+@Component
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserDao userDao;
-    private ApplicationContext context;
 
     public UserServiceImpl() {
-        context = SpringContext.getContext();
-        this.userDao = context.getBean(UserDaoMongoImpl.class);
     }
 
     @Override
