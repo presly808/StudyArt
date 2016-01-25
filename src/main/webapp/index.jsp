@@ -6,14 +6,14 @@
 
 <body>
 <div style="float:right;">
-    <form action="login" method="post">
+    <form action="main/login" method="post">
         email:<p><input name="email"></p>
         password:<p><input type="password" name="password"></p>
         <p><input type="submit" value="log in"></p>
     </form>
     <form action="registration" method="get" >
         <button type="submit">registration</button>
-    </form>//a href только открытый доступ//servlet redirect
+    </form>
 </div>
 <%
     String login_msg=(String)request.getAttribute("error");
