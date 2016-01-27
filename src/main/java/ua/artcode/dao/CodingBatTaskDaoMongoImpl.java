@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Razer on 09.11.15.
  */
-//TODO create bean??
+
 @Component
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     //TODO is need Logger here?

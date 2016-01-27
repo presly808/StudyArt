@@ -1,27 +1,22 @@
 package ua.artcode.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
-import ua.artcode.dao.UserDaoMongoImpl;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.common.User;
 import ua.artcode.utils.Security;
-import ua.artcode.utils.SpringContext;
 
 import java.util.Set;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    @Qualifier("userDaoMongoImpl")
     private UserDao userDao;
-
-    public UserServiceImpl() {
-    }
 
     @Override
     public boolean authenticate(String username, String password) throws AppException {

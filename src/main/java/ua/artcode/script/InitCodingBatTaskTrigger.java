@@ -95,6 +95,7 @@ public class InitCodingBatTaskTrigger {
     /**
      * @restore dump of database if it need
      */
+    //TODO where dump path?
     public static void restoreDataBaseFromDump() {
         try {
             LOG.trace("Restore db from dump");

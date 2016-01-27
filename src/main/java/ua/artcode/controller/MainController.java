@@ -1,17 +1,33 @@
 package ua.artcode.controller;
 
+import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import ua.artcode.exception.AppException;
+import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.process.TaskRunFacade;
+import ua.artcode.service.AdminService;
+import ua.artcode.service.AdminServiceImpl;
+import ua.artcode.service.UserService;
 import ua.artcode.service.UserServiceImpl;
+import ua.artcode.utils.SpringContext;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 
 /**
  * Created by Razer on 23.01.16.
  */
+//TODO:create add-task
 @Controller
 @RequestMapping("/main")
 public class MainController {
@@ -19,19 +35,88 @@ public class MainController {
     @Autowired
     private UserServiceImpl userService;
 
-    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpServletResponse response) {
-//        ModelAndView mav = new ModelAndView();
-//        String email = request.getParameter("email");
-//        String password = request.getParameter("password");
-//        try {
-//            if (userService.authenticate(email, password)) {
-//                mav.setViewName("menu");
-//            }
-//        } catch (AppException e) {
-//            request.setAttribute("error", e.getMessage());
-//            mav.setViewName("redirect:/index.htm");
-//        }
-        return "menu";
+    @Autowired
+    private AdminService adminService;
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView();
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        try {
+            if (userService.authenticate(email, password)) {
+                mav.setViewName("menu");
+            }
+        } catch (AppException e) {
+            request.setAttribute("error", e.getMessage());
+            mav.setViewName("redirect:/index.jsp");
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/find-task")
+    public String findTask() {
+        return "find-task";
+    }
+
+    @RequestMapping(value = "/do-task")
+    public ModelAndView doTask(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ModelAndView mav = new ModelAndView();
+        String taskId = req.getParameter("taskId");
+        try {
+            CodingBatTask task = adminService.getTask(taskId);
+            req.setAttribute("task", task);
+            mav.setViewName("check-task");
+        } catch (NoSuchTaskException e) {
+            req.setAttribute("error", e.getMessage());
+            mav.setViewName("do-task");
+        }
+        //req.getRequestDispatcher("WEB-INF/pages/do-task.jsp").forward(req, resp);
+        return mav;
+    }
+
+    @RequestMapping(value = "/registration")
+    public ModelAndView registration(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ModelAndView mav = new ModelAndView();
+        String userName = req.getParameter("userName");
+        String password = req.getParameter("password");
+        String email = req.getParameter("email");
+
+        UserService userService = new UserServiceImpl();
+        try {
+            userService.register(userName, password, email);
+            mav.setViewName("redirect:/index.jsp");
+            //resp.sendRedirect("/index.jsp");
+        } catch (AppException e) {
+            req.setAttribute("error", e.getMessage());
+            mav.setViewName("registration-form");
+            //req.getRequestDispatcher("/pages/regist-form.jsp").forward(req, resp);
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/")
+    public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView mav = new ModelAndView();
+        ApplicationContext context = SpringContext.getContext();
+        Morphia morphia = context.getBean(Morphia.class);
+        morphia.map(CodingBatTask.class);
+        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
+        AdminServiceImpl adminService = new AdminServiceImpl();
+        String id = req.getParameter("id");
+        TaskTestResult taskTestResult = null;
+        try {
+            CodingBatTask task = adminService.getTask(id);
+            taskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
+        } catch (NoSuchTaskException e) {
+            e.printStackTrace();
+        }
+        req.setAttribute("result", taskTestResult);
+        mav.setViewName("check-task");
+        return mav;
+        //req.getRequestDispatcher("WEB-INF/pages/check-task.jsp").forward(req, resp);
     }
 }
+
+
+

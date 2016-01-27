@@ -6,7 +6,7 @@
     <title>Find task page</title>
 </head>
 <body>
-<form action="doTask">
+<form action="main/do-task">
     TaskId:<p><input name="taskId"></p>
     <p><input type="submit" value="get task"></p>
 </form>

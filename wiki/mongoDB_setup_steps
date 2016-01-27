@@ -4,4 +4,4 @@
 4) Create mkdir /data/db where locate your db(usually Mongodb/data/db)
 5) Write value of mongo.data.db.path  /data/db in app.properties
 6) Start server mongod --dbpath ..data/
-7) Run method dataBaseManager.restoreDataBaseFromDump() to restore db from dump
+7) Run method InitCodingBatTaskTriger.restoreDataBaseFromDump() to restore db from dump

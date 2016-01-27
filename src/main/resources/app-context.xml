@@ -27,6 +27,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <bean id="сodingBatTaskMongoTestImpl" class="ua.artcode.dao.CodingBatTaskDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <bean id="userDaoMongoTestImpl" class="ua.artcode.dao.UserDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
 
     <bean id="mongoClient" class="com.mongodb.MongoClient">
         <constructor-arg name="host" value="${mongo.host}"/>
