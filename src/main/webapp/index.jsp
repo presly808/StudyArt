@@ -11,9 +11,10 @@
         password:<p><input type="password" name="password"></p>
         <p><input type="submit" value="log in"></p>
     </form>
-    <form action="registration" method="get" >
-        <button type="submit">registration</button>
-    </form>
+    <%--<form action="main/registration" method="get" >--%>
+        <%--<button type="submit">registration</button>--%>
+    <%--</form>--%>
+    <a href="main/registration-form">registration</a>
 </div>
 <%
     String login_msg=(String)request.getAttribute("error");

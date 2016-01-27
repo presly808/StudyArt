@@ -1,8 +1,6 @@
 package ua.artcode.controller;
 
-import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +11,7 @@ import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
-import ua.artcode.service.AdminServiceImpl;
-import ua.artcode.service.UserService;
 import ua.artcode.service.UserServiceImpl;
-import ua.artcode.utils.SpringContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +32,9 @@ public class MainController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private TaskRunFacade taskRunFacade;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
@@ -59,19 +57,18 @@ public class MainController {
         return "find-task";
     }
 
-    @RequestMapping(value = "/do-task")
+    @RequestMapping(value = "/do-task", method = RequestMethod.GET)
     public ModelAndView doTask(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         String taskId = req.getParameter("taskId");
         try {
             CodingBatTask task = adminService.getTask(taskId);
             req.setAttribute("task", task);
-            mav.setViewName("check-task");
+            mav.setViewName("do-task");
         } catch (NoSuchTaskException e) {
             req.setAttribute("error", e.getMessage());
             mav.setViewName("do-task");
         }
-        //req.getRequestDispatcher("WEB-INF/pages/do-task.jsp").forward(req, resp);
         return mav;
     }
 
@@ -81,8 +78,6 @@ public class MainController {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-
-        UserService userService = new UserServiceImpl();
         try {
             userService.register(userName, password, email);
             mav.setViewName("redirect:/index.jsp");
@@ -95,14 +90,9 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/check-task")
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
-        ApplicationContext context = SpringContext.getContext();
-        Morphia morphia = context.getBean(Morphia.class);
-        morphia.map(CodingBatTask.class);
-        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
-        AdminServiceImpl adminService = new AdminServiceImpl();
         String id = req.getParameter("id");
         TaskTestResult taskTestResult = null;
         try {
@@ -114,7 +104,11 @@ public class MainController {
         req.setAttribute("result", taskTestResult);
         mav.setViewName("check-task");
         return mav;
-        //req.getRequestDispatcher("WEB-INF/pages/check-task.jsp").forward(req, resp);
+    }
+
+    @RequestMapping(value = "/registration-form")
+    public ModelAndView registrationForm() {
+        return new ModelAndView("registration-form");
     }
 }
 

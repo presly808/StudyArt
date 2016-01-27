@@ -14,7 +14,7 @@
 <br>
 <p><%=task.getExamples()%></p>
 <br>
-<form action="main/checkTask">
+<form action="${pageContext.request.contextPath}/main/check-task">
     <textarea rows="24" cols="80" name="userCode"><%=task.getTemplate()%></textarea>
     <input type="hidden" name="id" value="<%=task.getCodingBatId()%>">
     <p><input type="submit" value="check"></p>

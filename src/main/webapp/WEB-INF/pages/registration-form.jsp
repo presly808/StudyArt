@@ -6,7 +6,7 @@
 
 <body>
 <div style="float:right;">
-    <form action="create" method="post">
+    <form action="${pageContext.request.contextPath}/main/registration" method="post">
         user name:<p><input name="userName"></p>
         email:<p><input name="email"></p>
         password:<p><input type="password" name="password"></p>

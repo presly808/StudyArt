@@ -4,7 +4,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.common.User;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertTrue;
 
 public class UserValidatorTest {
 

@@ -6,7 +6,7 @@
     <title>Find task page</title>
 </head>
 <body>
-<form action="main/do-task">
+<form action="${pageContext.request.contextPath}/main/do-task" method="get">
     TaskId:<p><input name="taskId"></p>
     <p><input type="submit" value="get task"></p>
 </form>
