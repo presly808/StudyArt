@@ -18,6 +18,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     @Qualifier("codingBatTaskDaoMongoImpl")
     private CodingBatTaskDao codingBatTaskDao;
+
     @Autowired
     @Qualifier("userDaoMongoImpl")
     private UserDao userDao;

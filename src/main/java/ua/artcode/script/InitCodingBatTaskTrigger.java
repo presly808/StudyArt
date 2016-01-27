@@ -3,13 +3,11 @@ package ua.artcode.script;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
-
 import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.codingbat.CodingBatTask;
-
 import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.codingbat.CodingBatTaskGrabber;
 import ua.artcode.utils.io.AppPropertiesHolder;
@@ -22,9 +20,8 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public class InitCodingBatTaskTrigger {
+
     private static final Logger LOG = Logger.getLogger(InitCodingBatTaskTrigger.class);
-
-
     /**
      * @return if task have been already loaded return false, otherwise return true
      */
@@ -55,6 +52,7 @@ public class InitCodingBatTaskTrigger {
      * @download tasks to database if it need
      */
     public static void loadTasksToDataBase() throws UserAccountExistException, AppValidationException {
+
         ApplicationContext context = SpringContext.getContext();
 
         Datastore datastore = (Datastore) context.getBean("datastore");
@@ -62,8 +60,8 @@ public class InitCodingBatTaskTrigger {
         CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
         //context.GetRecourse(datastore)
-        //TODO do with spring property
-        //String dbJsonPath = context.getEnvironment().getProperty("db.json.task.path");
+        //TODO do with spring propertyJsonPath = context.getEnvironment().getProperty("db.json.task.path");
+        //String db
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);

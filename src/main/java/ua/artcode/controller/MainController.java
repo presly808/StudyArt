@@ -22,7 +22,7 @@ import java.io.IOException;
 /**
  * Created by Razer on 23.01.16.
  */
-//TODO:create add-task
+
 @Controller
 @RequestMapping("/main")
 public class MainController {
@@ -53,8 +53,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/find-task")
-    public String findTask() {
-        return "find-task";
+    public ModelAndView findTask() {
+        return new ModelAndView("find-task");
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.GET)

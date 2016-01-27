@@ -9,10 +9,9 @@ public class RunInitCodingBatTaskTrigger {
 
     public static void main(String[] args) throws UserAccountExistException, AppValidationException, NoSuchTaskException, CompilationException {
         //TaskRunFacade taskRunFacade = new TaskRunFacade();
-
         //taskRunFacade.runTask();
 //        InitCodingBatTaskTrigger.loadTasksIfNeeded();
-//        InitCodingBatTaskTrigger.loadTasksToDataBase();
+  //      InitCodingBatTaskTrigger.loadTasksToDataBase();
 //        ApplicationContext context = SpringContext.getContext();
 //        Morphia morphia = context.getBean(Morphia.class);
 //        morphia.map(CodingBatTask.class);
