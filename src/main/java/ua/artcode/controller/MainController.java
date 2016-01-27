@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
@@ -17,6 +18,7 @@ import ua.artcode.service.AdminServiceImpl;
 import ua.artcode.service.UserService;
 import ua.artcode.service.UserServiceImpl;
 import ua.artcode.utils.SpringContext;
+import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +59,38 @@ public class MainController {
     @RequestMapping(value = "/find-task")
     public String findTask() {
         return "find-task";
+    }
+
+    @RequestMapping(value = "/add-task")
+    public String addTask() {
+        return "create-task";
+    }
+
+    @RequestMapping(value = "/create-task")
+    public ModelAndView createTask(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView mav = new ModelAndView();
+        CodingBatTask task;
+        String title = req.getParameter("task_name");
+        String groupName = req.getParameter("task_group");
+        String description = req.getParameter("task_description");
+        String examples = req.getParameter("examples");
+        String template = req.getParameter("method_template");
+        String testData = req.getParameter("data_points");
+
+        task = new CodingBatTask("p1111",title,description,examples,template,groupName);
+        task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
+        task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
+
+        try {
+            adminService.addTask(task);
+        } catch (AppValidationException e) {
+            req.setAttribute("error", e.getMessage());
+            mav.setViewName("create-task");
+        } catch (Exception e) {
+            req.setAttribute("error", "EXCEPTION SUKA");
+            mav.setViewName("create-task");
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/do-task")
