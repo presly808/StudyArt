@@ -11,13 +11,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
-import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.model.codingbat.MethodSignature;
-import ua.artcode.model.codingbat.TaskTestData;
-import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.model.codingbat.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class CodingBatTaskUtils {
         HttpClient client = HttpClientBuilder.create().build(); // create client
         HttpPost post = new HttpPost(url);
 
-        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("id", codingBatId)); // set params
         urlParameters.add(new BasicNameValuePair("code", codeForRequest));// set params
 
@@ -115,6 +113,20 @@ public class CodingBatTaskUtils {
     private static List<String> getInDataFromHtml(String dataHtml) {
         String params = StringUtils.substringBetween(dataHtml, "(", ")");
         return params != null ? CodingBatHtmlDataParser.parseTestData(params) : new LinkedList<>();
+    }
+
+    public static TaskTestDataContainer getTestDataContainer(String testData) {
+        TaskTestDataContainer testDataContainer = new TaskTestDataContainer();
+
+
+        String[] dataParts = testData.split("-");
+        String expectedValue = dataParts[0];
+        List<String> inParams = Arrays.asList(dataParts[1].split(","));
+
+        TaskTestData taskTestData = new TaskTestData(expectedValue, inParams);
+        testDataContainer.addTaskTestData(taskTestData);
+
+        return testDataContainer;
     }
 
     public TaskTestResult checkCodingBatTask(final CodingBatTask task, final String code) {

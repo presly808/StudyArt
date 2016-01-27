@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.UserServiceImpl;
+import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,7 @@ import java.io.IOException;
 /**
  * Created by Razer on 23.01.16.
  */
-
+//TODO:create add-task
 @Controller
 @RequestMapping("/main")
 public class MainController {
@@ -57,6 +59,38 @@ public class MainController {
         return new ModelAndView("find-task");
     }
 
+    @RequestMapping(value = "/add-task")
+    public String addTask() {
+        return "create-task";
+    }
+
+    @RequestMapping(value = "/create-task")
+    public ModelAndView createTask(HttpServletRequest req, HttpServletResponse resp) {
+        ModelAndView mav = new ModelAndView();
+        CodingBatTask task;
+        String title = req.getParameter("task_name");
+        String groupName = req.getParameter("task_group");
+        String description = req.getParameter("task_description");
+        String examples = req.getParameter("examples");
+        String template = req.getParameter("method_template");
+        String testData = req.getParameter("data_points");
+
+        task = new CodingBatTask("p1111", title, description, examples, template, groupName);
+        task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
+        task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
+
+        try {
+            adminService.addTask(task);
+        } catch (AppValidationException e) {
+            req.setAttribute("error", e.getMessage());
+            mav.setViewName("create-task");
+        } catch (Exception e) {
+            req.setAttribute("error", "EXCEPTION SUKA");
+            mav.setViewName("create-task");
+        }
+        return mav;
+    }
+
     @RequestMapping(value = "/do-task", method = RequestMethod.GET)
     public ModelAndView doTask(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
@@ -85,7 +119,6 @@ public class MainController {
         } catch (AppException e) {
             req.setAttribute("error", e.getMessage());
             mav.setViewName("registration-form");
-            //req.getRequestDispatcher("/pages/regist-form.jsp").forward(req, resp);
         }
         return mav;
     }
