@@ -10,6 +10,7 @@ import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.model.common.UserType;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.UserServiceImpl;
@@ -75,7 +76,6 @@ public class MainController {
         String testData = req.getParameter("data_points");
 
         try {
-
         task = new CodingBatTask("p1111", title, description, examples, template, groupName);
         task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
         task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
@@ -113,8 +113,13 @@ public class MainController {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
+        UserType userType = UserType.USER;;
+        if (req.getParameter("role") != null) {
+            userType = UserType.TEACHER;
+        }
+
         try {
-            userService.register(userName, password, email);
+            userService.register(userName, password, email, userType);
             //TODO without .jsp
             mav.setViewName("redirect:/index.jsp");
             //resp.sendRedirect("/index.jsp");

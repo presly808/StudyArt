@@ -40,6 +40,10 @@ public class SimpleUserServiceImpl implements UserService {
         return userDao.addUser(new User(username, password, email));
     }
 
+    @Override
+    public User register(String username, String password, String email, UserType userType) throws AppException {
+        return userDao.addUser(new User(username, password, email, userType));
+    }
 
 
     @Override

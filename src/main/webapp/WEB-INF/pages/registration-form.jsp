@@ -10,6 +10,7 @@
         user name:<p><input name="userName"></p>
         email:<p><input name="email"></p>
         password:<p><input type="password" name="password"></p>
+        <p><input type="checkbox" name="role" value="teacher"> Teacher</p>
         <p><input type="submit" value="register"></p>
     </form>
 </div>
