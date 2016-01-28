@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Find task page</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/main/do-task" method="get">
+<form action="do-task" method="get">
     TaskId:<p><input name="taskId"></p>
     <p><input type="submit" value="get task"></p>
 </form>

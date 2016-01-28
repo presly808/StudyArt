@@ -26,7 +26,6 @@ import java.io.IOException;
  */
 //TODO:create add-task
 @Controller
-@RequestMapping("/main")
 public class MainController {
 
     @Autowired
@@ -75,17 +74,19 @@ public class MainController {
         String template = req.getParameter("method_template");
         String testData = req.getParameter("data_points");
 
+        try {
+
         task = new CodingBatTask("p1111", title, description, examples, template, groupName);
         task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
         task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
-        try {
             adminService.addTask(task);
+            mav.setViewName("menu");
         } catch (AppValidationException e) {
             req.setAttribute("error", e.getMessage());
             mav.setViewName("create-task");
         } catch (Exception e) {
-            req.setAttribute("error", "EXCEPTION SUKA");
+            req.setAttribute("error", "One of the field is empty");
             mav.setViewName("create-task");
         }
         return mav;
@@ -114,6 +115,7 @@ public class MainController {
         String email = req.getParameter("email");
         try {
             userService.register(userName, password, email);
+            //TODO without .jsp
             mav.setViewName("redirect:/index.jsp");
             //resp.sendRedirect("/index.jsp");
         } catch (AppException e) {

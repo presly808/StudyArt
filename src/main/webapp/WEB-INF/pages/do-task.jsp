@@ -14,7 +14,8 @@
 <br>
 <p><%=task.getExamples()%></p>
 <br>
-<form action="${pageContext.request.contextPath}/main/check-task">
+<%--TODO do with out kostil--%>
+<form action="check-task">
     <textarea rows="24" cols="80" name="userCode"><%=task.getTemplate()%></textarea>
     <input type="hidden" name="id" value="<%=task.getCodingBatId()%>">
     <p><input type="submit" value="check"></p>

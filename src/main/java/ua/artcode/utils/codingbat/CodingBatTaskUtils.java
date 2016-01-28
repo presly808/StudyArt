@@ -118,14 +118,16 @@ public class CodingBatTaskUtils {
     public static TaskTestDataContainer getTestDataContainer(String testData) {
         TaskTestDataContainer testDataContainer = new TaskTestDataContainer();
 
+        List<String> dataPoints = Arrays.asList(testData.split("\r\n"));
 
-        String[] dataParts = testData.split("-");
-        String expectedValue = dataParts[0];
-        List<String> inParams = Arrays.asList(dataParts[1].split(","));
+        for (String dataPoint : dataPoints) {
+            String[] dataParts = dataPoint.split("-");
+            String expectedValue = dataParts[0];
+            List<String> inParams = Arrays.asList(dataParts[1].split(","));
 
-        TaskTestData taskTestData = new TaskTestData(expectedValue, inParams);
-        testDataContainer.addTaskTestData(taskTestData);
-
+            TaskTestData taskTestData = new TaskTestData(expectedValue, inParams);
+            testDataContainer.addTaskTestData(taskTestData);
+        }
         return testDataContainer;
     }
 
