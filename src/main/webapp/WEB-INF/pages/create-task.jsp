@@ -7,7 +7,7 @@
 <body>
 <h1>Create New Task</h1>
 
-<form action=${pageContext.request.contextPath}/main/create-task method="post">
+<form action=create-task method="post">
     Task name:<br>
     <label>
         <input type="text" name="task_name">
@@ -37,7 +37,7 @@
         <textarea name="data_points" rows="10" cols="50"></textarea>
     </label><br>
 
-    <input type="submit">
+    <input type="submit" name="Send">
 </form>
 
 <%

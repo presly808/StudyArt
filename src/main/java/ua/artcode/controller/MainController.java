@@ -92,7 +92,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/do-task", method = RequestMethod.GET)
+    @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTask(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         String taskId = req.getParameter("taskId");
@@ -125,7 +125,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/check-task")
+    @RequestMapping(value = "/check-task",method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
