@@ -54,7 +54,7 @@ public class TaskRunFacade {
         String className = generateMagicTempClassName(task);
         String generatedSrcFile = srcRoot.getPath() + "/" + className + ".java";
 
-        String methodName = task.getTitle();
+        String methodName = CodingBatTaskUtils.getMethodName(task.getTemplate());
 
         //TODO refactor getting argsForTemplate
         List argsForTemplate = task.getTaskTestDataContainer().getTaskTestDataList().get(0).getInData();
