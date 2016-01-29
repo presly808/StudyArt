@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
@@ -17,7 +18,6 @@ import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.MethodSignature;
 import ua.artcode.model.codingbat.TaskTestData;
-import ua.artcode.utils.io.AppPropertiesHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +39,9 @@ public class CodingBatTaskMongoImplTest {
     @Autowired
     @Qualifier("testStore")
     private  Datastore datastore;
+
+    @Value("mongo.test.db")
+    private String nameOfTestDb;
 
 
     private static final int AMOUNT_OF_ELEMENTS = 100;
@@ -153,8 +156,7 @@ public class CodingBatTaskMongoImplTest {
 
     @After
     public void deleteDb() {
-        String nameOfTestDb = AppPropertiesHolder.getProperty("mongo.test.db");
-        datastore.getMongo().dropDatabase(nameOfTestDb);
+        //datastore.getMongo().dropDatabase(nameOfTestDb);
     }
 
 }

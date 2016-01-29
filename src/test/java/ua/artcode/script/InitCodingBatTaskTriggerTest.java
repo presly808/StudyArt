@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 public class InitCodingBatTaskTriggerTest {
 
+
     private static String nameOfDb;
     private static File dump;
     private static File dataBase;

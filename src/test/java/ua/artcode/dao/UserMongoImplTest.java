@@ -1,26 +1,28 @@
 package ua.artcode.dao;
 
 import org.apache.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
-import ua.artcode.utils.io.AppPropertiesHolder;
+
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.*;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
+
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserMongoImplTest {
@@ -34,21 +36,26 @@ public class UserMongoImplTest {
     @Qualifier("testStore")
     private static Datastore datastore;
 
+    @Value("mongo.data.db.path")
+    private String mongoDataPath;
+
+    @Value("mongo.test.db")
+    private String  nameOfTestDb;
+
     private static final int AMOUNT_OF_USERS = 100;
 
-    @BeforeClass
-    public static void initializeDB() throws InterruptedException, AppException {
+    @Before
+    public void initializeDB() throws InterruptedException, AppException {
         try {
             //TODO show commandline result of start server
-            String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
+            //String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
             Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
+            LOG.info(getData(process.getInputStream()));
             LOG.debug((getData(process.getErrorStream())));
             process.waitFor();
         } catch (IOException e) {
             LOG.error(e);
         }
-        //userDao = new UserDaoMongoImpl(datastore);
-
         for (int i = 0; i < AMOUNT_OF_USERS; i++) {
             try {
                 userDao.addUser(new User("User_" + i, "password_" + i, "something_" + i + "@gmail.com"));
@@ -105,7 +112,7 @@ public class UserMongoImplTest {
 
     @Test
     //TODO what to do with exception?
-    public void addUserTest()  {
+    public void addUserTest() {
         User user = new User("User_2b", "password_2b", "test_2@gmail.com");
         try {
             userDao.addUser(user);
@@ -132,7 +139,7 @@ public class UserMongoImplTest {
     }
 
     @Test
-    public void isExistTest()  {
+    public void isExistTest() {
         assertTrue(userDao.isExist("something_12@gmail.com"));
     }
 
@@ -141,9 +148,8 @@ public class UserMongoImplTest {
         assertFalse(userDao.isExist("nonexistent_email@gmail.com"));
     }
 
-    @AfterClass
-    public static void deleteDb() {
-        String nameOfTestDb = AppPropertiesHolder.getProperty("mongo.test.db");
+    @After
+    public void deleteDb() {
         datastore.getMongo().dropDatabase(nameOfTestDb);
     }
 }

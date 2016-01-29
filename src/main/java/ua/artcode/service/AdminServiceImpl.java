@@ -26,7 +26,6 @@ public class AdminServiceImpl implements AdminService {
     @Qualifier("userDaoMongoImpl")
     private UserDao userDao;
 
-
     public AdminServiceImpl() {
 
     }
@@ -56,4 +55,10 @@ public class AdminServiceImpl implements AdminService {
     public int size() {
         return codingBatTaskDao.size();
     }
+
+    @Override
+    public CodingBatTask update(String id, CodingBatTask updateTask) {
+        return null;
+    }
+
 }

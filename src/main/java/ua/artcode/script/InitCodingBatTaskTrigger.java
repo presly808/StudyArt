@@ -2,6 +2,7 @@ package ua.artcode.script;
 
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
@@ -21,15 +22,15 @@ import java.util.Scanner;
 
 public class InitCodingBatTaskTrigger {
 
+    @Value("db.json.task.path")
+    private static String dbJsonPath;
+
     private static final Logger LOG = Logger.getLogger(InitCodingBatTaskTrigger.class);
+
     /**
      * @return if task have been already loaded return false, otherwise return true
      */
     public static synchronized boolean loadTasksIfNeeded() {
-
-
-        String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
-
         if (FileUtils.exists(dbJsonPath)) {
             AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
             appDataJsonSerializer.load(dbJsonPath);

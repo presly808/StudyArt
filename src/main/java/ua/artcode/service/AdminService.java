@@ -22,4 +22,6 @@ public interface AdminService {
 
     boolean delete(String id);
 
+    CodingBatTask update(String id, CodingBatTask updateTask);
+
 }

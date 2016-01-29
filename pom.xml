@@ -35,6 +35,8 @@
         <jstl.version>1.2</jstl.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
+        <spring-security-core.version>4.0.3.RELEASE</spring-security-core.version>
+        <spring-security-web.version>4.0.3.RELEASE</spring-security-web.version>
     </properties>
 
 
@@ -155,6 +157,18 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security-web.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security-core.version}</version>
         </dependency>
 
         <!--dependency>

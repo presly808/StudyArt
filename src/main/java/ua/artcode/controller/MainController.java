@@ -25,7 +25,7 @@ import java.io.IOException;
 /**
  * Created by Razer on 23.01.16.
  */
-//TODO:create add-task
+
 @Controller
 public class MainController {
 
