@@ -1,5 +1,6 @@
 package ua.artcode.process;
 
+import org.apache.log4j.Logger;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.model.codingbat.TestArg;
@@ -24,6 +25,8 @@ public class TaskRunFacade {
     private TemplateProcessor templateProcessor;
     private String message;
 
+    private static final Logger LOG = Logger.getLogger(TaskRunFacade.class);
+
     public TaskRunFacade() {
         // init temp folder for task sources
     }
@@ -44,26 +47,18 @@ public class TaskRunFacade {
 
     }
 
-    //TODO check file
-    public TaskTestResult runTask(CodingBatTask task, String method) {
+    public TaskTestResult runTask(CodingBatTask task, String userCode) {
+
         TaskTestResult taskTestResult = new TaskTestResult();
-        CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
-        //Make method from template
-        //TODO refactor this section
-        //String templatePath = AppPrope
+
         String className = generateMagicTempClassName(task);
         String generatedSrcFile = srcRoot.getPath() + "/" + className + ".java";
 
-        String methodName = task.getTitle();
+        String methodName = CodingBatTaskUtils.getMethodName(task.getTemplate());
 
-        //TODO refactor getting argsForTemplate
-        List argsForTemplate = task.getTaskTestDataContainer().getTaskTestDataList().get(0).getInData();
-        List<TestArg> adapterList = new ArrayList<>();
-        for (int i = 0; i < argsForTemplate.size(); i++) {
-            adapterList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
-        }
-        //TODO change methodName to template name
-        templateProcessor.process(templatePath, generatedSrcFile, className, methodName, adapterList, method);
+        List<TestArg> adapterList = prepareData(task);
+
+        templateProcessor.process(templatePath, generatedSrcFile, className, methodName, adapterList, userCode);
 
         message = dynamicCompiler.compile(generatedSrcFile);
         if (message == null) {
@@ -74,18 +69,24 @@ public class TaskRunFacade {
                 MethodInvoker action = (MethodInvoker) cl.newInstance();
                 taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
                 taskTestResult.setCodingBatId(task.getCodingBatId());
-                taskTestResult.setUserCode(method);
-                taskTestResult.setStatus(codingBatTaskUtils.statusGenerator(taskTestResult.getResults()));
-                System.out.println(taskTestResult.getStatus());
+                taskTestResult.setUserCode(userCode);
+                taskTestResult.setStatus(CodingBatTaskUtils.statusGenerator(taskTestResult.getResults()));
             } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+                LOG.error(e.getMessage());
             }
         } else {
-            taskTestResult = new TaskTestResult();
             taskTestResult.setStatus(message);
-            System.out.println(taskTestResult.getStatus());
         }
         return taskTestResult;
+    }
+
+    private List prepareData(CodingBatTask task) {
+        List argsForTemplate = task.getTaskTestDataContainer().getTaskTestDataList().get(0).getInData();
+        List<TestArg> adapterList = new ArrayList<>();
+        for (int i = 0; i < argsForTemplate.size(); i++) {
+            adapterList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
+        }
+        return adapterList;
     }
 
     private String generateMagicTempClassName(CodingBatTask task) {

@@ -9,18 +9,13 @@ public class DataUnmarshaller {
 
     public void convert(CodingBatTask task) {
         TestArg testArg;
-        //ValueType valueType;
-        //int k=0;
         for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
             for (int i = 0; i < data.getInData().size(); i++) {
                 testArg = convertDispatcher(task.getMethodSignature().getInArgList().get(i).getType(), data.getInData().get(i));
                 task.getMethodSignature().getInArgList().get(i).setType(testArg.getType());
-                //TODO expected value
                 data.getInData().remove(i);
                 data.getInData().add(i, testArg.getValue());
             }
-            //ValueType valueType1 = convertDispatcher(task.getMethodSignature().getReturnType(), task.getTaskTestDataContainer().getTaskTestDataList().get(k++).getExpectedValue());
-            //data.setExpectedValue(task.getTaskTestDataContainer().getTaskTestDataList().get(0).getExpectedValue().toString());
         }
     }
 

@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Scanner;
 
+
 public class InitCodingBatTaskTrigger {
 
     @Value("db.json.task.path")

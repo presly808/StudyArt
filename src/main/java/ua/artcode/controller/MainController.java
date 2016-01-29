@@ -64,7 +64,7 @@ public class MainController {
         return "create-task";
     }
 
-    @RequestMapping(value = "/create-task",method = RequestMethod.POST)
+    @RequestMapping(value = "/create-task")
     public ModelAndView createTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         CodingBatTask task;
@@ -76,19 +76,19 @@ public class MainController {
         String testData = req.getParameter("data_points");
 
         try {
-            task = new CodingBatTask("p1111", title, description, examples, template, groupName);
-            task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
-            task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
+        task = new CodingBatTask("p11111", title, description, examples, template, groupName);
+        task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
+        task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
             adminService.addTask(task);
             mav.setViewName("menu");
         } catch (AppValidationException e) {
             req.setAttribute("error", e.getMessage());
             mav.setViewName("create-task");
-        } catch (Exception e) {
-            req.setAttribute("error", "One of the field is empty");
-            mav.setViewName("create-task");
-        }
+        } //catch (Exception e) {
+//            req.setAttribute("error", "One of the field is empty");
+//            mav.setViewName("create-task");
+//        }
         return mav;
     }
 
@@ -102,7 +102,7 @@ public class MainController {
             mav.setViewName("do-task");
         } catch (NoSuchTaskException e) {
             req.setAttribute("error", e.getMessage());
-            mav.setViewName("find-task");
+            mav.setViewName("do-task");
         }
         return mav;
     }
@@ -126,7 +126,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/check-task", method = RequestMethod.POST)
+    @RequestMapping(value = "/check-task",method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");

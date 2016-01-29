@@ -18,7 +18,6 @@ public class TestRunner {
     public static TaskTestResult run(MethodInvoker method, TaskTestDataContainer taskTestData) {
         List<TaskTestData> steps = taskTestData.getTaskTestDataList();
         TaskTestResult taskTestResult = new TaskTestResult();
-        CodingBatTaskUtils codingBatTaskUtils = new CodingBatTaskUtils();
         //TODO refactor this approach generate test result, dont modify exists data
         for (TaskTestData testData : steps) {
             Object[] convertedArg = testData.getInData().toArray();
@@ -26,7 +25,7 @@ public class TestRunner {
             Object expectedValue = testData.getExpectedValue();
             taskTestResult.addActualValues(actualValue.toString());
             taskTestResult.addExpectedValues(expectedValue);
-            taskTestResult.addResult(codingBatTaskUtils.checkResult(actualValue.toString(), expectedValue));
+            taskTestResult.addResult(CodingBatTaskUtils.checkResult(actualValue.toString(), expectedValue));
         }
         return taskTestResult;
     }

@@ -178,6 +178,12 @@ public class CodingBatTaskUtils {
         return methodSignature;
     }
 
+    public static String getMethodName(String template) {
+        String[] parts = template.split("\\(");
+        String[] words = parts[0].split(" ");
+        return words[words.length - 1].trim();
+    }
+
     public static String checkResult(String actualValue, Object expectedValue) {
         if (expectedValue.equals(actualValue)) {
             return "OK";

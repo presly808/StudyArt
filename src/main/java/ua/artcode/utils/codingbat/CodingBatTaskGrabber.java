@@ -18,8 +18,9 @@ import java.util.List;
 public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
-
+    //TODO add to property
     public static final String CODINGBAT_BASE_URL = "http://codingbat.com";
+
     private List<String> taskLinksContainer;
 
     public CodingBatTaskGrabber() {
@@ -129,8 +130,6 @@ public class CodingBatTaskGrabber {
 
                     description = getDescription(infoTable);
                     examples = getExamples(infoTable, title);
-
-
 
                     CodingBatTask codingBatTask = new CodingBatTask(codingBatId, title, description, examples, template, groupName);
 

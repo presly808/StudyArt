@@ -1,5 +1,7 @@
 package ua.artcode.utils.dynamic_compile;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -7,6 +9,8 @@ import java.net.URLClassLoader;
 
 //todo try to init class loader only once for several loading
 public class BaseClassLoader {
+
+    private static final Logger LOG = Logger.getLogger(BaseClassLoader.class);
 
     private static URLClassLoader classLoader = null;
 
@@ -17,9 +21,9 @@ public class BaseClassLoader {
             if (classLoader == null)
                 classLoader = URLClassLoader.newInstance(new URL[]{root.toURI().toURL()}, BaseClassLoader.class.getClassLoader());
 
-            cl =  Class.forName(className, true, classLoader);
+            cl = Class.forName(className, true, classLoader);
         } catch (ClassNotFoundException | MalformedURLException e) {
-            e.printStackTrace(); // TODO attach logger
+            LOG.error(e.getMessage());
         }
 
         return cl;

@@ -10,23 +10,22 @@ public class CodingBatHtmlDataParser {
     // {1,2,3,4},4,5,6,"word1","word2",2.87,{2,2,2,2},2,2
 
 
-
-    public static List<String> parseTestData(String line){
+    public static List<String> parseTestData(String line) {
 
         line = line.trim();
 
-        if(line.isEmpty()){
+        if (line.isEmpty()) {
             return new LinkedList<>();
         }
 
         int endIndex = 0;
 
-        if(line.startsWith("{")){
-            endIndex = line.indexOf("}",1) + 1;
-        } else if(line.startsWith("\"")){
-            endIndex = line.indexOf("\"",1) + 1;
-        } else if(line.startsWith("[")) {
-            endIndex = line.indexOf("]",1) + 1;
+        if (line.startsWith("{")) {
+            endIndex = line.indexOf("}", 1) + 1;
+        } else if (line.startsWith("\"")) {
+            endIndex = line.indexOf("\"", 1) + 1;
+        } else if (line.startsWith("[")) {
+            endIndex = line.indexOf("]", 1) + 1;
         } else {
             int last = line.indexOf(",");
             endIndex = last != -1 ? last : line.length();
@@ -34,10 +33,10 @@ public class CodingBatHtmlDataParser {
 
         String res = line.substring(0, endIndex);
 
-        endIndex = endIndex < line.length() ? endIndex + 1: endIndex;
+        endIndex = endIndex < line.length() ? endIndex + 1 : endIndex;
 
         List<String> container = parseTestData(line.substring(endIndex, line.length()));
-        container.add(0,res);
+        container.add(0, res);
 
         return container;
     }
