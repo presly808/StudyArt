@@ -102,7 +102,7 @@ public class MainController {
             mav.setViewName("do-task");
         } catch (NoSuchTaskException e) {
             req.setAttribute("error", e.getMessage());
-            mav.setViewName("do-task");
+            mav.setViewName("find-task");
         }
         return mav;
     }
@@ -113,7 +113,7 @@ public class MainController {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        UserType userType = UserType.USER;;
+        UserType userType = UserType.USER;
         if (req.getParameter("role") != null) {
             userType = UserType.TEACHER;
         }
