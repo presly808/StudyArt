@@ -62,6 +62,7 @@ public class TaskRunFacade {
         for (int i = 0; i < argsForTemplate.size(); i++) {
             adapterList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
         }
+        //TODO change methodName to template name
         templateProcessor.process(templatePath, generatedSrcFile, className, methodName, adapterList, method);
 
         message = dynamicCompiler.compile(generatedSrcFile);

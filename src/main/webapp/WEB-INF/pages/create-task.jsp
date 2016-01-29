@@ -7,7 +7,7 @@
 <body>
 <h1>Create New Task</h1>
 
-<form action=create-task method="post">
+<form action="create-task" method="post">
     Task name:<br>
     <label>
         <input type="text" name="task_name">

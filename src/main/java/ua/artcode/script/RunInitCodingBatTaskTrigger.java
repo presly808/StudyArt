@@ -11,7 +11,7 @@ public class RunInitCodingBatTaskTrigger {
         //TaskRunFacade taskRunFacade = new TaskRunFacade();
         //taskRunFacade.runTask();
 //        InitCodingBatTaskTrigger.loadTasksIfNeeded();
-   // InitCodingBatTaskTrigger.loadTasksToDataBase();
+    //InitCodingBatTaskTrigger.loadTasksToDataBase();
 //        ApplicationContext context = SpringContext.getContext();
 //        Morphia morphia = context.getBean(Morphia.class);
 //        morphia.map(CodingBatTask.class);

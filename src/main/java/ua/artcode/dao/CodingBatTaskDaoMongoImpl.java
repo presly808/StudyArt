@@ -19,6 +19,7 @@ import java.util.List;
 
 @Component
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
+
     //TODO is need Logger here?
     private static final Logger LOG = Logger.getLogger(CodingBatTaskDaoMongoImpl.class);
 

@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.dao.UserDao;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
+
+import java.util.List;
 
 /**
  * Created by Razer on 10.01.16.
@@ -30,12 +33,27 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
+    public boolean delete(String id) {
+       return codingBatTaskDao.delete(id);
+    }
+
+    @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException {
         return codingBatTaskDao.addTask(codingBatTask);
     }
 
     @Override
+    public List<CodingBatTask> getAll() throws AppException {
+        return  codingBatTaskDao.getAll();
+    }
+
+    @Override
     public CodingBatTask getTask(String id) throws NoSuchTaskException {
         return codingBatTaskDao.findById(id);
+    }
+
+    @Override
+    public int size() {
+        return codingBatTaskDao.size();
     }
 }

@@ -64,7 +64,7 @@ public class MainController {
         return "create-task";
     }
 
-    @RequestMapping(value = "/create-task")
+    @RequestMapping(value = "/create-task",method = RequestMethod.POST)
     public ModelAndView createTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         CodingBatTask task;
@@ -76,9 +76,9 @@ public class MainController {
         String testData = req.getParameter("data_points");
 
         try {
-        task = new CodingBatTask("p1111", title, description, examples, template, groupName);
-        task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
-        task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
+            task = new CodingBatTask("p1111", title, description, examples, template, groupName);
+            task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
+            task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
             adminService.addTask(task);
             mav.setViewName("menu");
@@ -102,7 +102,7 @@ public class MainController {
             mav.setViewName("do-task");
         } catch (NoSuchTaskException e) {
             req.setAttribute("error", e.getMessage());
-            mav.setViewName("do-task");
+            mav.setViewName("find-task");
         }
         return mav;
     }
@@ -113,11 +113,7 @@ public class MainController {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        UserType userType = UserType.USER;;
-        if (req.getParameter("role") != null) {
-            userType = UserType.TEACHER;
-        }
-
+        UserType userType = req.getParameter("role") != null ? UserType.TEACHER : UserType.USER;
         try {
             userService.register(userName, password, email, userType);
             //TODO without .jsp
@@ -130,7 +126,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/check-task",method = RequestMethod.POST)
+    @RequestMapping(value = "/check-task", method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
@@ -149,6 +145,42 @@ public class MainController {
     @RequestMapping(value = "/registration-form")
     public ModelAndView registrationForm() {
         return new ModelAndView("registration-form");
+    }
+
+    @RequestMapping(value = "/size")
+    public ModelAndView size() {
+        ModelAndView mav = new ModelAndView("size");
+        mav.addObject("size", adminService.size());
+        return mav;
+    }
+
+    @RequestMapping(value = "/task-list")
+    public ModelAndView getAllTasks() {
+        ModelAndView mav = new ModelAndView("task-list");
+        try {
+            mav.addObject("taskList", adminService.getAll());
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/delete-form")
+    public ModelAndView deleteForm() {
+        return new ModelAndView("delete-form");
+    }
+
+    @RequestMapping(value = "/delete")
+    public ModelAndView deleteTask(HttpServletRequest reg,HttpServletResponse resp){
+        ModelAndView mav=new ModelAndView();
+       if (adminService.delete(reg.getParameter("taskId"))){
+           mav.setViewName("menu");
+           return mav;
+       }
+       else{
+           mav.setViewName("redirect:/delete-form");
+           return mav;
+       }
     }
 }
 
