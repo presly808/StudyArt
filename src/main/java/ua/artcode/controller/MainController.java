@@ -90,10 +90,6 @@ public class MainController {
             req.setAttribute("error", e.getExceptionMessageList());
             mav.setViewName("create-task");
         }
-//        catch (Exception e) {
-//            req.setAttribute("error", "One of the field is empty");
-//            mav.setViewName("create-task");
-//        }
         return mav;
     }
 

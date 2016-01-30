@@ -3,6 +3,7 @@ package ua.artcode.script;
 import org.codehaus.plexus.util.FileUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -11,13 +12,14 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 public class InitCodingBatTaskTriggerTest {
 
     @Value("${mongo.db}")
-    private static String nameOfDb;
-    private static File dump;
-    private static File dataBase;
-    private static File original;
+    private String nameOfDb;
+    private File dump;
+    private File dataBase;
+    private File original;
 
     @Before
     public void copyOriginalDump() {
