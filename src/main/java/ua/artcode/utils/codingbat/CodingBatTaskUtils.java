@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.codingbat.*;
 
 import java.io.*;
@@ -115,19 +116,23 @@ public class CodingBatTaskUtils {
         return params != null ? CodingBatHtmlDataParser.parseTestData(params) : new LinkedList<>();
     }
 
-    public static TaskTestDataContainer getTestDataContainer(String testData) {
+    public static TaskTestDataContainer getTestDataContainer(String testData) throws AppValidationException {
         TaskTestDataContainer testDataContainer = new TaskTestDataContainer();
 
         List<String> dataPoints = Arrays.asList(testData.split("\r\n"));
+        try {
+            for (String dataPoint : dataPoints) {
+                String[] dataParts = dataPoint.split("-");
+                String expectedValue = dataParts[0];
+                List<String> inParams = Arrays.asList(dataParts[1].split(","));
 
-        for (String dataPoint : dataPoints) {
-            String[] dataParts = dataPoint.split("-");
-            String expectedValue = dataParts[0];
-            List<String> inParams = Arrays.asList(dataParts[1].split(","));
-
-            TaskTestData taskTestData = new TaskTestData(expectedValue, inParams);
-            testDataContainer.addTaskTestData(taskTestData);
+                TaskTestData taskTestData = new TaskTestData(expectedValue, inParams);
+                testDataContainer.addTaskTestData(taskTestData);
+            }
+        } catch (Exception e) {
+            throw new AppValidationException("Test points is invalid.");
         }
+
         return testDataContainer;
     }
 
