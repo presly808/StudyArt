@@ -26,6 +26,7 @@ import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
 public class UserMongoImplTest {
+
     private static final Logger LOG = Logger.getLogger(UserMongoImplTest.class);
 
     @Autowired
@@ -42,7 +43,7 @@ public class UserMongoImplTest {
     @Value("${mongo.test.db}")
     private String  nameOfTestDb;
 
-    private static final int AMOUNT_OF_USERS = 100;
+    private  final int AMOUNT_OF_USERS = 100;
 
     @Before
     public void initializeDB() throws InterruptedException, AppException {

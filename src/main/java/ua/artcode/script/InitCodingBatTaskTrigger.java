@@ -11,7 +11,6 @@ import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.codingbat.CodingBatTaskGrabber;
-import ua.artcode.utils.io.AppPropertiesHolder;
 import ua.artcode.utils.io.FileUtils;
 import ua.artcode.utils.serialization.AppDataJsonSerializer;
 
@@ -23,8 +22,14 @@ import java.util.Scanner;
 
 public class InitCodingBatTaskTrigger {
 
-    @Value("db.json.task.path")
+
+
     private static String dbJsonPath;
+
+    @Value("${db.json.task.path}")
+    public void setDbJsonPath(String dbJsonPath) {
+        InitCodingBatTaskTrigger.dbJsonPath = dbJsonPath;
+    }
 
     private static final Logger LOG = Logger.getLogger(InitCodingBatTaskTrigger.class);
 
@@ -60,11 +65,8 @@ public class InitCodingBatTaskTrigger {
         Datastore datastore = (Datastore) context.getBean("datastore");
 
         CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
+
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
-        //context.GetRecourse(datastore)
-        //TODO do with spring propertyJsonPath = context.getEnvironment().getProperty("db.json.task.path");
-        //String db
-        String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
         Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
         for (CodingBatTask task : collection) {

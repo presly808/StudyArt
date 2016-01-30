@@ -43,7 +43,7 @@ public class CodingBatTaskMongoImplTest {
     private String nameOfTestDb;
 
 
-    private static final int AMOUNT_OF_ELEMENTS = 100;
+    private  final int AMOUNT_OF_ELEMENTS = 100;
 
 
     @Before

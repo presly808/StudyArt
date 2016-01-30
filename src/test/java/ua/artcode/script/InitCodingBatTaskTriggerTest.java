@@ -1,10 +1,10 @@
 package ua.artcode.script;
 
 import org.codehaus.plexus.util.FileUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import ua.artcode.utils.io.AppPropertiesHolder;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,15 +13,14 @@ import static org.junit.Assert.assertEquals;
 
 public class InitCodingBatTaskTriggerTest {
 
-
+    @Value("${mongo.db}")
     private static String nameOfDb;
     private static File dump;
     private static File dataBase;
     private static File original;
 
-    @BeforeClass
-    public static void copyOriginalDump() {
-        nameOfDb = AppPropertiesHolder.getProperty("mongo.db");
+    @Before
+    public void copyOriginalDump() {
         dump = new File("dump");
         if (!dump.exists()) {
             dump.mkdir();
@@ -43,8 +42,8 @@ public class InitCodingBatTaskTriggerTest {
         assertEquals(true, dataBase.exists());
     }
 
-    @AfterClass
-    public static void deleteDump() {
+    @After
+    public  void deleteDump() {
         try {
             FileUtils.deleteDirectory(dataBase);
         } catch (IOException e) {
