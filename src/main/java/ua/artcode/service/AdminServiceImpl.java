@@ -19,11 +19,12 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    @Qualifier("codingBatTaskDaoMongoImpl")
+    @Qualifier("сodingBatTaskMongoImpl")
     private CodingBatTaskDao codingBatTaskDao;
 
+
     @Autowired
-    @Qualifier("userDaoMongoImpl")
+    @Qualifier("userDaoMongoMongoImpl")
     private UserDao userDao;
 
     public AdminServiceImpl() {

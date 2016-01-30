@@ -3,7 +3,6 @@ package ua.artcode.dao;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
@@ -26,7 +25,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/app-context.xml")
+@ContextConfiguration("/app-context.xml")
 public class CodingBatTaskMongoImplTest {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskMongoImplTest.class);
@@ -40,7 +39,7 @@ public class CodingBatTaskMongoImplTest {
     @Qualifier("testStore")
     private  Datastore datastore;
 
-    @Value("mongo.test.db")
+    @Value("${mongo.test.db}")
     private String nameOfTestDb;
 
 
@@ -49,9 +48,6 @@ public class CodingBatTaskMongoImplTest {
 
     @Before
     public void initializeDB() throws InterruptedException, AppValidationException {
-        //String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
-        //datastore = (Datastore) context.getBean("testStore");
-        //codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
         try {
             Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
             //LOG.warn((getData(process.getInputStream())));
@@ -111,7 +107,7 @@ public class CodingBatTaskMongoImplTest {
         assertEquals(sizeOfDb, sizeOfList);
     }
 
-    @Ignore
+
     @Test
     public void sizeTest() {
         int sizeOfdb = codingBatTaskDao.size();
@@ -156,7 +152,7 @@ public class CodingBatTaskMongoImplTest {
 
     @After
     public void deleteDb() {
-        //datastore.getMongo().dropDatabase(nameOfTestDb);
+        datastore.getMongo().dropDatabase(nameOfTestDb);
     }
 
 }

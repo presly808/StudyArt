@@ -15,8 +15,9 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
+
     @Autowired
-    @Qualifier("userDaoMongoImpl")
+    @Qualifier("userDaoMongoMongoImpl")
     private UserDao userDao;
 
     @Override
