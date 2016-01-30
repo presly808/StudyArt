@@ -115,4 +115,13 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
         return true;
     }
 
+    public boolean validateTemplate(String template) throws AppValidationException{
+        if (!isValidTemplate(template.trim())) {
+            throw new AppValidationException(String.format("%s template is invalid, recommendation %s",
+                    template, "example of valid template\n " +
+                            "public void method(argType1 argName1, argType1 argName1){ }"));
+        }
+        return true;
+    }
+
 }
