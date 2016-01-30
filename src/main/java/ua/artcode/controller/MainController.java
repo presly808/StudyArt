@@ -15,6 +15,7 @@ import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.UserServiceImpl;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
+import ua.artcode.validation.CodingBatTaskValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -76,16 +77,20 @@ public class MainController {
         String testData = req.getParameter("data_points");
 
         try {
-        task = new CodingBatTask("p11111", title, description, examples, template, groupName);
-        task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
-        task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
+            task = new CodingBatTask("p11111", title, description, examples, template, groupName);
+
+            new CodingBatTaskValidator().validateTemplate(task.getTemplate());
+
+            task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
+            task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
             adminService.addTask(task);
             mav.setViewName("menu");
         } catch (AppValidationException e) {
-            req.setAttribute("error", e.getMessage());
+            req.setAttribute("error", e.getExceptionMessageList());
             mav.setViewName("create-task");
-        } //catch (Exception e) {
+        }
+//        catch (Exception e) {
 //            req.setAttribute("error", "One of the field is empty");
 //            mav.setViewName("create-task");
 //        }
@@ -126,7 +131,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/check-task",method = RequestMethod.POST)
+    @RequestMapping(value = "/check-task", method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
@@ -171,16 +176,15 @@ public class MainController {
     }
 
     @RequestMapping(value = "/delete")
-    public ModelAndView deleteTask(HttpServletRequest reg,HttpServletResponse resp){
-        ModelAndView mav=new ModelAndView();
-       if (adminService.delete(reg.getParameter("taskId"))){
-           mav.setViewName("menu");
-           return mav;
-       }
-       else{
-           mav.setViewName("redirect:/delete-form");
-           return mav;
-       }
+    public ModelAndView deleteTask(HttpServletRequest reg, HttpServletResponse resp) {
+        ModelAndView mav = new ModelAndView();
+        if (adminService.delete(reg.getParameter("taskId"))) {
+            mav.setViewName("menu");
+            return mav;
+        } else {
+            mav.setViewName("redirect:/delete-form");
+            return mav;
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -37,14 +37,20 @@
         <textarea name="data_points" rows="10" cols="50"></textarea>
     </label><br>
 
-    <input type="submit" name="Send">
+    <input type="submit" value="Send">
 </form>
 
+
 <%
-    String error_msg=(String)request.getAttribute("error");
-    if(error_msg!=null){
+    List<String> error_list= (List<String>) request.getAttribute("error");
+    if(error_list!=null){
+        for (String msg : error_list) {
+        %>
+
+            <p style="color:red"><%=msg%></p>
+<%
+        }
 %>
-<p style="color:red"><%=error_msg%></p>
 <%
     }
 %>
