@@ -88,7 +88,6 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-
     public int size() {
         return (int) datastore.getDB().getCollection("User").count();
     }

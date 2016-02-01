@@ -73,6 +73,7 @@
 
     <bean id="templateProcessor" class="ua.artcode.preprocess.TemplateProcessor">
         <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="vc" ref="velocityContext"/>
     </bean>
 
     <bean id="velocityEngine"
@@ -86,6 +87,8 @@
             </props>
         </property>
     </bean>
+
+    <bean id="velocityContext" class="org.apache.velocity.VelocityContext"/>
 
     <bean id="taskRunner" class="ua.artcode.process.TaskRunFacade">
         <constructor-arg name="templatePath" value="${velocity.template}"/>

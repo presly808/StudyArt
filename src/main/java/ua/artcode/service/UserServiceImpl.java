@@ -10,6 +10,7 @@ import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
 import ua.artcode.utils.Security;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -41,7 +42,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserInfo(String username) {
-        return null;
+        User user = null;
+        List<User> ListOfUsers = userDao.getAllUser();
+        for (User listOfUser : ListOfUsers) {
+            if (listOfUser.getUserName().equals(username)) {
+                user = listOfUser;
+            }
+
+        }
+        return user;
     }
 
     @Override

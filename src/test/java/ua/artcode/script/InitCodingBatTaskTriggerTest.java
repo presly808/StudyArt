@@ -3,16 +3,19 @@ package ua.artcode.script;
 import org.codehaus.plexus.util.FileUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/app-context.xml")
 public class InitCodingBatTaskTriggerTest {
 
     @Value("${mongo.db}")

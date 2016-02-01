@@ -5,7 +5,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.io.IOException;
@@ -18,8 +17,8 @@ import java.util.List;
 public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
-    //TODO add to property
-    public static final String CODINGBAT_BASE_URL = "http://codingbat.com";
+
+    public final String codingBatUrl="http://codingbat.com";
 
     private List<String> taskLinksContainer;
 
@@ -31,14 +30,14 @@ public class CodingBatTaskGrabber {
         LOG.trace("find group links");
         taskLinksContainer = new ArrayList<>();
         try {
-            Document doc = Jsoup.connect(CODINGBAT_BASE_URL + "/java").get();
+            Document doc = Jsoup.connect(codingBatUrl + "/java").get();
             // added one unnecessary element with empty link. Can't fix this
             Elements groupLinks = doc.getElementsMatchingOwnText("more");
             for (Element link : groupLinks) {
                 // verify not empty links
                 if (!link.attr("href").equals("")) {
                     // create actual link of task group
-                    String linkOfTaskGroup = CODINGBAT_BASE_URL + link.attr("href");
+                    String linkOfTaskGroup = codingBatUrl + link.attr("href");
                     initTaskLinks(linkOfTaskGroup);
                 }
             }
@@ -53,7 +52,7 @@ public class CodingBatTaskGrabber {
         Elements taskLinks = doc.getElementsByAttributeValueContaining("href", "prob");
         for (Element link : taskLinks) {
             // create and add actual task link
-            taskLinksContainer.add(CODINGBAT_BASE_URL + link.attr("href"));
+            taskLinksContainer.add(codingBatUrl + link.attr("href"));
         }
     }
 

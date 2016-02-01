@@ -1,6 +1,5 @@
 package ua.artcode.dao;
 
-import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
@@ -18,10 +17,6 @@ import java.util.List;
 
 public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
-    //TODO is need Logger here?
-    private static final Logger LOG = Logger.getLogger(CodingBatTaskDaoMongoImpl.class);
-
-    //@Autowired
     private Datastore datastore;
 
     public CodingBatTaskDaoMongoImpl() {

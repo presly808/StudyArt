@@ -11,7 +11,9 @@
     <%
         for (CodingBatTask codingBatTask : taskList) {
     %>
-                <p><%=codingBatTask.getTitle()%></p>
+    <div align="center">
+    <li><a href="do-task"> <p><%=codingBatTask.getTitle()%></p> </a></li>
+    </div>
     <%
         }
     %>
