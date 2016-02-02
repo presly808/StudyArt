@@ -8,14 +8,18 @@ import ua.artcode.exception.UserAccountExistException;
 public class RunInitCodingBatTaskTrigger {
 
     public static void main(String[] args) throws UserAccountExistException, AppValidationException, NoSuchTaskException, CompilationException {
+//        ApplicationContext context = SpringContext.getContext();
+//        Datastore datastore = (Datastore) context.getBean("datastore");
+//        CourseDao courseDao=new CourseDaoImpl(datastore);
+//        courseDao.addCourse(new Course("artCode",new ArrayList<Lesson>()));
         //TaskRunFacade taskRunFacade = new TaskRunFacade();
         //taskRunFacade.runTask();
-//        InitCodingBatTaskTrigger.loadTasksIfNeeded();
+        // InitCodingBatTaskTrigger.loadTasksIfNeeded();
     //InitCodingBatTaskTrigger.loadTasksToDataBase();
-//        ApplicationContext context = SpringContext.getContext();
-//        Morphia morphia = context.getBean(Morphia.class);
+        //ApplicationContext context = SpringContext.getContext();
+      //  Morphia morphia = context.getBean(Morphia.class);
 //        morphia.map(CodingBatTask.class);
-//        Datastore datastore = (Datastore) context.getBean("datastore");
+        //Datastore datastore = (Datastore) context.getBean("datastore");
 //        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
 //        CodingBatTask task = codingBatTaskDao.findById("p187868");
 //        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);

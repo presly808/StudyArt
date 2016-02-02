@@ -23,4 +23,8 @@ public interface CodingBatTaskDao {
 
     int size();
 
+    List<CodingBatTask> getGroupTasks(String group);
+
+    List<String> getGroups();
+
 }

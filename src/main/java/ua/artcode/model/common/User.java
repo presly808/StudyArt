@@ -100,7 +100,6 @@ public class User implements Comparable<User> {
         return this.id.compareTo(o.id);
     }
 
-
     public void addSolvedTask(String codingBatId, TaskTestResult solvedTask) {
         solvedTaskContainer.put(codingBatId, solvedTask);
     }

@@ -8,8 +8,8 @@
 <menu>
     <li><a href="add-task">Add task</a></li>
     <li><a href="find-task">Find task</a></li>
+    <li><a href="groups">Show all</a></li>
     <li><a href="size">Size</a></li>
-    <li><a href="task-list">Show all</a></li>
     <li><a href="delete-form">Delete</a></li>
 </menu>
 </body>

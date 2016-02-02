@@ -19,11 +19,12 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    @Qualifier("codingBatTaskDaoMongoImpl")
+    @Qualifier("сodingBatTaskMongoImpl")
     private CodingBatTaskDao codingBatTaskDao;
 
+
     @Autowired
-    @Qualifier("userDaoMongoImpl")
+    @Qualifier("userDaoMongoMongoImpl")
     private UserDao userDao;
 
     public AdminServiceImpl() {
@@ -33,7 +34,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean delete(String id) {
-       return codingBatTaskDao.delete(id);
+        return codingBatTaskDao.delete(id);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<CodingBatTask> getAll() throws AppException {
-        return  codingBatTaskDao.getAll();
+        return codingBatTaskDao.getAll();
     }
 
     @Override
@@ -61,4 +62,17 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 
+    @Override
+    public List<CodingBatTask> getGroupTasks(String group) {
+        return codingBatTaskDao.getGroupTasks(group);
+    }
+
+    //teacher add group
+    //teacher add task to group
+    //teacher show statick
+
+    @Override
+    public List<String> getGroup() {
+        return codingBatTaskDao.getGroups();
+    }
 }

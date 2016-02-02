@@ -16,19 +16,14 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 
-//TODO velocity
+
 public class TemplateProcessor {
 
     private VelocityEngine velocityEngine;
 
-    //TODO process(CodinngBatTask task)
+    private VelocityContext vc;
+
     public void process(String templatePath, String srcFileDest, String className, String methodName, List<TestArg> args, String allMethod) {
-
-        //velocityEngine.init();
-        //TODO inti velocity via spring
-        // инициализация Velocity
-        VelocityContext vc = new VelocityContext(); // создание контекста Velocity
-
         vc.put("methodName", methodName);
         vc.put("allMethod", allMethod);
         vc.put("className", className);
@@ -47,11 +42,11 @@ public class TemplateProcessor {
 
     }
 
-    public VelocityEngine getVelocityEngine() {
-        return velocityEngine;
-    }
-
     public void setVelocityEngine(VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
+    }
+
+    public void setVc(VelocityContext vc) {
+        this.vc=vc;
     }
 }

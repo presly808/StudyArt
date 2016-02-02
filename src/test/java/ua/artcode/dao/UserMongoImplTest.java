@@ -3,19 +3,18 @@ package ua.artcode.dao;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -23,32 +22,33 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
-@Ignore
+
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/app-context.xml")
 public class UserMongoImplTest {
+
     private static final Logger LOG = Logger.getLogger(UserMongoImplTest.class);
 
     @Autowired
     @Qualifier("userDaoMongoTestImpl")
-    private static UserDao userDao;
+    private  UserDao userDao;
 
     @Autowired
     @Qualifier("testStore")
-    private static Datastore datastore;
+    private  Datastore datastore;
 
-    @Value("mongo.data.db.path")
+    @Value("${mongo.data.db.path}")
     private String mongoDataPath;
 
-    @Value("mongo.test.db")
+    @Value("${mongo.test.db}")
     private String  nameOfTestDb;
 
-    private static final int AMOUNT_OF_USERS = 100;
+    private  final int AMOUNT_OF_USERS = 100;
 
     @Before
     public void initializeDB() throws InterruptedException, AppException {
         try {
             //TODO show commandline result of start server
-            //String mongoDataPath = AppPropertiesHolder.getProperty("mongo.data.db.path");
             Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
             LOG.info(getData(process.getInputStream()));
             LOG.debug((getData(process.getErrorStream())));

@@ -1,6 +1,7 @@
 package ua.artcode.service;
 
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
 
@@ -17,5 +18,7 @@ public interface UserService {
     User getUserInfo(String username);
 
     Set<String> getAllUser();
+
+    User getUser(String email) throws NoSuchUserException;
 
 }

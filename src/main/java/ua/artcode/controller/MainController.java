@@ -2,6 +2,8 @@ package ua.artcode.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 
 
 /**
@@ -108,6 +111,25 @@ public class MainController {
         return mav;
     }
 
+    @RequestMapping(value = "/do-task/{taskId}", method = RequestMethod.GET)
+    public ModelAndView doTasks(@PathVariable String taskId, Model model) throws ServletException, IOException, NoSuchTaskException {
+        //ModelAndView mav = new ModelAndView();
+        CodingBatTask task = adminService.getTask(taskId);
+        model.addAttribute("task", task);
+//        ModelAndView mav = new ModelAndView();
+//        try {
+//            CodingBatTask task = adminService.getTask(taskId);
+//            req.setAttribute("task", task);
+//            mav.setViewName("do-task");
+//        } catch (NoSuchTaskException e) {
+//            req.setAttribute("error", e.getMessage());
+//            mav.setViewName("do-task");
+//        }
+//        return mav;
+        return new ModelAndView("do-task");
+    }
+
+
     @RequestMapping(value = "/registration")
     public ModelAndView registration(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
@@ -154,17 +176,17 @@ public class MainController {
         mav.addObject("size", adminService.size());
         return mav;
     }
-
-    @RequestMapping(value = "/task-list")
-    public ModelAndView getAllTasks() {
-        ModelAndView mav = new ModelAndView("task-list");
-        try {
-            mav.addObject("taskList", adminService.getAll());
-        } catch (AppException e) {
-            e.printStackTrace();
-        }
-        return mav;
-    }
+//
+//    @RequestMapping(value = "/task-list")
+//    public ModelAndView getAllTasks() {
+//        ModelAndView mav = new ModelAndView("task-list");
+//        try {
+//            mav.addObject("taskList", adminService.getAll());
+//        } catch (AppException e) {
+//            e.printStackTrace();
+//        }
+//        return mav;
+//    }
 
     @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
@@ -182,6 +204,21 @@ public class MainController {
             return mav;
         }
     }
+
+    @RequestMapping(value = "/groups")
+    public ModelAndView getAllGroup(HttpServletRequest reg, HttpServletResponse resp) {
+        ModelAndView mav = new ModelAndView("group-list");
+        mav.addObject("groups", adminService.getGroup());
+        return mav;
+    }
+
+    @RequestMapping(value = "/show-group/{groupName}")
+    public ModelAndView showGroup(@PathVariable String groupName,HttpServletRequest reg, HttpServletResponse resp){
+        ModelAndView mav=new ModelAndView("task-list");
+        mav.addObject("taskList",adminService.getGroupTasks(groupName));
+        return  mav;
+    }
+
 }
 
 
