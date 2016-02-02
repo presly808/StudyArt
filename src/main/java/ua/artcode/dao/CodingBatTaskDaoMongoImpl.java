@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import com.mongodb.DBCollection;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
@@ -72,6 +73,19 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<String> getGroups() {
+        DBCollection dBCollection = datastore.getCollection(CodingBatTask.class);
+        List <String> groups=dBCollection.distinct("groupName");
+        return groups;
+    }
+
+    @Override
+    public List<CodingBatTask> getGroupTasks(String group) {
+        List<CodingBatTask> groupTasks=datastore.find(CodingBatTask.class).field("groupName").equal(group).asList();
+        return  groupTasks;
     }
 
     @Override

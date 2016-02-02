@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
@@ -20,6 +21,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("userDaoMongoMongoImpl")
     private UserDao userDao;
+
+    @Override
+    public User getUser(String email) throws NoSuchUserException {
+       return userDao.findByUserEmail(email);
+    }
 
     @Override
     public boolean authenticate(String username, String password) throws AppException {

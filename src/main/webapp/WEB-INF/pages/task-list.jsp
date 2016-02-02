@@ -12,7 +12,7 @@
         for (CodingBatTask codingBatTask : taskList) {
     %>
     <div align="center">
-    <li><a href="do-task"> <p><%=codingBatTask.getTitle()%></p> </a></li>
+    <li><a href="${pageContext.request.contextPath}/do-task/<%=codingBatTask.getCodingBatId()%>"> <p><%=codingBatTask.getTitle()%></p> </a></li>
     </div>
     <%
         }

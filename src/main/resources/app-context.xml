@@ -43,6 +43,13 @@
         <constructor-arg name="datastore" ref="datastore"/>
     </bean>
 
+    <bean id="courseDaoTestImpl" class="ua.artcode.dao.CourseDaoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <bean id="courseDaoImpl" class="ua.artcode.dao.CourseDaoImpl">
+        <constructor-arg name="datastore" ref="datastore"/>
+    </bean>
 
     <bean id="mongoClient" class="com.mongodb.MongoClient">
         <constructor-arg name="host" value="${mongo.host}"/>

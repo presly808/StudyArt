@@ -37,13 +37,13 @@ public class CodingBatTaskMongoImplTest {
 
     @Autowired
     @Qualifier("testStore")
-    private  Datastore datastore;
+    private Datastore datastore;
 
     @Value("${mongo.test.db}")
     private String nameOfTestDb;
 
 
-    private  final int AMOUNT_OF_ELEMENTS = 100;
+    private final int AMOUNT_OF_ELEMENTS = 100;
 
 
     @Before
@@ -107,6 +107,18 @@ public class CodingBatTaskMongoImplTest {
         assertEquals(sizeOfDb, sizeOfList);
     }
 
+    @Test
+    public void getGroupsTest() {
+        List<String> gropList = codingBatTaskDao.getGroups();
+        assertEquals(gropList.size(),AMOUNT_OF_ELEMENTS);
+    }
+
+    @Test
+    public void getGroupTasksTest() throws NoSuchTaskException {
+        CodingBatTask task = codingBatTaskDao.findById("p100010");
+        List<CodingBatTask> codingBatTaskList = codingBatTaskDao.getGroupTasks(task.getGroupName());
+        assertEquals(codingBatTaskList.size(),1 );
+    }
 
     @Test
     public void sizeTest() {

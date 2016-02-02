@@ -37,6 +37,7 @@
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <spring-security-core.version>4.0.3.RELEASE</spring-security-core.version>
         <spring-security-web.version>4.0.3.RELEASE</spring-security-web.version>
+        <spring-security-config.version>4.0.3.RELEASE</spring-security-config.version>
     </properties>
 
 
@@ -141,6 +142,7 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
@@ -169,6 +171,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>${spring-security-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security-config.version}</version>
         </dependency>
 
         <dependency>

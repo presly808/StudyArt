@@ -24,4 +24,7 @@ public interface AdminService {
 
     CodingBatTask update(String id, CodingBatTask updateTask);
 
+    List<CodingBatTask> getGroupTasks(String group);
+
+    List<String> getGroup();
 }
