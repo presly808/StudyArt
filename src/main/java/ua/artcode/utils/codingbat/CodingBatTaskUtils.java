@@ -167,7 +167,7 @@ public class CodingBatTaskUtils {
         return result;
     }
 
-    public static MethodSignature getMethodSignature(String template) //throws AppValidationException {
+    public static MethodSignature getMethodSignature(String template){ //throws AppValidationException {
 
         //new CodingBatTaskValidator().validateTemplate(template);
         MethodSignature methodSignature = new MethodSignature();

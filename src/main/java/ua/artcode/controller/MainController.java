@@ -45,8 +45,8 @@ public class MainController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter("j_username");
+        String password = request.getParameter("j_password");
         try {
             if (userService.authenticate(email, password)) {
                 mav.setViewName("menu");

@@ -7,8 +7,8 @@
 <body>
 <div style="float:right;">
     <form action="login" method="post">
-        email:<p><input name="email"></p>
-        password:<p><input type="password" name="password"></p>
+        email:<p><input name="j_username"></p>
+        password:<p><input type="password" name="j_password"></p>
         <p><input type="submit" value="log in"></p>
     </form>
     <a href="registration-form">registration</a>
