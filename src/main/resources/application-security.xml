@@ -14,13 +14,13 @@
     <!--</http>-->
 
     <http auto-config="true" use-expressions="true">
-
+        <intercept-url pattern="/**" access="USER" />
         <form-login
                     login-page="/index.jsp"
                     authentication-failure-url="/login?login_error=t"/>
     </http>
 
-    <authentication-manager alias="authenticationManager">
+    <authentication-manager>
         <authentication-provider user-service-ref="mongoUserDetailsService">
         </authentication-provider>
     </authentication-manager>

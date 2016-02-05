@@ -6,7 +6,7 @@
 
 <body>
 <div style="float:right;">
-    <form action="login" method="post">
+    <form action="j_spring_security_check" method="post">
         email:<p><input name="j_username"></p>
         password:<p><input type="password" name="j_password"></p>
         <p><input type="submit" value="log in"></p>
