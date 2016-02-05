@@ -1,13 +1,10 @@
 package ua.artcode.script;
 
-import ua.artcode.exception.AppValidationException;
-import ua.artcode.exception.CompilationException;
-import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.exception.UserAccountExistException;
+import ua.artcode.exception.AppException;
 
 public class RunInitCodingBatTaskTrigger {
 
-    public static void main(String[] args) throws UserAccountExistException, AppValidationException, NoSuchTaskException, CompilationException {
+    public static void main(String[] args) throws AppException {
 //        ApplicationContext context = SpringContext.getContext();
 //        Datastore datastore = (Datastore) context.getBean("datastore");
 //        CourseDao courseDao=new CourseDaoImpl(datastore);
@@ -16,10 +13,10 @@ public class RunInitCodingBatTaskTrigger {
         //taskRunFacade.runTask();
         // InitCodingBatTaskTrigger.loadTasksIfNeeded();
     //InitCodingBatTaskTrigger.loadTasksToDataBase();
-        //ApplicationContext context = SpringContext.getContext();
+//        ApplicationContext context = SpringContext.getContext();
       //  Morphia morphia = context.getBean(Morphia.class);
 //        morphia.map(CodingBatTask.class);
-        //Datastore datastore = (Datastore) context.getBean("datastore");
+//        Datastore datastore = (Datastore) context.getBean("datastore");
 //        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
 //        CodingBatTask task = codingBatTaskDao.findById("p187868");
 //        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
@@ -28,9 +25,10 @@ public class RunInitCodingBatTaskTrigger {
         //InitCodingBatTaskTrigger.loadTasksToDataBase();
         // InitCodingBatTaskTrigger.createDumpOfDataBase();
         //InitCodingBatTaskTrigger.restoreDataBaseFromDump();
+
 //        UserDao userDao = new UserDaoMongoImpl(datastore);
-//        userDao.addUser(new User("Razer","111","chernyshov.dev@gmail.com", UserType.ADMIN));
-//        userDao.addUser(new User("Maxim","222","obonemax@gmail.com", UserType.ADMIN));
+//        userDao.addUser(new User("Razer","000000","chernyshov.dev@gmail.com", UserType.ROLE_ADMIN));
+//        userDao.addUser(new User("Maxim","111111","obonemax@gmail.com", UserType.ROLE_ADMIN));
 //        InitCodingBatTaskTrigger.createDumpOfDataBase();
 //        CodingBatTask codingBatTask = new CodingBatTask();
 //        codingBatTask.setCodingBatId("00000");

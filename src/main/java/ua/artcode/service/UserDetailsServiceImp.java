@@ -30,7 +30,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
             e.printStackTrace();
         }
         Set<GrantedAuthority> roles = new HashSet();
-        roles.add(new SimpleGrantedAuthority(UserType.USER.name()));
+        roles.add(new SimpleGrantedAuthority(UserType.ROLE_USER.name()));
         UserDetails userDetails =
                 new org.springframework.security.core.userdetails.User(user.getEmail(),
                         user.getPassword(),

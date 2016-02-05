@@ -8,9 +8,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
-import ua.artcode.model.common.User;
 import ua.artcode.exception.NoSuchUserException;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
 /**
  * Created by Maxim on 03.02.2016.
  */
-@Component
+@Service
 public class MongoUserDetailsService implements UserDetailsService {
 
     private static final Logger LOG = Logger.getLogger(MongoUserDetailsService.class);
@@ -33,28 +32,22 @@ public class MongoUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-            boolean enabled = true;
-            boolean accountNonExpired = true;
-            boolean credentialsNonExpired = true;
-            boolean accountNonLocked = true;
-        User user = null;
+        boolean enabled = true;
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+        ua.artcode.model.common.User user;
         try {
-            user = getUserDetail(email);
+            user=userDao.findByUserEmail(email);
         } catch (NoSuchUserException e) {
-            throw new UsernameNotFoundException("User with email: " + email + " not found.");
+            throw new UsernameNotFoundException("");
         }
 
-        List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> authList = new ArrayList<>();
         authList.add(new SimpleGrantedAuthority(user.getUserType().toString()));
-
             userDetails = new org.springframework.security.core.userdetails.User(user.getUserName(),
                     user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
                     accountNonLocked, authList);
             return userDetails;
-    }
-
-    private User getUserDetail(String email) throws NoSuchUserException {
-        User user = userDao.findByUserEmail(email);
-        return user;
     }
 }

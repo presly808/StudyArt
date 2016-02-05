@@ -28,7 +28,7 @@ public class User implements Comparable<User> {
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.userType = UserType.USER;
+        this.userType = UserType.ROLE_USER;
     }
 
     public User(String userName, String password, String email, UserType userType) {
@@ -37,7 +37,6 @@ public class User implements Comparable<User> {
         this.email = email;
         this.userType = userType;
     }
-
 
 
     public String getPassword() {

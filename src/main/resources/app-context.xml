@@ -4,7 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       http://www.springframework.org/schema/security/spring-security-4.0xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -23,22 +23,6 @@
             </list>
         </property>
     </bean>
-
-    <!--&lt;!&ndash;Spring security beans&ndash;&gt;-->
-
-    <!--<http auto-config="true" use-expressions="true">-->
-        <!--<form-login login-processing-url="/static/j_spring_security_check"-->
-                    <!--login-page="/index.jsp"-->
-                    <!--authentication-failure-url="/login?login_error=t"/>-->
-    <!--</http>-->
-
-    <!--<authentication-manager>-->
-        <!--<authentication-provider>-->
-            <!--<user-service>-->
-                <!--<user name="mkyong" password="123456" authorities="ROLE_USER"/>-->
-            <!--</user-service>-->
-        <!--</authentication-provider>-->
-    <!--</authentication-manager>-->
 
     <!--Spring mvc beans-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
