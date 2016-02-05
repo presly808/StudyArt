@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.model.Course;
-import ua.artcode.model.Lesson;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by Razer on 02.02.16.
@@ -44,7 +44,8 @@ public class CourseDaoImplTest {
         String value;
         for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
             value = Integer.toString(i);
-            Course course = new Course("name"+value,new ArrayList<Lesson>());
+            List lesson = mock(List.class);
+            Course course = new Course("name"+value,lesson);
             courseDao.addCourse(course);
         }
     }
@@ -57,6 +58,5 @@ public class CourseDaoImplTest {
 
     @After
     public void deleteDb(){
-
     }
 }

@@ -13,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.codingbat.*;
+import ua.artcode.validation.CodingBatTaskValidator;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -166,8 +167,9 @@ public class CodingBatTaskUtils {
         return result;
     }
 
-    public static MethodSignature getMethodSignature(String template) {
+    public static MethodSignature getMethodSignature(String template){ //throws AppValidationException {
 
+        //new CodingBatTaskValidator().validateTemplate(template);
         MethodSignature methodSignature = new MethodSignature();
 
         String[] parts = template.split(" ");

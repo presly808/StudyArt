@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                    http://www.springframework.org/schema/security
+                    http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+    <http>
+        <access-denied-handler error-page="/403"/>
+        <intercept-url pattern="/create-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+        <intercept-url pattern="/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+        <intercept-url pattern="/add-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+        <intercept-url pattern="/size" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+        <intercept-url pattern="/find-task" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/delete-form" access="hasRole('ROLE_ADMIN')"/>
+
+        <form-login login-page="/start"
+                    username-parameter="username"
+                    password-parameter="password"
+                    default-target-url="/menu"
+                    login-processing-url="/j_spring_security_check"
+                    authentication-failure-url="/login?error"/>
+    </http>
+    <authentication-manager>
+        <authentication-provider user-service-ref="mongoUserDetailsService">
+            <password-encoder hash="md5"/>
+        </authentication-provider>
+    </authentication-manager>
+
+
+</beans:beans>

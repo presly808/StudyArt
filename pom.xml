@@ -38,6 +38,7 @@
         <spring-security-core.version>4.0.3.RELEASE</spring-security-core.version>
         <spring-security-web.version>4.0.3.RELEASE</spring-security-web.version>
         <spring-security-config.version>4.0.3.RELEASE</spring-security-config.version>
+        <spring-security-taglibs.version>4.0.3.RELEASE</spring-security-taglibs.version>
     </properties>
 
 
@@ -184,6 +185,13 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring-security-taglibs.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework</groupId>

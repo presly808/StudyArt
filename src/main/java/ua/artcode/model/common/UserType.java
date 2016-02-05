@@ -1,6 +1,6 @@
 package ua.artcode.model.common;
 
 public enum UserType {
-        ADMIN,TEACHER,USER;
+        ROLE_ADMIN,ROLE_TEACHER,ROLE_USER;
 }
 

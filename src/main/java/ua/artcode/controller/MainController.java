@@ -1,11 +1,16 @@
 package ua.artcode.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
@@ -25,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
 /**
  * Created by Razer on 23.01.16.
  */
@@ -42,18 +46,31 @@ public class MainController {
     @Autowired
     private TaskRunFacade taskRunFacade;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/menu")
+    public ModelAndView menu() {
+        return new ModelAndView("menu");
+    }
+
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public ModelAndView accesssDenied() {
+        ModelAndView model = new ModelAndView();
+        //check if user is login
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            UserDetails userDetail = (UserDetails) auth.getPrincipal();
+            model.addObject("username", userDetail.getUsername());
+        }
+
+        model.setViewName("403");
+        return model;
+
+    }
+
+    @RequestMapping(value = "/login")
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        try {
-            if (userService.authenticate(email, password)) {
-                mav.setViewName("menu");
-            }
-        } catch (AppException e) {
-            request.setAttribute("error", e.getMessage());
-            mav.setViewName("redirect:/index.jsp");
+        if (error != null) {
+            mav.addObject("error", "Invalid username or password!");
         }
         return mav;
     }
@@ -129,14 +146,13 @@ public class MainController {
         return new ModelAndView("do-task");
     }
 
-
     @RequestMapping(value = "/registration")
     public ModelAndView registration(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        UserType userType = req.getParameter("role") != null ? UserType.TEACHER : UserType.USER;
+        UserType userType = req.getParameter("role") != null ? UserType.ROLE_TEACHER : UserType.ROLE_USER;
         try {
             userService.register(userName, password, email, userType);
             //TODO without .jsp
@@ -176,17 +192,6 @@ public class MainController {
         mav.addObject("size", adminService.size());
         return mav;
     }
-//
-//    @RequestMapping(value = "/task-list")
-//    public ModelAndView getAllTasks() {
-//        ModelAndView mav = new ModelAndView("task-list");
-//        try {
-//            mav.addObject("taskList", adminService.getAll());
-//        } catch (AppException e) {
-//            e.printStackTrace();
-//        }
-//        return mav;
-//    }
 
     @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
@@ -213,10 +218,10 @@ public class MainController {
     }
 
     @RequestMapping(value = "/show-group/{groupName}")
-    public ModelAndView showGroup(@PathVariable String groupName,HttpServletRequest reg, HttpServletResponse resp){
-        ModelAndView mav=new ModelAndView("task-list");
-        mav.addObject("taskList",adminService.getGroupTasks(groupName));
-        return  mav;
+    public ModelAndView showGroup(@PathVariable String groupName, HttpServletRequest reg, HttpServletResponse resp) {
+        ModelAndView mav = new ModelAndView("task-list");
+        mav.addObject("taskList", adminService.getGroupTasks(groupName));
+        return mav;
     }
 
 }
