@@ -75,17 +75,17 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/find-task")
+    @RequestMapping(value = "/tasks-menu/find-task")
     public ModelAndView findTask() {
         return new ModelAndView("find-task");
     }
 
-    @RequestMapping(value = "/add-task")
+    @RequestMapping(value = "/tasks-menu/add-task")
     public String addTask() {
         return "create-task";
     }
 
-    @RequestMapping(value = "/create-task")
+    @RequestMapping(value = "/tasks-menu/create-task")
     public ModelAndView createTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         CodingBatTask task;
@@ -113,7 +113,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/do-task", method = RequestMethod.POST)
+    @RequestMapping(value = "/tasks-menu/do-task", method = RequestMethod.POST)
     public ModelAndView doTask(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         String taskId = req.getParameter("taskId");
@@ -128,7 +128,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/do-task/{taskId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tasks-menu/do-task/{taskId}", method = RequestMethod.GET)
     public ModelAndView doTasks(@PathVariable String taskId, Model model) throws ServletException, IOException, NoSuchTaskException {
         //ModelAndView mav = new ModelAndView();
         CodingBatTask task = adminService.getTask(taskId);
@@ -165,7 +165,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/check-task", method = RequestMethod.POST)
+    @RequestMapping(value = "/tasks-menu/check-task", method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
@@ -210,7 +210,7 @@ public class MainController {
         }
     }
 
-    @RequestMapping(value = "/groups")
+    @RequestMapping(value = "/tasks-menu/groups")
     public ModelAndView getAllGroup(HttpServletRequest reg, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView("group-list");
         mav.addObject("groups", adminService.getGroup());
@@ -222,6 +222,16 @@ public class MainController {
         ModelAndView mav = new ModelAndView("task-list");
         mav.addObject("taskList", adminService.getGroupTasks(groupName));
         return mav;
+    }
+
+    @RequestMapping(value = "/course-menu")
+    public ModelAndView courseMenu(){
+        return new ModelAndView("course-menu");
+    }
+
+    @RequestMapping(value = "/tasks-menu")
+    public ModelAndView tasksMenu(){
+        return new ModelAndView("tasks-menu");
     }
 
 }

@@ -1,5 +1,6 @@
 package ua.artcode.model;
 
+import org.mongodb.morphia.annotations.Embedded;
 import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 /**
  * Created by Razer on 02.02.16.
  */
+@Embedded
 public class Lesson {
 
     private String Title;
