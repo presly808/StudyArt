@@ -8,6 +8,7 @@
 </head>
 
 <body>
+Hello <security:authentication property="principal.username" />!
 <menu>
     <li><a href="add-task">Add task</a></li>
     <security:authorize

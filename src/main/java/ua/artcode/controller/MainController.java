@@ -52,7 +52,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssDenied() {
+    public ModelAndView accessDenied() {
         ModelAndView model = new ModelAndView();
         //check if user is login
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

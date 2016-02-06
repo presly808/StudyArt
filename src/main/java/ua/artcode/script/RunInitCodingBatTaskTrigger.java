@@ -1,6 +1,13 @@
 package ua.artcode.script;
 
+import org.mongodb.morphia.Datastore;
+import org.springframework.context.ApplicationContext;
+import ua.artcode.dao.UserDao;
+import ua.artcode.dao.UserDaoMongoImpl;
 import ua.artcode.exception.AppException;
+import ua.artcode.model.common.User;
+import ua.artcode.model.common.UserType;
+import ua.artcode.utils.SpringContext;
 
 public class RunInitCodingBatTaskTrigger {
 
