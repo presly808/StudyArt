@@ -7,7 +7,7 @@
     <title>Find task page</title>
 </head>
 <body>
-<form action="do-task" method="post">
+<form action="tasks-menu/do-task" method="post">
     TaskId:<p><input name="taskId"></p>
     <p><input type="submit" value="get task"></p>
 </form>

@@ -5,13 +5,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.model.Course;
+import ua.artcode.model.Lesson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -29,6 +33,13 @@ public class CourseDaoImplTest {
     private final int AMOUNT_OF_ELEMENTS = 100;
 
     @Autowired
+    @Qualifier("testStore")
+    private Datastore datastore;
+
+    @Value("${mongo.test.db}")
+    private String nameOfTestDb;
+
+    @Autowired
     @Qualifier("courseDaoTestImpl")
     private CourseDao courseDao;
 
@@ -42,10 +53,10 @@ public class CourseDaoImplTest {
             LOG.error(e);
         }
         String value;
+        List<Lesson> lessons = createLessons();
         for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
             value = Integer.toString(i);
-            List lesson = mock(List.class);
-            Course course = new Course("name"+value,lesson);
+            Course course = new Course("name" + value, lessons);
             courseDao.addCourse(course);
         }
     }
@@ -56,7 +67,25 @@ public class CourseDaoImplTest {
         assertEquals(sizeOfdb, AMOUNT_OF_ELEMENTS);
     }
 
+    @Test
+    public void addCourseTest() {
+        List<Lesson> lessons = createLessons();
+        Course course = new Course("name", lessons);
+        courseDao.addCourse(course);
+        assertEquals(courseDao.size(),AMOUNT_OF_ELEMENTS+1);
+    }
+
     @After
-    public void deleteDb(){
+    public void deleteDb() {
+        datastore.getMongo().dropDatabase(nameOfTestDb);
+    }
+
+    private List<Lesson> createLessons() {
+        List<Lesson> lessons = new ArrayList<>();
+        Lesson mockLesson = mock(Lesson.class);
+        for (int i = 0; i < 10; i++) {
+            lessons.add(mockLesson);
+        }
+        return lessons;
     }
 }

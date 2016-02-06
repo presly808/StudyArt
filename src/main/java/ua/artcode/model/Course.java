@@ -20,6 +20,10 @@ public class Course {
 
     private List<Lesson> lessonList;
 
+    public Course() {
+    }
+
+
     public String getName() {
         return name;
     }

@@ -13,7 +13,7 @@
 %>
 
 <%--<p><%=group.toString()%></p>--%>
-<li><a href="show-group/<%=group%>"> <p><%=group%></p> </a></li>
+<li><a href="tasks-menu/show-group/<%=group%>"> <p><%=group%></p> </a></li>
 <%--<div align="center">--%>
     <%--<li><a href="do-task/<%=group.getCodingBatId()%>"> <p><%=codingBatTask.getTitle()%></p> </a></li>--%>
 <%--</div>--%>
