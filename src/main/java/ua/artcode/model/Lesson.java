@@ -1,6 +1,8 @@
 package ua.artcode.model;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Id;
 import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
@@ -10,9 +12,13 @@ import java.util.List;
  */
 @Embedded
 public class Lesson {
+    @Id
+    private ObjectId id;
 
     private String Title;
+
     private String Description;
+
     private List<CodingBatTask> Tasks;
 
     public Lesson() {
@@ -22,6 +28,14 @@ public class Lesson {
         Title = title;
         Description = description;
         Tasks = tasks;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getTitle() {

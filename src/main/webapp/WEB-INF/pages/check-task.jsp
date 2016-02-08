@@ -1,8 +1,9 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="ua.artcode.model.codingbat.TaskTestResult" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Check task</title>
+    <title><spring:message code="label.check.task"/></title>
 </head>
 <body>
 <%TaskTestResult result = (TaskTestResult) request.getAttribute("result");%>

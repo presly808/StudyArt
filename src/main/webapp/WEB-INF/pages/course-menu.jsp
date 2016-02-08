@@ -1,13 +1,14 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Course menu</title>
+    <title><spring:message code="label.course.menu"/></title>
 </head>
 <body>
 <menu>
-    <li><a href="course">Create course</a></li>
-    <li><a href="course">Courses</a></li>
-    <li><a href="course">Delete course</a></li>
+    <li><a href="course"><spring:message code="label.course.menu.create"/></a></li>
+    <li><a href="course"><spring:message code="label.course.menu.show"/></a></li>
+    <li><a href="course"><spring:message code="label.course.menu.delete"/></a></li>
 </menu>
 </body>
 </html>

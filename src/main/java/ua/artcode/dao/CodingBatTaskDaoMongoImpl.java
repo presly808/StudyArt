@@ -62,8 +62,7 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
 
     @Override
     public List<CodingBatTask> getAll() throws AppException {
-        List<CodingBatTask> tasks = datastore.find(CodingBatTask.class).asList();
-        return tasks;
+        return datastore.find(CodingBatTask.class).asList();
     }
 
     @Override
@@ -78,14 +77,14 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     @Override
     public List<String> getGroups() {
         DBCollection dBCollection = datastore.getCollection(CodingBatTask.class);
-        List <String> groups=dBCollection.distinct("groupName");
+        List<String> groups = dBCollection.distinct("groupName");
         return groups;
     }
 
     @Override
     public List<CodingBatTask> getGroupTasks(String group) {
-        List<CodingBatTask> groupTasks=datastore.find(CodingBatTask.class).field("groupName").equal(group).asList();
-        return  groupTasks;
+        List<CodingBatTask> groupTasks = datastore.find(CodingBatTask.class).field("groupName").equal(group).asList();
+        return groupTasks;
     }
 
     @Override
