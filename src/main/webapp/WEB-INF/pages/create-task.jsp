@@ -7,7 +7,7 @@
 <body>
 <h1>Create New Task</h1>
 
-<form action="tasks-menu/create-task" method="post">
+<form action="${pageContext.request.contextPath}/tasks-menu/create-task" method="post">
     Task name:<br>
     <label>
         <input type="text" name="task_name">
@@ -38,6 +38,7 @@
     </label><br>
 
     <input type="submit" value="Send">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
 
