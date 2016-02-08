@@ -24,6 +24,9 @@
         </property>
     </bean>
 
+    <!--Internationalization and Localization-->
+
+
     <!--Spring mvc beans-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
