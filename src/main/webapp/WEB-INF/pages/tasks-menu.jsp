@@ -10,7 +10,7 @@
     <li><a href="tasks-menu/add-task">Add task</a></li>
     <security:authorize
             access="hasRole('ROLE_ADMIN')">
-        <li><a href="tasks-menu/find-task"><spring:message code="label.task.menu.find"/></li>
+        <li><a href="tasks-menu/find-task"/><spring:message code="label.task.menu.find"/></li>
     </security:authorize>
 
 
