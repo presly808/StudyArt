@@ -12,11 +12,8 @@
     for (String group : groups) {
 %>
 
-<%--<p><%=group.toString()%></p>--%>
-<li><a href="tasks-menu/show-group/<%=group%>"> <p><%=group%></p> </a></li>
-<%--<div align="center">--%>
-    <%--<li><a href="do-task/<%=group.getCodingBatId()%>"> <p><%=codingBatTask.getTitle()%></p> </a></li>--%>
-<%--</div>--%>
+<li><a href="${pageContext.request.contextPath}/tasks-menu/show-group/<%=group%>"> <p><%=group%></p> </a></li>
+
 <%
     }
 %>

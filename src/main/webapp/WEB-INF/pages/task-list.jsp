@@ -1,4 +1,3 @@
-
 <%@ page import="ua.artcode.model.codingbat.CodingBatTask" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,7 +11,7 @@
         for (CodingBatTask codingBatTask : taskList) {
     %>
     <div align="center">
-    <li><a href="${pageContext.request.contextPath}/do-task/<%=codingBatTask.getCodingBatId()%>"> <p><%=codingBatTask.getTitle()%></p> </a></li>
+    <li><a href="${pageContext.request.contextPath}/tasks-menu/do-task/<%=codingBatTask.getCodingBatId()%>"> <p><%=codingBatTask.getTitle()%></p> </a></li>
     </div>
     <%
         }
