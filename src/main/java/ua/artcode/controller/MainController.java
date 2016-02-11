@@ -29,7 +29,7 @@ public class MainController {
 
     @RequestMapping(value = "/menu")
     public ModelAndView menu() {
-        return new ModelAndView("main/menu");
+        return new ModelAndView("menu");
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
@@ -83,23 +83,23 @@ public class MainController {
 
     @RequestMapping(value = "/registration-form")
     public ModelAndView registrationForm() {
-        return new ModelAndView("main/registration-form");
+        return new ModelAndView("/registration-form");
     }
 
     @RequestMapping(value = "/xyz")
     public String xyz(Model model) {
         model.addAttribute("user", new User());
-        return "main/test";
+        return "test";
     }
 
     @RequestMapping(value = "/my-menu")
     public ModelAndView tasksMenu() {
-        return new ModelAndView("main/my-menu");
+        return new ModelAndView("my-menu");
     }
 
     @RequestMapping(value = "/course-menu")
     public ModelAndView courseMenu(){
-        return new ModelAndView("main/course-menu");
+        return new ModelAndView("course-menu");
     }
 }
 

@@ -26,14 +26,14 @@ public class CourseController {
 
     @RequestMapping(value = "/create")
     public ModelAndView createCourse(){
-        return new ModelAndView("course/create-course");
+        return new ModelAndView("create-course");
     }
     @RequestMapping(value = "/show")
     public ModelAndView showCourse(){
-        return new ModelAndView("course/create-course");
+        return new ModelAndView("create-course");
     }
     @RequestMapping(value = "/delete")
     public ModelAndView deleteCourse(){
-        return new ModelAndView("course/create-course");
+        return new ModelAndView("create-course");
     }
 }

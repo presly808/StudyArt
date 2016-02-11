@@ -43,12 +43,12 @@ public class TaskController {
 
     @RequestMapping(value = "/find-task")
     public ModelAndView findTask() {
-        return new ModelAndView("task/find-task");
+        return new ModelAndView("/find-task");
     }
 
     @RequestMapping(value = "/add-task")
     public String addTask() {
-        return "task/create-task";
+        return "/create-task";
     }
 
     @RequestMapping(value = "/create-task", method = RequestMethod.POST)
@@ -126,7 +126,7 @@ public class TaskController {
         }
         req.setAttribute("resultList" ,resultTablePartList);
         req.setAttribute("status", taskTestResult.getStatus());
-        mav.setViewName("task/check-task");
+        mav.setViewName("/check-task");
         return mav;
     }
 
@@ -139,7 +139,7 @@ public class TaskController {
 
     @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
-        return new ModelAndView("main/delete-form");
+        return new ModelAndView("/delete-form");
     }
 
     @RequestMapping(value = "/delete")
@@ -159,14 +159,14 @@ public class TaskController {
 
     @RequestMapping(value = "/groups")
     public ModelAndView getAllGroup(HttpServletRequest reg, HttpServletResponse resp) {
-        ModelAndView mav = new ModelAndView("task/group-list");
+        ModelAndView mav = new ModelAndView("/group-list");
         mav.addObject("groupList", adminService.getGroup());
         return mav;
     }
 
     @RequestMapping(value = "/show-group/{groupName}")
     public ModelAndView showGroup(@PathVariable String groupName, HttpServletRequest reg, HttpServletResponse resp) {
-        ModelAndView mav = new ModelAndView("task/task-list");
+        ModelAndView mav = new ModelAndView("/task-list");
         mav.addObject("taskList", adminService.getGroupTasks(groupName));
         return mav;
     }
