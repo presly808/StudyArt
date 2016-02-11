@@ -1,10 +1,11 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@ page import="ua.artcode.model.codingbat.CodingBatTask" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Group list</title>
+    <title><spring:message code="label.title.group.list"/></title>
 </head>
 <body>
 <% List <String> groups= (List<String>) request.getAttribute("groups");%>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring"  uri="http://www.springframework.org/tags"  %>
 <html>
 <head>
-    <title>Registration</title>
+    <title><spring:message code="label.title.registration.form"/></title>
 </head>
 
 <body>

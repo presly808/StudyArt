@@ -1,8 +1,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
+<head>
+    <title><spring:message code="label.title.403"/></title>
+</head>
 <body>
-<h1>HTTP Status 403 - Access is denied</h1>
+<h1><spring:message code="label.title.403"/></h1>
 
 <c:choose>
     <c:when test="${empty username}">

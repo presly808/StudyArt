@@ -11,6 +11,9 @@
 
     <context:annotation-config/>
 
+    <!-- support JSR303 annotation -->
+    <mvc:annotation-driven />
+
     <context:component-scan base-package="ua.artcode"/>
 
     <!--context:property-placeholder location="app.properties"/-->

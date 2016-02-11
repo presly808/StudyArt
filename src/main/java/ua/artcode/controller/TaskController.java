@@ -26,6 +26,7 @@ import java.io.IOException;
  * Created by Razer on 07.02.16.
  */
 @Controller
+@RequestMapping(value = "/tasks-menu")
 public class TaskController {
 
     @Autowired
@@ -37,17 +38,17 @@ public class TaskController {
     @Autowired
     private TaskRunFacade taskRunFacade;
 
-    @RequestMapping(value = "/tasks-menu/find-task")
+    @RequestMapping(value = "/find-task")
     public ModelAndView findTask() {
         return new ModelAndView("find-task");
     }
 
-    @RequestMapping(value = "/tasks-menu/add-task")
+    @RequestMapping(value = "/add-task")
     public String addTask() {
         return "create-task";
     }
 
-    @RequestMapping(value = "/tasks-menu/create-task", method = RequestMethod.POST)
+    @RequestMapping(value = "/create-task", method = RequestMethod.POST)
     public ModelAndView createTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         CodingBatTask task;
@@ -75,7 +76,7 @@ public class TaskController {
         return mav;
     }
 
-    @RequestMapping(value = "/tasks-menu/do-task/{taskId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/do-task/{taskId}", method = RequestMethod.GET)
     public ModelAndView doTasks(@PathVariable String taskId, Model model) throws ServletException, IOException, NoSuchTaskException {
         //ModelAndView mav = new ModelAndView();
         CodingBatTask task = adminService.getTask(taskId);
@@ -93,7 +94,7 @@ public class TaskController {
         return new ModelAndView("do-task");
     }
 
-    @RequestMapping(value = "/tasks-menu/do-task", method = RequestMethod.POST)
+    @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTasksPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         try {
@@ -107,7 +108,7 @@ public class TaskController {
         return mav;
     }
 
-    @RequestMapping(value = "/tasks-menu/check-task", method = RequestMethod.POST)
+    @RequestMapping(value = "/check-task", method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
@@ -123,19 +124,19 @@ public class TaskController {
         return mav;
     }
 
-    @RequestMapping(value = "/tasks-menu/size")
-    public ModelAndView size() {
+    @RequestMapping(value = "/size")
+    public ModelAndView sizeTasks() {
         ModelAndView mav = new ModelAndView("size");
         mav.addObject("size", adminService.size());
         return mav;
     }
 
-    @RequestMapping(value = "/tasks-menu/delete-form")
+    @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
         return new ModelAndView("delete-form");
     }
 
-    @RequestMapping(value = "/tasks-menu/delete")
+    @RequestMapping(value = "/delete")
     public ModelAndView deleteTask(HttpServletRequest reg, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
         if (adminService.delete(reg.getParameter("taskId"))) {
@@ -147,22 +148,17 @@ public class TaskController {
         }
     }
 
-    @RequestMapping(value = "/tasks-menu/groups")
+    @RequestMapping(value = "/groups")
     public ModelAndView getAllGroup(HttpServletRequest reg, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView("group-list");
         mav.addObject("groups", adminService.getGroup());
         return mav;
     }
 
-    @RequestMapping(value = "/tasks-menu/show-group/{groupName}")
+    @RequestMapping(value = "/show-group/{groupName}")
     public ModelAndView showGroup(@PathVariable String groupName, HttpServletRequest reg, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView("task-list");
         mav.addObject("taskList", adminService.getGroupTasks(groupName));
         return mav;
-    }
-
-    @RequestMapping(value = "/tasks-menu")
-    public ModelAndView tasksMenu() {
-        return new ModelAndView("tasks-menu");
     }
 }

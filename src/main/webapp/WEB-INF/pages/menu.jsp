@@ -5,14 +5,14 @@
 
 <html>
 <head>
-    <title>Menu page</title>
+    <title><spring:message code="label.title.menu"/></title>
 </head>
 
 <body>
 <spring:message code="label.hello"/> <security:authentication property="principal.username" />!
 <menu>
 
-    <li><a href="tasks-menu"><spring:message code="label.task.menu"/></a></li>
+    <li><a href="my-menu"><spring:message code="label.task.menu"/></a></li>
 
     <security:authorize
             access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">

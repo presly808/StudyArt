@@ -35,7 +35,7 @@ public class UserValidator implements Validator<User> {
                     entity.getUserName(), "can contains letters from a-z\n" +
                             "can contains digits from 0-9\n" +
                             "can contains special symbols \"_ . -\"\n" +
-                            "length at least 6 characters and maximum of 20\te"
+                            "length at least 4 characters and maximum of 20\te"
             ));
         }
 

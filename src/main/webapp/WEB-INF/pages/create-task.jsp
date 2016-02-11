@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create task page</title>
+    <title><spring:message code="label.title.create.task"/></title>
 </head>
 <body>
 <h1><spring:message code="label.title.create.new.task"/></h1>

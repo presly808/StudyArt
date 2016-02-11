@@ -12,6 +12,7 @@ import ua.artcode.service.UserServiceImpl;
  * Created by Razer on 07.02.16.
  */
 @Controller
+@RequestMapping(value = "/course-menu")
 public class CourseController {
 
     @Autowired
@@ -23,8 +24,16 @@ public class CourseController {
     @Autowired
     private TaskRunFacade taskRunFacade;
 
-    @RequestMapping(value = "/course-menu")
-    public ModelAndView courseMenu(){
-        return new ModelAndView("course-menu");
+    @RequestMapping(value = "/create")
+    public ModelAndView createCourse(){
+        return new ModelAndView("create-course");
+    }
+    @RequestMapping(value = "/show")
+    public ModelAndView showCourse(){
+        return new ModelAndView("create-course");
+    }
+    @RequestMapping(value = "/delete")
+    public ModelAndView deleteCourse(){
+        return new ModelAndView("create-course");
     }
 }

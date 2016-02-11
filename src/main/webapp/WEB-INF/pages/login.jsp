@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Login</title>
+    <title><spring:message code="label.title.login"/></title>
 </head>
 
 <body>
@@ -29,7 +29,8 @@
         <p><input type="submit" value="<spring:message code="label.login"/>"></p>
 
     </form>
-    <a href="registration-form"><spring:message code="label.registration"/></a>
+    <%--registration-form--%>
+    <a href="xyz"><spring:message code="label.registration"/></a>
 
     <c:if test="${not empty error}" >
         <div class="error" style="color: red">${error}</div>
