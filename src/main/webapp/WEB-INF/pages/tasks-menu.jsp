@@ -13,9 +13,7 @@
         <li><a href="tasks-menu/find-task"/><spring:message code="label.task.menu.find"/></li>
     </security:authorize>
 
-
     <li><a href="tasks-menu/groups">Tasks</a></li>
-
 
     <li><a href="tasks-menu/size">Size</a></li>
 

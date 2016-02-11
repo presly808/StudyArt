@@ -1,5 +1,6 @@
-<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Create task page</title>
@@ -41,20 +42,12 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
-
-<%
-    List<String> error_list= (List<String>) request.getAttribute("error");
-    if(error_list!=null){
-        for (String msg : error_list) {
-        %>
-
-            <p style="color:red"><%=msg%></p>
-<%
-        }
-%>
-<%
-    }
-%>
+<c:set var="error_msg_list" value="${error}"/>
+<c:if test="${error_msg_list != null}">
+<c:forEach var="error_msg" items="${error_msg_list}" >
+<p style="color:red"><c:out value="${error_msg}"/><p>
+</c:forEach>
+</c:if>
 
 </body>
 </html>

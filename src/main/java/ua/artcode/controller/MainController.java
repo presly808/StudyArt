@@ -59,7 +59,7 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/registration")
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         String userName = req.getParameter("userName");
@@ -72,7 +72,7 @@ public class MainController {
             mav.setViewName("redirect:/index.jsp");
             //resp.sendRedirect("/index.jsp");
         } catch (AppException e) {
-            req.setAttribute("error", e.getMessage());
+            req.setAttribute("error", e.getExceptionMessageList());
             mav.setViewName("registration-form");
         }
         return mav;

@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -14,13 +13,11 @@
     <p><input type="submit" value="get task"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
-<%
-    String error_msg=(String)request.getAttribute("error");
-    if(error_msg!=null){
-%>
-<p style="color:red"><%=error_msg%></p>
-<%
-    }
-%>
+
+<c:set var="error_msg" value="${error}"/>
+<c:if test="${error_msg != null}">
+<p style="color:red"><c:out value="${error_msg}"/><p>
+    </c:if>
+
 </body>
 </html>

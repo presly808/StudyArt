@@ -14,6 +14,8 @@ import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.UserServiceImpl;
+import ua.artcode.to.ResultTablePart;
+import ua.artcode.to.ResultTableUtils;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 import ua.artcode.validation.CodingBatTaskValidator;
 
@@ -21,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Razer on 07.02.16.
@@ -112,13 +115,16 @@ public class TaskController {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
         TaskTestResult taskTestResult = null;
+        List<ResultTablePart> resultTablePartList = null;
         try {
             CodingBatTask task = adminService.getTask(id);
             taskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
+            resultTablePartList = ResultTableUtils.getResultTableList(task,taskTestResult);
         } catch (NoSuchTaskException e) {
             e.printStackTrace();
         }
-        req.setAttribute("result", taskTestResult);
+        req.setAttribute("resultList" ,resultTablePartList);
+        req.setAttribute("status", taskTestResult.getStatus());
         mav.setViewName("check-task");
         return mav;
     }
@@ -138,11 +144,14 @@ public class TaskController {
     @RequestMapping(value = "/tasks-menu/delete")
     public ModelAndView deleteTask(HttpServletRequest reg, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
-        if (adminService.delete(reg.getParameter("taskId"))) {
+        String taskId = reg.getParameter("taskId");
+        if (adminService.delete(taskId)) {
             mav.setViewName("menu");
+            mav.addObject("message", "Task successfully removed.");
             return mav;
         } else {
-            mav.setViewName("redirect:/delete-form");
+            mav.setViewName("delete-form");
+            mav.addObject("error", "The task is not removed. There is no task with Id: " + taskId);
             return mav;
         }
     }
@@ -150,7 +159,7 @@ public class TaskController {
     @RequestMapping(value = "/tasks-menu/groups")
     public ModelAndView getAllGroup(HttpServletRequest reg, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView("group-list");
-        mav.addObject("groups", adminService.getGroup());
+        mav.addObject("groupList", adminService.getGroup());
         return mav;
     }
 

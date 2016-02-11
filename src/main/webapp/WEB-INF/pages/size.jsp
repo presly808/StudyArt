@@ -4,6 +4,6 @@
     <title>Size</title>
 </head>
 <body>
-    <p>Amount of task=<%=request.getAttribute("size")%><p/>
+    <p>Amount of task = ${size}<p/>
 </body>
 </html>
