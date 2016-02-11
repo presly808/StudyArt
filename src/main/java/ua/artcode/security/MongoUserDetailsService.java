@@ -40,7 +40,8 @@ public class MongoUserDetailsService implements UserDetailsService {
         try {
             user=userDao.findByUserEmail(email);
         } catch (NoSuchUserException e) {
-            throw new UsernameNotFoundException("");
+            LOG.trace("Entered wrong email.");
+            throw new UsernameNotFoundException(e.getMessage());
         }
 
         List<GrantedAuthority> authList = new ArrayList<>();

@@ -10,16 +10,16 @@
 
     <http>
         <access-denied-handler error-page="/403"/>
-        <!--<intercept-url pattern="/create-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="/add-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="/size" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="/find-task" access="hasRole('ROLE_ADMIN')"/>-->
-        <!--<intercept-url pattern="/delete-form" access="hasRole('ROLE_ADMIN')"/>-->
-        <!--<intercept-url pattern="/course-menu" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <!--<intercept-url pattern="/course-menu/create" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <!--<intercept-url pattern="/course-menu/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
 
+        <!--<intercept-url pattern="tasks-menu/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <!--<intercept-url pattern="tasks-menu/add-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <!--<intercept-url pattern="tasks-menu/size" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <!--<intercept-url pattern="tasks-menu/find-task" access="hasRole('ROLE_ADMIN')"/>-->
+        <!--<intercept-url pattern="tasks-menu/delete-form" access="hasRole('ROLE_ADMIN')"/>-->
 
-        <form-login login-page="/start"
+        <form-login login-page="/login"
                     username-parameter="username"
                     password-parameter="password"
                     default-target-url="/menu"

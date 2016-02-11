@@ -11,5 +11,11 @@
     <p><input type="submit" value="<spring:message code="label.send"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
+
+<c:set var="error_msg" value="${error}"/>
+<c:if test="${error_msg != null}">
+<p style="color:red"><c:out value="${error_msg}"/><p>
+    </c:if>
+
 </body>
 </html>

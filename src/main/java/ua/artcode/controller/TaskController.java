@@ -14,6 +14,8 @@ import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.UserServiceImpl;
+import ua.artcode.to.ResultTablePart;
+import ua.artcode.to.ResultTableUtils;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 import ua.artcode.validation.CodingBatTaskValidator;
 
@@ -21,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Razer on 07.02.16.
@@ -40,12 +43,12 @@ public class TaskController {
 
     @RequestMapping(value = "/find-task")
     public ModelAndView findTask() {
-        return new ModelAndView("find-task");
+        return new ModelAndView("task/find-task");
     }
 
     @RequestMapping(value = "/add-task")
     public String addTask() {
-        return "create-task";
+        return "task/create-task";
     }
 
     @RequestMapping(value = "/create-task", method = RequestMethod.POST)
@@ -68,10 +71,10 @@ public class TaskController {
             task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
             adminService.addTask(task);
-            mav.setViewName("menu");
+            mav.setViewName("main/menu");
         } catch (AppValidationException e) {
             req.setAttribute("error", e.getExceptionMessageList());
-            mav.setViewName("create-task");
+            mav.setViewName("task/create-task");
         }
         return mav;
     }
@@ -91,7 +94,7 @@ public class TaskController {
 //            mav.setViewName("do-task");
 //        }
 //        return mav;
-        return new ModelAndView("do-task");
+        return new ModelAndView("task/do-task");
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
@@ -99,10 +102,10 @@ public class TaskController {
         ModelAndView mav = new ModelAndView();
         try {
             CodingBatTask task = adminService.getTask(req.getParameter("taskId"));
-            mav.setViewName("do-task");
+            mav.setViewName("task/do-task");
             req.setAttribute("task", task);
         } catch (NoSuchTaskException e) {
-            mav.setViewName("find-task");
+            mav.setViewName("task/find-task");
             req.setAttribute("error", e.getMessage());
         }
         return mav;
@@ -113,51 +116,57 @@ public class TaskController {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
         TaskTestResult taskTestResult = null;
+        List<ResultTablePart> resultTablePartList = null;
         try {
             CodingBatTask task = adminService.getTask(id);
             taskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
+            resultTablePartList = ResultTableUtils.getResultTableList(task,taskTestResult);
         } catch (NoSuchTaskException e) {
             e.printStackTrace();
         }
-        req.setAttribute("result", taskTestResult);
-        mav.setViewName("check-task");
+        req.setAttribute("resultList" ,resultTablePartList);
+        req.setAttribute("status", taskTestResult.getStatus());
+        mav.setViewName("task/check-task");
         return mav;
     }
 
     @RequestMapping(value = "/size")
     public ModelAndView sizeTasks() {
-        ModelAndView mav = new ModelAndView("size");
+        ModelAndView mav = new ModelAndView("task/size");
         mav.addObject("size", adminService.size());
         return mav;
     }
 
     @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
-        return new ModelAndView("delete-form");
+        return new ModelAndView("main/delete-form");
     }
 
     @RequestMapping(value = "/delete")
     public ModelAndView deleteTask(HttpServletRequest reg, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
-        if (adminService.delete(reg.getParameter("taskId"))) {
-            mav.setViewName("menu");
+        String taskId = reg.getParameter("taskId");
+        if (adminService.delete(taskId)) {
+            mav.setViewName("main/menu");
+            mav.addObject("message", "Task successfully removed.");
             return mav;
         } else {
-            mav.setViewName("redirect:/delete-form");
+            mav.setViewName("main/delete-form");
+            mav.addObject("error", "The task is not removed. There is no task with Id: " + taskId);
             return mav;
         }
     }
 
     @RequestMapping(value = "/groups")
     public ModelAndView getAllGroup(HttpServletRequest reg, HttpServletResponse resp) {
-        ModelAndView mav = new ModelAndView("group-list");
-        mav.addObject("groups", adminService.getGroup());
+        ModelAndView mav = new ModelAndView("task/group-list");
+        mav.addObject("groupList", adminService.getGroup());
         return mav;
     }
 
     @RequestMapping(value = "/show-group/{groupName}")
     public ModelAndView showGroup(@PathVariable String groupName, HttpServletRequest reg, HttpServletResponse resp) {
-        ModelAndView mav = new ModelAndView("task-list");
+        ModelAndView mav = new ModelAndView("task/task-list");
         mav.addObject("taskList", adminService.getGroupTasks(groupName));
         return mav;
     }

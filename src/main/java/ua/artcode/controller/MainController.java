@@ -1,6 +1,5 @@
 package ua.artcode.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.artcode.model.common.User;
-import ua.artcode.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,16 +27,13 @@ import java.io.IOException;
 @Controller
 public class MainController {
 
-    @Autowired
-    private UserServiceImpl userService;
-
     @RequestMapping(value = "/menu")
     public ModelAndView menu() {
-        return new ModelAndView("menu");
+        return new ModelAndView("main/menu");
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssDenied() {
+    public ModelAndView accessDenied() {
         ModelAndView model = new ModelAndView();
         //check if user is login
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -47,7 +42,7 @@ public class MainController {
             model.addObject("username", userDetail.getUsername());
         }
 
-        model.setViewName("403");
+        model.setViewName("main/403");
         return model;
 
     }
@@ -65,9 +60,9 @@ public class MainController {
     public ModelAndView registration(@Valid User user, HttpServletRequest req, HttpServletResponse resp, BindingResult result) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         if (result.hasErrors()) {
-            mav.setViewName("test");
+            mav.setViewName("main/test");
         } else {
-            mav.setViewName("menu");
+            mav.setViewName("main/menu");
         }
 //        String userName = req.getParameter("userName");
 //        String password = req.getParameter("password");
@@ -88,23 +83,23 @@ public class MainController {
 
     @RequestMapping(value = "/registration-form")
     public ModelAndView registrationForm() {
-        return new ModelAndView("registration-form");
+        return new ModelAndView("main/registration-form");
     }
 
     @RequestMapping(value = "/xyz")
     public String xyz(Model model) {
         model.addAttribute("user", new User());
-        return "test";
+        return "main/test";
     }
 
     @RequestMapping(value = "/my-menu")
     public ModelAndView tasksMenu() {
-        return new ModelAndView("my-menu");
+        return new ModelAndView("main/my-menu");
     }
 
     @RequestMapping(value = "/course-menu")
     public ModelAndView courseMenu(){
-        return new ModelAndView("course-menu");
+        return new ModelAndView("main/course-menu");
     }
 }
 

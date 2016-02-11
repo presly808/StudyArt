@@ -14,6 +14,7 @@ public class TaskTestResult {
     // practical result
     private List<Object> expectedValues;
     private List<String> actualValues;
+    private List<String> results;
     private String status;
 
     public String getStatus() {
@@ -24,7 +25,7 @@ public class TaskTestResult {
         this.status = status;
     }
 
-    private List<String> results;
+
 
     public String getUserCode() {
         return userCode;

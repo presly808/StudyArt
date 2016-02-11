@@ -5,6 +5,6 @@
     <title><spring:message code="label.title.size"/></title>
 </head>
 <body>
-    <p><spring:message code="label.size.message"/>=<%=request.getAttribute("size")%><p/>
+    <p><spring:message code="label.size.message"/> = ${size}<p/>
 </body>
 </html>

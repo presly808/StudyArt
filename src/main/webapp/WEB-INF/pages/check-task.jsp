@@ -1,12 +1,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page import="ua.artcode.model.codingbat.TaskTestResult" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title><spring:message code="label.check.task"/></title>
 </head>
 <body>
-<%TaskTestResult result = (TaskTestResult) request.getAttribute("result");%>
+
 <table border="1" style="width:40%">
     <tr>
         <th>in args</th>
@@ -14,29 +15,67 @@
         <th>expected</th>
         <th>done</th>
     </tr>
-    <%
-        for (int i = 0; i < result.getActualValues().size(); i++) { %>
-
-    <tr>
-        <td>
-            0
-        </td>
-        <td>
-            <%=result.getActualValues().get(i)%>
-        </td>
-        <td>
-            <%=result.getExpectedValues().get(i).toString()%>
-        </td>
-        <td>
-            <%=result.getResults().get(i)%>
-        </td>
-    </tr>
-
-    <% }%>
-
+    <c:forEach var="result" items="${resultList}" >
+        <tr>
+            <td>
+                    ${result.inArgsTemplate}
+            </td>
+            <td>
+                    ${result.actualValue}
+            </td>
+            <td>
+                    ${result.expectedValue}
+            </td>
+            <td>
+                    ${result.done}
+            </td>
+        </tr>
+    </c:forEach>
 
 </table>
-<p><%=result.getStatus()%></p>
+
+<p>${status}</p>
+
+
+<%--<table border="1" style="width:40%">--%>
+    <%--<tr>--%>
+        <%--<th>in args</th>--%>
+        <%--<th>real</th>--%>
+        <%--<th>expected</th>--%>
+        <%--<th>done</th>--%>
+    <%--</tr>--%>
+
+<%--<%TaskTestResult result = (TaskTestResult) request.getAttribute("result");%>--%>
+<%--<table border="1" style="width:40%">--%>
+    <%--<tr>--%>
+        <%--<th>in args</th>--%>
+        <%--<th>real</th>--%>
+        <%--<th>expected</th>--%>
+        <%--<th>done</th>--%>
+    <%--</tr>--%>
+    <%--<%--%>
+        <%--for (int i = 0; i < result.getActualValues().size(); i++) { %>--%>
+
+    <%--<tr>--%>
+        <%--<td>--%>
+            <%--0--%>
+        <%--</td>--%>
+        <%--<td>--%>
+            <%--<%=result.getActualValues().get(i)%>--%>
+        <%--</td>--%>
+        <%--<td>--%>
+            <%--<%=result.getExpectedValues().get(i).toString()%>--%>
+        <%--</td>--%>
+        <%--<td>--%>
+            <%--<%=result.getResults().get(i)%>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
+
+    <%--<% }%>--%>
+
+
+<%--</table>--%>
+<%--<p><%=result.getStatus()%></p>--%>
 
 </body>
 </html>
