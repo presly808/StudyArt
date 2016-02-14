@@ -12,7 +12,12 @@
 <spring:message code="label.hello"/> <security:authentication property="principal.username" />!
 <menu>
 
-    <li><a href="my-menu"><spring:message code="label.task.menu"/></a></li>
+    <li><a href="task-menu"><spring:message code="label.task.menu"/></a></li>
+
+    <security:authorize
+            access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+        <li><a href="lesson-menu"><spring:message code="label.lesson"/></a> </li>
+    </security:authorize>
 
     <security:authorize
             access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">

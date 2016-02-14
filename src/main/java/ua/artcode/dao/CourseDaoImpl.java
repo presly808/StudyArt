@@ -37,8 +37,8 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public boolean delete(String name) throws NoSuchCourseException {
-        Course course = findByName(name);
+    public boolean delete(String title) throws NoSuchCourseException {
+        Course course = findByTitle(title);
         if (course != null) {
             datastore.delete(Course.class, course.getId());
             return true;
@@ -47,10 +47,16 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public Course findByName(String name) throws NoSuchCourseException {
-        Course course = datastore.find(Course.class, "name", name).get();
-        if (course != null) {
-            throw new NoSuchCourseException("There is no course with name:" + name + " !");
+    public void updateCourse(Course course) throws NoSuchCourseException {
+        delete(course.getTitle());
+        addCourse(course);
+    }
+
+    @Override
+    public Course findByTitle(String title) throws NoSuchCourseException {
+        Course course = datastore.find(Course.class, "title", title).get();
+        if (course == null) {
+            throw new NoSuchCourseException("There is no course with title:" + title + " !");
         }
         return course;
     }

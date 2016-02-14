@@ -2,6 +2,7 @@ package ua.artcode.dao;
 
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Lesson;
+import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.List;
 
@@ -12,11 +13,15 @@ public interface LessonDao {
 
     Lesson addLesson(Lesson lesson);
 
-    List<Lesson> showAll();
+    List<Lesson> getAll();
 
-    boolean delete(String name) throws NoSuchLessonException;
+    void addTask(String title, CodingBatTask codingBatTask) throws NoSuchLessonException;
+
+    boolean delete(String title) throws NoSuchLessonException;
 
     int size();
 
-    Lesson findByName(String name) throws NoSuchLessonException;
+    void updateLesson(Lesson lesson) throws NoSuchLessonException;
+
+    Lesson findByTitle(String title) throws NoSuchLessonException;
 }

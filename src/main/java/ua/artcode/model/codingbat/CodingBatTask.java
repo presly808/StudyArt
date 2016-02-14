@@ -120,7 +120,6 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
         this.taskTestDataContainer = taskTestDataContainer;
     }
 
-    // generate alt+ins
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("CodingBatTask{");
