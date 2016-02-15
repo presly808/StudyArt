@@ -12,10 +12,10 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
-<c:set var="error_msg" value="${error}"/>
-<c:if test="${error_msg != null}">
-<p style="color:red"><c:out value="${error_msg}"/><p>
-    </c:if>
+  <c:set var="msg" value="${message}"/>
+<c:if test="${msg != null}">
+  <p style="color:red"><c:out value="${msg}"/><p>
+</c:if>
 
 </body>
 </html>

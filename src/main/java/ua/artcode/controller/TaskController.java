@@ -71,9 +71,10 @@ public class TaskController {
             task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
             adminService.addTask(task);
-            mav.setViewName("menu");
+            mav.setViewName("task-menu");
+            mav.addObject("message", "The task has been successfully created.");
         } catch (AppValidationException e) {
-            req.setAttribute("error", e.getExceptionMessageList());
+            req.setAttribute("message", e.getExceptionMessageList());
             mav.setViewName("create-task");
         }
         return mav;
@@ -148,11 +149,11 @@ public class TaskController {
         String taskId = reg.getParameter("taskId");
         if (adminService.delete(taskId)) {
             mav.setViewName("menu");
-            mav.addObject("message", "Task successfully removed.");
+            mav.addObject("message", "The task has been successfully removed.");
             return mav;
         } else {
             mav.setViewName("/delete-form");
-            mav.addObject("error", "The task is not removed. There is no task with Id: " + taskId);
+            mav.addObject("message", "The task has been not removed. There is no task with Id: " + taskId);
             return mav;
         }
     }

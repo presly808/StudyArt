@@ -35,8 +35,8 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/create-lesson")
-    public ModelAndView createLesson(HttpServletRequest req, HttpServletResponse resp) throws AppException, NoSuchLessonException {
-        ModelAndView mav = new ModelAndView("setup-tasks");
+    public ModelAndView createLesson(HttpServletRequest req, ModelAndView mav) throws AppException, NoSuchLessonException {
+        mav.setViewName("setup-tasks");
         String title = req.getParameter("lesson_title");
         String description = req.getParameter("lesson_description");
         Lesson lesson= new Lesson(title, description);
@@ -47,7 +47,7 @@ public class LessonController {
     }
 
     @RequestMapping(value ="/add-task")
-    public ModelAndView addTask(HttpServletRequest req, HttpServletResponse resp) throws AppException, NoSuchLessonException {ModelAndView mav = new ModelAndView("setup-tasks");
+    public ModelAndView addTask(HttpServletRequest req) throws AppException, NoSuchLessonException {ModelAndView mav = new ModelAndView("setup-tasks");
         List<CodingBatTask> tasks = adminService.getAll();
         Lesson lesson=teacherService.findByTitleLesson(req.getParameter("title"));
         List<CodingBatTask> list=lesson.getTasks();
@@ -58,7 +58,10 @@ public class LessonController {
         }
         lesson.setTasks(list);
         teacherService.updateLesson(lesson);
-        return new ModelAndView("lesson-menu");
+        mav.setViewName("lesson-menu");
+        mav.addObject("message", "The lesson has been successfully created.");
+
+        return mav;
     }
 
     @RequestMapping(value = "/show-lessons")
@@ -83,9 +86,18 @@ public class LessonController {
     }
 
     @RequestMapping(value ="/delete")
-    public ModelAndView deleteLesson(HttpServletRequest req, HttpServletResponse resp) throws NoSuchLessonException {
-        teacherService.deleteLesson(req.getParameter("lessonTitle"));
-        return null;
+    public ModelAndView deleteLesson(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        String lessonTitle = req.getParameter("lessonTitle");
+        try {
+            teacherService.deleteLesson(lessonTitle);
+            mav.addObject("message", "The lesson has been successfully deleted.");
+            mav.setViewName("lesson-menu");
+        } catch (NoSuchLessonException e) {
+            mav.addObject("message", "There is no lesson with title: " + lessonTitle);
+            mav.setViewName("delete-lesson-form");
+        }
+        return mav;
     }
 
 }

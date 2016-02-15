@@ -73,6 +73,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public boolean deleteCourse(String title) throws NoSuchCourseException {
+        return courseDao.delete(title);
+    }
+
+    @Override
     public List<Course> getAllCourses() {
        return courseDao.getAll();
     }

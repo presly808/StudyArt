@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,5 +11,13 @@
     <li><a href="lesson-menu/show-lessons"><spring:message code="label.lesson.menu.show"/></a></li>
     <li><a href="lesson-menu/delete-lesson-form"><spring:message code="label.lesson.menu.delete"/></a></li>
 </menu>
+
+<br>
+
+<c:set var="msg" value="${message}"/>
+<c:if test="${msg != null}">
+<p style="color:blue"><c:out value="${msg}"/><p>
+    </c:if>
+
 </body>
 </html>

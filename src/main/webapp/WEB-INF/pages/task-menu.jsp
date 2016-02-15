@@ -1,5 +1,6 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,5 +25,13 @@
         <li><a href="tasks-menu/delete-form"><spring:message code="label.task.menu.delete"/></a></li>
     </security:authorize>
 </menu>
+
+<br>
+
+<c:set var="msg" value="${message}"/>
+<c:if test="${msg != null}">
+<p style="color:blue"><c:out value="${msg}"/><p>
+    </c:if>
+
 </body>
 </html>

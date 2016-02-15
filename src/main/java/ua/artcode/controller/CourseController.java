@@ -32,8 +32,9 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/create-course",method = RequestMethod.POST)
-    public ModelAndView createCourse(HttpServletRequest req, HttpServletResponse resp) {
-        ModelAndView mav = new ModelAndView("setup-lessons");
+    public ModelAndView createCourse(HttpServletRequest req, ModelAndView mav) {
+        //ModelAndView mav = new ModelAndView("setup-lessons");
+        mav.setViewName("setup-lessons");
         String title = req.getParameter("course_title");
         String description = req.getParameter("course_description");
         Course course = new Course(title, description);
@@ -44,7 +45,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/add-lesson")
-    public ModelAndView addLesson(HttpServletRequest req, HttpServletResponse resp) throws NoSuchCourseException {
+    public ModelAndView addLesson(HttpServletRequest req, ModelAndView mav) throws NoSuchCourseException {
         List<Lesson> lessons = teacherService.getAllLessons();
         Course course=teacherService.findByTitleCourse(req.getParameter("title"));
         List<Lesson> list=course.getLessonList();
@@ -55,7 +56,10 @@ public class CourseController {
         }
         course.setLessonList(list);
         teacherService.updateCourse(course);
-        return new ModelAndView("course-menu");
+        //ModelAndView mav = new ModelAndView("course-menu");
+        mav.setViewName("course-menu");
+        mav.addObject("message", "The course has been successfully created.");
+        return mav;
     }
 
     @RequestMapping(value = "/show-courses")
@@ -74,10 +78,26 @@ public class CourseController {
         return mav;
     }
 
-//    @RequestMapping(value = "/delete")
-//    public ModelAndView deleteCourse() {
-//        return new ModelAndView("create-course");
-//    }
+    @RequestMapping(value = "/delete-course")
+    public ModelAndView deleteLessonForm() {
+        return new ModelAndView("delete-course");
+    }
+
+    @RequestMapping(value = "/delete")
+    public ModelAndView deleteCourse(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        String courseTitle = req.getParameter("courseTitle");
+        try {
+            teacherService.deleteCourse(courseTitle);
+            mav.addObject("message", "The course has been successfully deleted.");
+            mav.setViewName("course-menu");
+        } catch (NoSuchCourseException e) {
+            mav.addObject("message", "There is no course with title: " + courseTitle);
+            mav.setViewName("delete-course");
+        }
+        return mav;
+    }
+
 
 
 

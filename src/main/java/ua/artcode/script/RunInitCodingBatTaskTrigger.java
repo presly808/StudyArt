@@ -18,8 +18,8 @@ public class RunInitCodingBatTaskTrigger {
 //        courseDao.addCourse(new Course("artCode",new ArrayList<Lesson>()));
         //TaskRunFacade taskRunFacade = new TaskRunFacade();
         //taskRunFacade.runTask();
-        // InitCodingBatTaskTrigger.loadTasksIfNeeded();
-    //InitCodingBatTaskTrigger.loadTasksToDataBase();
+//         InitCodingBatTaskTrigger.loadTasksIfNeeded();
+//        InitCodingBatTaskTrigger.loadTasksToDataBase();
 //        ApplicationContext context = SpringContext.getContext();
       //  Morphia morphia = context.getBean(Morphia.class);
 //        morphia.map(CodingBatTask.class);

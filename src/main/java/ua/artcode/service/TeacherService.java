@@ -32,6 +32,8 @@ public interface TeacherService {
 
     Course addCourse(Course course);
 
+    boolean deleteCourse(String title) throws NoSuchCourseException;
+
     List<Course> getAllCourses();
 
     void updateCourse(Course course) throws NoSuchCourseException;
