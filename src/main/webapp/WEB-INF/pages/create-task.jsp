@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -41,7 +42,7 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
-<c:set var="error_msg_list" value="${error}"/>
+<c:set var="error_msg_list" value="${message}"/>
 <c:if test="${error_msg_list != null}">
 <c:forEach var="error_msg" items="${error_msg_list}" >
 <p style="color:red"><c:out value="${error_msg}"/><p>

@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,21 +58,20 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration")
-    public ModelAndView registration(@Valid User user, HttpServletRequest req, HttpServletResponse resp, BindingResult result) throws ServletException, IOException {
+    public ModelAndView registration(@Valid @ModelAttribute("user")User user, HttpServletRequest req, HttpServletResponse resp, BindingResult result) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         if (result.hasErrors()) {
-            mav.setViewName("main/test");
+            mav.setViewName("test2");
         } else {
-            mav.setViewName("main/menu");
+            mav.setViewName("login");
         }
 //        String userName = req.getParameter("userName");
 //        String password = req.getParameter("password");
 //        String email = req.getParameter("email");
-        User z = user;
+//
         //UserType userType = req.getParameter("role") != null ? UserType.ROLE_TEACHER : UserType.ROLE_USER;
 //        try {
 //            //userService.register(userName, password, email, userType);
-//            //TODO without .jsp
 //            mav.setViewName("redirect:/index.jsp");
 //            //resp.sendRedirect("/index.jsp");
 //        } catch (AppException e) {
@@ -82,24 +82,24 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration-form")
-    public ModelAndView registrationForm() {
+    public ModelAndView registrationForm(Model model) {
+        model.addAttribute("user",new User());
         return new ModelAndView("/registration-form");
     }
 
-    @RequestMapping(value = "/xyz")
-    public String xyz(Model model) {
-        model.addAttribute("user", new User());
-        return "test";
-    }
-
-    @RequestMapping(value = "/my-menu")
+    @RequestMapping(value = "/task-menu")
     public ModelAndView tasksMenu() {
-        return new ModelAndView("my-menu");
+        return new ModelAndView("task-menu");
     }
 
     @RequestMapping(value = "/course-menu")
     public ModelAndView courseMenu(){
         return new ModelAndView("course-menu");
+    }
+
+    @RequestMapping(value = "/lesson-menu")
+    public ModelAndView lessonMEnu(){
+        return new ModelAndView("lesson-menu");
     }
 }
 

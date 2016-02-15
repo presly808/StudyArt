@@ -4,23 +4,33 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Razer on 02.02.16.
 
- */
 @Entity
 public class Course {
 
     @Id
     private ObjectId id;
 
-    private String name;
+    private String title;
 
-    private List<Lesson> lessonList;
+    private String description;
+
+    private List<Lesson> lessonList=new ArrayList<>();
 
     public Course() {
+    }
+
+    public Course(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public Course(String title, List<Lesson> lessonList) {
+        this.title = title;
+        this.lessonList = lessonList;
     }
 
     public ObjectId getId() {
@@ -31,17 +41,20 @@ public class Course {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Course(String name, List<Lesson> lessonList) {
-        this.name = name;
-        this.lessonList = lessonList;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Lesson> getLessonList() {
@@ -51,5 +64,4 @@ public class Course {
     public void setLessonList(List<Lesson> lessonList) {
         this.lessonList = lessonList;
     }
-
 }

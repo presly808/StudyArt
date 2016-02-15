@@ -29,7 +29,7 @@
 
     </form>
     <%--registration-form--%>
-    <a href="xyz"><spring:message code="label.registration"/></a>
+    <a href="registration-form"><spring:message code="label.registration"/></a>
 
     <c:if test="${not empty error}" >
         <div class="error" style="color: red">${error}</div>

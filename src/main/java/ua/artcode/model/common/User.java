@@ -12,7 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
-
+//TODO create custom annotation for validate data
 @Entity
 public class User implements Comparable<User> {
 
@@ -20,15 +20,15 @@ public class User implements Comparable<User> {
     private ObjectId id;
 
     @NotEmpty
-    @Size(min=4,max=20)
+    @Size(min=4,max=20,message = "error size")
     private String userName;
 
     @NotEmpty
-    @Min(6)
+    @Min(value = 6 ,message = "error ")
     private String password;
 
     @NotEmpty
-    @Email
+    @Email(message = "error email")
     private String email;
 
     private UserType userType;

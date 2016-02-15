@@ -3,13 +3,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><spring:message code="label.title.course.menu"/></title>
+    <title><spring:message code="label.title.lesson"/></title>
 </head>
 <body>
 <menu>
-    <li><a href="course-menu/add-course"><spring:message code="label.course.menu.create"/></a></li>
-    <li><a href="course-menu/show-courses"><spring:message code="label.course.menu.show"/></a></li>
-    <li><a href="course-menu/delete"><spring:message code="label.course.menu.delete"/></a></li>
+    <li><a href="lesson-menu/add-lesson"><spring:message code="label.lesson.menu.create"/></a></li>
+    <li><a href="lesson-menu/show-lessons"><spring:message code="label.lesson.menu.show"/></a></li>
+    <li><a href="lesson-menu/delete-lesson-form"><spring:message code="label.lesson.menu.delete"/></a></li>
 </menu>
 
 <br>

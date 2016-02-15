@@ -5,6 +5,7 @@ import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 import ua.artcode.model.codingbat.CodingBatTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,20 +16,25 @@ public class Lesson {
     @Id
     private ObjectId id;
 
-    private String Title;
+    private String title;
 
-    private String Description;
+    private String description;
 
-    private List<CodingBatTask> Tasks;
+    private List<CodingBatTask> tasks=new ArrayList<>();
 
     public Lesson() {
     }
 
-    public Lesson(String title, String description, List<CodingBatTask> tasks) {
-        Title = title;
-        Description = description;
-        Tasks = tasks;
+    public Lesson(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
+
+    public Lesson(String title, String description, List<CodingBatTask> tasks) {
+        this.title = title;
+        this.description = description;
+        this.tasks = tasks;
+   }
 
     public ObjectId getId() {
         return id;
@@ -39,28 +45,29 @@ public class Lesson {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public List<CodingBatTask> getTasks() {
-        return Tasks;
+        return tasks;
     }
 
     public void setTasks(List<CodingBatTask> tasks) {
-        Tasks = tasks;
+        this.tasks = tasks;
     }
+
 
 }
 

@@ -9,10 +9,11 @@
 <body>
 <div style="float:right;">
     <form action="registration" method="post">
-        <spring:message code="label.user.name"/>:<p><input name="userName"></p>
-        <spring:message code="label.user.email"/>:<p><input name="email"></p>
-        <spring:message code="label.user.password"/>:<p><input type="password" name="password"></p>
+        <spring:message code="label.user.name"/>:<p><input name=${user.userName}></p>
+        <spring:message code="label.user.email"/>:<p><input name=${user.email}></p>
+        <spring:message code="label.user.password"/>:<p><input type="password" name=${user.password}></p>
         <p><input type="checkbox" name="role" value="teacher"> <spring:message code="label.teacher"/></p>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <p><input type="submit" value="<spring:message code="label.registration"/>"></p>
     </form>
 </div>

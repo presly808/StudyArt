@@ -3,12 +3,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="label.title.delete.lesson"/></title>
 </head>
 <body>
-
-<form action="${pageContext.request.contextPath}/course-menu/delete" method="post">
-    <spring:message code="label.lesson.menu.delete.title"/>:<p><input name="courseTitle"></p>
+<form action="${pageContext.request.contextPath}/lesson-menu/delete" method="post">
+    <spring:message code="label.lesson.menu.delete.title"/>:<p><input name="lessonTitle"></p>
     <p><input type="submit" value="<spring:message code="label.send"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
