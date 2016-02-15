@@ -71,10 +71,10 @@ public class TaskController {
             task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
             adminService.addTask(task);
-            mav.setViewName("main/menu");
+            mav.setViewName("/menu");
         } catch (AppValidationException e) {
             req.setAttribute("error", e.getExceptionMessageList());
-            mav.setViewName("task/create-task");
+            mav.setViewName("/create-task");
         }
         return mav;
     }
@@ -94,7 +94,7 @@ public class TaskController {
 //            mav.setViewName("do-task");
 //        }
 //        return mav;
-        return new ModelAndView("task/do-task");
+        return new ModelAndView("/do-task");
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
@@ -102,10 +102,10 @@ public class TaskController {
         ModelAndView mav = new ModelAndView();
         try {
             CodingBatTask task = adminService.getTask(req.getParameter("taskId"));
-            mav.setViewName("task/do-task");
+            mav.setViewName("/do-task");
             req.setAttribute("task", task);
         } catch (NoSuchTaskException e) {
-            mav.setViewName("task/find-task");
+            mav.setViewName("/find-task");
             req.setAttribute("error", e.getMessage());
         }
         return mav;
@@ -132,7 +132,7 @@ public class TaskController {
 
     @RequestMapping(value = "/size")
     public ModelAndView sizeTasks() {
-        ModelAndView mav = new ModelAndView("task/size");
+        ModelAndView mav = new ModelAndView("/size");
         mav.addObject("size", adminService.size());
         return mav;
     }
@@ -147,11 +147,11 @@ public class TaskController {
         ModelAndView mav = new ModelAndView();
         String taskId = reg.getParameter("taskId");
         if (adminService.delete(taskId)) {
-            mav.setViewName("main/menu");
+            mav.setViewName("/menu");
             mav.addObject("message", "Task successfully removed.");
             return mav;
         } else {
-            mav.setViewName("main/delete-form");
+            mav.setViewName("/delete-form");
             mav.addObject("error", "The task is not removed. There is no task with Id: " + taskId);
             return mav;
         }
