@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Created by Razer on 08.02.16.
  */
-public class LessonDaoImpl implements LessonDao {
+public class LessonDaoMongoImpl implements LessonDao {
 
     private Datastore datastore;
 
-    public LessonDaoImpl(Datastore datastore) {
+    public LessonDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
     }
 

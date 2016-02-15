@@ -98,8 +98,18 @@ public class MainController {
     }
 
     @RequestMapping(value = "/lesson-menu")
-    public ModelAndView lessonMEnu(){
+    public ModelAndView lessonMenu(){
         return new ModelAndView("lesson-menu");
+    }
+
+    @RequestMapping(value = "/group-menu")
+    public ModelAndView groupMenu(){
+        return new ModelAndView("group-menu");
+    }
+
+    @RequestMapping(value = "/user-menu")
+    public ModelAndView userMenu(){
+        return new ModelAndView("user-menu");
     }
 }
 

@@ -23,8 +23,7 @@
         <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
         <morphia.version>1.1.1</morphia.version>
-        <mongo-java-driver.version>2.11.0</mongo-java-driver.version>
-        <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
+        <mongo-java-driver.version>3.2.1</mongo-java-driver.version>
         <gson.version>2.4</gson.version>
         <spring.version>4.2.2.RELEASE</spring.version>
         <httpclient.version>4.5.1</httpclient.version>

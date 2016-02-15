@@ -3,6 +3,7 @@ package ua.artcode.model;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 import ua.artcode.model.codingbat.CodingBatTask;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Lesson {
 
     private String description;
 
+    @Reference
     private List<CodingBatTask> tasks=new ArrayList<>();
 
     public Lesson() {

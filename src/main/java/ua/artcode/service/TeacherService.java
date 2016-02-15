@@ -1,8 +1,10 @@
 package ua.artcode.service;
 
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Course;
+import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.Lesson;
 import ua.artcode.model.codingbat.CodingBatTask;
 
@@ -19,7 +21,7 @@ public interface TeacherService {
 
     Lesson findByTitleLesson(String title) throws NoSuchLessonException;
 
-    void addTask(String title, CodingBatTask codingBatTask) throws NoSuchLessonException;
+    void addTaskToLesson(String title, CodingBatTask codingBatTask) throws NoSuchLessonException;
 
     boolean deleteLesson(String title) throws NoSuchLessonException;
 
@@ -37,4 +39,16 @@ public interface TeacherService {
     Course findByTitleCourse(String title) throws NoSuchCourseException;
 
     int sizeOfCourse();
+
+
+    UserGroup addGroup(UserGroup group);
+
+    boolean deleteGroup(String name);
+
+    List<UserGroup> getAll() throws AppException;
+
+    boolean isExistGroup(String name);
+
+    int sizeOfGroup();
+
 }

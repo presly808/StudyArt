@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Created by Razer on 02.02.16.
  */
-public class CourseDaoImpl implements CourseDao {
+public class CourseDaoMongoImpl implements CourseDao {
 
     private Datastore datastore;
 
-    public CourseDaoImpl() {
+    public CourseDaoMongoImpl() {
     }
 
-    public CourseDaoImpl(Datastore datastore) {
+    public CourseDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
     }
 

@@ -67,10 +67,6 @@ public class AdminServiceImpl implements AdminService {
         return codingBatTaskDao.getGroupTasks(group);
     }
 
-    //teacher add group
-    //teacher add task to group
-    //teacher show statick
-
     @Override
     public List<String> getGroup() {
         return codingBatTaskDao.getGroups();

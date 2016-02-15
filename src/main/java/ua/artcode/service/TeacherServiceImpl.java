@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.CourseDao;
+import ua.artcode.dao.GroupDao;
 import ua.artcode.dao.LessonDao;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Course;
+import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.Lesson;
 import ua.artcode.model.codingbat.CodingBatTask;
 
@@ -23,6 +26,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private LessonDao lessonDao;
 
+    @Autowired
+    private GroupDao groupDao;
+
+
     @Override
     public void addLesson(Lesson lesson) {
         lessonDao.addLesson(lesson);
@@ -34,7 +41,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void addTask(String title, CodingBatTask codingBatTask) throws NoSuchLessonException {
+    public void addTaskToLesson(String title, CodingBatTask codingBatTask) throws NoSuchLessonException {
         lessonDao.addTask(title,codingBatTask);
     }
 
@@ -85,4 +92,29 @@ public class TeacherServiceImpl implements TeacherService {
         courseDao.updateCourse(course);
     }
 
+
+    @Override
+    public UserGroup addGroup(UserGroup group){
+       return groupDao.addGroup(group);
+    }
+
+    @Override
+    public boolean deleteGroup(String name) {
+        return groupDao.delete(name);
+    }
+
+    @Override
+    public boolean isExistGroup(String name) {
+        return groupDao.isExist(name);
+    }
+
+    @Override
+    public int sizeOfGroup() {
+        return groupDao.size();
+    }
+
+    @Override
+    public List<UserGroup> getAll() throws AppException {
+        return groupDao.getAll();
+    }
 }
