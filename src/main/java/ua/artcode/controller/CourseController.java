@@ -33,14 +33,21 @@ public class CourseController {
 
     @RequestMapping(value = "/create-course",method = RequestMethod.POST)
     public ModelAndView createCourse(HttpServletRequest req, ModelAndView mav) {
-        //ModelAndView mav = new ModelAndView("setup-lessons");
-        mav.setViewName("setup-lessons");
+
         String title = req.getParameter("course_title");
         String description = req.getParameter("course_description");
         Course course = new Course(title, description);
-        mav.addObject("title", title);
-        mav.addObject("lessons",teacherService.getAllLessons());
         teacherService.addCourse(course);
+        List lessonsList = teacherService.getAllLessons();
+
+        if (lessonsList.size() > 0) {
+            mav.setViewName("setup-lessons");
+            mav.addObject("title", title);
+            mav.addObject("lessons",lessonsList);
+        } else {
+            mav.setViewName("course-menu");
+            mav.addObject("message", "The course has been successfully created.");
+        }
         return mav;
     }
 
