@@ -13,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.codingbat.*;
-import ua.artcode.validation.CodingBatTaskValidator;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -28,11 +27,11 @@ public class CodingBatTaskUtils {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskUtils.class);
 
-    private static HttpResponse getResponseFromCodingBat(CodingBatTask task, String codeForRequest) {
+    private static HttpResponse getResponseFromCodingBat(String codeForRequest,String Id) {
         HttpResponse response = null;
 
         String url = "http://codingbat.com/run";
-        String codingBatId = task.getCodingBatId();
+        String codingBatId = Id;
 
         HttpClient client = HttpClientBuilder.create().build(); // create client
         HttpPost post = new HttpPost(url);
@@ -78,9 +77,9 @@ public class CodingBatTaskUtils {
         return code.toString();
     }
 
-    public static void initTaskTestDataContainer(CodingBatTask task) {
+    public static void initTaskTestDataContainer(CodingBatTask task,String codingBatId) {
         String codeForRequest = getCodeForRequestToCodingBat(task);
-        HttpResponse response = getResponseFromCodingBat(task, codeForRequest);
+        HttpResponse response = getResponseFromCodingBat(codeForRequest,codingBatId);
         HttpEntity entity = response.getEntity(); // incoming data
 
         if (entity != null) {
@@ -137,11 +136,11 @@ public class CodingBatTaskUtils {
         return testDataContainer;
     }
 
-    public TaskTestResult checkCodingBatTask(final CodingBatTask task, final String code) {
+    public TaskTestResult checkCodingBatTask(final String id, final String code) {
         TaskTestResult result = new TaskTestResult();
         //result.setCodingBatTask(task);
 
-        HttpResponse response = getResponseFromCodingBat(task, code);
+        HttpResponse response = getResponseFromCodingBat(code,id);
         HttpEntity entity = response.getEntity(); // incoming data
 
         if (entity != null) {

@@ -5,7 +5,7 @@ import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
 
-import java.util.Set;
+import java.util.List;
 
 public interface UserService {
 
@@ -15,9 +15,11 @@ public interface UserService {
 
     User register(String username, String password, String email, UserType userType) throws AppException;
 
+    User register(User user) throws AppException;
+
     User getUserInfo(String username);
 
-    Set<String> getAllUser();
+    List<User> getAllUser();
 
     User getUser(String email) throws NoSuchUserException;
 

@@ -3,6 +3,7 @@ package ua.artcode.dao;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.io.IOException;
 /**
  * Created by Razer on 15.02.16.
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
 public class GroupDaoMongoImplTest {
@@ -29,7 +31,7 @@ public class GroupDaoMongoImplTest {
 
     @Qualifier("groupDaoImplTest")
     @Autowired
-    private GroupDao groupDao;
+    private UserGroupDao groupDao;
 
     @Value("${mongo.test.db}")
     private String nameOfTestDb;

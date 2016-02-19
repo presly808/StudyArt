@@ -130,10 +130,10 @@ public class CodingBatTaskGrabber {
                     description = getDescription(infoTable);
                     examples = getExamples(infoTable, title);
 
-                    CodingBatTask codingBatTask = new CodingBatTask(codingBatId, title, description, examples, template, groupName);
+                    CodingBatTask codingBatTask = new CodingBatTask(title, description, examples, template, groupName);
 
                     codingBatTask.setMethodSignature(CodingBatTaskUtils.getMethodSignature(codingBatTask.getTemplate()));
-                    CodingBatTaskUtils.initTaskTestDataContainer(codingBatTask);
+                    CodingBatTaskUtils.initTaskTestDataContainer(codingBatTask,codingBatId);
 
                     taskCollection.add(codingBatTask);
                 }

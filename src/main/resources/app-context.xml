@@ -60,11 +60,11 @@
         <constructor-arg name="datastore" ref="datastore"/>
     </bean>
 
-    <bean id="groupDaoImpl" class="ua.artcode.dao.GroupDaoMongoImpl">
+    <bean id="groupDaoImpl" class="ua.artcode.dao.UserGroupDaoMongoImpl">
         <constructor-arg name="datastore" ref="datastore"/>
     </bean>
 
-    <bean id="groupDaoImplTest" class="ua.artcode.dao.GroupDaoMongoImpl">
+    <bean id="groupDaoImplTest" class="ua.artcode.dao.UserGroupDaoMongoImpl">
         <constructor-arg name="datastore" ref="testStore"/>
     </bean>
 

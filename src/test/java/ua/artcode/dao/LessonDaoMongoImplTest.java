@@ -1,6 +1,7 @@
 package ua.artcode.dao;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * Created by Razer on 15.02.16.
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
 public class LessonDaoMongoImplTest {

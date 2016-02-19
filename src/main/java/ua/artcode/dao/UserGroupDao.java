@@ -7,9 +7,9 @@ import ua.artcode.model.common.UserGroup;
 
 import java.util.List;
 
-public interface GroupDao {
+public interface UserGroupDao {
 
-    UserGroup findById(String name) throws NoSuchGroupException;
+    UserGroup findByName(String name) throws NoSuchGroupException;
 
     boolean delete(String name);
 

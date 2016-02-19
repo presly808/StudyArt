@@ -7,6 +7,7 @@ import java.util.List;
 
 // todo change global structure(add userCode for task)
 public class TaskTestResult {
+
     // will be ref in mongo db
     private String codingBatId;
 

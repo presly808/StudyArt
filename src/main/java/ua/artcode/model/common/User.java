@@ -8,27 +8,26 @@ import org.mongodb.morphia.annotations.Id;
 import ua.artcode.exception.AppException;
 import ua.artcode.model.codingbat.TaskTestResult;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
-//TODO create custom annotation for validate data
+
 @Entity
 public class User implements Comparable<User> {
 
     @Id
     private ObjectId id;
 
-    @NotEmpty
-    @Size(min=4,max=20,message = "error size")
-    private String userName;
 
-    @NotEmpty
-    @Min(value = 6 ,message = "error ")
+    @NotEmpty @Size(min=4,max=20,message = "error size")
+    private String name;
+
+
+    @NotEmpty @Size(min=6, max=25)
     private String password;
 
-    @NotEmpty
-    @Email(message = "error email")
+
+    @NotEmpty @Email(message = "error email")
     private String email;
 
     private UserType userType;
@@ -38,27 +37,26 @@ public class User implements Comparable<User> {
     public User() {
     }
 
-    public User(String userName, String password, String email) {
-        this.userName = userName;
+    public User(String name, String password, String email) {
+        this.name = name;
         this.password = password;
         this.email = email;
         this.userType = UserType.ROLE_USER;
     }
 
-    public User(String userName, String password, String email, UserType userType) {
-        this.userName = userName;
+    public User(String name, String password, String email, UserType userType) {
+        this.name = name;
         this.password = password;
         this.email = email;
         this.userType = userType;
     }
 
-
     public String getPassword() {
         return password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
     public ObjectId getId() {
@@ -73,8 +71,8 @@ public class User implements Comparable<User> {
         this.password = password;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
 

@@ -20,7 +20,7 @@
 <%--TODO add compile error--%>
 <form action="${pageContext.request.contextPath}/tasks-menu/check-task" method="post">
     <textarea rows="24" cols="80" name="userCode">${task.template}</textarea>
-    <input type="hidden" name="id" value="${task.codingBatId}">
+    <input type="hidden" name="title" value="${task.title}">
     <p><input type="submit" value="check"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>

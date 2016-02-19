@@ -66,4 +66,13 @@ public class Course {
     public void setLessonList(List<Lesson> lessonList) {
         this.lessonList = lessonList;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Course{");
+        sb.append("description='").append(description).append('\'');
+        sb.append(", lessonList=").append(lessonList);
+        sb.append('}');
+        return sb.toString();
+    }
 }

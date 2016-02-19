@@ -26,6 +26,15 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     @Override
+    public boolean isExist(String title) {
+        Course existCourse = datastore.find(Course.class).field("title").equal(title).get();
+        if (existCourse == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public Course addCourse(Course course) {
         datastore.save(course);
         return course;

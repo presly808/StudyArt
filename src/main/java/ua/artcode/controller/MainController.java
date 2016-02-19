@@ -1,5 +1,8 @@
 package ua.artcode.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ua.artcode.exception.AppException;
 import ua.artcode.model.common.User;
+import ua.artcode.model.common.UserType;
+import ua.artcode.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +33,13 @@ import java.io.IOException;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MessageSource messageSource;
+
 
     @RequestMapping(value = "/menu")
     public ModelAndView menu() {
@@ -43,7 +56,7 @@ public class MainController {
             model.addObject("username", userDetail.getUsername());
         }
 
-        model.setViewName("main/403");
+        model.setViewName("403");
         return model;
 
     }
@@ -57,33 +70,31 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/registration")
-    public ModelAndView registration(@Valid @ModelAttribute("user")User user, HttpServletRequest req, HttpServletResponse resp, BindingResult result) throws ServletException, IOException {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ModelAndView registration(@Valid @ModelAttribute("user") User user, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         if (result.hasErrors()) {
-            mav.setViewName("test2");
+            mav.setViewName("registration-form");
+            mav.addObject("message", result.getFieldErrors().toString());
+            //TODO validation error
         } else {
-            mav.setViewName("login");
+            try {
+                UserType userType = req.getParameter("role") != null ? UserType.ROLE_TEACHER : UserType.ROLE_USER;
+                user.setUserType(userType);
+                userService.register(user);
+                mav.addObject("message", messageSource.getMessage("label.registration.successful", null, LocaleContextHolder.getLocale()));
+                mav.setViewName("login");
+            } catch (AppException e) {
+                mav.addObject("message", e.getMessage());
+                mav.setViewName("registration-form");
+            }
         }
-//        String userName = req.getParameter("userName");
-//        String password = req.getParameter("password");
-//        String email = req.getParameter("email");
-//
-        //UserType userType = req.getParameter("role") != null ? UserType.ROLE_TEACHER : UserType.ROLE_USER;
-//        try {
-//            //userService.register(userName, password, email, userType);
-//            mav.setViewName("redirect:/index.jsp");
-//            //resp.sendRedirect("/index.jsp");
-//        } catch (AppException e) {
-//            req.setAttribute("error", e.getMessage());
-//            mav.setViewName("registration-form");
-//        }
         return mav;
     }
 
     @RequestMapping(value = "/registration-form")
     public ModelAndView registrationForm(Model model) {
-        model.addAttribute("user",new User());
+        model.addAttribute("user", new User());
         return new ModelAndView("/registration-form");
     }
 
@@ -93,22 +104,22 @@ public class MainController {
     }
 
     @RequestMapping(value = "/course-menu")
-    public ModelAndView courseMenu(){
+    public ModelAndView courseMenu() {
         return new ModelAndView("course-menu");
     }
 
     @RequestMapping(value = "/lesson-menu")
-    public ModelAndView lessonMenu(){
+    public ModelAndView lessonMenu(HttpServletRequest req, HttpServletResponse resp) {
         return new ModelAndView("lesson-menu");
     }
 
     @RequestMapping(value = "/group-menu")
-    public ModelAndView groupMenu(){
+    public ModelAndView groupMenu() {
         return new ModelAndView("group-menu");
     }
 
     @RequestMapping(value = "/user-menu")
-    public ModelAndView userMenu(){
+    public ModelAndView userMenu() {
         return new ModelAndView("user-menu");
     }
 }

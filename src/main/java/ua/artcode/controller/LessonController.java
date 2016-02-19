@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Lesson;
@@ -12,8 +13,9 @@ import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -39,17 +41,16 @@ public class LessonController {
         mav.setViewName("setup-tasks");
         String title = req.getParameter("lesson_title");
         String description = req.getParameter("lesson_description");
-        Lesson lesson= new Lesson(title, description);
         mav.addObject("title", title);
         mav.addObject("tasks",adminService.getAll());
-        teacherService.addLesson(lesson);
+        teacherService.addLesson(new Lesson(title,description));
         return mav;
     }
 
     @RequestMapping(value ="/add-task")
-    public ModelAndView addTask(HttpServletRequest req) throws AppException, NoSuchLessonException {ModelAndView mav = new ModelAndView("setup-tasks");
+    public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) throws AppException, NoSuchLessonException, ServletException, IOException {ModelAndView mav = new ModelAndView("setup-tasks");
         List<CodingBatTask> tasks = adminService.getAll();
-        Lesson lesson=teacherService.findByTitleLesson(req.getParameter("title"));
+        Lesson lesson=teacherService.findLessonByTitle(req.getParameter("title"));
         List<CodingBatTask> list=lesson.getTasks();
         for (CodingBatTask task : tasks) {
             if (req.getParameter(task.getTitle())!=null){
@@ -58,9 +59,8 @@ public class LessonController {
         }
         lesson.setTasks(list);
         teacherService.updateLesson(lesson);
-        mav.setViewName("lesson-menu");
-        mav.addObject("message", "The lesson has been successfully created.");
-
+        redirectAttributes.addFlashAttribute("message", "The lesson has been successfully created.");
+        mav.setViewName("redirect:/lesson-menu");
         return mav;
     }
 
@@ -74,7 +74,7 @@ public class LessonController {
     @RequestMapping(value = "/show-lesson/{title}")
     public ModelAndView showLesson(@PathVariable String title) throws NoSuchLessonException {
         ModelAndView mav=new ModelAndView("show-lesson");
-        Lesson lesson=teacherService.findByTitleLesson(title);
+        Lesson lesson=teacherService.findLessonByTitle(title);
         mav.addObject("lesson",lesson);
         mav.addObject("tasks",lesson.getTasks());
         return mav;

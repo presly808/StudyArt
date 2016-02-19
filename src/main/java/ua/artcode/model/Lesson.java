@@ -70,6 +70,14 @@ public class Lesson {
         this.tasks = tasks;
     }
 
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Lesson{");
+        sb.append("title='").append(title).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", tasks=").append(tasks);
+        sb.append('}');
+        return sb.toString();
+    }
 }
 

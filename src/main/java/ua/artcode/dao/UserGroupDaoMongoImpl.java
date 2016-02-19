@@ -8,19 +8,19 @@ import ua.artcode.model.common.UserGroup;
 import java.util.List;
 
 
-public class GroupDaoMongoImpl implements GroupDao {
+public class UserGroupDaoMongoImpl implements UserGroupDao {
 
     private Datastore datastore;
 
-    public GroupDaoMongoImpl() {
+    public UserGroupDaoMongoImpl() {
     }
 
-    public GroupDaoMongoImpl(Datastore datastore) {
+    public UserGroupDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
     }
 
     @Override
-    public UserGroup findById(String name) throws NoSuchGroupException {
+    public UserGroup findByName(String name) throws NoSuchGroupException {
        UserGroup group = datastore.find(UserGroup.class, "name", name).get();
         if (group == null) {
             throw new NoSuchGroupException("There is no group with name:" + name + " !");

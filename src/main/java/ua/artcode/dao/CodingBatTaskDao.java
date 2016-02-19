@@ -1,7 +1,6 @@
 package ua.artcode.dao;
 
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 
@@ -9,17 +8,17 @@ import java.util.List;
 
 public interface CodingBatTaskDao {
 
-    CodingBatTask findById(String id) throws NoSuchTaskException;
+    CodingBatTask findByTitle(String title) throws NoSuchTaskException;
 
-    boolean delete(String id);
+    boolean delete(String title);
 
     CodingBatTask update(String id, CodingBatTask updateTask) throws AppException;
 
     List<CodingBatTask> getAll() throws AppException;
 
-    CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException;
+    CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException;
 
-    boolean isExist(String id);
+    boolean isExist(String title);
 
     int size();
 

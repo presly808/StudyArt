@@ -10,7 +10,7 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
 
     @Id
     private ObjectId id;
-    private String codingBatId;
+    //private String codingBatId;
     private String groupName;
     private String title;
     private String description;
@@ -25,9 +25,8 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
     public CodingBatTask() {
     }
 
-    public CodingBatTask(String codingBatId, String title, String description,
+    public CodingBatTask(String title, String description,
                          String examples, String template, String groupName) {
-        this.codingBatId = codingBatId;
         this.title = title;
         this.description = description;
         this.examples = examples;
@@ -38,7 +37,6 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
     public CodingBatTask(ObjectId id, String codingBatId, String title,
                          String description, String examples, String template, String groupName) {
         this.id = id;
-        this.codingBatId = codingBatId;
         this.title = title;
         this.description = description;
         this.examples = examples;
@@ -54,14 +52,6 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
 
     public void setId(ObjectId id) {
         this.id = id;
-    }
-
-    public String getCodingBatId() {
-        return codingBatId;
-    }
-
-    public void setCodingBatId(String codingBatId) {
-        this.codingBatId = codingBatId;
     }
 
     public String getTitle() {
@@ -124,7 +114,6 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
     public String toString() {
         final StringBuilder sb = new StringBuilder("CodingBatTask{");
         sb.append("id='").append(id).append('\'');
-        sb.append(", codingBatId='").append(codingBatId).append('\'');
         sb.append(", groupName='").append(groupName).append('\'');
         sb.append(", title='").append(title).append('\'');
         sb.append(", description='").append(description).append('\'');

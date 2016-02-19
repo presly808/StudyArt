@@ -3,7 +3,6 @@ package ua.artcode.dao;
 import com.mongodb.DBCollection;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.validation.CodingBatTaskValidator;
@@ -28,19 +27,19 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask findById(String id) throws NoSuchTaskException {
-        CodingBatTask codingBatTask = datastore.find(CodingBatTask.class, "codingBatId", id).get();
+    public CodingBatTask findByTitle(String title) throws NoSuchTaskException {
+        CodingBatTask codingBatTask = datastore.find(CodingBatTask.class, "title", title).get();
         if (codingBatTask == null) {
-            throw new NoSuchTaskException("No task with id: " + id);
+            throw new NoSuchTaskException("No task with title: " + title);
         }
         return codingBatTask;
     }
 
     @Override
-    public boolean delete(String id) {
-        CodingBatTask codingBatTask = datastore.find(CodingBatTask.class).field("codingBatId").equal(id).get();
+    public boolean delete(String title) {
+        CodingBatTask codingBatTask = datastore.find(CodingBatTask.class).field("title").equal(title).get();
         if (codingBatTask != null) {
-            datastore.delete(CodingBatTask.class, codingBatTask.getId());
+            datastore.delete(CodingBatTask.class, codingBatTask.getTitle());
             return true;
         }
         return false;
@@ -52,10 +51,10 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask update(String id, CodingBatTask taskToAdd) throws AppException {
-        CodingBatTask codingBatTask = findById(id);
-        taskToAdd.setCodingBatId(codingBatTask.getCodingBatId());
-        delete(id);
+    public CodingBatTask update(String title, CodingBatTask taskToAdd) throws AppException {
+        CodingBatTask codingBatTask = findByTitle(title);
+        taskToAdd.setTitle(codingBatTask.getTitle());
+        delete(title);
         addTask(taskToAdd);
         return taskToAdd;
     }
@@ -66,8 +65,8 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public boolean isExist(String id) {
-        CodingBatTask existTask = datastore.find(CodingBatTask.class).field("codingBatId").equal(id).get();
+    public boolean isExist(String title) {
+        CodingBatTask existTask = datastore.find(CodingBatTask.class).field("title").equal(title).get();
         if (existTask == null) {
             return false;
         }
@@ -88,11 +87,15 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     }
 
     @Override
-    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException {
-        CodingBatTaskValidator validator = new CodingBatTaskValidator();
-        validator.validate(codingBatTask);
-        datastore.save(codingBatTask);
-        return codingBatTask;
-    }
+    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException {
+        if (!isExist(codingBatTask.getTitle())) {
+            CodingBatTaskValidator validator = new CodingBatTaskValidator();
+            validator.validate(codingBatTask);
+            datastore.save(codingBatTask);
+            return codingBatTask;
+        }else{
+            throw new AppException("Task with this title already exist");
+        }
 
+    }
 }

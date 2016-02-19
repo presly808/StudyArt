@@ -11,7 +11,7 @@
 <form action="registration" method="get">
     <table>
         <tr>
-            <td>Name:<input type="text" name="userName"/></td>
+            <td>Name:<input type="text" name="name"/></td>
         </tr>
         <tr>
             <td>Password: <input type="password" name="password"/></td>

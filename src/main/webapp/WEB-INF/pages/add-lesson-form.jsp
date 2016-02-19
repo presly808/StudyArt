@@ -23,7 +23,7 @@
 
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-    <p><input type="submit" value="Add task"></p>
+    <p><input type="submit" value="<spring:message code="label.create.course.add.lesson"/>"></p>
 
 </form>
 </body>

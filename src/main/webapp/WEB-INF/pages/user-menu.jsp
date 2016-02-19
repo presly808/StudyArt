@@ -6,9 +6,9 @@
 </head>
 <body>
 <menu>
-    <li><a href="user-menu/add-user"><spring:message code="label.group.menu.create"/></a></li>
-    <li><a href="user-menu/show-users"><spring:message code="label.group.menu.show"/></a></li>
-    <li><a href="user-menu/delete-user-form"><spring:message code="label.group.menu.delete"/></a></li>
+    <li><a href="user-menu/add-user"><spring:message code="label.user.menu.create"/></a></li>
+    <li><a href="user-menu/show-users"><spring:message code="label.user.menu.show.user"/></a></li>
+    <li><a href="user-menu/delete-user-form"><spring:message code="label.user.menu.delete"/></a></li>
 </menu>
 </body>
 </html>

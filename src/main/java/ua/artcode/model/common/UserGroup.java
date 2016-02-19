@@ -16,10 +16,17 @@ public class UserGroup {
 
     private String name;
 
+    private String description;
+
     @Reference
     private List<User> students=new ArrayList<>();
 
     public UserGroup() {
+    }
+
+    public UserGroup(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public UserGroup(String name, List<User> students) {
@@ -29,6 +36,14 @@ public class UserGroup {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setName(String name) {

@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.CourseDao;
-import ua.artcode.dao.GroupDao;
+import ua.artcode.dao.UserGroupDao;
 import ua.artcode.dao.LessonDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
+import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Course;
 import ua.artcode.model.common.UserGroup;
@@ -23,15 +24,17 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired()
     private CourseDao courseDao;
 
+    @Qualifier("lessonDaoImpl")
     @Autowired
     private LessonDao lessonDao;
 
+    @Qualifier("groupDaoImpl")
     @Autowired
-    private GroupDao groupDao;
+    private UserGroupDao userGroupDao;
 
 
     @Override
-    public void addLesson(Lesson lesson) {
+    public void addLesson(Lesson lesson) throws AppException {
         lessonDao.addLesson(lesson);
     }
 
@@ -41,7 +44,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void addTaskToLesson(String title, CodingBatTask codingBatTask) throws NoSuchLessonException {
+    public void addTaskToLesson(String title, CodingBatTask codingBatTask) throws NoSuchLessonException, AppException {
         lessonDao.addTask(title,codingBatTask);
     }
 
@@ -51,12 +54,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateLesson(Lesson lesson) throws NoSuchLessonException {
+    public void updateLesson(Lesson lesson) throws NoSuchLessonException, AppException {
         lessonDao.updateLesson(lesson);
     }
 
     @Override
-    public Lesson findByTitleLesson(String title) throws NoSuchLessonException {
+    public Lesson findLessonByTitle(String title) throws NoSuchLessonException {
         return lessonDao.findByTitle(title);
     }
 
@@ -64,7 +67,6 @@ public class TeacherServiceImpl implements TeacherService {
     public boolean deleteLesson(String title) throws NoSuchLessonException {
         return lessonDao.delete(title);
     }
-
 
 
     @Override
@@ -83,7 +85,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Course findByTitleCourse(String title) throws NoSuchCourseException {
+    public Course findCourseByTitle(String title) throws NoSuchCourseException {
         return courseDao.findByTitle(title);
     }
 
@@ -100,26 +102,31 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public UserGroup addGroup(UserGroup group){
-       return groupDao.addGroup(group);
+       return userGroupDao.addGroup(group);
     }
 
     @Override
     public boolean deleteGroup(String name) {
-        return groupDao.delete(name);
+        return userGroupDao.delete(name);
     }
 
     @Override
     public boolean isExistGroup(String name) {
-        return groupDao.isExist(name);
+        return userGroupDao.isExist(name);
     }
 
     @Override
     public int sizeOfGroup() {
-        return groupDao.size();
+        return userGroupDao.size();
     }
 
     @Override
-    public List<UserGroup> getAll() throws AppException {
-        return groupDao.getAll();
+    public UserGroup findUserGroupByName(String name) throws NoSuchGroupException {
+        return userGroupDao.findByName(name);
+    }
+
+    @Override
+    public List<UserGroup> getAllUsers() throws AppException {
+        return userGroupDao.getAll();
     }
 }

@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface AdminService {
 
-    CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException;
+    CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException;
 
-    CodingBatTask getTask(String id) throws NoSuchTaskException;
+    CodingBatTask getTask(String title) throws NoSuchTaskException;
 
     int size();
 
