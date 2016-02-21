@@ -16,6 +16,7 @@ import java.util.List;
  */
 
 public class UserDaoMongoImpl implements UserDao {
+
     private static final Logger LOG = Logger.getLogger(UserDaoMongoImpl.class);
 
     private Datastore datastore;
@@ -29,11 +30,10 @@ public class UserDaoMongoImpl implements UserDao {
 
     @Override
     public User addUser(User user) throws AppException {
-        UserValidator validator = new UserValidator();
-
-        validator.validate(user);
+        //UserValidator validator = new UserValidator();
+        //validator.validate(user);
         if (isExist(user.getEmail())) {
-            throw new UserAccountExistException("User with this email already exist.");
+            throw new UserAccountExistException("Failed registration");
         }
 
         user.setPassword(Security.toMd5(user.getPassword()));
@@ -75,12 +75,12 @@ public class UserDaoMongoImpl implements UserDao {
 
     @Override
     public List<User> getAllUser() {
-        return datastore.find(User.class).asList();
+        return datastore.find(User.class,"userType","ROLE_USER").asList();
     }
 
     @Override
-    public boolean isExist(String userEmail) {
-        User existUser = datastore.find(User.class).field("email").equal(userEmail).get();
+    public boolean isExist(String email) {
+        User existUser = datastore.find(User.class).field("email").equal(email).get();
         if (existUser == null) {
             return false;
         }

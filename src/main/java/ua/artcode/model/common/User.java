@@ -1,36 +1,33 @@
 package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import ua.artcode.exception.AppException;
 import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.validation.Email;
+import ua.artcode.validation.Password;
+import ua.artcode.validation.UserName;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
-//TODO create custom annotation for validate data
+
 @Entity
 public class User implements Comparable<User> {
 
     @Id
     private ObjectId id;
 
-    @NotEmpty
-    @Size(min=4,max=20,message = "error size")
-    private String userName;
+    @UserName
+    private String name;
 
-    @NotEmpty
-    @Min(value = 6 ,message = "error ")
+    @Password
     private String password;
 
-    @NotEmpty
-    @Email(message = "error email")
+    @Email
     private String email;
 
+    //@User_Type
     private UserType userType;
 
     private Map<String, TaskTestResult> solvedTaskContainer = new HashMap<>();
@@ -38,27 +35,26 @@ public class User implements Comparable<User> {
     public User() {
     }
 
-    public User(String userName, String password, String email) {
-        this.userName = userName;
+    public User(String name, String password, String email) {
+        this.name = name;
         this.password = password;
         this.email = email;
         this.userType = UserType.ROLE_USER;
     }
 
-    public User(String userName, String password, String email, UserType userType) {
-        this.userName = userName;
+    public User(String name, String password, String email, UserType userType) {
+        this.name = name;
         this.password = password;
         this.email = email;
         this.userType = userType;
     }
 
-
     public String getPassword() {
         return password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
     public ObjectId getId() {
@@ -73,8 +69,8 @@ public class User implements Comparable<User> {
         this.password = password;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
 

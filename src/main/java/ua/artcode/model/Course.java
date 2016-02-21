@@ -3,6 +3,7 @@ package ua.artcode.model;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Course {
 
     private String description;
 
+    @Reference
     private List<Lesson> lessonList=new ArrayList<>();
 
     public Course() {
@@ -63,5 +65,14 @@ public class Course {
 
     public void setLessonList(List<Lesson> lessonList) {
         this.lessonList = lessonList;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Course{");
+        sb.append("description='").append(description).append('\'');
+        sb.append(", lessonList=").append(lessonList);
+        sb.append('}');
+        return sb.toString();
     }
 }

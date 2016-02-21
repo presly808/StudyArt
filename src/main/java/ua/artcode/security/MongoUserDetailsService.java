@@ -46,7 +46,7 @@ public class MongoUserDetailsService implements UserDetailsService {
 
         List<GrantedAuthority> authList = new ArrayList<>();
         authList.add(new SimpleGrantedAuthority(user.getUserType().toString()));
-            userDetails = new org.springframework.security.core.userdetails.User(user.getUserName(),
+            userDetails = new org.springframework.security.core.userdetails.User(user.getName(),
                     user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
                     accountNonLocked, authList);
             return userDetails;

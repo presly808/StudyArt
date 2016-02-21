@@ -7,9 +7,9 @@
 </head>
 <body>
 <menu>
-    <li><a href="lesson-menu/add-lesson"><spring:message code="label.lesson.menu.create"/></a></li>
-    <li><a href="lesson-menu/show-lessons"><spring:message code="label.lesson.menu.show"/></a></li>
-    <li><a href="lesson-menu/delete-lesson-form"><spring:message code="label.lesson.menu.delete"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/lesson-menu/add-lesson"><spring:message code="label.lesson.menu.create"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/lesson-menu/show-lessons"><spring:message code="label.lesson.menu.show"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/lesson-menu/delete-lesson-form"><spring:message code="label.lesson.menu.delete"/></a></li>
 </menu>
 
 <br>

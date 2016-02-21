@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
@@ -63,7 +64,7 @@ public class TaskController {
         String testData = req.getParameter("data_points");
 
         try {
-            task = new CodingBatTask("p11111", title, description, examples, template, groupName);
+            task = new CodingBatTask("p11111", description, examples, template, groupName);
 
             new CodingBatTaskValidator().validateTemplate(task.getTemplate());
 
@@ -76,6 +77,8 @@ public class TaskController {
         } catch (AppValidationException e) {
             req.setAttribute("message", e.getExceptionMessageList());
             mav.setViewName("create-task");
+        } catch (AppException e) {
+            e.printStackTrace();
         }
         return mav;
     }
@@ -115,11 +118,11 @@ public class TaskController {
     @RequestMapping(value = "/check-task", method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView mav = new ModelAndView();
-        String id = req.getParameter("id");
+        String title = req.getParameter("title");
         TaskTestResult taskTestResult = null;
         List<ResultTablePart> resultTablePartList = null;
         try {
-            CodingBatTask task = adminService.getTask(id);
+            CodingBatTask task = adminService.getTask(title);
             taskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
             resultTablePartList = ResultTableUtils.getResultTableList(task,taskTestResult);
         } catch (NoSuchTaskException e) {

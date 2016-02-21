@@ -1,13 +1,6 @@
 package ua.artcode.script;
 
-import org.mongodb.morphia.Datastore;
-import org.springframework.context.ApplicationContext;
-import ua.artcode.dao.UserDao;
-import ua.artcode.dao.UserDaoMongoImpl;
 import ua.artcode.exception.AppException;
-import ua.artcode.model.common.User;
-import ua.artcode.model.common.UserType;
-import ua.artcode.utils.SpringContext;
 
 public class RunInitCodingBatTaskTrigger {
 
@@ -28,14 +21,14 @@ public class RunInitCodingBatTaskTrigger {
 //        CodingBatTask task = codingBatTaskDao.findById("p187868");
 //        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
 //        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
-//        InitCodingBatTaskTrigger.loadTasksIfNeeded();
-        //InitCodingBatTaskTrigger.loadTasksToDataBase();
+        //InitCodingBatTaskTrigger.loadTasksIfNeeded();
+//        InitCodingBatTaskTrigger.loadTasksToDataBase();
         // InitCodingBatTaskTrigger.createDumpOfDataBase();
         //InitCodingBatTaskTrigger.restoreDataBaseFromDump();
 
 //        UserDao userDao = new UserDaoMongoImpl(datastore);
-//        userDao.addUser(new User("Razer","000000","chernyshov.dev@gmail.com", UserType.ROLE_ADMIN));
-//        userDao.addUser(new User("Maxim","111111","obonemax@gmail.com", UserType.ROLE_ADMIN));
+//        userDao.addUser(new User("Razer","000000","chernyshov.dev@gmail.com", User_Type.ROLE_ADMIN));
+//        userDao.addUser(new User("Maxim","111111","obonemax@gmail.com", User_Type.ROLE_ADMIN));
 //        InitCodingBatTaskTrigger.createDumpOfDataBase();
 //        CodingBatTask codingBatTask = new CodingBatTask();
 //        codingBatTask.setCodingBatId("00000");

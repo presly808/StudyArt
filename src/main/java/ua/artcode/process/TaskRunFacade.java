@@ -68,7 +68,7 @@ public class TaskRunFacade {
             try {
                 MethodInvoker action = (MethodInvoker) cl.newInstance();
                 taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
-                taskTestResult.setCodingBatId(task.getCodingBatId());
+                //taskTestResult.setCodingBatId(task.getCodingBatId());
                 taskTestResult.setUserCode(userCode);
                 taskTestResult.setStatus(CodingBatTaskUtils.statusGenerator(taskTestResult.getResults()));
             } catch (InstantiationException | IllegalAccessException e) {

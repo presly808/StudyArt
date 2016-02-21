@@ -8,7 +8,7 @@
 </head>
 <body>
 <c:forEach var="group" items="${groupList}">
-    <li><a href="$c/tasks-menu/show-group/${group}"> <p>${group}</p> </a></li>
+    <li><a href="${pageContext.request.contextPath}/tasks-menu/show-group/${group}"> <p>${group}</p> </a></li>
 </c:forEach>
 </body>
 </html>

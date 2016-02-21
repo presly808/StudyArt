@@ -18,6 +18,8 @@ public interface CourseDao {
 
     int size();
 
+    boolean isExist(String title);
+
     List<Course> getAll();
 
     void updateCourse(Course course) throws  NoSuchCourseException;

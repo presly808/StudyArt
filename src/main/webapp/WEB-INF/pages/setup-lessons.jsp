@@ -7,7 +7,7 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/course-menu/add-lesson" method="post"
-
+<%--TODO check empty lessons--%>
 <c:forEach var="lesson" items="${lessons}">
     <div align="center">
         <p><input type="checkbox" name="${lesson.title}">${lesson.title}</p>

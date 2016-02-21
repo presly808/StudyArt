@@ -5,6 +5,7 @@ import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.codingbat.CodingBatTask;
@@ -72,6 +73,8 @@ public class InitCodingBatTaskTrigger {
             } catch (AppValidationException e) {
                 LOG.warn(e.getExceptionMessageList());
                 throw e;
+            } catch (AppException e) {
+                e.printStackTrace();
             }
         }
     }

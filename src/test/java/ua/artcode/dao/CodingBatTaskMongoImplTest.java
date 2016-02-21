@@ -47,7 +47,7 @@ public class CodingBatTaskMongoImplTest {
 
 
     @Before
-    public void initializeDB() throws InterruptedException, AppValidationException {
+    public void initializeDB() throws InterruptedException, AppException {
         try {
             Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
             //LOG.warn((getData(process.getInputStream())));
@@ -58,7 +58,7 @@ public class CodingBatTaskMongoImplTest {
         String value;
         for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
             value = Integer.toString(i);
-            CodingBatTask task = new CodingBatTask("p1000".concat(value), "Title-".concat(value), "Simple description-".concat(value),
+            CodingBatTask task = new CodingBatTask("p1000".concat(value), "Simple description-".concat(value),
                     "methodName(true, false) → false",
                     "public boolean $ome_Method(int arg".concat(value) + ", String arg".concat(value) + ", boolean arg".concat(value) + ") {}", "Group-".concat(value));
 
@@ -84,14 +84,14 @@ public class CodingBatTaskMongoImplTest {
     }
 
     @Test
-    public void findByIdTest() throws AppException {
-        CodingBatTask task = codingBatTaskDao.findById("p10009");
-        assertEquals(task.getCodingBatId(), "p10009");
+    public void findByTitleTest() throws AppException {
+        CodingBatTask task = codingBatTaskDao.findByTitle("p10009");
+        assertEquals(task.getTitle(), "p10009");
     }
 
     @Test(expected = NoSuchTaskException.class)
     public void findByIdExceptionTest() throws NoSuchTaskException {
-        codingBatTaskDao.findById(" ");
+        codingBatTaskDao.findByTitle(" ");
     }
 
     @Test
@@ -115,7 +115,7 @@ public class CodingBatTaskMongoImplTest {
 
     @Test
     public void getGroupTasksTest() throws NoSuchTaskException {
-        CodingBatTask task = codingBatTaskDao.findById("p100010");
+        CodingBatTask task = codingBatTaskDao.findByTitle("p100010");
         List<CodingBatTask> codingBatTaskList = codingBatTaskDao.getGroupTasks(task.getGroupName());
         assertEquals(codingBatTaskList.size(),1 );
     }
@@ -128,18 +128,18 @@ public class CodingBatTaskMongoImplTest {
 
     @Test
     public void updateTest() throws AppException {
-        CodingBatTask newTask = codingBatTaskDao.findById("p100025");
-        CodingBatTask taskToUpdate = codingBatTaskDao.findById("p100017");
+        CodingBatTask newTask = codingBatTaskDao.findByTitle("p100025");
+        CodingBatTask taskToUpdate = codingBatTaskDao.findByTitle("p100017");
         codingBatTaskDao.update("p100017", newTask);
-        assertEquals(taskToUpdate.getCodingBatId(), codingBatTaskDao.findById("p100017").getCodingBatId());
-        taskToUpdate.setCodingBatId("p1000".concat(String.valueOf(AMOUNT_OF_ELEMENTS + 1)));
+        assertEquals(taskToUpdate.getTitle(), codingBatTaskDao.findByTitle("p100017").getTitle());
+        taskToUpdate.setTitle("p1000".concat(String.valueOf(AMOUNT_OF_ELEMENTS + 1)));
         codingBatTaskDao.addTask(taskToUpdate);
     }
 
     @Test
     public void removeTest() throws AppException {
-        CodingBatTask task = codingBatTaskDao.findById("p10005");
-        task.setCodingBatId("p666666");
+        CodingBatTask task = codingBatTaskDao.findByTitle("p10005");
+        task.setTitle("p666666");
         codingBatTaskDao.addTask(task);
         int sizeBeforeRemove = codingBatTaskDao.size();
         codingBatTaskDao.delete("p666666");

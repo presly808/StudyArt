@@ -64,11 +64,11 @@ public class CodingBatTaskValidator implements Validator<CodingBatTask> {
     @Override
     public boolean validate(CodingBatTask entity) throws AppValidationException {
         AppValidationException exceptionMessageContainer = new AppValidationException();
-        if (!isValidateCodingBatId(entity.getCodingBatId())) {
-            exceptionMessageContainer.addMessage(String.format("codingBatId %s is invalid, recommendation %s",
-                    entity.getCodingBatId(), "codingBatId must start with the letter \"p\" and contains digits\n" +
-                            "length at least 2 characters and maximum of 10"));
-        }
+//        if (!isValidateCodingBatId(entity.getCodingBatId())) {
+//            exceptionMessageContainer.addMessage(String.format("codingBatId %s is invalid, recommendation %s",
+//                    entity.getCodingBatId(), "codingBatId must start with the letter \"p\" and contains digits\n" +
+//                            "length at least 2 characters and maximum of 10"));
+//        }
         if (!isValidateGroupName(entity.getGroupName())) {
             exceptionMessageContainer.addMessage(String.format("groupName %s is invalid, recommendation %s",
                     entity.getGroupName(), "can contains letters from a-zA-z\n" +

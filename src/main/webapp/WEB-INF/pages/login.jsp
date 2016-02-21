@@ -19,7 +19,7 @@
     <a href="?lang=ua">ua</a>
 </span>
 
-<br> </br>
+<br>
     <form name='loginForm'
           action="j_spring_security_check" method='POST'>
         <spring:message code="label.user.email"/>:<p><input  type='text' name="username"></p>
@@ -30,9 +30,10 @@
     </form>
     <%--registration-form--%>
     <a href="registration-form"><spring:message code="label.registration"/></a>
-
-    <c:if test="${not empty error}" >
-        <div class="error" style="color: red">${error}</div>
+    <br>
+    <br>
+    <c:if test="${not empty message}" >
+        <div class="error" style="color: red">${message}</div>
     </c:if>
 </div>
 </body>

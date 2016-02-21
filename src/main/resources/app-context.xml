@@ -52,16 +52,28 @@
         <constructor-arg name="datastore" ref="datastore"/>
     </bean>
 
-    <bean id="courseDaoTestImpl" class="ua.artcode.dao.CourseDaoImpl">
+    <bean id="courseDaoTestImpl" class="ua.artcode.dao.CourseDaoMongoImpl">
         <constructor-arg name="datastore" ref="testStore"/>
     </bean>
 
-    <bean id="courseDaoImpl" class="ua.artcode.dao.CourseDaoImpl">
+    <bean id="courseDaoImpl" class="ua.artcode.dao.CourseDaoMongoImpl">
         <constructor-arg name="datastore" ref="datastore"/>
     </bean>
 
-    <bean id="lessonDao" class="ua.artcode.dao.LessonDaoImpl">
+    <bean id="groupDaoImpl" class="ua.artcode.dao.UserGroupDaoMongoImpl">
         <constructor-arg name="datastore" ref="datastore"/>
+    </bean>
+
+    <bean id="groupDaoImplTest" class="ua.artcode.dao.UserGroupDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <bean id="lessonDaoImpl" class="ua.artcode.dao.LessonDaoMongoImpl">
+        <constructor-arg name="datastore" ref="datastore"/>
+    </bean>
+
+    <bean id="lessonDaoImplTest" class="ua.artcode.dao.LessonDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
     </bean>
 
     <bean id="mongoClient" class="com.mongodb.MongoClient">

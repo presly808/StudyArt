@@ -9,7 +9,7 @@
 
 <c:forEach var="task" items="${taskList}">
     <div align="center">
-    <li><a href="${pageContext.request.contextPath}/tasks-menu/do-task/${task.codingBatId}"> <p>${task.title}</p> </a></li>
+    <li><a href="${pageContext.request.contextPath}/tasks-menu/do-task/${task.title}"> <p>${task.title}</p> </a></li>
     </div>
 </c:forEach>
 

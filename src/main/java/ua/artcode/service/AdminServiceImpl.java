@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ua.artcode.dao.CodingBatTaskDao;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 
@@ -38,7 +37,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppValidationException {
+    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException {
         return codingBatTaskDao.addTask(codingBatTask);
     }
 
@@ -48,8 +47,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public CodingBatTask getTask(String id) throws NoSuchTaskException {
-        return codingBatTaskDao.findById(id);
+    public CodingBatTask getTask(String title) throws NoSuchTaskException {
+        return codingBatTaskDao.findByTitle(title);
     }
 
     @Override
@@ -66,10 +65,6 @@ public class AdminServiceImpl implements AdminService {
     public List<CodingBatTask> getGroupTasks(String group) {
         return codingBatTaskDao.getGroupTasks(group);
     }
-
-    //teacher add group
-    //teacher add task to group
-    //teacher show statick
 
     @Override
     public List<String> getGroup() {

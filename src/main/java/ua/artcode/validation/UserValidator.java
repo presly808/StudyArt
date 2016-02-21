@@ -30,9 +30,9 @@ public class UserValidator implements Validator<User> {
 
         AppValidationException exceptionMessageContainer = new AppValidationException();
 
-        if (!isValidUserName(entity.getUserName())) {
+        if (!isValidUserName(entity.getName())) {
             exceptionMessageContainer.addMessage(String.format("userName %s is invalid, recommendation %s",
-                    entity.getUserName(), "can contains letters from a-z\n" +
+                    entity.getName(), "can contains letters from a-z\n" +
                             "can contains digits from 0-9\n" +
                             "can contains special symbols \"_ . -\"\n" +
                             "length at least 4 characters and maximum of 20\te"
@@ -49,7 +49,7 @@ public class UserValidator implements Validator<User> {
 
         if (!isValidEmail(entity.getEmail())) {
             exceptionMessageContainer.addMessage(String.format("email %s is invalid, recommendation %s",
-                    entity.getUserName(), "example of valid email  something@mail.ua"));
+                    entity.getName(), "example of valid email  something@mail.ua"));
         }
 
         if (!exceptionMessageContainer.getExceptionMessageList().isEmpty()) {
@@ -60,8 +60,8 @@ public class UserValidator implements Validator<User> {
         return true;
     }
 
-    private boolean isValidUserName(String userName) {
-        return namePattern.matcher(userName.toLowerCase()).matches();
+    private boolean isValidUserName(String name) {
+        return namePattern.matcher(name.toLowerCase()).matches();
     }
 
     private boolean isValidPassword(String password) {

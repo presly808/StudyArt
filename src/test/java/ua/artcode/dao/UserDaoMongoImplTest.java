@@ -25,9 +25,9 @@ import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
-public class UserMongoImplTest {
+public class UserDaoMongoImplTest {
 
-    private static final Logger LOG = Logger.getLogger(UserMongoImplTest.class);
+    private static final Logger LOG = Logger.getLogger(UserDaoMongoImplTest.class);
 
     @Autowired
     @Qualifier("userDaoMongoTestImpl")

@@ -24,6 +24,17 @@
     <li><a href="course-menu"><spring:message code="label.course"/></a></li>
     </security:authorize>
 
+    <security:authorize
+            access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+        <li><a href="group-menu"><spring:message code="label.group"/></a></li>
+    </security:authorize>
+
+    <security:authorize
+            access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+        <li><a href="user-menu"><spring:message code="label.user"/></a></li>
+    </security:authorize>
+
+
 </menu>
 </body>
 </html>

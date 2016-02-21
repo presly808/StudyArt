@@ -9,20 +9,29 @@ import java.util.List;
 /**
  * Created by Razer on 02.02.16.
  */
-public class CourseDaoImpl implements CourseDao {
+public class CourseDaoMongoImpl implements CourseDao {
 
     private Datastore datastore;
 
-    public CourseDaoImpl() {
+    public CourseDaoMongoImpl() {
     }
 
-    public CourseDaoImpl(Datastore datastore) {
+    public CourseDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
     }
 
     @Override
     public int size() {
         return (int) datastore.getDB().getCollection("Course").count();
+    }
+
+    @Override
+    public boolean isExist(String title) {
+        Course existCourse = datastore.find(Course.class).field("title").equal(title).get();
+        if (existCourse == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
