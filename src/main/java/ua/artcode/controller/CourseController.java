@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.Course;
 import ua.artcode.model.Lesson;
@@ -30,24 +31,18 @@ public class CourseController {
     public ModelAndView addCourse() {
         return new ModelAndView("create-course-form");
     }
-    //    @RequestMapping(value = "/create-course",method = RequestMethod.POST)
-//    public ModelAndView createCourse(HttpServletRequest req, ModelAndView mav) {
-//        //ModelAndView mav = new ModelAndView("setup-lessons");
-//        mav.setViewName("setup-lessons");
-//        String title = req.getParameter("course_title");
-//        String description = req.getParameter("course_description");
-//        Course course = new Course(title, description);
-//        mav.addObject("title", title);
-//        mav.addObject("lessons",teacherService.getAllLessons());
-//        teacherService.addCourse(course);
-//        return mav;
-//    }
+
+    //TODO exception
     @RequestMapping(value = "/create-course", method = RequestMethod.POST)
     public ModelAndView createCourse(HttpServletRequest req, ModelAndView mav) {
         String title = req.getParameter("course_title");
         String description = req.getParameter("course_description");
         Course course = new Course(title, description);
-        teacherService.addCourse(course);
+        try {
+            teacherService.addCourse(course);
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
         List lessonsList = teacherService.getAllLessons();
 
         if (lessonsList.size() > 0) {
@@ -72,7 +67,11 @@ public class CourseController {
             }
         }
         course.setLessonList(list);
-        teacherService.updateCourse(course);
+        try {
+            teacherService.updateCourse(course);
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
         redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
         mav.setViewName("redirect:/course-menu");
         return mav;
@@ -96,23 +95,21 @@ public class CourseController {
 
     @RequestMapping(value = "/delete-course")
     public ModelAndView deleteLessonForm() {
-        return new ModelAndView("delete-course");
+        return new ModelAndView("delete-course-form");
     }
 
     @RequestMapping(value = "/delete")
-    public ModelAndView deleteCourse(HttpServletRequest req) {
+    public ModelAndView deleteCourse(HttpServletRequest req,RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String courseTitle = req.getParameter("courseTitle");
         try {
             teacherService.deleteCourse(courseTitle);
-            mav.addObject("message", "The course has been successfully deleted.");
-            mav.setViewName("course-menu");
+            redirectAttributes.addFlashAttribute("message", "The course has been successfully deleted.");
+            mav.setViewName("redirect:/course-menu");
         } catch (NoSuchCourseException e) {
             mav.addObject("message", "There is no course with title: " + courseTitle);
             mav.setViewName("delete-course");
         }
         return mav;
     }
-
-
 }

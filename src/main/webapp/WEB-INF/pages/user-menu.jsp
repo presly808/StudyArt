@@ -1,14 +1,21 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="include.jsp" %>
+
 <html>
 <head>
-    <title><spring:message code="label.title.group"/></title>
+    <title><spring:message code="label.title.user.menu"/></title>
 </head>
 <body>
 <menu>
-    <li><a href="user-menu/add-user"><spring:message code="label.user.menu.create"/></a></li>
-    <li><a href="user-menu/show-users"><spring:message code="label.user.menu.show.user"/></a></li>
-    <li><a href="user-menu/delete-user-form"><spring:message code="label.user.menu.delete"/></a></li>
+    <li><a href="user-menu/add-admin"><spring:message code="label.user.menu.create"/></a></li>
+    <li><a href="user-menu/show-users"><spring:message code="label.user.menu.show.users"/></a></li>
+    <li><a href="user-menu/delete-user"><spring:message code="label.user.menu.delete"/></a></li>
 </menu>
+<br>
+
+    <c:set var="msg" value="${message}"/>
+    <c:if test="${msg != null}">
+    <p style="color:blue"><c:out value="${msg}"/><p>
+    </c:if>
+
 </body>
 </html>

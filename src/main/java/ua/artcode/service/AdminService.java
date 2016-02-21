@@ -1,7 +1,6 @@
 package ua.artcode.service;
 
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.CodingBatTask;
 
@@ -20,11 +19,11 @@ public interface AdminService {
 
     List<CodingBatTask> getAll() throws AppException;
 
-    boolean delete(String id);
+    boolean delete(String title);
 
     CodingBatTask update(String id, CodingBatTask updateTask);
 
     List<CodingBatTask> getGroupTasks(String group);
 
-    List<String> getGroup();
+    List<String> getGroups();
 }

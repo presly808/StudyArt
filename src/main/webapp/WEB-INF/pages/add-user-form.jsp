@@ -1,21 +1,20 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@include file="include.jsp"%>
+
 <html>
 <head>
     <title><spring:message code="label.title.do.task"/></title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/tasks-menu/delete" method="post">
+<form action="${pageContext.request.contextPath}/group-menu/add-users" method="post">
     <spring:message code="label.task.menu.delete.id"/>:<p><input name="taskId"></p>
     <p><input type="submit" value="<spring:message code="label.send"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
-  <c:set var="msg" value="${message}"/>
+<c:set var="msg" value="${message}"/>
 <c:if test="${msg != null}">
-  <p style="color:red"><c:out value="${msg}"/><p>
-</c:if>
+<p style="color:red"><c:out value="${msg}"/><p>
+    </c:if>
 
 </body>
 </html>

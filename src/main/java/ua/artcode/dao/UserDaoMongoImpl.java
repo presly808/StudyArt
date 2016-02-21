@@ -30,18 +30,15 @@ public class UserDaoMongoImpl implements UserDao {
 
     @Override
     public User addUser(User user) throws AppException {
-        UserValidator validator = new UserValidator();
-
-        validator.validate(user);
-        if (isExist(user.getEmail())) {
-            throw new UserAccountExistException("Failed registration");
+        if (!isExist(user.getEmail())) {
+            UserValidator validator = new UserValidator();
+            validator.validate(user);
+            user.setPassword(Security.toMd5(user.getPassword()));
+            datastore.save(user);
+            LOG.info("User with email: " + user.getEmail() + " was added to data base.");
+            return user;
         }
-
-        user.setPassword(Security.toMd5(user.getPassword()));
-
-        datastore.save(user);
-        LOG.info("User with email: " + user.getEmail() + " was added to data base.");
-        return user;
+        throw new UserAccountExistException("Failed registration");
     }
 
     @Override
@@ -76,7 +73,7 @@ public class UserDaoMongoImpl implements UserDao {
 
     @Override
     public List<User> getAllUser() {
-        return datastore.find(User.class,"userType","ROLE_USER").asList();
+        return datastore.find(User.class, "userType", "ROLE_USER").asList();
     }
 
     @Override

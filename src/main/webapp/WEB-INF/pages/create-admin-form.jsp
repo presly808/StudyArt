@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title><spring:message code="label.title.registration.form"/></title>
+    <title><spring:message code="label.title.add.admin"/></title>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
         <spring:message code="label.user.name"/>:<p><input name="name"></p>
         <spring:message code="label.user.email"/>:<p><input name="email"></p>
         <spring:message code="label.user.password"/>:<p><input type="password" name="password"></p>
-        <p><input type="checkbox" name="role" value="teacher"> <spring:message code="label.teacher"/></p>
+        <input type="hidden" name="role" value="ROLE_ADMIN" input/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <p><input type="submit" value="<spring:message code="label.registration"/>"></p>
     </form>

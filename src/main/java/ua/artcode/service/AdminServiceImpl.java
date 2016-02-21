@@ -32,8 +32,8 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public boolean delete(String id) {
-        return codingBatTaskDao.delete(id);
+    public boolean delete(String title) {
+        return codingBatTaskDao.delete(title);
     }
 
     @Override
@@ -56,6 +56,7 @@ public class AdminServiceImpl implements AdminService {
         return codingBatTaskDao.size();
     }
 
+    //TODO update
     @Override
     public CodingBatTask update(String id, CodingBatTask updateTask) {
         return null;
@@ -67,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<String> getGroup() {
+    public List<String> getGroups() {
         return codingBatTaskDao.getGroups();
     }
 }

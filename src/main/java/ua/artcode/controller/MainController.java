@@ -99,7 +99,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/task-menu")
-    public ModelAndView tasksMenu() {
+    public ModelAndView taskMenu() {
         return new ModelAndView("task-menu");
     }
 
@@ -109,7 +109,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/lesson-menu")
-    public ModelAndView lessonMenu(HttpServletRequest req, HttpServletResponse resp) {
+    public ModelAndView lessonMenu() {
         return new ModelAndView("lesson-menu");
     }
 

@@ -11,6 +11,7 @@ import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Course;
+import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.Lesson;
 import ua.artcode.model.codingbat.CodingBatTask;
@@ -33,6 +34,7 @@ public class TeacherServiceImpl implements TeacherService {
     private UserGroupDao userGroupDao;
 
 
+    //Lesson methods
     @Override
     public void addLesson(Lesson lesson) throws AppException {
         lessonDao.addLesson(lesson);
@@ -69,8 +71,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
 
+    //Course methods
     @Override
-    public Course addCourse(Course course) {
+    public Course addCourse(Course course) throws AppException {
        return courseDao.addCourse(course);
     }
 
@@ -95,18 +98,19 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateCourse(Course course) throws NoSuchCourseException {
+    public void updateCourse(Course course) throws NoSuchCourseException, AppException {
         courseDao.updateCourse(course);
     }
 
 
+    //Group methods
     @Override
-    public UserGroup addGroup(UserGroup group){
+    public UserGroup addGroup(UserGroup group) throws AppException {
        return userGroupDao.addGroup(group);
     }
 
     @Override
-    public boolean deleteGroup(String name) {
+    public boolean deleteGroup(String name) throws NoSuchGroupException {
         return userGroupDao.delete(name);
     }
 
@@ -126,7 +130,18 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<UserGroup> getAllUsers() throws AppException {
-        return userGroupDao.getAll();
+    public void addUserToGroup(String name, User user) throws AppException, NoSuchGroupException {
+        userGroupDao.addUserToGroup(name,user);
     }
+
+    @Override
+    public void updateGroup(UserGroup userGroup) throws AppException, NoSuchGroupException {
+        userGroupDao.updateGroup(userGroup);
+    }
+
+    @Override
+    public List<UserGroup> getAllGroups() throws AppException {
+        return userGroupDao.getAllGroups();
+    }
+
 }

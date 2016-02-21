@@ -24,10 +24,8 @@ public class LessonDaoMongoImpl implements LessonDao {
         if (!isExist(lesson.getTitle())) {
             datastore.save(lesson);
             return lesson;
-        } else {
-            throw new AppException("Lesson already exist");
         }
-
+        throw new AppException("Lesson already exist");
     }
 
     @Override

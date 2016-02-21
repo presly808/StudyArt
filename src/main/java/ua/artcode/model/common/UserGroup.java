@@ -24,14 +24,22 @@ public class UserGroup {
     public UserGroup() {
     }
 
+    public UserGroup(String name, List<User> students) {
+        this.name = name;
+        this.students = students;
+    }
+
     public UserGroup(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public UserGroup(String name, List<User> students) {
-        this.name = name;
-        this.students = students;
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,7 +62,4 @@ public class UserGroup {
         return students;
     }
 
-    public void setStudents(List<User> students) {
-        this.students = students;
-    }
 }

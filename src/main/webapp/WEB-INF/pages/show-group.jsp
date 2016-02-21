@@ -6,13 +6,13 @@
 </head>
 <body>
 
-<h1>${lesson.title}</h1>
-<p>${lesson.description}</p>
+<h1>${group.name}</h1>
+<p>${group.description}</p>
 <br>
 
-<c:forEach var="task" items="${tasks}">
+<c:forEach var="user" items="${users}">
     <div align="center">
-         <p>${task.title}</p>
+        <p>${user.name}</p>
     </div>
 </c:forEach>
 

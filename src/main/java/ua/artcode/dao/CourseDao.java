@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.Course;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface CourseDao {
 
-    Course addCourse(Course course);
+    Course addCourse(Course course) throws AppException;
 
     boolean delete(String title) throws NoSuchCourseException;
 
@@ -22,6 +23,6 @@ public interface CourseDao {
 
     List<Course> getAll();
 
-    void updateCourse(Course course) throws  NoSuchCourseException;
+    void updateCourse(Course course) throws NoSuchCourseException, AppException;
 
 }

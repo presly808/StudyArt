@@ -93,9 +93,8 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
             validator.validate(codingBatTask);
             datastore.save(codingBatTask);
             return codingBatTask;
-        }else{
-            throw new AppException("Task with this title already exist");
         }
-
+        throw new AppException("Task with this title already exist");
     }
+
 }

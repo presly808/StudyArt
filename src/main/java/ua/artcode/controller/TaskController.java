@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
@@ -14,7 +15,6 @@ import ua.artcode.model.codingbat.CodingBatTask;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
-import ua.artcode.service.UserServiceImpl;
 import ua.artcode.to.ResultTablePart;
 import ua.artcode.to.ResultTableUtils;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
@@ -22,7 +22,6 @@ import ua.artcode.validation.CodingBatTaskValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,11 +29,8 @@ import java.util.List;
  * Created by Razer on 07.02.16.
  */
 @Controller
-@RequestMapping(value = "/tasks-menu")
+@RequestMapping(value = "/task-menu")
 public class TaskController {
-
-    @Autowired
-    private UserServiceImpl userService;
 
     @Autowired
     private AdminService adminService;
@@ -49,11 +45,11 @@ public class TaskController {
 
     @RequestMapping(value = "/add-task")
     public String addTask() {
-        return "create-task";
+        return "create-task-form";
     }
 
     @RequestMapping(value = "/create-task", method = RequestMethod.POST)
-    public ModelAndView createTask(HttpServletRequest req, HttpServletResponse resp) {
+    public ModelAndView createTask(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         CodingBatTask task;
         String title = req.getParameter("task_name");
@@ -102,7 +98,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
-    public ModelAndView doTasksPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public ModelAndView doTasksPost(HttpServletRequest req) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView();
         try {
             CodingBatTask task = adminService.getTask(req.getParameter("taskId"));
@@ -116,7 +112,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/check-task", method = RequestMethod.POST)
-    public ModelAndView checkTask(HttpServletRequest req, HttpServletResponse resp) {
+    public ModelAndView checkTask(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         String title = req.getParameter("title");
         TaskTestResult taskTestResult = null;
@@ -143,35 +139,36 @@ public class TaskController {
 
     @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
-        return new ModelAndView("delete-form");
+        return new ModelAndView("delete-task-form");
     }
 
     @RequestMapping(value = "/delete")
-    public ModelAndView deleteTask(HttpServletRequest reg, HttpServletResponse resp) {
+    public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String taskId = reg.getParameter("taskId");
         if (adminService.delete(taskId)) {
-            mav.setViewName("menu");
-            mav.addObject("message", "The task has been successfully removed.");
+            redirectAttributes.addFlashAttribute("message", "The task has been successfully removed.");
+            mav.setViewName("redirect:/menu");
             return mav;
         } else {
             mav.setViewName("/delete-form");
             mav.addObject("message", "The task has been not removed. There is no task with Id: " + taskId);
-            return mav;
         }
+        return mav;
     }
 
     @RequestMapping(value = "/groups")
-    public ModelAndView getAllGroup(HttpServletRequest reg, HttpServletResponse resp) {
+    public ModelAndView getAllGroup() {
         ModelAndView mav = new ModelAndView("group-list");
-        mav.addObject("groupList", adminService.getGroup());
+        mav.addObject("groupList", adminService.getGroups());
         return mav;
     }
 
     @RequestMapping(value = "/show-group/{groupName}")
-    public ModelAndView showGroup(@PathVariable String groupName, HttpServletRequest reg, HttpServletResponse resp) {
-        ModelAndView mav = new ModelAndView("task-list");
+    public ModelAndView showGroup(@PathVariable String groupName) {
+        ModelAndView mav = new ModelAndView("list-tasks");
         mav.addObject("taskList", adminService.getGroupTasks(groupName));
         return mav;
     }
+
 }

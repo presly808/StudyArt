@@ -19,8 +19,10 @@ public interface UserService {
 
     User getUserInfo(String username);
 
-    List<User> getAllUser();
+    List<User> getAllUsers();
 
-    User getUser(String email) throws NoSuchUserException;
+    User findUser(String email) throws NoSuchUserException;
+
+    boolean delete(String email) throws NoSuchUserException;
 
 }

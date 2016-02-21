@@ -1,6 +1,7 @@
 package ua.artcode.dao;
 
 import org.mongodb.morphia.Datastore;
+import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.Course;
 
@@ -35,14 +36,17 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     @Override
-    public Course addCourse(Course course) {
-        datastore.save(course);
-        return course;
+    public Course addCourse(Course course) throws AppException {
+        if (!isExist(course.getTitle())) {
+            datastore.save(course);
+            return course;
+        }
+        throw new AppException("Task with this title already exist");
     }
 
     @Override
     public List<Course> getAll() {
-       return datastore.find(Course.class).asList();
+        return datastore.find(Course.class).asList();
     }
 
     @Override
@@ -51,12 +55,12 @@ public class CourseDaoMongoImpl implements CourseDao {
         if (course != null) {
             datastore.delete(Course.class, course.getId());
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     @Override
-    public void updateCourse(Course course) throws NoSuchCourseException {
+    public void updateCourse(Course course) throws NoSuchCourseException, AppException {
         delete(course.getTitle());
         addCourse(course);
     }

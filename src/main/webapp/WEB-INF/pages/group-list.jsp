@@ -1,6 +1,4 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="include.jsp"%>
 
 <html>
 <head>
@@ -8,7 +6,7 @@
 </head>
 <body>
 <c:forEach var="group" items="${groupList}">
-    <li><a href="${pageContext.request.contextPath}/tasks-menu/show-group/${group}"> <p>${group}</p> </a></li>
+    <li><a href="${pageContext.request.contextPath}/task-menu/show-group/${group}"> <p>${group}</p> </a></li>
 </c:forEach>
 </body>
 </html>

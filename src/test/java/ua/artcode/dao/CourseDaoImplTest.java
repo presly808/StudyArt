@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ua.artcode.exception.AppException;
 import ua.artcode.model.Course;
 import ua.artcode.model.Lesson;
 
@@ -44,7 +45,7 @@ public class CourseDaoImplTest {
     private CourseDao courseDao;
 
     @Before
-    public void initializeDb() throws InterruptedException {
+    public void initializeDb() throws InterruptedException, AppException {
         try {
             Process process = Runtime.getRuntime().exec("mongod --dbpath /Users/johnsmith/Mongodb/data/db");
             //LOG.warn((getData(process.getInputStream())));
@@ -68,7 +69,7 @@ public class CourseDaoImplTest {
     }
 
     @Test
-    public void addCourseTest() {
+    public void addCourseTest() throws AppException {
         List<Lesson> lessons = createLessons();
         Course course = new Course("name", lessons);
         courseDao.addCourse(course);

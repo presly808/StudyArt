@@ -86,13 +86,13 @@ public class LessonController {
     }
 
     @RequestMapping(value ="/delete")
-    public ModelAndView deleteLesson(HttpServletRequest req) {
+    public ModelAndView deleteLesson(HttpServletRequest req,RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String lessonTitle = req.getParameter("lessonTitle");
         try {
             teacherService.deleteLesson(lessonTitle);
-            mav.addObject("message", "The lesson has been successfully deleted.");
-            mav.setViewName("lesson-menu");
+            redirectAttributes.addFlashAttribute("message", "The lesson has been successfully deleted.");
+            mav.setViewName("redirect:/lesson-menu");
         } catch (NoSuchLessonException e) {
             mav.addObject("message", "There is no lesson with title: " + lessonTitle);
             mav.setViewName("delete-lesson-form");

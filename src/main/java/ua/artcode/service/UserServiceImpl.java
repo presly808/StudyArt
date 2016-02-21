@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User getUser(String email) throws NoSuchUserException {
+    public User findUser(String email) throws NoSuchUserException {
        return userDao.findByUserEmail(email);
     }
 
@@ -59,12 +59,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean delete(String email) throws NoSuchUserException {
+       return userDao.delete(email);
+    }
+
+    @Override
     public User register(User user) throws AppException {
         return userDao.addUser(user);
     }
 
     @Override
-    public List<User> getAllUser() {
+    public List<User> getAllUsers() {
         return userDao.getAllUser();
     }
 }

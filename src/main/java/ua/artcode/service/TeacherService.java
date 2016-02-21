@@ -5,6 +5,7 @@ import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Course;
+import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.Lesson;
 import ua.artcode.model.codingbat.CodingBatTask;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public interface TeacherService {
 
+    //Lesson methods
     void addLesson(Lesson lesson) throws AppException;
 
     List<Lesson> getAllLessons();
@@ -30,25 +32,29 @@ public interface TeacherService {
 
     int sizeOfLesson();
 
-
-    Course addCourse(Course course);
+    //Course methods
+    Course addCourse(Course course) throws AppException;
 
     boolean deleteCourse(String title) throws NoSuchCourseException;
 
     List<Course> getAllCourses();
 
-    void updateCourse(Course course) throws NoSuchCourseException;
+    void updateCourse(Course course) throws NoSuchCourseException, AppException;
 
     Course findCourseByTitle(String title) throws NoSuchCourseException;
 
     int sizeOfCourse();
 
+    //Group methods
+    UserGroup addGroup(UserGroup group) throws AppException;
 
-    UserGroup addGroup(UserGroup group);
+    boolean deleteGroup(String name) throws NoSuchGroupException;
 
-    boolean deleteGroup(String name);
+    void addUserToGroup(String name, User user) throws AppException, NoSuchGroupException;
 
-    List<UserGroup> getAllUsers() throws AppException;
+    void updateGroup(UserGroup userGroup) throws AppException, NoSuchGroupException;
+
+    List<UserGroup> getAllGroups() throws AppException;
 
     UserGroup findUserGroupByName(String name) throws NoSuchGroupException;
 
