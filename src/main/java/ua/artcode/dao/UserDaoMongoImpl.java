@@ -7,7 +7,6 @@ import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 import ua.artcode.utils.Security;
-import ua.artcode.validation.UserValidator;
 
 import java.util.List;
 
@@ -30,9 +29,10 @@ public class UserDaoMongoImpl implements UserDao {
 
     @Override
     public User addUser(User user) throws AppException {
+
         if (!isExist(user.getEmail())) {
-            UserValidator validator = new UserValidator();
-            validator.validate(user);
+//            UserValidator validator = new UserValidator();
+//            validator.validate(user);
             user.setPassword(Security.toMd5(user.getPassword()));
             datastore.save(user);
             LOG.info("User with email: " + user.getEmail() + " was added to data base.");
@@ -73,7 +73,7 @@ public class UserDaoMongoImpl implements UserDao {
 
     @Override
     public List<User> getAllUser() {
-        return datastore.find(User.class, "userType", "ROLE_USER").asList();
+        return datastore.find(User.class,"userType","ROLE_USER").asList();
     }
 
     @Override

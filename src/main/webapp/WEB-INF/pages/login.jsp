@@ -28,7 +28,8 @@
     </form>
     <%--registration-form--%>
     <a href="registration-form"><spring:message code="label.registration"/></a>
-    <br></br>
+    <br>
+    <br>
     <c:if test="${not empty message}" >
         <div class="error" style="color: red">${message}</div>
     </c:if>

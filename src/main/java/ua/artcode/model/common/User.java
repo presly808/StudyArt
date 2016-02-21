@@ -1,14 +1,14 @@
 package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import ua.artcode.exception.AppException;
 import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.validation.Email;
+import ua.artcode.validation.Password;
+import ua.artcode.validation.UserName;
 
-import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,18 +18,16 @@ public class User implements Comparable<User> {
     @Id
     private ObjectId id;
 
-
-    @NotEmpty @Size(min=4,max=20,message = "error size")
+    @UserName
     private String name;
 
-
-    @NotEmpty @Size(min=6, max=25)
+    @Password
     private String password;
 
-
-    @NotEmpty @Email(message = "error email")
+    @Email
     private String email;
 
+    //@User_Type
     private UserType userType;
 
     private Map<String, TaskTestResult> solvedTaskContainer = new HashMap<>();

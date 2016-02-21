@@ -70,32 +70,20 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView registration(@Valid @ModelAttribute("user") User user, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
-        ModelAndView mav = new ModelAndView();
-        if (result.hasErrors()) {
-            mav.setViewName("registration-form");
-            mav.addObject("message", result.getFieldErrors().toString());
-            //TODO validation error
-        } else {
-            try {
-                UserType userType = req.getParameter("role") != null ? UserType.ROLE_TEACHER : UserType.ROLE_USER;
-                user.setUserType(userType);
-                userService.register(user);
-                mav.addObject("message", messageSource.getMessage("label.registration.successful", null, LocaleContextHolder.getLocale()));
-                mav.setViewName("login");
-            } catch (AppException e) {
-                mav.addObject("message", e.getMessage());
-                mav.setViewName("registration-form");
-            }
-        }
-        return mav;
+    @RequestMapping(value = "/registration-form")
+    public String registrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "registration-form";
     }
 
-    @RequestMapping(value = "/registration-form")
-    public ModelAndView registrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return new ModelAndView("/registration-form");
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(@Valid User user, BindingResult result, Model model) throws ServletException, IOException, AppException {
+        if (result.hasErrors()) {
+            return "registration-form";
+        }
+        model.addAttribute("message", messageSource.getMessage("label.registration.successful", null, LocaleContextHolder.getLocale()));
+        userService.register(user);
+        return "login";
     }
 
     @RequestMapping(value = "/task-menu")

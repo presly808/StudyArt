@@ -27,8 +27,8 @@ public class RunInitCodingBatTaskTrigger {
         //InitCodingBatTaskTrigger.restoreDataBaseFromDump();
 
 //        UserDao userDao = new UserDaoMongoImpl(datastore);
-//        userDao.addUser(new User("Razer","000000","chernyshov.dev@gmail.com", UserType.ROLE_ADMIN));
-//        userDao.addUser(new User("Maxim","111111","obonemax@gmail.com", UserType.ROLE_ADMIN));
+//        userDao.addUser(new User("Razer","000000","chernyshov.dev@gmail.com", User_Type.ROLE_ADMIN));
+//        userDao.addUser(new User("Maxim","111111","obonemax@gmail.com", User_Type.ROLE_ADMIN));
 //        InitCodingBatTaskTrigger.createDumpOfDataBase();
 //        CodingBatTask codingBatTask = new CodingBatTask();
 //        codingBatTask.setCodingBatId("00000");
