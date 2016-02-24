@@ -9,7 +9,7 @@
 
 <h1><h1><spring:message code="label.group.add.group"/></h1></h1>
 
-<form:form action="${pageContext.request.contextPath}/group-menu/create-group" modelAttribute="group"
+<form:form action="${pageContext.request.contextPath}/group-menu/create-group" modelAttribute="userGroup"
            method="post">
 
     <spring:message code="label.create.group.title"/>:<br>

@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchGroupException;
-import ua.artcode.model.Lesson;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.service.AdminService;
@@ -19,7 +18,6 @@ import ua.artcode.service.TeacherService;
 import ua.artcode.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -40,20 +38,20 @@ public class GroupController {
 
     @RequestMapping(value = "/add-group")
     public String addGroup(Model model) {
-        model.addAttribute("group", new UserGroup());
+        model.addAttribute("userGroup", new UserGroup());
         return "add-group-form";
     }
 
     @RequestMapping(value = "/create-group", method = RequestMethod.POST)
-    public ModelAndView createGroup(@Valid UserGroup group, BindingResult result, Model model) throws AppException {
+    public ModelAndView createGroup(@Valid UserGroup userGroup, BindingResult result, Model model) throws AppException {
         ModelAndView mav = new ModelAndView("setup-groups");
         if (result.hasErrors()) {
             mav.setViewName("add-group-form");
             return mav;
         }
-        mav.addObject("name", group.getName());
+        mav.addObject("name", userGroup.getName());
         mav.addObject("users", userService.getAllUsers());
-        teacherService.addGroup(group);
+        teacherService.addGroup(userGroup);
         return mav;
     }
 
@@ -111,7 +109,7 @@ public class GroupController {
             redirectAttributes.addFlashAttribute("message", "Group has been successfully deleted.");
             mav.setViewName("redirect:/group-menu");
         } catch (NoSuchGroupException e) {
-            mav.addObject("message", "There is no group with name: " + name);
+            mav.addObject("message", "There is no userGroup with name: " + name);
             mav.setViewName("delete-group-form");
         }
         return mav;
