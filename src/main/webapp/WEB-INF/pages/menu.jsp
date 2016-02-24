@@ -29,7 +29,7 @@
 
     <security:authorize
             access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-        <li><a href="user-menu"><spring:message code="label.user"/></a></li>
+        <li><a href="user-menu"><spring:message code="label.user.menu"/></a></li>
     </security:authorize>
 
 

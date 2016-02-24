@@ -18,6 +18,8 @@
         <!--<intercept-url pattern="tasks-menu/size" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
         <!--<intercept-url pattern="tasks-menu/find-task" access="hasRole('ROLE_ADMIN')"/>-->
         <!--<intercept-url pattern="tasks-menu/delete-form" access="hasRole('ROLE_ADMIN')"/>-->
+        <!--<intercept-url pattern="/lesson-menu" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <!--<intercept-url pattern="/lesson-menu/*" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
 
         <form-login login-page="/login"
                     username-parameter="username"

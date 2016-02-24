@@ -58,6 +58,10 @@ public class UserGroup {
         this.name = name;
     }
 
+    public void setStudents(List<User> students) {
+        this.students = students;
+    }
+
     public List<User> getStudents() {
         return students;
     }

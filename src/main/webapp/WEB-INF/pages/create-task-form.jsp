@@ -8,7 +8,7 @@
 <h1><spring:message code="label.title.create.new.task"/></h1>
 
 <form action="${pageContext.request.contextPath}/tasks-menu/create-task" method="post">
-    <spring:message code="label.user.name"/>:<br>
+    <spring:message code="label.create.task.name"/>:<br>
     <label>
         <input type="text" name="task_name">
     </label><br>

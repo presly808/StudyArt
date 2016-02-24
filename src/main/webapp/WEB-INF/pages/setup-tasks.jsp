@@ -17,6 +17,6 @@
     <input type="hidden" name="title" value="${title}"/>
 
     <p><input type="submit" value="<spring:message code="label.course.add.tasks"/>"></p>
-<form/>
+</form>
 </body>
 </html>

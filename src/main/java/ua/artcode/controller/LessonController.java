@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.AppException;
@@ -33,7 +34,7 @@ public class LessonController {
 
     @RequestMapping(value = "/add-lesson")
     public ModelAndView addLesson() {
-        return new ModelAndView("add-lesson-form");
+        return new ModelAndView("create-lesson-form");
     }
 
     @RequestMapping(value = "/create-lesson")
@@ -42,18 +43,19 @@ public class LessonController {
         String title = req.getParameter("lesson_title");
         String description = req.getParameter("lesson_description");
         mav.addObject("title", title);
-        mav.addObject("tasks",adminService.getAll());
-        teacherService.addLesson(new Lesson(title,description));
+        mav.addObject("tasks", adminService.getAll());
+        teacherService.addLesson(new Lesson(title, description));
         return mav;
     }
 
-    @RequestMapping(value ="/add-task")
-    public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) throws AppException, NoSuchLessonException, ServletException, IOException {ModelAndView mav = new ModelAndView("setup-tasks");
+    @RequestMapping(value = "/add-task")
+    public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) throws AppException, NoSuchLessonException, ServletException, IOException {
+        ModelAndView mav = new ModelAndView("setup-tasks");
         List<CodingBatTask> tasks = adminService.getAll();
-        Lesson lesson=teacherService.findLessonByTitle(req.getParameter("title"));
-        List<CodingBatTask> list=lesson.getTasks();
+        Lesson lesson = teacherService.findLessonByTitle(req.getParameter("title"));
+        List<CodingBatTask> list = lesson.getTasks();
         for (CodingBatTask task : tasks) {
-            if (req.getParameter(task.getTitle())!=null){
+            if (req.getParameter(task.getTitle()) != null) {
                 list.add(task);
             }
         }
@@ -66,17 +68,31 @@ public class LessonController {
 
     @RequestMapping(value = "/show-lessons")
     public ModelAndView showLessons() {
-        ModelAndView mav=new ModelAndView("list-lessons");
-        mav.addObject("lessons",teacherService.getAllLessons());
+        ModelAndView mav = new ModelAndView("list-lessons");
+        mav.addObject("lessons", teacherService.getAllLessons());
         return mav;
+    }
+
+    @RequestMapping(value = "/edit-lesson", method = RequestMethod.POST)
+    public ModelAndView editLesson(HttpServletRequest req) throws NoSuchLessonException {
+        ModelAndView mav = new ModelAndView("edit-lesson-form");
+        String title = req.getParameter("title");
+        Lesson lesson = teacherService.findLessonByTitle(title);
+        mav.addObject("lesson", lesson);
+        return mav;
+    }
+
+    @RequestMapping(value = "/find-lesson")
+    public ModelAndView findLesson() {
+        return new ModelAndView("find-lesson");
     }
 
     @RequestMapping(value = "/show-lesson/{title}")
     public ModelAndView showLesson(@PathVariable String title) throws NoSuchLessonException {
-        ModelAndView mav=new ModelAndView("show-lesson");
-        Lesson lesson=teacherService.findLessonByTitle(title);
-        mav.addObject("lesson",lesson);
-        mav.addObject("tasks",lesson.getTasks());
+        ModelAndView mav = new ModelAndView("show-lesson");
+        Lesson lesson = teacherService.findLessonByTitle(title);
+        mav.addObject("lesson", lesson);
+        mav.addObject("tasks", lesson.getTasks());
         return mav;
     }
 
@@ -85,8 +101,8 @@ public class LessonController {
         return new ModelAndView("delete-lesson-form");
     }
 
-    @RequestMapping(value ="/delete")
-    public ModelAndView deleteLesson(HttpServletRequest req,RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/delete")
+    public ModelAndView deleteLesson(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String lessonTitle = req.getParameter("lessonTitle");
         try {

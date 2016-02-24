@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
+
 <html>
 <head>
     <title><spring:message code="label.title.registration.form"/></title>

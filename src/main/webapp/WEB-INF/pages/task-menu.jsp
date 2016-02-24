@@ -8,13 +8,14 @@
 <body>
 <menu>
     <li><a href="task-menu/add-task"><spring:message code="label.task.menu.add"/></a></li>
+
     <security:authorize
             access="hasRole('ROLE_ADMIN')">
         <li><a href="task-menu/find-task"/><spring:message code="label.task.menu.find"/></li>
     </security:authorize>
 
 
-    <li><a href="task-menu/groups"><spring:message code="label.task.menu.tasks"/></a></li>
+    <li><a href="task-menu/groups"><spring:message code="label.task.menu.show.tasks"/></a></li>
 
 
     <li><a href="task-menu/size"><spring:message code="label.task.menu.size"/></a></li>

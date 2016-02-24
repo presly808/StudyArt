@@ -2,13 +2,13 @@
 
 <html>
 <head>
-    <title><spring:message code="label.title.find.task"/></title>
+    <title><spring:message code="label.title.find.lesson"/></title>
 </head>
 
 <body>
 <form action="${pageContext.request.contextPath}/task-menu/do-task" method="post">
-    <spring:message code="label.lesson.menu.delete.id"/>:<p><input name="lessonId" ></p>
-    <p><input type="submit" value="<spring:message code="label.get.lesson"/>"></p>
+    <spring:message code="label.lesson.menu.delete.id"/>:<p><input name="taskId" ></p>
+    <p><input type="submit" value="<spring:message code="label.get.task"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 

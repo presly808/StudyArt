@@ -8,7 +8,7 @@
 <body>
 <div style="float:right;">
     <form action="registration" method="post">
-        <spring:message code="label.user.name"/>:<p><input name="name"></p>
+        <spring:message code="label.admin.name"/>:<p><input name="name"></p>
         <spring:message code="label.user.email"/>:<p><input name="email"></p>
         <spring:message code="label.user.password"/>:<p><input type="password" name="password"></p>
         <input type="hidden" name="role" value="ROLE_ADMIN" input/>

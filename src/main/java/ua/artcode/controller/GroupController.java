@@ -36,12 +36,12 @@ public class GroupController {
 
     @RequestMapping(value = "/add-group")
     public ModelAndView addGroup() {
-        return new ModelAndView("add-group-form");
+        return new ModelAndView("create-group-form");
     }
 
     @RequestMapping(value = "/add-user-form")
     public ModelAndView addUserForm() {
-        return new ModelAndView("add-user-form");
+        return new ModelAndView("create-user-form");
     }
 
     @RequestMapping(value = "/add-users", method = RequestMethod.POST)
@@ -77,6 +77,11 @@ public class GroupController {
         mav.addObject("group", userGroup);
         mav.addObject("users", userGroup.getStudents());
         return mav;
+    }
+
+    @RequestMapping(value = "/edit-group")
+    public ModelAndView editGroup(){
+        return null;
     }
 
     @RequestMapping(value = "/delete-group-form")

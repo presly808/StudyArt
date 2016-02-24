@@ -1,8 +1,8 @@
-<%@include file="include.jsp"%>
+<%@include file="include.jsp" %>
 
 <html>
 <head>
-    <title><spring:message code="label.title.add.lesson"/></title>
+    <title><spring:message code="label.title.edit.lesson"/></title>
 </head>
 <body>
 
@@ -12,17 +12,18 @@
 
     <spring:message code="label.create.course.lesson.title"/>:<br>
     <label>
-        <textarea name="lesson_title"  rows="1" cols="50"></textarea>
+        <textarea name="lesson_title" rows="1" cols="50" ><c:out value="${lesson.title}"/> </textarea>
     </label><br>
 
     <spring:message code="label.create.course.lesson.description"/>:<br>
-    <label>
-        <textarea name="lesson_description" rows="10" cols="50"></textarea>
+        <label>
+        <textarea name="lesson_description" rows="10" cols="50"><c:out value="${lesson.description}"/> </textarea>
     </label><br>
 
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-    <p><input type="submit" value="<spring:message code="label.create.course.add.lesson"/>"></p>
+    <p><input type="submit" value="<spring:message code="label.create"/>"></p>
+
 
 </form>
 </body>

@@ -84,6 +84,11 @@ public class CourseController {
         return mav;
     }
 
+    @RequestMapping(value = "/edit-course")
+    public ModelAndView editCourse(){
+        return null;
+    }
+
     @RequestMapping(value = "/show-course/{title}")
     public ModelAndView showCourse(@PathVariable String title) throws NoSuchCourseException {
         ModelAndView mav = new ModelAndView("show-course");
