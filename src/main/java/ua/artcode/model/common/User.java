@@ -8,6 +8,7 @@ import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.validation.Email;
 import ua.artcode.validation.Password;
 import ua.artcode.validation.UserName;
+import ua.artcode.validation.User_Type;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -8,16 +8,11 @@
 </head>
 
 <body>
-<%--<div id="container">--%>
-
-<%--<c:if test="${not empty message}"><div class="message green">${message}</div></c:if>--%>
 
 <form:form action="${pageContext.request.contextPath}/registration" modelAttribute="user">
     <table>
         <tr>
             <td><spring:message code="label.user.name"/>:</td>
-                <%--<label for="nameInput"></label>--%>
-                <%--<form:input path="name" id="nameInput"/>--%>
             <td><form:input path="name"/></td>
             <td><form:errors path="name"/></td>
         </tr>
@@ -37,7 +32,7 @@
         <tr>
             <td>User type:</td>
             <td><form:select path="userType">
-                <form:option value="ROLE_USER" label="Select user type"/>
+                <%--<form:option value="" label="Select user type"/>--%>
                 <form:option value="ROLE_USER" label="Student"/>
                 <form:option value="ROLE_TEACHER" label="Teacher"/>
             </form:select></td>
@@ -48,17 +43,8 @@
             <td><input type="submit" value="<spring:message code="label.registration"/>"/></td>
         </tr>
 
-        <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-
     </table>
 </form:form>
-<%--</div>--%>
-
-<%--<springForm:form method="post" commandName="user" action="${pageContext.request.contextPath}/registration">--%>
-<%--<springForm:input path="name"/>--%>
-<%--<springForm:errors path="name" />--%>
-
-<%--</springForm:form>--%>
 
 </body>
 </html>

@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
+import ua.artcode.validation.Description;
+import ua.artcode.validation.Title;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +16,9 @@ public class Course {
 
     @Id
     private ObjectId id;
-
+    @Title
     private String title;
-
+    @Description
     private String description;
 
     @Reference

@@ -2,6 +2,8 @@ package ua.artcode.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +16,7 @@ import ua.artcode.model.Lesson;
 import ua.artcode.service.TeacherService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -28,30 +31,31 @@ public class CourseController {
     private TeacherService teacherService;
 
     @RequestMapping(value = "/add-course")
-    public ModelAndView addCourse() {
-        return new ModelAndView("create-course-form");
+    public String addCourse(Model model) {
+        model.addAttribute("course", new Course());
+        return "create-course-form";
     }
 
     //TODO exception
     @RequestMapping(value = "/create-course", method = RequestMethod.POST)
-    public ModelAndView createCourse(HttpServletRequest req, ModelAndView mav) {
-        String title = req.getParameter("course_title");
-        String description = req.getParameter("course_description");
-        Course course = new Course(title, description);
-        try {
-            teacherService.addCourse(course);
-        } catch (AppException e) {
-            e.printStackTrace();
-        }
-        List lessonsList = teacherService.getAllLessons();
+    public ModelAndView createCourse(@Valid Course course, BindingResult result, Model model) throws AppException {
 
-        if (lessonsList.size() > 0) {
-            mav.setViewName("setup-lessons");
-            mav.addObject("title", title);
-            mav.addObject("lessons", lessonsList);
+        ModelAndView mav = new ModelAndView();
+
+        if (result.hasErrors()) {
+            mav.setViewName("create-course-form");
         } else {
-            mav.setViewName("course-menu");
-            mav.addObject("message", "The course has been successfully created.");
+            teacherService.addCourse(course);
+            List lessonsList = teacherService.getAllLessons();
+
+            if (lessonsList.size() > 0) {
+                mav.setViewName("setup-lessons");
+                mav.addObject("title", course.getTitle());
+                mav.addObject("lessons", course.getLessonList());
+            } else {
+                mav.setViewName("course-menu");
+                mav.addObject("message", "The course has been successfully created.");
+            }
         }
         return mav;
     }
@@ -99,7 +103,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/delete")
-    public ModelAndView deleteCourse(HttpServletRequest req,RedirectAttributes redirectAttributes) {
+    public ModelAndView deleteCourse(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String courseTitle = req.getParameter("courseTitle");
         try {

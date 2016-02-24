@@ -2,6 +2,8 @@ package ua.artcode.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchGroupException;
+import ua.artcode.model.Lesson;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.service.AdminService;
@@ -17,6 +20,7 @@ import ua.artcode.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -35,8 +39,22 @@ public class GroupController {
     private TeacherService teacherService;
 
     @RequestMapping(value = "/add-group")
-    public ModelAndView addGroup() {
-        return new ModelAndView("add-group-form");
+    public String addGroup(Model model) {
+        model.addAttribute("group", new UserGroup());
+        return "add-group-form";
+    }
+
+    @RequestMapping(value = "/create-group", method = RequestMethod.POST)
+    public ModelAndView createGroup(@Valid UserGroup group, BindingResult result, Model model) throws AppException {
+        ModelAndView mav = new ModelAndView("setup-groups");
+        if (result.hasErrors()) {
+            mav.setViewName("add-group-form");
+            return mav;
+        }
+        mav.addObject("name", group.getName());
+        mav.addObject("users", userService.getAllUsers());
+        teacherService.addGroup(group);
+        return mav;
     }
 
     @RequestMapping(value = "/add-user-form")
@@ -99,15 +117,5 @@ public class GroupController {
         return mav;
     }
 
-    @RequestMapping(value = "/create-group", method = RequestMethod.POST)
-    public ModelAndView createGroup(HttpServletRequest req, HttpServletResponse resp) throws AppException {
-        ModelAndView mav = new ModelAndView("setup-groups");
-        String name = req.getParameter("group_name");
-        String description = req.getParameter("group_description");
-        mav.addObject("name", name);
-        mav.addObject("users", userService.getAllUsers());
-        teacherService.addGroup(new UserGroup(name, description));
-        return mav;
-    }
 }
 
