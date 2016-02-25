@@ -3,6 +3,7 @@ package ua.artcode.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import ua.artcode.validation.CodingBatTaskValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,35 +46,40 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/add-task")
-    public String addTask() {
+    public String addTask(Model model) {
+        model.addAttribute("codingBatTask", new CodingBatTask());
         return "create-task-form";
     }
 
     @RequestMapping(value = "/create-task", method = RequestMethod.POST)
-    public ModelAndView createTask(HttpServletRequest req) {
+    public ModelAndView createTask(@Valid CodingBatTask codingBatTask, BindingResult result, Model model, HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
-        CodingBatTask task;
-        String title = req.getParameter("task_name");
-        String groupName = req.getParameter("task_group");
-        String description = req.getParameter("task_description");
-        String examples = req.getParameter("examples");
-        String template = req.getParameter("method_template");
+        if (result.hasErrors()) {
+            mav.setViewName("create-task-form");
+            return mav;
+        }
+//        CodingBatTask task;
+//        String title = req.getParameter("task_name");
+//        String groupName = req.getParameter("task_group");
+//        String description = req.getParameter("task_description");
+//        String examples = req.getParameter("examples");
+//        String template = req.getParameter("method_template");
         String testData = req.getParameter("data_points");
 
         try {
-            task = new CodingBatTask("p11111", description, examples, template, groupName);
+//            task = new CodingBatTask("p11111", description, examples, template, groupName);
+//
+//            new CodingBatTaskValidator().validateTemplate(task.getTemplate());
 
-            new CodingBatTaskValidator().validateTemplate(task.getTemplate());
+            codingBatTask.setMethodSignature(CodingBatTaskUtils.getMethodSignature(codingBatTask.getTemplate()));
+            codingBatTask.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
-            task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
-            task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
-
-            adminService.addTask(task);
+            adminService.addTask(codingBatTask);
             mav.setViewName("task-menu");
             mav.addObject("message", "The task has been successfully created.");
         } catch (AppValidationException e) {
             req.setAttribute("message", e.getExceptionMessageList());
-            mav.setViewName("create-task");
+            mav.setViewName("create-task-form");
         } catch (AppException e) {
             e.printStackTrace();
         }

@@ -53,6 +53,7 @@ public class GroupController {
         mav.addObject("users", userService.getAllUsers());
         teacherService.addGroup(userGroup);
         return mav;
+    }
     public ModelAndView addGroup() {
         return new ModelAndView("create-group-form");
     }

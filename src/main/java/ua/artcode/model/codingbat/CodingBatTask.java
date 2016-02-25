@@ -3,6 +3,9 @@ package ua.artcode.model.codingbat;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import ua.artcode.validation.Description;
+import ua.artcode.validation.Template;
+import ua.artcode.validation.Title;
 
 
 @Entity
@@ -11,10 +14,15 @@ public class CodingBatTask implements Comparable<CodingBatTask> {
     @Id
     private ObjectId id;
     //private String codingBatId;
+    @Title
     private String groupName;
+    @Title
     private String title;
+    @Description
     private String description;
+    @Description
     private String examples;
+    @Template
     private String template;
 
     //@Embedded

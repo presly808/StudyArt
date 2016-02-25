@@ -37,9 +37,9 @@ public class LessonController {
     private AdminService adminService;
 
     @RequestMapping(value = "/add-lesson")
-    public ModelAndView addLesson() {
+    public String addLesson(Model model) {
         model.addAttribute("lesson", new Lesson());
-        return new ModelAndView("create-lesson-form");
+        return "create-lesson-form";
     }
 
     @RequestMapping(value = "/create-lesson", method = RequestMethod.POST)
