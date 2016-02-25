@@ -13,7 +13,6 @@ import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Lesson;
 import ua.artcode.model.codingbat.CodingBatTask;
-import ua.artcode.model.common.User;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 
@@ -37,14 +36,14 @@ public class LessonController {
     private AdminService adminService;
 
     @RequestMapping(value = "/add-lesson")
-    public ModelAndView addLesson() {
+    public String addLesson(Model model) {
         model.addAttribute("lesson", new Lesson());
-        return new ModelAndView("create-lesson-form");
+        return "create-lesson-form";
     }
 
     @RequestMapping(value = "/create-lesson", method = RequestMethod.POST)
     public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, Model model) throws AppException, NoSuchLessonException {
-        ModelAndView mav = new ModelAndView("add-lesson-form");
+        ModelAndView mav = new ModelAndView("create-lesson-form");
         if (!result.hasErrors()) {
             mav.setViewName("setup-tasks");
             mav.addObject("title", lesson.getTitle());
@@ -101,6 +100,23 @@ public class LessonController {
         mav.addObject("tasks", lesson.getTasks());
         return mav;
     }
+
+    @RequestMapping(value = "/show-lesson", method = RequestMethod.POST)
+    public ModelAndView showLessonPost(HttpServletRequest req) {
+        String title = req.getParameter("title");
+        ModelAndView mav = new ModelAndView();
+        try {
+            Lesson lesson = teacherService.findLessonByTitle(title);
+            mav.setViewName("show-lesson");
+            mav.addObject("lesson", lesson);
+            mav.addObject("tasks", lesson.getTasks());
+        } catch (NoSuchLessonException e) {
+            mav.setViewName("find-lesson");
+            mav.addObject("error", e.getMessage());
+        }
+        return mav;
+    }
+
 
     @RequestMapping(value = "/delete-lesson-form")
     public ModelAndView deleteLessonForm() {

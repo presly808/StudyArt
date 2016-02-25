@@ -28,7 +28,7 @@ public class User implements Comparable<User> {
     @Email
     private String email;
 
-    //@User_Type
+    @User_Type
     private UserType userType;
 
     private Map<String, TaskTestResult> solvedTaskContainer = new HashMap<>();

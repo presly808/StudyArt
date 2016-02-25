@@ -10,8 +10,7 @@
 
 <h1><h1><spring:message code="label.title.create.new.lesson"/></h1></h1>
 
-<form:form action="${pageContext.request.contextPath}/lesson-menu/create-lesson" modelAttribute="lesson"
-           method="post">
+<form:form action="${pageContext.request.contextPath}/lesson-menu/create-lesson" modelAttribute="lesson" method="post">
 
     <spring:message code="label.create.course.lesson.title"/>:<br>
     <label>

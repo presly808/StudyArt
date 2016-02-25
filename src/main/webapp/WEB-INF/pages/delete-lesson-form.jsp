@@ -6,7 +6,7 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/lesson-menu/delete" method="post">
-    <spring:message code="label.lesson.menu.delete.title"/>:<p><input name="lessonTitle"></p>
+    <spring:message code="label.lesson.menu.title"/>:<p><input name="lessonTitle"></p>
     <p><input type="submit" value="<spring:message code="label.delete"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>

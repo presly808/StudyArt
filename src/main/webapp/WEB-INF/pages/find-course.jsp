@@ -1,16 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Razer
-  Date: 23.02.16
-  Time: 11:21
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="include.jsp"%>
+
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="label.title.find.lesson"/></title>
 </head>
+
 <body>
+<form action="${pageContext.request.contextPath}/course-menu/show-course" method="post">
+    <spring:message code="label.lesson.menu.title"/>:<p><input type="text" name="title" ></p>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <p><input type="submit" value="<spring:message code="label.find"/>"></p>
+</form>
+
+<c:if test="${error != null}">
+<p style="color:red"><c:out value="${error}"/><p>
+    </c:if>
 
 </body>
 </html>

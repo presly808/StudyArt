@@ -9,7 +9,7 @@
 <h1>${course.title}</h1>
 <p>${course.description}</p>
 <br>
-<form> </form>
+
 <c:forEach var="lesson" items="${lessons}">
     <div align="center">
         <p>${lesson.title}</p>
