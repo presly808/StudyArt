@@ -18,7 +18,7 @@ public class UserNameValidator implements ConstraintValidator<UserName, String> 
         if(userName == null) {
             return false;
         }
-        return userName.matches(".+");
+        return userName.matches("^[A-Za-z0-9_-]{3,16}$");
 
         //    "/^[a-z0-9_-]{3,16}$/"
     }

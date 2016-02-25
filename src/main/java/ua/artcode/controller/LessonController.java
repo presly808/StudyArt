@@ -2,6 +2,8 @@ package ua.artcode.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,11 +13,13 @@ import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Lesson;
 import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.common.User;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,17 +38,19 @@ public class LessonController {
 
     @RequestMapping(value = "/add-lesson")
     public ModelAndView addLesson() {
+        model.addAttribute("lesson", new Lesson());
         return new ModelAndView("create-lesson-form");
     }
 
-    @RequestMapping(value = "/create-lesson")
-    public ModelAndView createLesson(HttpServletRequest req, ModelAndView mav) throws AppException, NoSuchLessonException {
-        mav.setViewName("setup-tasks");
-        String title = req.getParameter("lesson_title");
-        String description = req.getParameter("lesson_description");
-        mav.addObject("title", title);
-        mav.addObject("tasks", adminService.getAll());
-        teacherService.addLesson(new Lesson(title, description));
+    @RequestMapping(value = "/create-lesson", method = RequestMethod.POST)
+    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, Model model) throws AppException, NoSuchLessonException {
+        ModelAndView mav = new ModelAndView("add-lesson-form");
+        if (!result.hasErrors()) {
+            mav.setViewName("setup-tasks");
+            mav.addObject("title", lesson.getTitle());
+            mav.addObject("tasks", adminService.getAll());
+            teacherService.addLesson(lesson);
+        }
         return mav;
     }
 

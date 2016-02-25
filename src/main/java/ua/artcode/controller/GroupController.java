@@ -2,6 +2,8 @@ package ua.artcode.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +18,7 @@ import ua.artcode.service.TeacherService;
 import ua.artcode.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -35,6 +37,22 @@ public class GroupController {
     private TeacherService teacherService;
 
     @RequestMapping(value = "/add-group")
+    public String addGroup(Model model) {
+        model.addAttribute("userGroup", new UserGroup());
+        return "create-group-form";
+    }
+
+    @RequestMapping(value = "/create-group", method = RequestMethod.POST)
+    public ModelAndView createGroup(@Valid UserGroup userGroup, BindingResult result, Model model) throws AppException {
+        ModelAndView mav = new ModelAndView("setup-groups");
+        if (result.hasErrors()) {
+            mav.setViewName("add-group-form");
+            return mav;
+        }
+        mav.addObject("name", userGroup.getName());
+        mav.addObject("users", userService.getAllUsers());
+        teacherService.addGroup(userGroup);
+        return mav;
     public ModelAndView addGroup() {
         return new ModelAndView("create-group-form");
     }
@@ -104,15 +122,5 @@ public class GroupController {
         return mav;
     }
 
-    @RequestMapping(value = "/create-group", method = RequestMethod.POST)
-    public ModelAndView createGroup(HttpServletRequest req, HttpServletResponse resp) throws AppException {
-        ModelAndView mav = new ModelAndView("setup-groups");
-        String name = req.getParameter("group_name");
-        String description = req.getParameter("group_description");
-        mav.addObject("name", name);
-        mav.addObject("users", userService.getAllUsers());
-        teacherService.addGroup(new UserGroup(name, description));
-        return mav;
-    }
 }
 
