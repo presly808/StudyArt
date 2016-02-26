@@ -8,7 +8,7 @@
 <menu>
     <li><a href="${pageContext.request.contextPath}/course-menu/add-course"><spring:message code="label.course.menu.create"/></a></li>
     <li><a href="${pageContext.request.contextPath}/course-menu/show-courses"><spring:message code="label.course.menu.show"/></a></li>
-    <li><a href="${pageContext.request.contextPath}/course-menu/add-lesson-to-course"><spring:message code="label.course.menu.add.lesson"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/course-menu/find-course"><spring:message code="label.course.menu.find"/></a></li>
     <li><a href="${pageContext.request.contextPath}/course-menu/delete-course"><spring:message code="label.course.menu.delete"/></a></li>
 </menu>
 

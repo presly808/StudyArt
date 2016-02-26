@@ -40,7 +40,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/menu")
-    public ModelAndView menu() {
+    public ModelAndView loadMenu() {
         return new ModelAndView("menu");
     }
 
@@ -90,22 +90,22 @@ public class MainController {
     }
 
     @RequestMapping(value = "/course-menu")
-    public ModelAndView courseMenu() {
+    public ModelAndView loadCourseMenu() {
         return new ModelAndView("course-menu");
     }
 
     @RequestMapping(value = "/lesson-menu")
-    public ModelAndView lessonMenu() {
+    public ModelAndView loadLessonMenu() {
         return new ModelAndView("lesson-menu");
     }
 
     @RequestMapping(value = "/group-menu")
-    public ModelAndView groupMenu() {
+    public ModelAndView loadGroupMenu() {
         return new ModelAndView("group-menu");
     }
 
     @RequestMapping(value = "/user-menu")
-    public ModelAndView userMenu() {
+    public ModelAndView loadUserMenu() {
         return new ModelAndView("user-menu");
     }
 }

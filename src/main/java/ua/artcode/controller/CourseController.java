@@ -38,7 +38,7 @@ public class CourseController {
 
     //TODO exception
     @RequestMapping(value = "/create-course", method = RequestMethod.POST)
-    public ModelAndView createCourse(@Valid Course course, BindingResult result, Model model) throws AppException {
+    public ModelAndView createCourse(@Valid Course course, BindingResult result) throws AppException {
 
         ModelAndView mav = new ModelAndView();
 
@@ -88,6 +88,11 @@ public class CourseController {
         return mav;
     }
 
+    @RequestMapping(value = "/find-course")
+    public ModelAndView loadFindCourse(){
+        return new ModelAndView("find-course");
+    }
+
     @RequestMapping(value = "/edit-course")
     public ModelAndView editCourse(){
         return null;
@@ -102,8 +107,24 @@ public class CourseController {
         return mav;
     }
 
+    @RequestMapping(value = "/show-course")
+    public ModelAndView showCourse(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        String title=req.getParameter("title");
+        try {
+            Course course = teacherService.findCourseByTitle(title);
+            mav.setViewName("show-course");
+            mav.addObject("course", course);
+            mav.addObject("lessons", course.getLessonList());
+        } catch (NoSuchCourseException e) {
+            mav.setViewName("find-course");
+            mav.addObject("error", e.getMessage());
+        }
+        return mav;
+    }
+
     @RequestMapping(value = "/delete-course")
-    public ModelAndView deleteLessonForm() {
+    public ModelAndView loadDeleteLesson() {
         return new ModelAndView("delete-course-form");
     }
 

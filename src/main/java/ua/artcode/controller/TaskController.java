@@ -58,19 +58,10 @@ public class TaskController {
             mav.setViewName("create-task-form");
             return mav;
         }
-//        CodingBatTask task;
-//        String title = req.getParameter("task_name");
-//        String groupName = req.getParameter("task_group");
-//        String description = req.getParameter("task_description");
-//        String examples = req.getParameter("examples");
-//        String template = req.getParameter("method_template");
+
         String testData = req.getParameter("data_points");
 
         try {
-//            task = new CodingBatTask("p11111", description, examples, template, groupName);
-//
-//            new CodingBatTaskValidator().validateTemplate(task.getTemplate());
-
             codingBatTask.setMethodSignature(CodingBatTaskUtils.getMethodSignature(codingBatTask.getTemplate()));
             codingBatTask.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
@@ -78,10 +69,11 @@ public class TaskController {
             mav.setViewName("task-menu");
             mav.addObject("message", "The task has been successfully created.");
         } catch (AppValidationException e) {
-            req.setAttribute("message", e.getExceptionMessageList());
+            req.setAttribute("message", "Invalid test points");
             mav.setViewName("create-task-form");
         } catch (AppException e) {
-            e.printStackTrace();
+            req.setAttribute("message", "Task with title: " + codingBatTask.getTitle() + " already exist.");
+            mav.setViewName("create-task-form");
         }
         return mav;
     }
@@ -152,14 +144,14 @@ public class TaskController {
     @RequestMapping(value = "/delete")
     public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
-        String taskId = reg.getParameter("taskId");
-        if (adminService.delete(taskId)) {
-            redirectAttributes.addFlashAttribute("message", "The task has been successfully removed.");
-            mav.setViewName("redirect:/menu");
-            return mav;
+        String title = reg.getParameter("title");
+        if (adminService.delete(title)) {
+            //redirectAttributes.addFlashAttribute("message", "The task has been successfully removed.");
+            mav.addObject("message", "The task has been successfully removed.");
+            mav.setViewName("task-menu");
         } else {
-            mav.setViewName("/delete-form");
-            mav.addObject("message", "The task has been not removed. There is no task with Id: " + taskId);
+            mav.setViewName("delete-task-form");
+            mav.addObject("message", "The task has been not removed. There is no task with title: " + title);
         }
         return mav;
     }
