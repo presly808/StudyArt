@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1><h1><spring:message code="label.title.create.new.lesson"/></h1></h1>
+<h1><h1><spring:message code="label.title.edit.lesson"/></h1></h1>
 
 <form action="${pageContext.request.contextPath}/lesson-menu/create-lesson" method="post">
 

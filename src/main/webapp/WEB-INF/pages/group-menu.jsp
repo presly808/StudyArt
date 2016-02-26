@@ -8,7 +8,8 @@
 <menu>
     <li><a href="${pageContext.request.contextPath}/group-menu/add-group"><spring:message code="label.group.menu.create"/></a></li>
     <li><a href="${pageContext.request.contextPath}/group-menu/show-groups"><spring:message code="label.group.menu.show"/></a></li>
-    <li><a href="${pageContext.request.contextPath}/group-menu/delete-group-form"><spring:message code="label.group.menu.delete"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/group-menu/find-group"><spring:message code="label.group.menu.find"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/group-menu/delete-group"><spring:message code="label.group.menu.delete"/></a></li>
 </menu>
 <br>
 

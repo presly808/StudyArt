@@ -60,7 +60,7 @@ public class TaskController {
         String testData = req.getParameter("data_points");
 
         try {
-            task = new CodingBatTask("p11111", description, examples, template, groupName);
+            task = new CodingBatTask(title, description, examples, template, groupName);
 
             new CodingBatTaskValidator().validateTemplate(task.getTemplate());
 
@@ -74,26 +74,16 @@ public class TaskController {
             req.setAttribute("message", e.getExceptionMessageList());
             mav.setViewName("create-task");
         } catch (AppException e) {
-            e.printStackTrace();
+            req.setAttribute("message", e.getExceptionMessageList());
+            mav.setViewName("create-task");
         }
         return mav;
     }
 
-    @RequestMapping(value = "/do-task/{taskId}", method = RequestMethod.GET)
-    public ModelAndView doTasks(@PathVariable String taskId, Model model) throws ServletException, IOException, NoSuchTaskException {
-        //ModelAndView mav = new ModelAndView();
-        CodingBatTask task = adminService.getTask(taskId);
+    @RequestMapping(value = "/do-task/{name}", method = RequestMethod.GET)
+    public ModelAndView doTasks(@PathVariable String name, Model model) throws ServletException, IOException, NoSuchTaskException {
+        CodingBatTask task = adminService.getTask(name);
         model.addAttribute("task", task);
-//        ModelAndView mav = new ModelAndView();
-//        try {
-//            CodingBatTask task = adminService.getTask(taskId);
-//            req.setAttribute("task", task);
-//            mav.setViewName("do-task");
-//        } catch (NoSuchTaskException e) {
-//            req.setAttribute("error", e.getMessage());
-//            mav.setViewName("do-task");
-//        }
-//        return mav;
         return new ModelAndView("do-task");
     }
 
@@ -139,7 +129,7 @@ public class TaskController {
 
     @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
-        return new ModelAndView("delete-task-form");
+        return new ModelAndView("delete-task");
     }
 
     @RequestMapping(value = "/delete")

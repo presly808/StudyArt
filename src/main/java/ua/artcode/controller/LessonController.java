@@ -103,8 +103,8 @@ public class LessonController {
 
     @RequestMapping(value = "/show-lesson", method = RequestMethod.POST)
     public ModelAndView showLessonPost(HttpServletRequest req) {
-        String title = req.getParameter("title");
         ModelAndView mav = new ModelAndView();
+        String title = req.getParameter("title");
         try {
             Lesson lesson = teacherService.findLessonByTitle(title);
             mav.setViewName("show-lesson");
@@ -117,10 +117,9 @@ public class LessonController {
         return mav;
     }
 
-
     @RequestMapping(value = "/delete-lesson-form")
     public ModelAndView deleteLessonForm() {
-        return new ModelAndView("delete-lesson-form");
+        return new ModelAndView("delete-lesson");
     }
 
     @RequestMapping(value = "/delete")
@@ -133,7 +132,7 @@ public class LessonController {
             mav.setViewName("redirect:/lesson-menu");
         } catch (NoSuchLessonException e) {
             mav.addObject("message", "There is no lesson with title: " + lessonTitle);
-            mav.setViewName("delete-lesson-form");
+            mav.setViewName("delete-lesson");
         }
         return mav;
     }

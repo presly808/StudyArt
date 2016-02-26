@@ -94,8 +94,16 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/edit-course")
-    public ModelAndView editCourse(){
-        return null;
+    public ModelAndView editCourse(HttpServletRequest req){
+        ModelAndView mav = new ModelAndView("edit-course-form");
+        String title = req.getParameter("title");
+        try {
+            Course course = teacherService.findCourseByTitle(title);
+            mav.addObject("course", course);
+        } catch (NoSuchCourseException e) {
+            e.printStackTrace();
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/show-course/{title}")
@@ -125,7 +133,7 @@ public class CourseController {
 
     @RequestMapping(value = "/delete-course")
     public ModelAndView loadDeleteLesson() {
-        return new ModelAndView("delete-course-form");
+        return new ModelAndView("delete-course");
     }
 
     @RequestMapping(value = "/delete")

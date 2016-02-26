@@ -45,7 +45,7 @@ public class UserController {
 
     @RequestMapping(value = "/delete-user")
     public ModelAndView deleteUserForm() {
-        return new ModelAndView("delete-user-form");
+        return new ModelAndView("delete-user");
     }
 
     @RequestMapping(value = "/delete")
@@ -58,7 +58,7 @@ public class UserController {
             mav.setViewName("redirect:/user-menu");
         } catch (NoSuchUserException e) {
             mav.addObject("message", "There is no user with email: " + email);
-            mav.setViewName("delete-user-form");
+            mav.setViewName("delete-user");
         }
         return mav;
     }

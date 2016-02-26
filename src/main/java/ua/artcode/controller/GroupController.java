@@ -13,7 +13,6 @@ import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
-import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 import ua.artcode.service.UserService;
 
@@ -28,8 +27,6 @@ import java.util.List;
 @RequestMapping(value = "/group-menu")
 public class GroupController {
 
-    @Autowired
-    private AdminService adminService;
     @Autowired
     private UserService userService;
 
@@ -55,9 +52,8 @@ public class GroupController {
         return mav;
     }
 
-
     @RequestMapping(value = "/add-user-form")
-    public ModelAndView addUserForm() {
+    public ModelAndView loadAddUserForm() {
         return new ModelAndView("create-user-form");
     }
 
@@ -87,8 +83,39 @@ public class GroupController {
         return mav;
     }
 
+    @RequestMapping(value = "/edit-group", method = RequestMethod.POST)
+    public ModelAndView editGroup(HttpServletRequest req) throws NoSuchGroupException {
+        ModelAndView mav = new ModelAndView("edit-group-form");
+        String name = req.getParameter("name");
+        UserGroup group = teacherService.findUserGroupByName(name);
+        mav.addObject("group", group);
+        return mav;
+    }
+
+    @RequestMapping(value = "/find-group")
+    public ModelAndView loadFindGroup() {
+        return new ModelAndView("find-group");
+    }
+
+    @RequestMapping(value = "/show-group", method = RequestMethod.POST)
+    public ModelAndView showGroupPost(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        String name = req.getParameter("name");
+        try {
+            UserGroup userGroup = teacherService.findUserGroupByName(name);
+            mav.setViewName("show-group");
+            mav.addObject("group", userGroup);
+            mav.addObject("users", userGroup.getStudents());
+
+        } catch (NoSuchGroupException e) {
+            mav.setViewName("find-group");
+            mav.addObject("error", e.getMessage());
+        }
+        return mav;
+    }
+
     @RequestMapping(value = "/show-group/{name}")
-    public ModelAndView showLesson(@PathVariable String name) throws NoSuchGroupException {
+    public ModelAndView showGroup(@PathVariable String name) throws NoSuchGroupException {
         ModelAndView mav = new ModelAndView("show-group");
         UserGroup userGroup = teacherService.findUserGroupByName(name);
         mav.addObject("group", userGroup);
@@ -96,14 +123,9 @@ public class GroupController {
         return mav;
     }
 
-    @RequestMapping(value = "/edit-group")
-    public ModelAndView editGroup(){
-        return null;
-    }
-
     @RequestMapping(value = "/delete-group-form")
     public ModelAndView deleteForm() {
-        return new ModelAndView("delete-group-form");
+        return new ModelAndView("delete-group");
     }
 
     @RequestMapping(value = "/delete-group", method = RequestMethod.POST)
@@ -116,7 +138,7 @@ public class GroupController {
             mav.setViewName("redirect:/group-menu");
         } catch (NoSuchGroupException e) {
             mav.addObject("message", "There is no group with name: " + name);
-            mav.setViewName("delete-group-form");
+            mav.setViewName("delete-group");
         }
         return mav;
     }
