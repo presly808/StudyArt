@@ -89,12 +89,12 @@ public class CodingBatTaskDaoMongoImpl implements CodingBatTaskDao {
     @Override
     public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException {
         if (!isExist(codingBatTask.getTitle())) {
-            CodingBatTaskValidator validator = new CodingBatTaskValidator();
-            validator.validate(codingBatTask);
+//            CodingBatTaskValidator validator = new CodingBatTaskValidator();
+//            validator.validate(codingBatTask);
             datastore.save(codingBatTask);
             return codingBatTask;
         }
-        throw new AppException("Task with this title already exist");
+        throw new AppException();
     }
 
 }

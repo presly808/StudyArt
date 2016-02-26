@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<spring:message code="label.hello"/> <security:authentication property="principal.username" />!
+
 <menu>
 
     <li><a href="task-menu"><spring:message code="label.task.menu"/></a></li>

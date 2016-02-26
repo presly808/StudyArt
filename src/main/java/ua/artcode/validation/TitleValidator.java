@@ -17,6 +17,6 @@ public class TitleValidator implements ConstraintValidator<Title, String> {
         if (title == null) {
             return false;
         }
-        return title.matches("[\\w\\s._-]{3,20}");
+        return title.matches("[\\w-]{3,30}");
     }
 }

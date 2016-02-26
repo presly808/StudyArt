@@ -130,7 +130,7 @@ public class CodingBatTaskUtils {
                 testDataContainer.addTaskTestData(taskTestData);
             }
         } catch (Exception e) {
-            throw new AppValidationException("Test points is invalid.");
+            throw new AppValidationException();
         }
 
         return testDataContainer;

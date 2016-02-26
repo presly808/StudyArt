@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@include file="include.jsp"%>
 
 <html>
@@ -7,28 +8,40 @@
 <body>
 <h1><spring:message code="label.title.create.new.task"/></h1>
 
-<form action="${pageContext.request.contextPath}/tasks-menu/create-task" method="post">
+<form:form action="${pageContext.request.contextPath}/task-menu/create-task" modelAttribute="codingBatTask"
+           method="post">
     <spring:message code="label.create.task.name"/>:<br>
     <label>
-        <input type="text" name="task_name">
+
+        <form:input path="title" size="30"/>
+        <form:errors path="title" />
+        <%--<input type="text" name="task_name">--%>
     </label><br>
     <spring:message code="label.create.task.group"/>:<br>
     <label>
-        <input type="text" name="task_group">
+        <form:input path="groupName" size="30"/>
+        <form:errors path="groupName" />
+        <%--<input type="text" name="task_group">--%>
     </label><br>
     <spring:message code="label.create.task.description"/>:<br>
     <label>
-        <textarea name="task_description" rows="10" cols="50"></textarea>
+        <form:textarea path="description" rows="10" cols="50" />
+        <form:errors path="description" />
+        <%--<textarea name="task_description" rows="10" cols="50"></textarea>--%>
     </label><br>
     <spring:message code="label.create.task.examples"/>:<br>
     <label>
-        <textarea name="examples" rows="5" cols="50"></textarea>
+        <form:textarea path="examples" rows="5" cols="50" />
+        <form:errors path="examples" />
+        <%--<textarea name="examples" rows="5" cols="50"></textarea>--%>
     </label><br>
 
     <spring:message code="label.create.task.template"/>:<br>
     <code>public String methodName(int argName1, char argName2) {}</code><br>
     <label>
-        <textarea name="method_template" rows="3" cols="50"></textarea>
+        <form:textarea path="template" rows="3" cols="50" />
+        <form:errors path="template" />
+        <%--<textarea name="method_template" rows="3" cols="50"></textarea>--%>
     </label><br>
 
     <spring:message code="label.create.task.datapoint"/>:<br>
@@ -39,7 +52,7 @@
 
     <input type="submit" value="<spring:message code="label.send"/>">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
+</form:form>
 
 <c:set var="error_msg_list" value="${message}"/>
 <c:if test="${error_msg_list != null}">

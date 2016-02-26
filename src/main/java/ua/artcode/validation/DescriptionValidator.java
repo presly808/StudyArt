@@ -17,6 +17,6 @@ public class DescriptionValidator implements ConstraintValidator<Description, St
         if (description == null) {
             return false;
         }
-        return description.matches("[\\s\\S]{10,1000}");
+        return description.matches("\\s?\\w[\\w\\s\\n-.,;:=?@{}\\[\\]]{10,1000}");
     }
 }

@@ -7,7 +7,7 @@
 
 <body>
 <form action="${pageContext.request.contextPath}/task-menu/do-task" method="post">
-    <spring:message code="label.lesson.menu.delete.id"/>:<p><input name="lessonId"></p>
+    <spring:message code="label.lesson.menu.delete.id"/>:<p><input name="taskId"></p>
     <p><input type="submit" value="<spring:message code="label.find"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
@@ -18,4 +18,3 @@
 
 </body>
 </html>
-<%--TODO add succesfull delete--%>
