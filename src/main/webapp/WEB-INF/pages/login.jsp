@@ -1,4 +1,6 @@
-<%@include file="include.jsp"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@include file="include.jsp"%>--%>
 
 <html>
 <head>

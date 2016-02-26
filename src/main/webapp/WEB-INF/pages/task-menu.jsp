@@ -6,6 +6,7 @@
     <title><spring:message code="label.title.task.menu"/></title>
 </head>
 <body>
+
 <menu>
     <li><a href="task-menu/add-task"><spring:message code="label.task.menu.add"/></a></li>
 

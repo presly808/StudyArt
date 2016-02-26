@@ -18,4 +18,3 @@
 
 </body>
 </html>
-<%--TODO add succesfull delete--%>
