@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Map;
 
 
 /**
@@ -84,29 +86,34 @@ public class MainController {
         return "login";
     }
 
+    // PRG pattern
     @RequestMapping(value = "/task-menu")
-    public ModelAndView taskMenu() {
-        return new ModelAndView("task-menu");
+    public String taskMenu(HttpServletRequest request) {
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
+        if (map != null) {
+            request.setAttribute("message", map.get("message"));
+        }
+        return "task-menu";
     }
 
     @RequestMapping(value = "/course-menu")
-    public ModelAndView loadCourseMenu() {
-        return new ModelAndView("course-menu");
+    public String loadCourseMenu() {
+        return "course-menu";
     }
 
     @RequestMapping(value = "/lesson-menu")
-    public ModelAndView loadLessonMenu() {
-        return new ModelAndView("lesson-menu");
+    public String loadLessonMenu() {
+        return "lesson-menu";
     }
 
     @RequestMapping(value = "/group-menu")
-    public ModelAndView loadGroupMenu() {
-        return new ModelAndView("group-menu");
+    public String loadGroupMenu() {
+        return "group-menu";
     }
 
     @RequestMapping(value = "/user-menu")
-    public ModelAndView loadUserMenu() {
-        return new ModelAndView("user-menu");
+    public String loadUserMenu() {
+        return "user-menu";
     }
 }
 

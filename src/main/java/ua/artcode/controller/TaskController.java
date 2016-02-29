@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContext;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
@@ -26,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Razer on 07.02.16.
@@ -52,13 +55,10 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/create-task", method = RequestMethod.POST)
-    public ModelAndView createTask(@Valid CodingBatTask codingBatTask, BindingResult result, Model model, HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView();
+    public String createTask(@Valid CodingBatTask codingBatTask, BindingResult result, Model model, HttpServletRequest req, RedirectAttributes redirectAtri) {
         if (result.hasErrors()) {
-            mav.setViewName("create-task-form");
-            return mav;
+            return "create-task-form";
         }
-
         String testData = req.getParameter("data_points");
 
         try {
@@ -66,17 +66,25 @@ public class TaskController {
             codingBatTask.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
             adminService.addTask(codingBatTask);
-            mav.setViewName("task-menu");
-            mav.addObject("message", "The task has been successfully created.");
+            redirectAtri.addFlashAttribute("message", "The task has been successfully created.");
+            return "redirect:/task-menu";
         } catch (AppValidationException e) {
             req.setAttribute("message", "Invalid test points");
-            mav.setViewName("create-task-form");
         } catch (AppException e) {
             req.setAttribute("message", "Task with title: " + codingBatTask.getTitle() + " already exist.");
-            mav.setViewName("create-task-form");
         }
-        return mav;
+        return "create-task-form";
     }
+
+//     working. Don't delete!!! PRG pattern
+//    @RequestMapping(value = "/redirect-menu", method = RequestMethod.GET)
+//    public String goTaskMenu(HttpServletRequest request) {
+//        Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
+//        if (map != null) {
+//            request.setAttribute("message", map.get("message"));
+//        }
+//        return "task-menu";
+//    }
 
     @RequestMapping(value = "/do-task/{taskId}", method = RequestMethod.GET)
     public ModelAndView doTasks(@PathVariable String taskId, Model model) throws ServletException, IOException, NoSuchTaskException {
