@@ -65,7 +65,7 @@ public class MainController {
     public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
         if (error != null) {
-            mav.addObject("error", "Invalid username or password!");
+            mav.addObject("message", "Invalid username or password!");
         }
         return mav;
     }
@@ -107,8 +107,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/group-menu")
-    public String loadGroupMenu() {
-        return "group-menu";
+    public ModelAndView loadGroupMenu(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("group-menu");
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
+        if (map != null) {
+            mav.addObject("message", map.get("message"));
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/user-menu")
