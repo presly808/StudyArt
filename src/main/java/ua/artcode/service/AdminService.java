@@ -1,8 +1,9 @@
 package ua.artcode.service;
 
+import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
 
@@ -11,19 +12,21 @@ import java.util.List;
  */
 public interface AdminService {
 
-    CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException;
+    Task addTask(Task codingBatTask) throws AppException;
 
-    CodingBatTask getTask(String title) throws NoSuchTaskException;
+    Task findTaskByTitle(String title) throws NoSuchTaskException;
+
+    Task findTaskById(ObjectId id) throws NoSuchTaskException;
 
     int size();
 
-    List<CodingBatTask> getAll() throws AppException;
+    List<Task> getAll() throws AppException;
 
     boolean delete(String title);
 
-    CodingBatTask update(String id, CodingBatTask updateTask);
+    Task update(String id, Task updateTask);
 
-    List<CodingBatTask> getGroupTasks(String group);
+    List<Task> getGroupTasks(String group);
 
     List<String> getGroups();
 }

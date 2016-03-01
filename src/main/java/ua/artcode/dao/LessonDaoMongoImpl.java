@@ -1,10 +1,11 @@
 package ua.artcode.dao;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.Lesson;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class LessonDaoMongoImpl implements LessonDao {
             datastore.save(lesson);
             return lesson;
         }
-        throw new AppException("Lesson already exist");
+        //TODO${lesson.exist}
+        throw new AppException("Lesson with title: "+lesson.getTitle()+" already exist");
     }
 
     @Override
@@ -40,9 +42,9 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public void addTask(String title, CodingBatTask codingBatTask) throws NoSuchLessonException, AppException {
+    public void addTask(String title, Task codingBatTask) throws NoSuchLessonException, AppException {
         Lesson lesson = findByTitle(title);
-        List<CodingBatTask> taskList = lesson.getTasks();
+        List<Task> taskList = lesson.getTasks();
         taskList.add(codingBatTask);
         updateLesson(lesson);
     }
@@ -76,6 +78,15 @@ public class LessonDaoMongoImpl implements LessonDao {
         Lesson lesson = datastore.find(Lesson.class, "title", title).get();
         if (lesson == null) {
             throw new NoSuchLessonException("There is no lesson with title: " + title + "!");
+        }
+        return lesson;
+    }
+
+    @Override
+    public Lesson findById(ObjectId id) throws NoSuchLessonException {
+        Lesson lesson = datastore.find(Lesson.class, "id", id).get();
+        if (lesson == null) {
+            throw new NoSuchLessonException("There is no lesson with id: " + id + "!");
         }
         return lesson;
     }

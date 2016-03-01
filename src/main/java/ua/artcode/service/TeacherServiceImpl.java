@@ -1,5 +1,6 @@
 package ua.artcode.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import ua.artcode.model.Course;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.Lesson;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void addTaskToLesson(String title, CodingBatTask codingBatTask) throws NoSuchLessonException, AppException {
+    public void addTaskToLesson(String title, Task codingBatTask) throws NoSuchLessonException, AppException {
         lessonDao.addTask(title,codingBatTask);
     }
 
@@ -63,6 +64,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Lesson findLessonByTitle(String title) throws NoSuchLessonException {
         return lessonDao.findByTitle(title);
+    }
+
+    @Override
+    public Lesson findLessonById(ObjectId id) throws NoSuchLessonException {
+        return lessonDao.findById(id);
     }
 
     @Override
@@ -90,6 +96,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Course findCourseByTitle(String title) throws NoSuchCourseException {
         return courseDao.findByTitle(title);
+    }
+
+    @Override
+    public Course findCourseById(ObjectId id) throws NoSuchCourseException {
+        return courseDao.findById(id);
     }
 
     @Override
@@ -127,6 +138,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public UserGroup findUserGroupByName(String name) throws NoSuchGroupException {
         return userGroupDao.findByName(name);
+    }
+
+    @Override
+    public UserGroup findUserGroupById(ObjectId id) throws NoSuchGroupException {
+        return userGroupDao.findById(id);
     }
 
     @Override

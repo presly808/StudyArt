@@ -16,8 +16,10 @@ public class Course {
 
     @Id
     private ObjectId id;
+
     @Title
     private String title;
+
     @Description
     private String description;
 

@@ -29,7 +29,7 @@ import static org.mockito.Mockito.mock;
 @ContextConfiguration("/app-context.xml")
 public class CourseDaoImplTest {
 
-    private static final Logger LOG = Logger.getLogger(CodingBatTaskMongoImplTest.class);
+    private static final Logger LOG = Logger.getLogger(TaskMongoImplTest.class);
 
     private final int AMOUNT_OF_ELEMENTS = 100;
 

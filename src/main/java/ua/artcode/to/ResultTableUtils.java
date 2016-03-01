@@ -1,6 +1,6 @@
 package ua.artcode.to;
 
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ResultTableUtils {
 
-    public static List<ResultTablePart> getResultTableList(CodingBatTask task, TaskTestResult taskResult) {
+    public static List<ResultTablePart> getResultTableList(Task task, TaskTestResult taskResult) {
         List<ResultTablePart> resultTablePartList = new ArrayList<>();
         for (int i = 0; i < taskResult.getActualValues().size(); i++) {
             String inArgsTemplate = getInArgsTemplate(task, i);
@@ -25,7 +25,7 @@ public class ResultTableUtils {
         return resultTablePartList;
     }
 
-    private static String getInArgsTemplate(CodingBatTask task, int iter) {
+    private static String getInArgsTemplate(Task task, int iter) {
         String inArgsTemplate = CodingBatTaskUtils.getMethodName(task.getTemplate()) + "(";
         List inArgList = task.getTaskTestDataContainer().getTaskTestDataList().get(iter).getInData();
         for (int i = 0; i < inArgList.size(); i++) {

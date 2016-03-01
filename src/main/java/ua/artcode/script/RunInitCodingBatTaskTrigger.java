@@ -1,17 +1,10 @@
 package ua.artcode.script;
 
-import org.mongodb.morphia.Datastore;
-import org.springframework.context.ApplicationContext;
-import ua.artcode.dao.UserDao;
-import ua.artcode.dao.UserDaoMongoImpl;
 import ua.artcode.exception.AppException;
-import ua.artcode.model.common.User;
-import ua.artcode.model.common.UserType;
-import ua.artcode.utils.SpringContext;
 
 public class RunInitCodingBatTaskTrigger {
 
-//    public static void main(String[] args) throws AppException {
+    public static void main(String[] args) throws AppException {
 //        ApplicationContext context = SpringContext.getContext();
 //        Datastore datastore = (Datastore) context.getBean("datastore");
 //        CourseDao courseDao=new CourseDaoImpl(datastore);
@@ -30,7 +23,7 @@ public class RunInitCodingBatTaskTrigger {
 //        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
         //InitCodingBatTaskTrigger.loadTasksIfNeeded();
 //        InitCodingBatTaskTrigger.loadTasksToDataBase();
-        // InitCodingBatTaskTrigger.createDumpOfDataBase();
+        //InitCodingBatTaskTrigger.createDumpOfDataBase();
         //InitCodingBatTaskTrigger.restoreDataBaseFromDump();
 
 //        UserDao userDao = new UserDaoMongoImpl(datastore);
@@ -45,4 +38,6 @@ public class RunInitCodingBatTaskTrigger {
 //        System.out.println(codingBatTaskDao.isExist(codingBatTask));
 
     }
+}
+
 

@@ -3,7 +3,7 @@ package ua.artcode.utils;
 import jdk.nashorn.internal.runtime.Source;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 import ua.artcode.utils.io.FileUtils;
 import ua.artcode.utils.serialization.AppDataJsonSerializer;
 
@@ -21,7 +21,7 @@ import static ua.artcode.utils.RandomDataGenerator.generateRandomId;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestTaskJsonSerializer {
 
-    private static Collection<CodingBatTask> codingBatTasks;
+    private static Collection<Task> codingBatTasks;
 
     private static File dbTaskPath;
 
@@ -32,9 +32,9 @@ public class TestTaskJsonSerializer {
 
         dbTaskPath = FileUtils.createNewIfNotExists("target/app_db.json");
 
-        appDataJsonSerializer = new AppDataJsonSerializer(CodingBatTask.class);
+        appDataJsonSerializer = new AppDataJsonSerializer(Task.class);
 
-        codingBatTasks = Stream.generate(() -> new CodingBatTask(
+        codingBatTasks = Stream.generate(() -> new Task(
                 generateNameWith("title", 100),
                 generateNameWith("desc ", 100), generateNameWith("example ", 100), generateNameWith("tamplate ", 100),generateRandomId())).
                 limit(10).
@@ -60,7 +60,7 @@ public class TestTaskJsonSerializer {
 
     @Test
     public void _02testSimpleLoading() {
-        Collection<CodingBatTask> loadedTasks = appDataJsonSerializer.load(dbTaskPath.getPath());
+        Collection<Task> loadedTasks = appDataJsonSerializer.load(dbTaskPath.getPath());
         //TODO use logger
         //loadedTasks.stream().forEach(System.out::println);
 

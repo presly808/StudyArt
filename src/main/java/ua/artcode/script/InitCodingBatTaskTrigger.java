@@ -3,12 +3,12 @@ package ua.artcode.script;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
-import ua.artcode.dao.CodingBatTaskDao;
-import ua.artcode.dao.CodingBatTaskDaoMongoImpl;
+import ua.artcode.dao.TaskDao;
+import ua.artcode.dao.TaskDaoMongoImpl;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.UserAccountExistException;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.codingbat.CodingBatTaskGrabber;
 import ua.artcode.utils.io.AppPropertiesHolder;
@@ -40,9 +40,9 @@ public class InitCodingBatTaskTrigger {
         } else {
             CodingBatTaskGrabber codingBatTaskGrabber = new CodingBatTaskGrabber();
 
-            Collection<CodingBatTask> collections = codingBatTaskGrabber.getTasksFromCodingBat();
+            Collection<Task> collections = codingBatTaskGrabber.getTasksFromCodingBat();
 
-            AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer(CodingBatTask.class);
+            AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer(Task.class);
 
             appDataJsonSerializer.save(collections, dbJsonPath);
 
@@ -62,14 +62,14 @@ public class InitCodingBatTaskTrigger {
 
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
-        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
+        TaskDao taskDao = new TaskDaoMongoImpl(datastore);
 
         AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
 
-        Collection<CodingBatTask> collection = appDataJsonSerializer.load(dbJsonPath);
-        for (CodingBatTask task : collection) {
+        Collection<Task> collection = appDataJsonSerializer.load(dbJsonPath);
+        for (Task task : collection) {
             try {
-                codingBatTaskDao.addTask(task);
+                taskDao.addTask(task);
             } catch (AppValidationException e) {
                 LOG.warn(e.getExceptionMessageList());
                 throw e;
@@ -97,7 +97,6 @@ public class InitCodingBatTaskTrigger {
     /**
      * @restore dump of database if it need
      */
-    //TODO where dump path?
     public static void restoreDataBaseFromDump() {
         try {
             LOG.trace("Restore db from dump");

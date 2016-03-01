@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.Course;
@@ -16,6 +17,8 @@ public interface CourseDao {
     boolean delete(String title) throws NoSuchCourseException;
 
     Course findByTitle(String title) throws NoSuchCourseException;
+
+    Course findById(ObjectId id) throws NoSuchCourseException;
 
     int size();
 

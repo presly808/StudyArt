@@ -1,5 +1,6 @@
 package ua.artcode.service;
 
+import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.exception.NoSuchGroupException;
@@ -8,7 +9,7 @@ import ua.artcode.model.Course;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.Lesson;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
 
@@ -24,7 +25,9 @@ public interface TeacherService {
 
     Lesson findLessonByTitle(String title) throws NoSuchLessonException;
 
-    void addTaskToLesson(String title, CodingBatTask codingBatTask) throws NoSuchLessonException, AppException;
+    Lesson findLessonById(ObjectId id) throws NoSuchLessonException;
+
+    void addTaskToLesson(String title, Task codingBatTask) throws NoSuchLessonException, AppException;
 
     boolean deleteLesson(String title) throws NoSuchLessonException;
 
@@ -43,6 +46,8 @@ public interface TeacherService {
 
     Course findCourseByTitle(String title) throws NoSuchCourseException;
 
+    Course findCourseById(ObjectId id) throws NoSuchCourseException;
+
     int sizeOfCourse();
 
     //Group methods
@@ -57,6 +62,8 @@ public interface TeacherService {
     List<UserGroup> getAllGroups() throws AppException;
 
     UserGroup findUserGroupByName(String name) throws NoSuchGroupException;
+
+    UserGroup findUserGroupById(ObjectId id) throws NoSuchGroupException;
 
     boolean isExistGroup(String name);
 

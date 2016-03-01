@@ -14,15 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Map;
 
 
 /**
@@ -41,7 +42,7 @@ public class MainController {
 
     @RequestMapping(value = "/menu")
     public ModelAndView loadMenu() {
-        return new ModelAndView("menu");
+        return new ModelAndView("main/menu");
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
@@ -54,13 +55,13 @@ public class MainController {
             model.addObject("username", userDetail.getUsername());
         }
 
-        model.setViewName("403");
+        model.setViewName("main/403");
         return model;
 
     }
 
     @RequestMapping(value = "/login")
-    public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
         ModelAndView mav = new ModelAndView();
         if (error != null) {
             mav.addObject("error", "Invalid username or password!");
@@ -71,13 +72,13 @@ public class MainController {
     @RequestMapping(value = "/registration-form")
     public String registrationForm(Model model) {
         model.addAttribute("user", new User());
-        return "registration-form";
+        return "main/registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@Valid User user, BindingResult result, Model model) throws ServletException, IOException, AppException {
         if (result.hasErrors()) {
-            return "registration-form";
+            return "main/registration";
         }
         model.addAttribute("message", messageSource.getMessage("label.registration.successful", null, LocaleContextHolder.getLocale()));
         userService.register(user);
@@ -85,28 +86,33 @@ public class MainController {
     }
 
     @RequestMapping(value = "/task-menu")
-    public ModelAndView taskMenu() {
-        return new ModelAndView("task-menu");
+    public ModelAndView taskMenu(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("main/task-menu");
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
+        if (map != null) {
+            mav.addObject("message", map.get("message"));
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/course-menu")
     public ModelAndView loadCourseMenu() {
-        return new ModelAndView("course-menu");
+        return new ModelAndView("main/course-menu");
     }
 
     @RequestMapping(value = "/lesson-menu")
     public ModelAndView loadLessonMenu() {
-        return new ModelAndView("lesson-menu");
+        return new ModelAndView("main/lesson-menu");
     }
 
     @RequestMapping(value = "/group-menu")
     public ModelAndView loadGroupMenu() {
-        return new ModelAndView("group-menu");
+        return new ModelAndView("main/group-menu");
     }
 
     @RequestMapping(value = "/user-menu")
     public ModelAndView loadUserMenu() {
-        return new ModelAndView("user-menu");
+        return new ModelAndView("main/user-menu");
     }
 }
 

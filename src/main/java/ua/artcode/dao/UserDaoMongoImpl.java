@@ -1,6 +1,7 @@
 package ua.artcode.dao;
 
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
@@ -31,8 +32,6 @@ public class UserDaoMongoImpl implements UserDao {
     public User addUser(User user) throws AppException {
 
         if (!isExist(user.getEmail())) {
-//            UserValidator validator = new UserValidator();
-//            validator.validate(user);
             user.setPassword(Security.toMd5(user.getPassword()));
             datastore.save(user);
             LOG.info("User with email: " + user.getEmail() + " was added to data base.");
@@ -46,6 +45,15 @@ public class UserDaoMongoImpl implements UserDao {
         User user = datastore.find(User.class, "email", userEmail).get();
         if (user == null) {
             throw new NoSuchUserException("There is no user with the email: " + userEmail);
+        }
+        return user;
+    }
+
+    @Override
+    public User findByUserId(ObjectId id) throws NoSuchUserException {
+        User user = datastore.find(User.class, "id", id).get();
+        if (user == null) {
+            throw new NoSuchUserException("There is no user with the id: " + id);
         }
         return user;
     }

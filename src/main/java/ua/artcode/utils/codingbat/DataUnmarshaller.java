@@ -1,13 +1,13 @@
 package ua.artcode.utils.codingbat;
 
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.model.codingbat.TestArg;
 
 
 public class DataUnmarshaller {
 
-    public void convert(CodingBatTask task) {
+    public void convert(Task task) {
         TestArg testArg;
         for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
             for (int i = 0; i < data.getInData().size(); i++) {
