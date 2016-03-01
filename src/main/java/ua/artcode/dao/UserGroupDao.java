@@ -1,6 +1,7 @@
 package ua.artcode.dao;
 
 
+import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.model.common.User;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface UserGroupDao {
 
     UserGroup findByName(String name) throws NoSuchGroupException;
+
+    UserGroup findById(ObjectId id) throws NoSuchGroupException;
 
     boolean delete(String name) throws NoSuchGroupException;
 

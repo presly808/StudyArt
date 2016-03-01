@@ -5,7 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,10 +101,10 @@ public class CodingBatTaskGrabber {
         return examples;
     }
 
-    public Collection<CodingBatTask> getTasksFromCodingBat() {
+    public Collection<Task> getTasksFromCodingBat() {
         LOG.trace("Start loading tasks from coding bat");
 
-        Collection<CodingBatTask> taskCollection = new LinkedList<>();
+        Collection<Task> taskCollection = new LinkedList<>();
 
         findGroupLinks();
 
@@ -130,7 +130,7 @@ public class CodingBatTaskGrabber {
                     description = getDescription(infoTable);
                     examples = getExamples(infoTable, title);
 
-                    CodingBatTask codingBatTask = new CodingBatTask(title, description, examples, template, groupName);
+                    Task codingBatTask = new Task(title, description, examples, template, groupName);
 
                     codingBatTask.setMethodSignature(CodingBatTaskUtils.getMethodSignature(codingBatTask.getTemplate()));
                     CodingBatTaskUtils.initTaskTestDataContainer(codingBatTask,codingBatId);

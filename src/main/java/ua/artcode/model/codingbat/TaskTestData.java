@@ -41,10 +41,7 @@ public class TaskTestData {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TaskTestData{");
-        sb.append("inData=").append(inData);
-        sb.append(", expectedValue=").append(expectedValue);
-        sb.append('}');
-        return sb.toString();
+        String result=expectedValue+"-";
+        return result;
     }
 }

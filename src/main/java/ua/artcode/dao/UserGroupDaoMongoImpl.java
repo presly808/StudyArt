@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchGroupException;
@@ -30,6 +31,15 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
+    public UserGroup findById(ObjectId id) throws NoSuchGroupException {
+        UserGroup group = datastore.find(UserGroup.class, "id", id).get();
+        if (group == null) {
+            throw new NoSuchGroupException("There is no group with id:" + id + " !");
+        }
+        return group;
+    }
+
+    @Override
     public boolean delete(String name) throws NoSuchGroupException {
         UserGroup group = findByName(name);
         if (group != null) {
@@ -50,7 +60,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
             datastore.save(group);
             return group;
         }
-        throw new AppException("Task with this title already exist");
+        throw new AppException("Group with name: "+group.getName()+" already exist");
     }
 
     @Override

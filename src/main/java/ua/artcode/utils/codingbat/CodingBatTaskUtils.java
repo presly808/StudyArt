@@ -58,7 +58,7 @@ public class CodingBatTaskUtils {
         return response;
     }
 
-    private static String getCodeForRequestToCodingBat(CodingBatTask task) {
+    private static String getCodeForRequestToCodingBat(Task task) {
         StringBuilder code = new StringBuilder(task.getTemplate().split("}")[0]);
 
         if (task.getMethodSignature().getReturnType().equals("boolean")) {
@@ -77,7 +77,7 @@ public class CodingBatTaskUtils {
         return code.toString();
     }
 
-    public static void initTaskTestDataContainer(CodingBatTask task,String codingBatId) {
+    public static void initTaskTestDataContainer(Task task, String codingBatId) {
         String codeForRequest = getCodeForRequestToCodingBat(task);
         HttpResponse response = getResponseFromCodingBat(codeForRequest,codingBatId);
         HttpEntity entity = response.getEntity(); // incoming data

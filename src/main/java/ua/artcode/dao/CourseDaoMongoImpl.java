@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
@@ -27,6 +28,15 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     @Override
+    public Course findById(ObjectId id) throws NoSuchCourseException {
+        Course course = datastore.find(Course.class, "id", id).get();
+        if (course == null) {
+            throw new NoSuchCourseException("There is no course with id:" + id+ " !");
+        }
+        return course;
+    }
+
+    @Override
     public boolean isExist(String title) {
         Course existCourse = datastore.find(Course.class).field("title").equal(title).get();
         if (existCourse == null) {
@@ -41,7 +51,7 @@ public class CourseDaoMongoImpl implements CourseDao {
             datastore.save(course);
             return course;
         }
-        throw new AppException("Task with this title already exist");
+        throw new AppException("Course with title: "+course.getTitle()+" already exist");
     }
 
     @Override

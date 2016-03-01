@@ -1,13 +1,14 @@
 package ua.artcode.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ua.artcode.dao.CodingBatTaskDao;
+import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     @Qualifier("сodingBatTaskMongoImpl")
-    private CodingBatTaskDao codingBatTaskDao;
+    private TaskDao taskDao;
 
 
     @Autowired
@@ -33,42 +34,47 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean delete(String title) {
-        return codingBatTaskDao.delete(title);
+        return taskDao.delete(title);
     }
 
     @Override
-    public CodingBatTask addTask(CodingBatTask codingBatTask) throws AppException {
-        return codingBatTaskDao.addTask(codingBatTask);
+    public Task addTask(Task codingBatTask) throws AppException {
+        return taskDao.addTask(codingBatTask);
     }
 
     @Override
-    public List<CodingBatTask> getAll() throws AppException {
-        return codingBatTaskDao.getAll();
+    public List<Task> getAll() throws AppException {
+        return taskDao.getAll();
     }
 
     @Override
-    public CodingBatTask getTask(String title) throws NoSuchTaskException {
-        return codingBatTaskDao.findByTitle(title);
+    public Task findTaskByTitle(String title) throws NoSuchTaskException {
+        return taskDao.findByTitle(title);
+    }
+
+    @Override
+    public Task findTaskById(ObjectId id) throws NoSuchTaskException{
+        return taskDao.findById(id);
     }
 
     @Override
     public int size() {
-        return codingBatTaskDao.size();
+        return taskDao.size();
     }
 
     //TODO update
     @Override
-    public CodingBatTask update(String id, CodingBatTask updateTask) {
+    public Task update(String id, Task updateTask) {
         return null;
     }
 
     @Override
-    public List<CodingBatTask> getGroupTasks(String group) {
-        return codingBatTaskDao.getGroupTasks(group);
+    public List<Task> getGroupTasks(String group) {
+        return taskDao.getGroupTasks(group);
     }
 
     @Override
     public List<String> getGroups() {
-        return codingBatTaskDao.getGroups();
+        return taskDao.getGroups();
     }
 }

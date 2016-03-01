@@ -11022,10 +11022,10 @@
   },
   {
     "groupName": "Logic-1",
-    "title": "lastDigit",
+    "title": "lastDigit2",
     "description": "Given three ints, a b c, return true if two or more of them have the same rightmost digit. The ints are non-negative. Note: the % \"mod\" operator computes the remainder, e.g. 17 % 10 is 7. ",
-    "examples": "lastDigit(23, 19, 13) → true lastDigit(23, 19, 12) → false lastDigit(23, 19, 3) → true\n",
-    "template": "public boolean lastDigit(int a, int b, int c) {\n  \n}",
+    "examples": "lastDigit2(23, 19, 13) → true lastDigit2(23, 19, 12) → false lastDigit2(23, 19, 3) → true\n",
+    "template": "public boolean lastDigit2(int a, int b, int c) {\n  \n}",
     "methodSignature": {
       "inArgList": [
         {
@@ -16327,10 +16327,10 @@
   },
   {
     "groupName": "String-3",
-    "title": "sameEnds",
+    "title": "sameEnds2",
     "description": "Given a string, return the longest substring that appears at both the beginning and end of the string without overlapping. For example, sameEnds(\"abXab\") is \"ab\". ",
-    "examples": "sameEnds(\"abXab\") is \"ab\". sameEnds(\"abXYab\") → \"ab\" sameEnds(\"xx\") → \"x\" sameEnds(\"xxx\") → \"x\"\n",
-    "template": "public String sameEnds(String string) {\n  \n}",
+    "examples": "sameEnds2(\"abXab\") is \"ab\". sameEnds2(\"abXYab\") → \"ab\" sameEnds2(\"xx\") → \"x\" sameEnds2(\"xxx\") → \"x\"\n",
+    "template": "public String sameEnds2(String string) {\n  \n}",
     "methodSignature": {
       "inArgList": [
         {
@@ -21596,10 +21596,10 @@
   },
   {
     "groupName": "AP-1",
-    "title": "matchUp",
+    "title": "matchUp2",
     "description": "Given 2 arrays that are the same length containing strings, compare the 1st string in one array to the 1st string in the other array, the 2nd to the 2nd and so on. Count the number of times that the 2 strings are non-empty and start with the same char. The strings may be any length, including 0. ",
-    "examples": "matchUp({\"aa\", \"bb\", \"cc\"}, {\"aaa\", \"xx\", \"bb\"}) → 1 matchUp({\"aa\", \"bb\", \"cc\"}, {\"aaa\", \"b\", \"bb\"}) → 2 matchUp({\"aa\", \"bb\", \"cc\"}, {\"\", \"\", \"ccc\"}) → 1\n",
-    "template": "public int matchUp(String[] a, String[] b) {\n  \n}",
+    "examples": "matchUp2({\"aa\", \"bb\", \"cc\"}, {\"aaa\", \"xx\", \"bb\"}) → 1 matchUp2({\"aa\", \"bb\", \"cc\"}, {\"aaa\", \"b\", \"bb\"}) → 2 matchUp({\"aa\", \"bb\", \"cc\"}, {\"\", \"\", \"ccc\"}) → 1\n",
+    "template": "public int matchUp2(String[] a, String[] b) {\n  \n}",
     "methodSignature": {
       "inArgList": [
         {
@@ -23096,10 +23096,10 @@
   },
   {
     "groupName": "Recursion-1",
-    "title": "sumDigits",
+    "title": "sumDigits2",
     "description": "Given a non-negative int n, return the sum of its digits recursively (no loops). Note that mod (%) by 10 yields the rightmost digit (126 % 10 is 6), while divide (/) by 10 removes the rightmost digit (126 / 10 is 12). ",
-    "examples": "sumDigits(126) → 9 sumDigits(49) → 13 sumDigits(12) → 3\n",
-    "template": "public int sumDigits(int n) {\n  \n}",
+    "examples": "sumDigits2(126) → 9 sumDigits2(49) → 13 sumDigits2(12) → 3\n",
+    "template": "public int sumDigits2(int n) {\n  \n}",
     "methodSignature": {
       "inArgList": [
         {
@@ -23577,10 +23577,10 @@
   },
   {
     "groupName": "Recursion-1",
-    "title": "countHi",
+    "title": "countHi1",
     "description": "Given a string, compute recursively (no loops) the number of times lowercase \"hi\" appears in the string. ",
-    "examples": "countHi(\"xxhixx\") → 1 countHi(\"xhixhix\") → 2 countHi(\"hi\") → 1\n",
-    "template": "public int countHi(String str) {\n  \n}",
+    "examples": "countHi1(\"xxhixx\") → 1 countHi1(\"xhixhix\") → 2 countHi1(\"hi\") → 1\n",
+    "template": "public int countHi1(String str) {\n  \n}",
     "methodSignature": {
       "inArgList": [
         {

@@ -1,7 +1,7 @@
 package ua.artcode.process;
 
 import org.apache.log4j.Logger;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.model.codingbat.TestArg;
 import ua.artcode.preprocess.TemplateProcessor;
@@ -47,7 +47,7 @@ public class TaskRunFacade {
 
     }
 
-    public TaskTestResult runTask(CodingBatTask task, String userCode) {
+    public TaskTestResult runTask(Task task, String userCode) {
 
         TaskTestResult taskTestResult = new TaskTestResult();
 
@@ -80,7 +80,7 @@ public class TaskRunFacade {
         return taskTestResult;
     }
 
-    private List prepareData(CodingBatTask task) {
+    private List prepareData(Task task) {
         List argsForTemplate = task.getTaskTestDataContainer().getTaskTestDataList().get(0).getInData();
         List<TestArg> adapterList = new ArrayList<>();
         for (int i = 0; i < argsForTemplate.size(); i++) {
@@ -89,7 +89,7 @@ public class TaskRunFacade {
         return adapterList;
     }
 
-    private String generateMagicTempClassName(CodingBatTask task) {
+    private String generateMagicTempClassName(Task task) {
         return "_" + task.getTitle() + String.valueOf(System.currentTimeMillis()).substring(8);
     }
 

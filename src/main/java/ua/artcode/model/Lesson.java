@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
-import ua.artcode.model.codingbat.CodingBatTask;
+import ua.artcode.model.codingbat.Task;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Title;
 
@@ -24,7 +24,7 @@ public class Lesson {
     private String description;
 
     @Reference
-    private List<CodingBatTask> tasks=new ArrayList<>();
+    private List<Task> tasks=new ArrayList<>();
 
     public Lesson() {
     }
@@ -34,7 +34,7 @@ public class Lesson {
         this.description = description;
     }
 
-    public Lesson(String title, String description, List<CodingBatTask> tasks) {
+    public Lesson(String title, String description, List<Task> tasks) {
         this.title = title;
         this.description = description;
         this.tasks = tasks;
@@ -64,11 +64,11 @@ public class Lesson {
         this.description = description;
     }
 
-    public List<CodingBatTask> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<CodingBatTask> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 

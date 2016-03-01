@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.User;
@@ -12,6 +13,8 @@ public interface UserDao {
     User addUser(User user) throws AppException;
 
     User findByUserEmail(String email) throws NoSuchUserException;
+
+    User findByUserId(ObjectId id) throws NoSuchUserException;
 
     boolean delete(String email) throws NoSuchUserException;
 

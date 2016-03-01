@@ -27,20 +27,19 @@
         </property>
     </bean>
 
-    <!--Internationalization and Localization-->
-
 
     <!--Spring mvc beans-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="сodingBatTaskMongoTestImpl" class="ua.artcode.dao.CodingBatTaskDaoMongoImpl">
+    <!--TODO rename-->
+    <bean id="сodingBatTaskMongoTestImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
         <constructor-arg name="datastore" ref="testStore"/>
     </bean>
 
-    <bean id="сodingBatTaskMongoImpl" class="ua.artcode.dao.CodingBatTaskDaoMongoImpl">
+    <bean id="сodingBatTaskMongoImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
         <constructor-arg name="datastore" ref="datastore"/>
     </bean>
 

@@ -24,32 +24,37 @@ public class UserController {
 
     @RequestMapping(value = "/add-admin")
     public ModelAndView addAdmin() {
-        return new ModelAndView("create-admin-form");
+        return new ModelAndView("user/create-admin");
     }
 
     @RequestMapping(value = "/show-users")
     public ModelAndView showUsers() {
-        ModelAndView mav = new ModelAndView("list-users");
+        ModelAndView mav = new ModelAndView("user/list-users");
         mav.addObject("users", userService.getAllUsers());
         return mav;
     }
 
     @RequestMapping(value = "/show-user/{email:.+}")
-    public ModelAndView showUser(@PathVariable String email) throws  NoSuchUserException {
-        ModelAndView mav = new ModelAndView("show-user");
-        //TODO exception try catch
-        User user= userService.findUser(email);
-        mav.addObject("user", user);
+    public ModelAndView showUser(@PathVariable String email) {
+        ModelAndView mav = new ModelAndView();
+        try {
+            User user = userService.findUser(email);
+            mav.addObject("user", user);
+            mav.setViewName("user/show-user");
+        } catch (NoSuchUserException e) {
+            mav.addObject("message", e.getMessage());
+            mav.setViewName("user/list-users");
+        }
         return mav;
     }
 
     @RequestMapping(value = "/delete-user")
-    public ModelAndView deleteUserForm() {
-        return new ModelAndView("delete-user-form");
+    public ModelAndView loadDeleteUser() {
+        return new ModelAndView("user/delete-user");
     }
 
     @RequestMapping(value = "/delete")
-    public ModelAndView delete(HttpServletRequest req,RedirectAttributes redirectAttributes) {
+    public ModelAndView delete(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String email = req.getParameter("userEmail");
         try {
@@ -58,7 +63,7 @@ public class UserController {
             mav.setViewName("redirect:/user-menu");
         } catch (NoSuchUserException e) {
             mav.addObject("message", "There is no user with email: " + email);
-            mav.setViewName("delete-user-form");
+            mav.setViewName("user/delete-user");
         }
         return mav;
     }
