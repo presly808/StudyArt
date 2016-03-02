@@ -2,6 +2,7 @@ package ua.artcode.service;
 
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
+import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
 
@@ -15,7 +16,7 @@ public interface UserService {
 
     User register(String username, String password, String email, UserType userType) throws AppException;
 
-    User register(User user) throws AppException;
+    User register(User user) throws UserAccountExistException;
 
     User getUserInfo(String username);
 

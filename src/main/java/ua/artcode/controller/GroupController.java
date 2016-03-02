@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.model.common.User;
@@ -20,6 +21,7 @@ import ua.artcode.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Razer on 15.02.16.
@@ -41,20 +43,34 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/create-group", method = RequestMethod.POST)
-    public ModelAndView createGroup(@Valid UserGroup userGroup, BindingResult result)  {
-        ModelAndView mav = new ModelAndView("group/setup-groups");
+    public ModelAndView createGroup(@Valid UserGroup userGroup, BindingResult result,RedirectAttributes redirectAttributes)  {
+        ModelAndView mav = new ModelAndView("group/setup-users");
         if (result.hasErrors()) {
-            mav.setViewName("add-group-form");
+            mav.setViewName("group/create-group");
             return mav;
         }
         try {
-            //TODO
             teacherService.addGroup(userGroup);
-            mav.addObject("name", userGroup.getName());
-            mav.addObject("users", userService.getAllUsers());
+            redirectAttributes.addFlashAttribute("name", userGroup.getName());
+            redirectAttributes.addFlashAttribute("users", userService.getAllUsers());
+            mav.setViewName("redirect:/group-menu/setup-users");
         } catch (AppException e) {
             mav.addObject("message",e.getMessage());
             mav.setViewName("group/create-group");
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/setup-users")
+    public ModelAndView setupUsers(RedirectAttributes attributes,HttpServletRequest req){
+        ModelAndView mav = new ModelAndView("group/setup-users");
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
+        if (map != null) {
+            mav.addObject("name",map.get("name"));
+            mav.addObject("users",map.get("users"));
+        }else {
+            attributes.addFlashAttribute("message","Group created successful");
+            mav.setViewName("redirect:/group-menu");
         }
         return mav;
     }

@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
 
@@ -76,13 +77,20 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@Valid User user, BindingResult result, Model model) throws ServletException, IOException, AppException {
+    public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) throws ServletException, IOException{
+        ModelAndView mav=new ModelAndView();
         if (result.hasErrors()) {
-            return "main/registration";
+            mav.setViewName("main/registration");
         }
-        model.addAttribute("message", messageSource.getMessage("label.registration.successful", null, LocaleContextHolder.getLocale()));
-        userService.register(user);
-        return "login";
+        try {
+            userService.register(user);
+            redirectAttributes.addFlashAttribute("message", messageSource.getMessage("registration.successful", null, LocaleContextHolder.getLocale()));
+            mav.setViewName("redirect:/login");
+        } catch (UserAccountExistException e) {
+            mav.setViewName("main/registration");
+            mav.addObject("message",e.getMessage());
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/task-menu")
@@ -105,10 +113,9 @@ public class MainController {
         return mav;
     }
 
-
     @RequestMapping(value = "/lesson-menu")
     public ModelAndView loadLessonMenu(HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView("main/course-menu");
+        ModelAndView mav = new ModelAndView("main/lesson-menu");
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
             mav.addObject("message", map.get("message"));
@@ -125,8 +132,6 @@ public class MainController {
         }
         return mav;
     }
-
-
 
     @RequestMapping(value = "/user-menu")
     public ModelAndView loadUserMenu() {

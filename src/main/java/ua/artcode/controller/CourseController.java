@@ -40,7 +40,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/create-course", method = RequestMethod.POST)
-    public ModelAndView createCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes)  {
+    public ModelAndView createCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes) {
 
         ModelAndView mav = new ModelAndView("course/create-course");
 
@@ -57,7 +57,7 @@ public class CourseController {
                     mav.setViewName("redirect:/course-menu");
                 }
             } catch (AppException e) {
-                mav.addObject("message",e.getMessage());
+                mav.addObject("message", e.getMessage());
             }
         }
         return mav;
@@ -109,14 +109,14 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/find-course")
-    public ModelAndView loadFindCourse(){
+    public ModelAndView loadFindCourse() {
         return new ModelAndView("course/find-course");
     }
 
     @RequestMapping(value = "/edit-course")
-    public ModelAndView editCourse(HttpServletRequest req){
+    public ModelAndView editCourse(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("course/edit-course");
-        String id=req.getParameter("id");
+        String id = req.getParameter("id");
         try {
             Course course = teacherService.findCourseById(new ObjectId(id));
             mav.addObject("course", course);
@@ -127,14 +127,14 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/show-course/{title}")
-    public ModelAndView showCourse(@PathVariable String title,RedirectAttributes redirectAttributes)  {
+    public ModelAndView showCourse(@PathVariable String title, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("course/show-course");
         try {
             Course course = teacherService.findCourseByTitle(title);
             mav.addObject(course);
             mav.addObject("lessons", course.getLessonList());
         } catch (NoSuchCourseException e) {
-            redirectAttributes.addFlashAttribute("message",e.getMessage());
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
             mav.setViewName("redirect:/course-menu/show-courses");
         }
         return mav;
@@ -143,7 +143,7 @@ public class CourseController {
     @RequestMapping(value = "/show-course")
     public ModelAndView showCourse(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
-        String title=req.getParameter("title");
+        String title = req.getParameter("title");
         try {
             Course course = teacherService.findCourseByTitle(title);
             mav.setViewName("course/show-course");

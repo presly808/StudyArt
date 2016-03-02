@@ -1,7 +1,9 @@
-<%@include file="include.jsp"%>
+
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -46,6 +48,10 @@
 
     </table>
 </form:form>
+
+<c:if test="${message != null}">
+<p style="color:red"><c:out value="${message}"/><p>
+    </c:if>
 
 </body>
 </html>

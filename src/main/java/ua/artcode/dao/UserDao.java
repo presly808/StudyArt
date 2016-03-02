@@ -3,6 +3,7 @@ package ua.artcode.dao;
 import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
+import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    User addUser(User user) throws AppException;
+    User addUser(User user) throws UserAccountExistException;
 
     User findByUserEmail(String email) throws NoSuchUserException;
 

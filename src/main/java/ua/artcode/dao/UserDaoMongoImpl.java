@@ -29,7 +29,7 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public User addUser(User user) throws AppException {
+    public User addUser(User user) throws UserAccountExistException {
 
         if (!isExist(user.getEmail())) {
             user.setPassword(Security.toMd5(user.getPassword()));
@@ -37,7 +37,7 @@ public class UserDaoMongoImpl implements UserDao {
             LOG.info("User with email: " + user.getEmail() + " was added to data base.");
             return user;
         }
-        throw new UserAccountExistException("Failed registration");
+        throw new UserAccountExistException("Account already exist!");
     }
 
     @Override

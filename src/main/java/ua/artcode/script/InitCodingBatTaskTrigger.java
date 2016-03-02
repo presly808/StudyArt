@@ -82,10 +82,11 @@ public class InitCodingBatTaskTrigger {
     /**
      * @create dump of database if it need
      */
+    //TODO add mongo.db
     public static void createDumpOfDataBase() {
         try {
             LOG.trace("addUser dump from db");
-            Process process = Runtime.getRuntime().exec("mongodump --db CodingBat");
+            Process process = Runtime.getRuntime().exec("mongodump --db StudyArt");
             process.waitFor();
         } catch (IOException e) {
             LOG.error(e);

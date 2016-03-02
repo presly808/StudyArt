@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
+import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) throws AppException {
+    public User register(User user) throws UserAccountExistException {
         return userDao.addUser(user);
     }
 

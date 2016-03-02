@@ -13,7 +13,6 @@ public class Task implements Comparable<Task> {
 
     @Id
     private ObjectId id;
-    //private String codingBatId;
     @Title
     private String groupName;
     @Title
@@ -25,7 +24,7 @@ public class Task implements Comparable<Task> {
     @Template
     private String template;
 
-    //@Embedded
+
     private MethodSignature methodSignature;
 
     private TaskTestDataContainer taskTestDataContainer = new TaskTestDataContainer();
