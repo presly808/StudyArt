@@ -17,6 +17,7 @@ public class TitleValidator implements ConstraintValidator<Title, String> {
         if (title == null) {
             return false;
         }
-        return title.matches("[\\w-]{3,30}");
+        // Must start with letter, then allowed[a-zA-Z0-9_-]. Length 3 - 30.
+        return title.matches("[a-zA-z][\\w-]{2,29}");
     }
 }

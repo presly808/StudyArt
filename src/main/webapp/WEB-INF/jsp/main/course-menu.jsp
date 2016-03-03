@@ -14,7 +14,7 @@
 
 <br>
 
-<c:if test="${not empty message}"><div class="message green">${message}</div></c:if>
+<c:if test="${not empty message}">${message}</c:if>
 
 <%--<c:if test="${message != null}" >--%>
     <%--<p style="color:blue"><c:out value="${message}"/><p>--%>

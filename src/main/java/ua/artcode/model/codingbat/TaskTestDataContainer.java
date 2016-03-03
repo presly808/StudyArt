@@ -36,9 +36,6 @@ public class TaskTestDataContainer {
     @Override
     public String toString() {
         StringBuilder builder=new StringBuilder();
-//        for (TaskTestData taskTestData : taskTestDataList) {
-//            builder.append(taskTestData+"\n");
-//        }
         for (int i=0;i<taskTestDataList.size();i++){
             builder.append(taskTestDataList.get(i));
             if (i!=taskTestDataList.size()-1){
