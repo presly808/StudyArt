@@ -118,7 +118,6 @@ public class CodingBatTaskUtils {
 
     public static TaskTestDataContainer getTestDataContainer(String testData) throws AppValidationException {
         TaskTestDataContainer testDataContainer = new TaskTestDataContainer();
-
         List<String> dataPoints = Arrays.asList(testData.split("\r\n"));
         try {
             for (String dataPoint : dataPoints) {

@@ -24,7 +24,7 @@
 </form>
 
 <form action="${pageContext.request.contextPath}/task-menu/edit-task" method="post">
-    <input type="hidden" name="id" value="${task.id.toString()}">
+    <input type="hidden" name="id" value="${task.id}">
     <input type="submit" value="<spring:message code="edit"/>">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>

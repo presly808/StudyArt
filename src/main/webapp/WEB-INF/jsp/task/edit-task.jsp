@@ -3,12 +3,12 @@
 
 <html>
 <head>
-    <title><spring:message code="title.create.task"/></title>
+    <title><spring:message code="title.edit.task"/></title>
 </head>
 <body>
 <h1><spring:message code="title.edit.task"/></h1>
 
-<form:form action="${pageContext.request.contextPath}/task-menu/create-task" modelAttribute="task"
+<form:form action="${pageContext.request.contextPath}/task-menu/update-task" modelAttribute="task"
            method="post">
     <spring:message code="create.task.name"/>:<br>
     <label>
@@ -47,10 +47,11 @@
     <spring:message code="create.task.datapoint"/>:<br>
     <code>25-2.45,12,12</code><br>
     <label>
-        <textarea name="data_points" rows="10" cols="50"><c:out value="${task.taskTestDataContainer.taskTestDataList.t}"/> </textarea>
+        <textarea name="data_points" rows="10" cols="50"><c:out value="${task.taskTestDataContainer.toString()}"/> </textarea>
     </label><br>
 
     <input type="submit" value="<spring:message code="send"/>">
+    <input type="hidden" name="id" value="${task.id}" />
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form:form>
 

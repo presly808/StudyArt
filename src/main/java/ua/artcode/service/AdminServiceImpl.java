@@ -33,8 +33,13 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public boolean delete(String title) {
-        return taskDao.delete(title);
+    public boolean deleteByTitle(String title) {
+        return taskDao.deleteByTitle(title);
+    }
+
+    @Override
+    public boolean deleteById(ObjectId id) {
+        return taskDao.deleteById(id);
     }
 
     @Override
@@ -64,8 +69,8 @@ public class AdminServiceImpl implements AdminService {
 
     //TODO update
     @Override
-    public Task update(String id, Task updateTask) {
-        return null;
+    public Task update(ObjectId id,Task updateTask) throws AppException {
+        return taskDao.update(id,updateTask);
     }
 
     @Override

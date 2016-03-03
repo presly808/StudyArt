@@ -50,9 +50,15 @@ public class LessonController {
         if (!result.hasErrors()) {
             try {
                 teacherService.addLesson(lesson);
-                redirectAttributes.addFlashAttribute("title", lesson.getTitle());
-                redirectAttributes.addFlashAttribute("tasks", adminService.getAll());
-                mav.setViewName("redirect:/lesson-menu/setup-tasks");
+                List<Task> taskList = adminService.getAll();
+                if (taskList.size() > 0) {
+                    redirectAttributes.addFlashAttribute("title", lesson.getTitle());
+                    redirectAttributes.addFlashAttribute("tasks", taskList);
+                    mav.setViewName("redirect:/lesson-menu/setup-tasks");
+                } else {
+                    redirectAttributes.addFlashAttribute("message", "The lesson has been successfully created.");
+                    mav.setViewName("redirect:/lesson-menu");
+                }
             } catch (AppException e) {
                 mav.addObject("message", e.getMessage());
                 mav.setViewName("lesson/create-lesson");
@@ -66,10 +72,10 @@ public class LessonController {
         ModelAndView mav = new ModelAndView("lesson/setup-tasks");
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
-            mav.addObject("title",map.get("title"));
-            mav.addObject("tasks",map.get("tasks"));
-        }else {
-            attributes.addFlashAttribute("message","Lesson created successful");
+            mav.addObject("title", map.get("title"));
+            mav.addObject("tasks", map.get("tasks"));
+        } else {
+            attributes.addFlashAttribute("message", "Lesson created successful");
             mav.setViewName("redirect:/lesson-menu");
         }
         return mav;

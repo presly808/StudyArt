@@ -51,6 +51,7 @@ public class CourseController {
 
                 if (lessonsList.size() > 0) {
                     redirectAttributes.addFlashAttribute("title", course.getTitle());
+                    redirectAttributes.addFlashAttribute("lessons",lessonsList);
                     mav.setViewName("redirect:/course-menu/setup-lessons");
                 } else {
                     redirectAttributes.addFlashAttribute("message", "The course has been successfully created.");
@@ -69,6 +70,7 @@ public class CourseController {
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
             mav.addObject("title", map.get("title"));
+            mav.addObject("lessons",map.get("lessons"));
         } else {
             mav.setViewName("redirect:/course-menu");
         }

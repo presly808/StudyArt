@@ -54,22 +54,47 @@ public class TaskController {
     @RequestMapping(value = "/create-task", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("task/create-task");
+        if (!result.hasErrors()) {
+            try {
+                String testData = req.getParameter("data_points");
+                task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
+                task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
+
+                adminService.addTask(task);
+                mav.setViewName("redirect:/task-menu");
+                redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
+            } catch (AppValidationException e) {
+                req.setAttribute("message", "Invalid test points");
+            } catch (AppException e) {
+                req.setAttribute("message", "Task with title: " + task.getTitle() + " already exist.");
+            }
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/update-task", method = RequestMethod.POST)
+    public ModelAndView updateTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/task-menu/edit-task");
+        String id="";
         if (result.hasErrors()) {
             return mav;
         }
-        String testData = req.getParameter("data_points");
-
         try {
+            String testData = req.getParameter("data_points");
             task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
             task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
-            adminService.addTask(task);
+            id = req.getParameter("id");
+            adminService.update(new ObjectId(id), task);
+
             mav.setViewName("redirect:/task-menu");
-            redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
+            redirectAttributes.addFlashAttribute("message", "The task has been successfully updated.");
         } catch (AppValidationException e) {
             req.setAttribute("message", "Invalid test points");
+            redirectAttributes.addFlashAttribute("id",id);
         } catch (AppException e) {
-            req.setAttribute("message", "Task with title: " + task.getTitle() + " already exist.");
+            e.printStackTrace();
         }
         return mav;
     }
@@ -119,11 +144,9 @@ public class TaskController {
 
     @RequestMapping(value = "/edit-task", method = RequestMethod.POST)
     public ModelAndView editTask(HttpServletRequest req) throws NoSuchTaskException {
-        ModelAndView mav = new ModelAndView("task/create-task");
+        ModelAndView mav = new ModelAndView("task/edit-task");
         String id = req.getParameter("id");
         Task task = adminService.findTaskById(new ObjectId(id));
-        //TODO
-        mav.addObject("title",5);
         mav.addObject(task);
         return mav;
     }
@@ -144,7 +167,7 @@ public class TaskController {
     public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String title = reg.getParameter("title");
-        if (adminService.delete(title)) {
+        if (adminService.deleteByTitle(title)) {
             //redirectAttributes.addFlashAttribute("message", "The task has been successfully removed.");
             mav.addObject("message", "The task has been successfully removed.");
             mav.setViewName("main/task-menu");

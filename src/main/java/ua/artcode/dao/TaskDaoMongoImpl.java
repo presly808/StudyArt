@@ -45,10 +45,19 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public boolean delete(String title) {
+    public boolean deleteByTitle(String title) {
         Task task = datastore.find(Task.class).field("title").equal(title).get();
         if (task != null) {
             datastore.delete(Task.class, task.getTitle());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteById(ObjectId id) {
+        Task task = datastore.find(Task.class).field("id").equal(id).get();
+        if (task != null) {
+            datastore.delete(Task.class, id);
             return true;
         }
         return false;
@@ -59,16 +68,24 @@ public class TaskDaoMongoImpl implements TaskDao {
         return (int) datastore.getDB().getCollection("Task").count();
     }
 
-    @Override
-    public Task update(String title, Task taskToAdd) throws AppException {
-        Task task = findByTitle(title);
-        taskToAdd.setTitle(task.getTitle());
-        delete(title);
+//    @Override
+//    public Task update(String title, Task taskToAdd) throws AppException {
+//        Task task = findByTitle(title);
+//        //taskToAdd.setTitle(task.getTitle());
+//        delete(title);
+//        addTask(taskToAdd);
+//        return taskToAdd;
+//    }
+
+    public Task update(ObjectId id , Task taskToAdd) throws AppException {
+        //Task task = findById(id);
+        //taskToAdd.setTitle(task.getTitle());
+        deleteById(id);
         addTask(taskToAdd);
         return taskToAdd;
     }
 
-    //TODO if list is empty
+
     @Override
     public List<Task> getAll() throws AppException {
         return datastore.find(Task.class).asList();

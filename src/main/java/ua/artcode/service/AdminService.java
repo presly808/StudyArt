@@ -22,9 +22,11 @@ public interface AdminService {
 
     List<Task> getAll() throws AppException;
 
-    boolean delete(String title);
+    boolean deleteByTitle(String title);
 
-    Task update(String id, Task updateTask);
+    boolean deleteById(ObjectId id);
+
+    Task update(ObjectId id, Task updateTask) throws AppException;
 
     List<Task> getGroupTasks(String group);
 
