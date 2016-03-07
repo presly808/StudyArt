@@ -164,7 +164,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/delete")
-    public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) {
+    public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) throws NoSuchTaskException {
         ModelAndView mav = new ModelAndView();
         String title = reg.getParameter("title");
         if (adminService.deleteByTitle(title)) {

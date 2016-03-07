@@ -17,6 +17,7 @@ public class TaskTestResult {
     private List<String> actualValues;
     private List<String> results;
     private String status;
+    private String userCode;
 
     public String getStatus() {
         return status;
@@ -35,8 +36,6 @@ public class TaskTestResult {
     public void setUserCode(String userCode) {
         this.userCode = userCode;
     }
-
-    private String userCode;
 
     private boolean passedAll;
 

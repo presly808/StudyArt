@@ -29,9 +29,11 @@ public interface TeacherService {
 
     void addTaskToLesson(String title, Task codingBatTask) throws NoSuchLessonException, AppException;
 
-    boolean deleteLesson(String title) throws NoSuchLessonException;
+    boolean deleteLessonByTitle(String title) throws NoSuchLessonException;
 
-    void updateLesson(Lesson lesson) throws NoSuchLessonException, AppException;
+    boolean deleteLessonById(ObjectId id) throws NoSuchLessonException;
+
+    void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
 
     int sizeOfLesson();
 

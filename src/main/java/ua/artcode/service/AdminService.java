@@ -22,7 +22,7 @@ public interface AdminService {
 
     List<Task> getAll() throws AppException;
 
-    boolean deleteByTitle(String title);
+    boolean deleteByTitle(String title) throws NoSuchTaskException;
 
     boolean deleteById(ObjectId id);
 

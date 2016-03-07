@@ -26,13 +26,12 @@ public class LessonDaoMongoImpl implements LessonDao {
             datastore.save(lesson);
             return lesson;
         }
-        //TODO${lesson.exist}
         throw new AppException("Lesson with title: "+lesson.getTitle()+" already exist");
     }
 
     @Override
-    public void updateLesson(Lesson lesson) throws NoSuchLessonException, AppException {
-        delete(lesson.getTitle());
+    public void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException {
+        delete(id);
         addLesson(lesson);
     }
 
@@ -40,13 +39,14 @@ public class LessonDaoMongoImpl implements LessonDao {
     public List<Lesson> getAll() {
         return datastore.find(Lesson.class).asList();
     }
-
+    //TODO
     @Override
-    public void addTask(String title, Task codingBatTask) throws NoSuchLessonException, AppException {
+    public void addTask(String title, Task task) throws NoSuchLessonException, AppException {
         Lesson lesson = findByTitle(title);
         List<Task> taskList = lesson.getTasks();
-        taskList.add(codingBatTask);
-        updateLesson(lesson);
+        taskList.add(task);
+        lesson.setTasks(taskList);
+        updateLesson(lesson.getId(),lesson);
     }
 
     @Override
@@ -54,6 +54,16 @@ public class LessonDaoMongoImpl implements LessonDao {
         Lesson lesson = findByTitle(title);
         if (lesson != null) {
             datastore.delete(Lesson.class, lesson.getId());
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public boolean delete(ObjectId id) throws NoSuchLessonException {
+        Lesson lesson = findById(id);
+        if (lesson != null) {
+            datastore.delete(Lesson.class, id);
             return true;
         } else
             return false;

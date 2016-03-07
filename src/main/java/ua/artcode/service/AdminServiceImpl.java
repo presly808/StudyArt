@@ -33,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public boolean deleteByTitle(String title) {
+    public boolean deleteByTitle(String title) throws NoSuchTaskException {
         return taskDao.deleteByTitle(title);
     }
 

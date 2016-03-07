@@ -28,7 +28,7 @@ public class TaskDaoMongoImpl implements TaskDao {
 
     @Override
     public Task findByTitle(String title) throws NoSuchTaskException {
-        Task task = datastore.find(Task.class, "title", title).get();
+        Task task = datastore.find(Task.class,"title", title).get();
         if (task == null) {
             throw new NoSuchTaskException("No task with title: " + title);
         }
@@ -45,15 +45,16 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public boolean deleteByTitle(String title) {
-        Task task = datastore.find(Task.class).field("title").equal(title).get();
+    public boolean deleteByTitle(String title) throws NoSuchTaskException {
+        Task task=findByTitle(title);
         if (task != null) {
-            datastore.delete(Task.class, task.getTitle());
+            datastore.delete(Task.class, task.getId());
             return true;
         }
         return false;
     }
 
+    @Override
     public boolean deleteById(ObjectId id) {
         Task task = datastore.find(Task.class).field("id").equal(id).get();
         if (task != null) {
@@ -77,7 +78,7 @@ public class TaskDaoMongoImpl implements TaskDao {
 //        return taskToAdd;
 //    }
 
-    public Task update(ObjectId id , Task taskToAdd) throws AppException {
+    public Task update(ObjectId id, Task taskToAdd) throws AppException {
         //Task task = findById(id);
         //taskToAdd.setTitle(task.getTitle());
         deleteById(id);
@@ -119,7 +120,7 @@ public class TaskDaoMongoImpl implements TaskDao {
             datastore.save(task);
             return task;
         }
-        throw new AppException("Task with title: "+task.getTitle()+" already exist");
+        throw new AppException("Task with title: " + task.getTitle() + " already exist");
     }
 
 }

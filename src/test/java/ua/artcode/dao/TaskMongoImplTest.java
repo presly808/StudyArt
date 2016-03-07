@@ -149,7 +149,7 @@ public class TaskMongoImplTest {
     }
 
     @Test
-    public void invalidRemoveTest() throws AppValidationException {
+    public void invalidRemoveTest() throws AppValidationException, NoSuchTaskException {
         assertFalse(taskDao.deleteByTitle(""));
     }
 

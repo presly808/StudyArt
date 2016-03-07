@@ -57,8 +57,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateLesson(Lesson lesson) throws NoSuchLessonException, AppException {
-        lessonDao.updateLesson(lesson);
+    public void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException {
+        lessonDao.updateLesson(id,lesson);
     }
 
     @Override
@@ -72,8 +72,13 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean deleteLesson(String title) throws NoSuchLessonException {
+    public boolean deleteLessonByTitle(String title) throws NoSuchLessonException {
         return lessonDao.delete(title);
+    }
+
+    @Override
+    public boolean deleteLessonById(ObjectId id) throws NoSuchLessonException {
+        return lessonDao.delete(id);
     }
 
 

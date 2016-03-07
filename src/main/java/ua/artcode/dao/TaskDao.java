@@ -15,7 +15,7 @@ public interface TaskDao {
 
     boolean deleteById(ObjectId id);
 
-    boolean deleteByTitle(String title);
+    boolean deleteByTitle(String title) throws NoSuchTaskException;
 
     Task update(ObjectId id, Task updateTask) throws AppException;
 

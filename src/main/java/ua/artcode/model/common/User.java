@@ -31,7 +31,7 @@ public class User implements Comparable<User> {
     @User_Type
     private UserType userType;
 
-    private Map<String, TaskTestResult> solvedTaskContainer = new HashMap<>();
+    private Map<ObjectId, TaskTestResult> solvedTaskContainer = new HashMap<>();
 
     public User() {
     }
@@ -111,9 +111,9 @@ public class User implements Comparable<User> {
         return this.id.compareTo(o.id);
     }
 
-    public void addSolvedTask(String codingBatId, TaskTestResult solvedTask) {
-        solvedTaskContainer.put(codingBatId, solvedTask);
-    }
+//    public void addSolvedTask(String codingBatId, TaskTestResult solvedTask) {
+//        solvedTaskContainer.put(codingBatId, solvedTask);
+//    }
 
     public TaskTestResult getSolvedTask(String codingBatId) throws AppException {
         TaskTestResult solvedTask = solvedTaskContainer.get(codingBatId);

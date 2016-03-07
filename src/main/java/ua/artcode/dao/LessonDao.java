@@ -21,11 +21,13 @@ public interface LessonDao {
 
     boolean delete(String title) throws NoSuchLessonException;
 
+    boolean delete(ObjectId id) throws NoSuchLessonException;
+
     boolean isExist(String title);
 
     int size();
 
-    void updateLesson(Lesson lesson) throws NoSuchLessonException, AppException;
+    void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
 
     Lesson findByTitle(String title) throws NoSuchLessonException;
 
