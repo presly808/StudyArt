@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,21 +68,21 @@ public class LessonController {
         return mav;
     }
 
-    @RequestMapping(value = "/create-lesson")
-    public ModelAndView createLessonGet(@Valid Lesson lesson, @ModelAttribute ("id") String id, BindingResult result, RedirectAttributes redirectAttributes) throws NoSuchLessonException, AppException {
-        ModelAndView mav = new ModelAndView("lesson/create-lesson");
-        if (!result.hasErrors()) {
-            try {
-                teacherService.updateLesson(new ObjectId(id),lesson);
-                redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
-                mav.setViewName("redirect:/lesson-menu");
-            } catch (AppException e) {
-                mav.addObject("message", e.getMessage());
-                mav.setViewName("lesson/lesson-menu");
-            }
-        }
-        return mav;
-    }
+//    @RequestMapping(value = "/create-lesson")
+//    public ModelAndView createLessonGet(@Valid Lesson lesson, @ModelAttribute ("id") String id, BindingResult result, RedirectAttributes redirectAttributes) throws NoSuchLessonException, AppException {
+//        ModelAndView mav = new ModelAndView("lesson/create-lesson");
+//        if (!result.hasErrors()) {
+//            try {
+//                teacherService.updateLesson(new ObjectId(id),lesson);
+//                redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
+//                mav.setViewName("redirect:/lesson-menu");
+//            } catch (AppException e) {
+//                mav.addObject("message", e.getMessage());
+//                mav.setViewName("lesson/lesson-menu");
+//            }
+//        }
+//        return mav;
+//    }
 
     @RequestMapping(value = "/setup-tasks")
     public ModelAndView setupTasks(HttpServletRequest req, RedirectAttributes attributes) {
@@ -113,7 +112,7 @@ public class LessonController {
                 }
             }
             lesson.setTasks(list);
-            teacherService.updateLesson(lesson.getId(),lesson);
+            teacherService.updateLesson(lesson.getId(), lesson);
             redirectAttributes.addFlashAttribute("message", "The lesson has been successfully created.");
             mav.setViewName("redirect:/lesson-menu");
         } catch (NoSuchLessonException e) {
@@ -124,26 +123,40 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/update-lesson")
-    public ModelAndView updateLesson(HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException {
-        ModelAndView mav = new ModelAndView("redirect:/lesson-menu/create-lesson");
-        String id = req.getParameter("id");
-        String title = req.getParameter("lesson_title");
-        String description = req.getParameter("lesson_description");
+    public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchLessonException {
+        ModelAndView mav = new ModelAndView("lesson/edit-lesson");
+        if (!result.hasErrors()) {
+            try {
+                List<Task> lessonList = new ArrayList<>();
+                List<Task> allTasks = adminService.getAll();
 
-        Lesson lesson = new Lesson(title, description);
+                for (Task task : allTasks) {
+                    if (req.getParameter(task.getTitle()) != null) {
+                        lessonList.add(task);
+                    }
+                }
 
-        //TODO
-        List<Task> lessonList = new ArrayList<>();
-        List<Task> allTasks = adminService.getAll();
-
-        for (Task task : allTasks) {
-            if (req.getParameter(task.getTitle()) != null) {
-                lessonList.add(task);
+                lesson.setTasks(lessonList);
+                teacherService.updateLesson(lesson.getId(), lesson);
+                redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
+                mav.setViewName("redirect:/lesson-menu");
+            } catch (AppException e) {
+                mav.addObject("message", e.getMessage());
+                mav.setViewName("main/lesson-menu");
+            } catch (NoSuchLessonException e) {
+                e.printStackTrace();
             }
+
+        } else {
+            Lesson lesson1 = teacherService.findLessonById(lesson.getId());
+            List<Task> tasksOnLesson = lesson1.getTasks();
+            List<Task> allTasks = adminService.getAll();
+            allTasks.removeAll(tasksOnLesson);
+
+            mav.addObject("tasksOnLesson", tasksOnLesson);
+            mav.addObject("allTasks", allTasks);
+
         }
-        lesson.setTasks(lessonList);
-        redirectAttributes.addFlashAttribute("lesson", lesson);
-        redirectAttributes.addFlashAttribute("id",id);
         return mav;
     }
 
