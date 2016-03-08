@@ -122,6 +122,29 @@ public class LessonController {
         return mav;
     }
 
+    @RequestMapping(value = "/edit-lesson", method = RequestMethod.POST)
+    public ModelAndView editLesson(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("lesson/edit-lesson");
+        String id = req.getParameter("id");
+        try {
+            Lesson lesson = teacherService.findLessonById(new ObjectId(id));
+            List<Task> tasksOnLesson = lesson.getTasks();
+            List<Task> allTasks = adminService.getAll();
+            allTasks.removeAll(tasksOnLesson);
+
+            mav.addObject("lesson", lesson);
+            mav.addObject("tasksOnLesson", tasksOnLesson);
+            mav.addObject("allTasks", allTasks);
+        } catch (NoSuchLessonException e) {
+            mav.setViewName("lesson/list-lessons");
+            mav.addObject("message", e.getMessage());
+            //TODO
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+        return mav;
+    }
+
     @RequestMapping(value = "/update-lesson")
     public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchLessonException {
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
@@ -167,28 +190,7 @@ public class LessonController {
         return mav;
     }
 
-    @RequestMapping(value = "/edit-lesson", method = RequestMethod.POST)
-    public ModelAndView editLesson(HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView("lesson/edit-lesson");
-        String id = req.getParameter("id");
-        try {
-            Lesson lesson = teacherService.findLessonById(new ObjectId(id));
-            List<Task> tasksOnLesson = lesson.getTasks();
-            List<Task> allTasks = adminService.getAll();
-            allTasks.removeAll(tasksOnLesson);
 
-            mav.addObject("lesson", lesson);
-            mav.addObject("tasksOnLesson", tasksOnLesson);
-            mav.addObject("allTasks", allTasks);
-        } catch (NoSuchLessonException e) {
-            mav.setViewName("lesson/list-lessons");
-            mav.addObject("message", e.getMessage());
-            //TODO
-        } catch (AppException e) {
-            e.printStackTrace();
-        }
-        return mav;
-    }
 
     @RequestMapping(value = "/find-lesson")
     public ModelAndView findLesson() {
