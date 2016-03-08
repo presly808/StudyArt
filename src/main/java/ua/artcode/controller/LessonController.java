@@ -125,9 +125,9 @@ public class LessonController {
     @RequestMapping(value = "/update-lesson")
     public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchLessonException {
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
+        List<Task> lessonList = new ArrayList<>();
         if (!result.hasErrors()) {
             try {
-                List<Task> lessonList = new ArrayList<>();
                 List<Task> allTasks = adminService.getAll();
 
                 for (Task task : allTasks) {
@@ -148,12 +148,12 @@ public class LessonController {
             }
 
         } else {
-            Lesson lesson1 = teacherService.findLessonById(lesson.getId());
-            List<Task> tasksOnLesson = lesson1.getTasks();
+//            Lesson lesson1 = teacherService.findLessonById(lesson.getId());
+//            List<Task> tasksOnLesson = lesson1.getTasks();
             List<Task> allTasks = adminService.getAll();
-            allTasks.removeAll(tasksOnLesson);
+            allTasks.removeAll(lessonList);
 
-            mav.addObject("tasksOnLesson", tasksOnLesson);
+            mav.addObject("tasksOnLesson", lessonList);
             mav.addObject("allTasks", allTasks);
 
         }
