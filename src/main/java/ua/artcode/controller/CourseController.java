@@ -116,18 +116,6 @@ public class CourseController {
         return new ModelAndView("course/find-course");
     }
 
-//    @RequestMapping(value = "/edit-course")
-//    public ModelAndView editCourse(HttpServletRequest req) {
-//        ModelAndView mav = new ModelAndView("course/edit-course");
-//        String id = req.getParameter("id");
-//        try {
-//            Course course = teacherService.findCourseById(new ObjectId(id));
-//            mav.addObject("course", course);
-//        } catch (NoSuchCourseException e) {
-//            e.printStackTrace();
-//        }
-//        return mav;
-//    }
 
     @RequestMapping(value = "/edit-course", method = RequestMethod.POST)
     public ModelAndView editCourse(HttpServletRequest req) {
@@ -150,7 +138,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/update-course")
-    public ModelAndView updateLesson(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchCourseException {
+    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchCourseException {
         ModelAndView mav = new ModelAndView("course/edit-course");
         List<Lesson> lessonInCourse = new ArrayList<>();
         List<Lesson> allLessons = teacherService.getAllLessons();
