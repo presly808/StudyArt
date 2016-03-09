@@ -68,21 +68,6 @@ public class LessonController {
         return mav;
     }
 
-//    @RequestMapping(value = "/create-lesson")
-//    public ModelAndView createLessonGet(@Valid Lesson lesson, @ModelAttribute ("id") String id, BindingResult result, RedirectAttributes redirectAttributes) throws NoSuchLessonException, AppException {
-//        ModelAndView mav = new ModelAndView("lesson/create-lesson");
-//        if (!result.hasErrors()) {
-//            try {
-//                teacherService.updateLesson(new ObjectId(id),lesson);
-//                redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
-//                mav.setViewName("redirect:/lesson-menu");
-//            } catch (AppException e) {
-//                mav.addObject("message", e.getMessage());
-//                mav.setViewName("lesson/lesson-menu");
-//            }
-//        }
-//        return mav;
-//    }
 
     @RequestMapping(value = "/setup-tasks")
     public ModelAndView setupTasks(HttpServletRequest req, RedirectAttributes attributes) {

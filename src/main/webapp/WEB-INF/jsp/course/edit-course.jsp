@@ -22,9 +22,9 @@
         <form:errors path="description"/>
     </label><br>
 
-    <c:forEach var="lesson" items="${lessonInCourse}">
+    <c:forEach var="lesson1" items="${lessonsInCourse}">
         <div align="center">
-            <p><input type="checkbox" checked="checked" name="${lesson.title}">${lesson.title}</p>
+            <p><input type="checkbox" checked="checked" name="${lesson1.title}">${lesson1.title}</p>
         </div>
     </c:forEach>
 
@@ -40,8 +40,5 @@
     <p><input type="submit" value="<spring:message code="update"/>"></p>
 </form:form>
 
-<form action="${pageContext.request.contextPath}/course-menu/edit-course" method="post">
-
-</form>
 </body>
 </html>

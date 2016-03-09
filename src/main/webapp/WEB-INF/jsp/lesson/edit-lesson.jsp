@@ -24,16 +24,6 @@
         <form:errors path="description"/>
     </label><br>
 
-    <%--<spring:message code="create.course.lesson.title"/>:<br>--%>
-    <%--<label>--%>
-        <%--<textarea name="lesson_title" rows="1" cols="50"><c:out value="${lesson.title}"/></textarea>--%>
-    <%--</label><br>--%>
-
-    <%--<spring:message code="create.course.lesson.description"/>:<br>--%>
-    <%--<label>--%>
-        <%--<textarea name="lesson_description" rows="10" cols="50"><c:out value="${lesson.description}"/></textarea>--%>
-    <%--</label><br>--%>
-
     <c:forEach var="task" items="${tasksOnLesson}">
         <div align="center">
             <p><input type="checkbox" checked="checked" name="${task.title}">${task.title}</p>
@@ -51,7 +41,7 @@
 
     <p><input type="submit" value="<spring:message code="update"/>"></p>
 
-
 </form:form>
+
 </body>
 </html>
