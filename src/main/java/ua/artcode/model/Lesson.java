@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Razer on 02.02.16.
  */
 @Embedded
-public class Lesson {
+public class Lesson implements Comparable<Lesson>{
     @Id
     private ObjectId id;
     @Title
@@ -80,6 +80,27 @@ public class Lesson {
         sb.append(", tasks=").append(tasks);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lesson that = (Lesson) o;
+
+        return !(id != null ? !id.equals(that.id) : that.id != null);
+    }
+
+
+    @Override
+    public int compareTo(Lesson o) {
+        return this.id.compareTo(o.id);
     }
 }
 

@@ -146,7 +146,14 @@ public class CourseController {
                 lessonInCourse.add(lesson);
             }
         }
-        if (!result.hasErrors()) {
+
+        if (result.hasErrors()) {
+
+            allLessons.removeAll(lessonInCourse);
+
+            mav.addObject("lessonInCourse", lessonInCourse);
+            mav.addObject("allLessons", allLessons);
+        } else {
             try {
                 course.setLessonList(lessonInCourse);
                 teacherService.updateCourse(course);
@@ -156,12 +163,6 @@ public class CourseController {
                 redirectAttributes.addFlashAttribute("message", e.getMessage());
                 mav.setViewName("redirect:/course-menu");
             }
-
-        } else {
-            allLessons.removeAll(lessonInCourse);
-
-            mav.addObject("lessonInCourse", lessonInCourse);
-            mav.addObject("allLessons", allLessons);
         }
         return mav;
     }

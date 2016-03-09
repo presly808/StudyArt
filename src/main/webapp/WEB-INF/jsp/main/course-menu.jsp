@@ -14,11 +14,11 @@
 
 <br>
 
-<c:if test="${not empty message}">${message}</c:if>
+<%--<c:if test="${not empty message}">${message}</c:if>--%>
 
-<%--<c:if test="${message != null}" >--%>
-    <%--<p style="color:blue"><c:out value="${message}"/><p>--%>
-    <%--</c:if>--%>
+<c:if test="${message != null}" >
+    <p style="color:blue"><c:out value="${message}"/><p>
+    </c:if>
 
 </body>
 </html>
