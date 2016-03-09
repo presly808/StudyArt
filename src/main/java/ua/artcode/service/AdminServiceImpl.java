@@ -48,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Task> getAll() throws AppException {
+    public List<Task> getAllTasks() throws AppException {
         return taskDao.getAll();
     }
 

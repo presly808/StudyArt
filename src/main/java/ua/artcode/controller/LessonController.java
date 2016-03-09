@@ -51,7 +51,7 @@ public class LessonController {
         if (!result.hasErrors()) {
             try {
                 teacherService.addLesson(lesson);
-                List<Task> taskList = adminService.getAll();
+                List<Task> taskList = adminService.getAllTasks();
                 if (taskList.size() > 0) {
                     redirectAttributes.addFlashAttribute("title", lesson.getTitle());
                     redirectAttributes.addFlashAttribute("tasks", taskList);
@@ -67,22 +67,6 @@ public class LessonController {
         }
         return mav;
     }
-
-//    @RequestMapping(value = "/create-lesson")
-//    public ModelAndView createLessonGet(@Valid Lesson lesson, @ModelAttribute ("id") String id, BindingResult result, RedirectAttributes redirectAttributes) throws NoSuchLessonException, AppException {
-//        ModelAndView mav = new ModelAndView("lesson/create-lesson");
-//        if (!result.hasErrors()) {
-//            try {
-//                teacherService.updateLesson(new ObjectId(id),lesson);
-//                redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
-//                mav.setViewName("redirect:/lesson-menu");
-//            } catch (AppException e) {
-//                mav.addObject("message", e.getMessage());
-//                mav.setViewName("lesson/lesson-menu");
-//            }
-//        }
-//        return mav;
-//    }
 
     @RequestMapping(value = "/setup-tasks")
     public ModelAndView setupTasks(HttpServletRequest req, RedirectAttributes attributes) {
@@ -101,7 +85,7 @@ public class LessonController {
     @RequestMapping(value = "/add-task")
     public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) throws AppException, ServletException, IOException {
         ModelAndView mav = new ModelAndView("lesson/setup-tasks");
-        List<Task> tasks = adminService.getAll();
+        List<Task> tasks = adminService.getAllTasks();
         try {
             String title = req.getParameter("title");
             Lesson lesson = teacherService.findLessonByTitle(title);
@@ -129,7 +113,7 @@ public class LessonController {
         try {
             Lesson lesson = teacherService.findLessonById(new ObjectId(id));
             List<Task> tasksOnLesson = lesson.getTasks();
-            List<Task> allTasks = adminService.getAll();
+            List<Task> allTasks = adminService.getAllTasks();
             allTasks.removeAll(tasksOnLesson);
 
             mav.addObject("lesson", lesson);
@@ -146,20 +130,31 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/update-lesson")
-    public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchLessonException {
+    public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes)  {
+
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
-        List<Task> lessonList = new ArrayList<>();
-        if (!result.hasErrors()) {
+        List<Task> taskInLesson = new ArrayList<>();
+        List<Task> allTasks = null;
+        try {
+            allTasks = adminService.getAllTasks();
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+
+        for (Task task : allTasks) {
+            if (req.getParameter(task.getTitle()) != null) {
+                taskInLesson.add(task);
+            }
+        }
+        if (result.hasErrors()) {
+            allTasks.removeAll(taskInLesson);
+
+            mav.addObject("tasksOnLesson", taskInLesson);
+            mav.addObject("allTasks", allTasks);
+
+        } else {
             try {
-                List<Task> allTasks = adminService.getAll();
-
-                for (Task task : allTasks) {
-                    if (req.getParameter(task.getTitle()) != null) {
-                        lessonList.add(task);
-                    }
-                }
-
-                lesson.setTasks(lessonList);
+                lesson.setTasks(taskInLesson);
                 teacherService.updateLesson(lesson.getId(), lesson);
                 redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
                 mav.setViewName("redirect:/lesson-menu");
@@ -169,16 +164,6 @@ public class LessonController {
             } catch (NoSuchLessonException e) {
                 e.printStackTrace();
             }
-
-        } else {
-//            Lesson lesson1 = teacherService.findLessonById(lesson.getId());
-//            List<Task> tasksOnLesson = lesson1.getTasks();
-            List<Task> allTasks = adminService.getAll();
-            allTasks.removeAll(lessonList);
-
-            mav.addObject("tasksOnLesson", lessonList);
-            mav.addObject("allTasks", allTasks);
-
         }
         return mav;
     }
@@ -189,7 +174,6 @@ public class LessonController {
         mav.addObject("lessons", teacherService.getAllLessons());
         return mav;
     }
-
 
 
     @RequestMapping(value = "/find-lesson")

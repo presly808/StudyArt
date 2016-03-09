@@ -52,7 +52,7 @@ public class CourseController {
 
                 if (lessonsList.size() > 0) {
                     redirectAttributes.addFlashAttribute("title", course.getTitle());
-                    redirectAttributes.addFlashAttribute("lessons",lessonsList);
+                    redirectAttributes.addFlashAttribute("lessons", lessonsList);
                     mav.setViewName("redirect:/course-menu/setup-lessons");
                 } else {
                     redirectAttributes.addFlashAttribute("message", "The course has been successfully created.");
@@ -71,7 +71,7 @@ public class CourseController {
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
             mav.addObject("title", map.get("title"));
-            mav.addObject("lessons",map.get("lessons"));
+            mav.addObject("lessons", map.get("lessons"));
         } else {
             mav.setViewName("redirect:/course-menu");
         }
@@ -116,19 +116,6 @@ public class CourseController {
         return new ModelAndView("course/find-course");
     }
 
-//    @RequestMapping(value = "/edit-course")
-//    public ModelAndView editCourse(HttpServletRequest req) {
-//        ModelAndView mav = new ModelAndView("course/edit-course");
-//        String id = req.getParameter("id");
-//        try {
-//            Course course = teacherService.findCourseById(new ObjectId(id));
-//            mav.addObject("course", course);
-//        } catch (NoSuchCourseException e) {
-//            e.printStackTrace();
-//        }
-//        return mav;
-//    }
-
     @RequestMapping(value = "/edit-course", method = RequestMethod.POST)
     public ModelAndView editCourse(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("course/edit-course");
@@ -150,7 +137,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/update-course")
-    public ModelAndView updateLesson(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchCourseException {
+    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchCourseException {
         ModelAndView mav = new ModelAndView("course/edit-course");
         List<Lesson> lessonInCourse = new ArrayList<>();
         List<Lesson> allLessons = teacherService.getAllLessons();
@@ -160,7 +147,14 @@ public class CourseController {
                 lessonInCourse.add(lesson);
             }
         }
-        if (!result.hasErrors()) {
+
+        if (result.hasErrors()) {
+
+            allLessons.removeAll(lessonInCourse);
+
+            mav.addObject("lessonInCourse", lessonInCourse);
+            mav.addObject("allLessons", allLessons);
+        } else {
             try {
                 course.setLessonList(lessonInCourse);
                 teacherService.updateCourse(course);
@@ -170,12 +164,6 @@ public class CourseController {
                 redirectAttributes.addFlashAttribute("message", e.getMessage());
                 mav.setViewName("redirect:/course-menu");
             }
-
-        } else {
-            allLessons.removeAll(lessonInCourse);
-
-            mav.addObject("lessonInCourse",lessonInCourse);
-            mav.addObject("allLessons", allLessons);
         }
         return mav;
     }

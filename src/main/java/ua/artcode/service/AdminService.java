@@ -20,7 +20,7 @@ public interface AdminService {
 
     int size();
 
-    List<Task> getAll() throws AppException;
+    List<Task> getAllTasks() throws AppException;
 
     boolean deleteByTitle(String title) throws NoSuchTaskException;
 

@@ -74,27 +74,25 @@ public class TaskController {
 
     @RequestMapping(value = "/update-task", method = RequestMethod.POST)
     public ModelAndView updateTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("redirect:/task-menu/edit-task");
-        String id="";
-        if (result.hasErrors()) {
-            return mav;
-        }
-        try {
-            String testData = req.getParameter("data_points");
-            task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
-            task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
+        ModelAndView mav = new ModelAndView("redirect:/task-menu/edit-task");
+        if (!result.hasErrors()) {
+            String id = req.getParameter("id");
+            try {
+                String testData = req.getParameter("data_points");
+                task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
+                task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
-            id = req.getParameter("id");
-            adminService.update(new ObjectId(id), task);
+                adminService.update(new ObjectId(id), task);
 
-            mav.setViewName("redirect:/task-menu");
-            redirectAttributes.addFlashAttribute("message", "The task has been successfully updated.");
-        } catch (AppValidationException e) {
-            req.setAttribute("message", "Invalid test points");
-            redirectAttributes.addFlashAttribute("id",id);
-        } catch (AppException e) {
-            e.printStackTrace();
+                mav.setViewName("redirect:/task-menu");
+                redirectAttributes.addFlashAttribute("message", "The task has been successfully updated.");
+            } catch (AppValidationException e) {
+                req.setAttribute("message", "Invalid test points");
+                redirectAttributes.addFlashAttribute("id", id);
+                //TODO
+            } catch (AppException e) {
+                e.printStackTrace();
+            }
         }
         return mav;
     }

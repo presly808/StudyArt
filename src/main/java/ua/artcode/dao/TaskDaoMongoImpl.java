@@ -69,18 +69,9 @@ public class TaskDaoMongoImpl implements TaskDao {
         return (int) datastore.getDB().getCollection("Task").count();
     }
 
-//    @Override
-//    public Task update(String title, Task taskToAdd) throws AppException {
-//        Task task = findByTitle(title);
-//        //taskToAdd.setTitle(task.getTitle());
-//        delete(title);
-//        addTask(taskToAdd);
-//        return taskToAdd;
-//    }
+
 
     public Task update(ObjectId id, Task taskToAdd) throws AppException {
-        //Task task = findById(id);
-        //taskToAdd.setTitle(task.getTitle());
         deleteById(id);
         addTask(taskToAdd);
         return taskToAdd;
@@ -88,6 +79,7 @@ public class TaskDaoMongoImpl implements TaskDao {
 
 
     @Override
+    //TODO empty ???
     public List<Task> getAll() throws AppException {
         return datastore.find(Task.class).asList();
     }
