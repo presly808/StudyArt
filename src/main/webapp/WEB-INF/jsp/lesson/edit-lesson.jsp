@@ -37,7 +37,7 @@
     </c:forEach>
 
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <input type="hidden" name="id" value="${lesson.id.toString()}"/>
+    <input type="hidden" name="id" value="${lesson.id}"/>
 
     <p><input type="submit" value="<spring:message code="update"/>"></p>
 

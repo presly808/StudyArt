@@ -38,7 +38,7 @@ public class TeacherServiceImpl implements TeacherService {
     //Lesson methods
     @Override
     public void addLesson(Lesson lesson) throws AppException {
-        lessonDao.addLesson(lesson);
+        lessonDao.add(lesson);
     }
 
     @Override
@@ -58,17 +58,17 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException {
-        lessonDao.updateLesson(id,lesson);
+        lessonDao.update(id,lesson);
     }
 
     @Override
     public Lesson findLessonByTitle(String title) throws NoSuchLessonException {
-        return lessonDao.findByTitle(title);
+        return lessonDao.find(title);
     }
 
     @Override
     public Lesson findLessonById(ObjectId id) throws NoSuchLessonException {
-        return lessonDao.findById(id);
+        return lessonDao.find(id);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class TeacherServiceImpl implements TeacherService {
     //Course methods
     @Override
     public Course addCourse(Course course) throws AppException {
-       return courseDao.addCourse(course);
+       return courseDao.add(course);
     }
 
     @Override
@@ -100,12 +100,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Course findCourseByTitle(String title) throws NoSuchCourseException {
-        return courseDao.findByTitle(title);
+        return courseDao.find(title);
     }
 
     @Override
     public Course findCourseById(ObjectId id) throws NoSuchCourseException {
-        return courseDao.findById(id);
+        return courseDao.find(id);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void updateCourse(Course course) throws NoSuchCourseException, AppException {
-        courseDao.updateCourse(course);
+        courseDao.update(course);
     }
 
 
@@ -142,12 +142,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public UserGroup findUserGroupByName(String name) throws NoSuchGroupException {
-        return userGroupDao.findByName(name);
+        return userGroupDao.find(name);
     }
 
     @Override
     public UserGroup findUserGroupById(ObjectId id) throws NoSuchGroupException {
-        return userGroupDao.findById(id);
+        return userGroupDao.find(id);
     }
 
     @Override
@@ -156,13 +156,13 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateGroup(UserGroup userGroup) throws AppException, NoSuchGroupException {
-        userGroupDao.updateGroup(userGroup);
+    public void updateGroup(ObjectId id,UserGroup userGroup) throws AppException, NoSuchGroupException {
+        userGroupDao.update(id,userGroup);
     }
 
     @Override
     public List<UserGroup> getAllGroups() throws AppException {
-        return userGroupDao.getAllGroups();
+        return userGroupDao.getAll();
     }
 
 }

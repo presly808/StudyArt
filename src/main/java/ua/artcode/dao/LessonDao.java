@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface LessonDao {
 
-    Lesson addLesson(Lesson lesson) throws AppException;
+    Lesson add(Lesson lesson) throws AppException;
 
     List<Lesson> getAll();
 
@@ -27,10 +27,10 @@ public interface LessonDao {
 
     int size();
 
-    void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
+    void update(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
 
-    Lesson findByTitle(String title) throws NoSuchLessonException;
+    Lesson find(String title) throws NoSuchLessonException;
 
-    Lesson findById(ObjectId id) throws NoSuchLessonException;
+    Lesson find(ObjectId id) throws NoSuchLessonException;
 
 }

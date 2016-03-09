@@ -21,7 +21,7 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public Lesson addLesson(Lesson lesson) throws AppException {
+    public Lesson add(Lesson lesson) throws AppException {
         if (!isExist(lesson.getTitle())) {
             datastore.save(lesson);
             return lesson;
@@ -30,9 +30,9 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException {
+    public void update(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException {
         delete(id);
-        addLesson(lesson);
+        add(lesson);
     }
 
     @Override
@@ -42,16 +42,16 @@ public class LessonDaoMongoImpl implements LessonDao {
     //TODO
     @Override
     public void addTask(String title, Task task) throws NoSuchLessonException, AppException {
-        Lesson lesson = findByTitle(title);
+        Lesson lesson = find(title);
         List<Task> taskList = lesson.getTasks();
         taskList.add(task);
         lesson.setTasks(taskList);
-        updateLesson(lesson.getId(),lesson);
+        update(lesson.getId(),lesson);
     }
 
     @Override
     public boolean delete(String title) throws NoSuchLessonException {
-        Lesson lesson = findByTitle(title);
+        Lesson lesson = find(title);
         if (lesson != null) {
             datastore.delete(Lesson.class, lesson.getId());
             return true;
@@ -61,7 +61,7 @@ public class LessonDaoMongoImpl implements LessonDao {
 
     @Override
     public boolean delete(ObjectId id) throws NoSuchLessonException {
-        Lesson lesson = findById(id);
+        Lesson lesson = find(id);
         if (lesson != null) {
             datastore.delete(Lesson.class, id);
             return true;
@@ -84,7 +84,7 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public Lesson findByTitle(String title) throws NoSuchLessonException {
+    public Lesson find(String title) throws NoSuchLessonException {
         Lesson lesson = datastore.find(Lesson.class, "title", title).get();
         if (lesson == null) {
             throw new NoSuchLessonException("There is no lesson with title: " + title + "!");
@@ -93,7 +93,7 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public Lesson findById(ObjectId id) throws NoSuchLessonException {
+    public Lesson find(ObjectId id) throws NoSuchLessonException {
         Lesson lesson = datastore.find(Lesson.class, "id", id).get();
         if (lesson == null) {
             throw new NoSuchLessonException("There is no lesson with id: " + id + "!");

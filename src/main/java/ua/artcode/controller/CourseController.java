@@ -114,7 +114,6 @@ public class CourseController {
         return new ModelAndView("course/find-course");
     }
 
-
     @RequestMapping(value = "/edit-course", method = RequestMethod.POST)
     public ModelAndView editCourse(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("course/edit-course");

@@ -31,19 +31,19 @@ public class UserDaoMongoImplTest {
 
     @Autowired
     @Qualifier("userDaoMongoTestImpl")
-    private  UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
     @Qualifier("testStore")
-    private  Datastore datastore;
+    private Datastore datastore;
 
     @Value("${mongo.data.db.path}")
     private String mongoDataPath;
 
     @Value("${mongo.test.db}")
-    private String  nameOfTestDb;
+    private String nameOfTestDb;
 
-    private  final int AMOUNT_OF_USERS = 100;
+    private final int AMOUNT_OF_USERS = 100;
 
     @Before
     public void initializeDB() throws InterruptedException, AppException {
@@ -58,7 +58,7 @@ public class UserDaoMongoImplTest {
         }
         for (int i = 0; i < AMOUNT_OF_USERS; i++) {
             try {
-                userDao.addUser(new User("User_" + i, "password_" + i, "something_" + i + "@gmail.com"));
+                userDao.add(new User("User_" + i, "password_" + i, "something_" + i + "@gmail.com"));
             } catch (UserAccountExistException e) {
                 e.printStackTrace();
             }
@@ -74,7 +74,7 @@ public class UserDaoMongoImplTest {
 
     @Test
     public void getAllUsersTest() {
-        List<User> users = userDao.getAllUser();
+        List<User> users = userDao.getAll();
         int sizeOfList = users.size();
         int sizeOfDb = userDao.size();
         assertEquals(sizeOfDb, sizeOfList);
@@ -84,7 +84,7 @@ public class UserDaoMongoImplTest {
     public void findUserByExistentEmailTest() {
         User foundedUser = null;
         try {
-            foundedUser = userDao.findByUserEmail("something_33@gmail.com");
+            foundedUser = userDao.find("something_33@gmail.com");
         } catch (NoSuchUserException e) {
             LOG.warn("There are no user with email: something_33@gmail.com");
 
@@ -94,15 +94,15 @@ public class UserDaoMongoImplTest {
 
     @Test(expected = NoSuchUserException.class)
     public void findUserByNonexistentEmailTest() throws NoSuchUserException {
-        userDao.findByUserEmail("nonexistent_email@gmail.com");
+        userDao.find("nonexistent_email@gmail.com");
     }
 
 
     @Test(expected = NoSuchUserException.class)
     public void removeUserTest() throws AppException {
-        userDao.addUser(new User("User666", "password666", "test_1@gmail.com"));
+        userDao.add(new User("User666", "password666", "test_1@gmail.com"));
         userDao.delete("test_1@gmail.com");
-        userDao.findByUserEmail("test_1@gmail.com");
+        userDao.find("test_1@gmail.com");
     }
 
     @Test(expected = NoSuchUserException.class)
@@ -111,28 +111,23 @@ public class UserDaoMongoImplTest {
     }
 
     @Test
-    //TODO what to do with exception?
-    public void addUserTest() {
+    public void addUserTest() throws UserAccountExistException, NoSuchUserException {
         User user = new User("User_2b", "password_2b", "test_2@gmail.com");
-        try {
-            userDao.addUser(user);
-            assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
-            userDao.delete("test_2@gmail.com");
-        } catch (AppException e) {
-            LOG.warn(e.getExceptionMessageList());
-        }
+        userDao.add(user);
+        assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
+        userDao.delete("test_2@gmail.com");
     }
 
     @Test
     public void updateUserTest() {
         User newUser;
         try {
-            newUser = userDao.findByUserEmail("something_24@gmail.com");
-            User userToUpdate = userDao.findByUserEmail("something_3@gmail.com");
+            newUser = userDao.find("something_24@gmail.com");
+            User userToUpdate = userDao.find("something_3@gmail.com");
             userDao.update("something_3@gmail.com", newUser);
-            assertEquals(userToUpdate.getEmail(), userDao.findByUserEmail("something_3@gmail.com").getEmail());
+            assertEquals(userToUpdate.getEmail(), userDao.find("something_3@gmail.com").getEmail());
             userToUpdate.setEmail("something_" + String.valueOf(AMOUNT_OF_USERS + 1) + "@gmail.com");
-            userDao.addUser(userToUpdate);
+            userDao.add(userToUpdate);
         } catch (AppException e) {
             LOG.warn(e.getExceptionMessageList());
         }

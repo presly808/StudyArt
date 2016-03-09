@@ -58,7 +58,7 @@ public class CourseDaoImplTest {
         for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
             value = Integer.toString(i);
             Course course = new Course("name" + value, lessons);
-            courseDao.addCourse(course);
+            courseDao.add(course);
         }
     }
 
@@ -72,7 +72,7 @@ public class CourseDaoImplTest {
     public void addCourseTest() throws AppException {
         List<Lesson> lessons = createLessons();
         Course course = new Course("name", lessons);
-        courseDao.addCourse(course);
+        courseDao.add(course);
         assertEquals(courseDao.size(),AMOUNT_OF_ELEMENTS+1);
     }
 

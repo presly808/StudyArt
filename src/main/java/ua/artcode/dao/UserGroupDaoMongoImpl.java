@@ -22,7 +22,13 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
-    public UserGroup findByName(String name) throws NoSuchGroupException {
+    public void update(ObjectId id, UserGroup userGroup) throws NoSuchGroupException, AppException {
+        delete(id);
+        addGroup(userGroup);
+    }
+
+    @Override
+    public UserGroup find(String name) throws NoSuchGroupException {
         UserGroup group = datastore.find(UserGroup.class, "name", name).get();
         if (group == null) {
             throw new NoSuchGroupException("There is no group with name:" + name + " !");
@@ -31,7 +37,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
-    public UserGroup findById(ObjectId id) throws NoSuchGroupException {
+    public UserGroup find(ObjectId id) throws NoSuchGroupException {
         UserGroup group = datastore.find(UserGroup.class, "id", id).get();
         if (group == null) {
             throw new NoSuchGroupException("There is no group with id:" + id + " !");
@@ -41,16 +47,26 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
 
     @Override
     public boolean delete(String name) throws NoSuchGroupException {
-        UserGroup group = findByName(name);
-        if (group != null) {
-            datastore.delete(UserGroup.class, group.getId());
+        UserGroup userGroup= find(name);
+        if (userGroup != null) {
+            datastore.delete(UserGroup.class, userGroup.getId());
             return true;
-        }
-        return false;
+        } else
+            return false;
     }
 
     @Override
-    public List<UserGroup> getAllGroups() throws AppException {
+    public boolean delete(ObjectId id) throws NoSuchGroupException {
+        UserGroup userGroup = find(id);
+        if (userGroup != null) {
+            datastore.delete(UserGroup.class, id);
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public List<UserGroup> getAll()  {
         return datastore.find(UserGroup.class).asList();
     }
 
@@ -78,16 +94,10 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
-    public void updateGroup(UserGroup userGroup) throws NoSuchGroupException, AppException {
-        delete(userGroup.getName());
-        addGroup(userGroup);
-    }
-
-    @Override
     public void addUserToGroup(String name, User user) throws NoSuchGroupException, AppException {
-        UserGroup userGroup = findByName(name);
+        UserGroup userGroup = find(name);
         List<User> userList = userGroup.getStudents();
         userList.add(user);
-        updateGroup(userGroup);
+        update(userGroup.getId(),userGroup);
     }
 }

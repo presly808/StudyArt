@@ -11,17 +11,17 @@ import java.util.List;
 
 public interface UserDao {
 
-    User addUser(User user) throws UserAccountExistException;
+    User add(User user) throws UserAccountExistException;
 
-    User findByUserEmail(String email) throws NoSuchUserException;
+    User find(String email) throws NoSuchUserException;
 
-    User findByUserId(ObjectId id) throws NoSuchUserException;
+    User find(ObjectId id) throws NoSuchUserException;
 
     boolean delete(String email) throws NoSuchUserException;
 
     User update(String email, User user) throws AppException;
 
-    List<User> getAllUser();
+    List<User> getAll();
 
     boolean isExist(String email);
 

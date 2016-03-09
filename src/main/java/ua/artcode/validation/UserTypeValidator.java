@@ -16,7 +16,7 @@ public class UserTypeValidator implements ConstraintValidator<User_Type, UserTyp
 
     @Override
     public boolean isValid(UserType userType, ConstraintValidatorContext context) {
-        if (userType!=null && (userType.equals(UserType.ROLE_USER) || userType.equals(UserType.ROLE_TEACHER))) {
+        if (userType!=null && (userType.equals(UserType.ROLE_STUDENT) || userType.equals(UserType.ROLE_TEACHER))) {
             return true;
         }
         return false;

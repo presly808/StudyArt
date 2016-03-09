@@ -34,17 +34,17 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean deleteByTitle(String title) throws NoSuchTaskException {
-        return taskDao.deleteByTitle(title);
+        return taskDao.delete(title);
     }
 
     @Override
     public boolean deleteById(ObjectId id) {
-        return taskDao.deleteById(id);
+        return taskDao.delete(id);
     }
 
     @Override
     public Task addTask(Task codingBatTask) throws AppException {
-        return taskDao.addTask(codingBatTask);
+        return taskDao.add(codingBatTask);
     }
 
     @Override
@@ -54,12 +54,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Task findTaskByTitle(String title) throws NoSuchTaskException {
-        return taskDao.findByTitle(title);
+        return taskDao.find(title);
     }
 
     @Override
     public Task findTaskById(ObjectId id) throws NoSuchTaskException{
-        return taskDao.findById(id);
+        return taskDao.find(id);
     }
 
     @Override

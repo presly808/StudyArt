@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser(String email) throws NoSuchUserException {
-       return userDao.findByUserEmail(email);
+       return userDao.find(email);
     }
 
     @Override
     public boolean authenticate(String username, String password) throws AppException {
-        User user = userDao.findByUserEmail(username);
+        User user = userDao.find(username);
         if (!user.getPassword().equals(Security.toMd5(password))) {
             throw new UserAuthenticationFailException("Wrong username or password");
         }
@@ -38,18 +38,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(String username, String password, String email) throws AppException {
-        return userDao.addUser(new User(username, password, email));
+        return userDao.add(new User(username, password, email));
     }
 
     @Override
     public User register(String username, String password, String email, UserType userType) throws AppException {
-        return userDao.addUser(new User(username, password, email, userType));
+        return userDao.add(new User(username, password, email, userType));
     }
 
     @Override
     public User getUserInfo(String username) {
         User user = null;
-        List<User> ListOfUsers = userDao.getAllUser();
+        List<User> ListOfUsers = userDao.getAll();
         for (User listOfUser : ListOfUsers) {
             if (listOfUser.getName().equals(username)) {
                 user = listOfUser;
@@ -66,11 +66,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) throws UserAccountExistException {
-        return userDao.addUser(user);
+        return userDao.add(user);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUser();
+        return userDao.getAll();
     }
 }

@@ -29,7 +29,7 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public User addUser(User user) throws UserAccountExistException {
+    public User add(User user) throws UserAccountExistException {
 
         if (!isExist(user.getEmail())) {
             user.setPassword(Security.toMd5(user.getPassword()));
@@ -41,7 +41,7 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public User findByUserEmail(String userEmail) throws NoSuchUserException {
+    public User find(String userEmail) throws NoSuchUserException {
         User user = datastore.find(User.class, "email", userEmail).get();
         if (user == null) {
             throw new NoSuchUserException("There is no user with the email: " + userEmail);
@@ -50,7 +50,7 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public User findByUserId(ObjectId id) throws NoSuchUserException {
+    public User find(ObjectId id) throws NoSuchUserException {
         User user = datastore.find(User.class, "id", id).get();
         if (user == null) {
             throw new NoSuchUserException("There is no user with the id: " + id);
@@ -71,17 +71,17 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public User update(String email, User newUser) throws AppException {
-        User oldUser = findByUserEmail(email);
-        newUser.setEmail(oldUser.getEmail());
+    public User update(String email, User user) throws AppException {
+        User oldUser = find(email);
+        user.setEmail(oldUser.getEmail());
         delete(email);
-        addUser(newUser);
-        return newUser;
+        add(user);
+        return user;
     }
 
     @Override
-    public List<User> getAllUser() {
-        return datastore.find(User.class,"userType","ROLE_USER").asList();
+    public List<User> getAll() {
+        return datastore.find(User.class,"userType","ROLE_STUDENT").asList();
     }
 
     @Override

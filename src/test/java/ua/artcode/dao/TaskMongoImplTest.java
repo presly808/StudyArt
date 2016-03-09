@@ -79,29 +79,24 @@ public class TaskMongoImplTest {
             task.getTaskTestDataContainer().addTaskTestData(taskTestData);
             task.getTaskTestDataContainer().addTaskTestData(taskTestData);
             task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-            taskDao.addTask(task);
+            taskDao.add(task);
         }
     }
 
     @Test
     public void findByTitleTest() throws AppException {
-        Task task = taskDao.findByTitle("p10009");
+        Task task = taskDao.find("p10009");
         assertEquals(task.getTitle(), "p10009");
     }
 
     @Test(expected = NoSuchTaskException.class)
     public void findByIdExceptionTest() throws NoSuchTaskException {
-        taskDao.findByTitle(" ");
+        taskDao.find(" ");
     }
 
     @Test
     public void getAllTest() {
-        List<Task> tasks = null;
-        try {
-            tasks = taskDao.getAll();
-        } catch (AppException e) {
-            LOG.error(e);
-        }
+        List<Task> tasks=taskDao.getAll();
         int sizeOfList = tasks.size();
         int sizeOfDb = taskDao.size();
         assertEquals(sizeOfDb, sizeOfList);
@@ -115,7 +110,7 @@ public class TaskMongoImplTest {
 
     @Test
     public void getGroupTasksTest() throws NoSuchTaskException {
-        Task task = taskDao.findByTitle("p100010");
+        Task task = taskDao.find("p100010");
         List<Task> codingBatTaskList = taskDao.getGroupTasks(task.getGroupName());
         assertEquals(codingBatTaskList.size(),1 );
     }
@@ -128,29 +123,29 @@ public class TaskMongoImplTest {
 
     @Test
     public void updateTest() throws AppException {
-        Task newTask = taskDao.findByTitle("p100025");
-        Task taskToUpdate = taskDao.findByTitle("p100017");
+        Task newTask = taskDao.find("p100025");
+        Task taskToUpdate = taskDao.find("p100017");
         //TODO
         //taskDao.update("p100017", newTask);
-        assertEquals(taskToUpdate.getTitle(), taskDao.findByTitle("p100017").getTitle());
+        assertEquals(taskToUpdate.getTitle(), taskDao.find("p100017").getTitle());
         taskToUpdate.setTitle("p1000".concat(String.valueOf(AMOUNT_OF_ELEMENTS + 1)));
-        taskDao.addTask(taskToUpdate);
+        taskDao.add(taskToUpdate);
     }
 
     @Test
     public void removeTest() throws AppException {
-        Task task = taskDao.findByTitle("p10005");
+        Task task = taskDao.find("p10005");
         task.setTitle("p666666");
-        taskDao.addTask(task);
+        taskDao.add(task);
         int sizeBeforeRemove = taskDao.size();
-        taskDao.deleteByTitle("p666666");
+        taskDao.delete("p666666");
         int sizeAfterDel = taskDao.size();
         assertEquals(sizeBeforeRemove, sizeAfterDel + 1);
     }
 
     @Test
     public void invalidRemoveTest() throws AppValidationException, NoSuchTaskException {
-        assertFalse(taskDao.deleteByTitle(""));
+        assertFalse(taskDao.delete(""));
     }
 
     @Test

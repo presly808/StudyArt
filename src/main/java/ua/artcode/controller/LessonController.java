@@ -111,7 +111,7 @@ public class LessonController {
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
         String id = req.getParameter("id");
         try {
-            Lesson lesson = teacherService.findLessonById(new ObjectId(id)); // ???
+            Lesson lesson = teacherService.findLessonById(new ObjectId(id));
             List<Task> tasksOnLesson = lesson.getTasks();
             List<Task> allTasks = adminService.getAllTasks();
             allTasks.removeAll(tasksOnLesson);
@@ -174,7 +174,6 @@ public class LessonController {
         mav.addObject("lessons", teacherService.getAllLessons());
         return mav;
     }
-
 
     @RequestMapping(value = "/find-lesson")
     public ModelAndView findLesson() {

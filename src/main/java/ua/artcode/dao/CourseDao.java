@@ -12,13 +12,13 @@ import java.util.List;
  */
 public interface CourseDao {
 
-    Course addCourse(Course course) throws AppException;
+    Course add(Course course) throws AppException;
 
     boolean delete(String title) throws NoSuchCourseException;
 
-    Course findByTitle(String title) throws NoSuchCourseException;
+    Course find(String title) throws NoSuchCourseException;
 
-    Course findById(ObjectId id) throws NoSuchCourseException;
+    Course find(ObjectId id) throws NoSuchCourseException;
 
     int size();
 
@@ -26,6 +26,6 @@ public interface CourseDao {
 
     List<Course> getAll();
 
-    void updateCourse(Course course) throws NoSuchCourseException, AppException;
+    void update(Course course) throws NoSuchCourseException, AppException;
 
 }

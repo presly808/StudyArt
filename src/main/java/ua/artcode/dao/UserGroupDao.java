@@ -11,19 +11,21 @@ import java.util.List;
 
 public interface UserGroupDao {
 
-    UserGroup findByName(String name) throws NoSuchGroupException;
+    UserGroup find(String name) throws NoSuchGroupException;
 
-    UserGroup findById(ObjectId id) throws NoSuchGroupException;
+    UserGroup find(ObjectId id) throws NoSuchGroupException;
 
     boolean delete(String name) throws NoSuchGroupException;
 
-    List<UserGroup> getAllGroups() throws AppException;
+    boolean delete(ObjectId id) throws NoSuchGroupException;
 
-    UserGroup addGroup(UserGroup group) throws AppException;
+    List<UserGroup> getAll();
+
+    UserGroup addGroup(UserGroup group)  throws AppException;
 
     void addUserToGroup(String name, User user) throws NoSuchGroupException, AppException;
 
-    void updateGroup(UserGroup userGroup) throws NoSuchGroupException, AppException;
+    void update(ObjectId id,UserGroup userGroup) throws NoSuchGroupException, AppException;
 
     boolean isExist(String name);
 

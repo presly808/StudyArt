@@ -27,7 +27,7 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public Task findByTitle(String title) throws NoSuchTaskException {
+    public Task find(String title) throws NoSuchTaskException {
         Task task = datastore.find(Task.class,"title", title).get();
         if (task == null) {
             throw new NoSuchTaskException("No task with title: " + title);
@@ -36,7 +36,7 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public Task findById(ObjectId id) throws NoSuchTaskException {
+    public Task find(ObjectId id) throws NoSuchTaskException {
         Task task = datastore.find(Task.class, "id", id).get();
         if (task == null) {
             throw new NoSuchTaskException("No task with id: " + id);
@@ -45,8 +45,8 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public boolean deleteByTitle(String title) throws NoSuchTaskException {
-        Task task=findByTitle(title);
+    public boolean delete(String title) throws NoSuchTaskException {
+        Task task=find(title);
         if (task != null) {
             datastore.delete(Task.class, task.getId());
             return true;
@@ -55,7 +55,7 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public boolean deleteById(ObjectId id) {
+    public boolean delete(ObjectId id) {
         Task task = datastore.find(Task.class).field("id").equal(id).get();
         if (task != null) {
             datastore.delete(Task.class, id);
@@ -69,18 +69,15 @@ public class TaskDaoMongoImpl implements TaskDao {
         return (int) datastore.getDB().getCollection("Task").count();
     }
 
-
-
-    public Task update(ObjectId id, Task taskToAdd) throws AppException {
-        deleteById(id);
-        addTask(taskToAdd);
-        return taskToAdd;
+    @Override
+    public Task update(ObjectId id, Task task) throws AppException {
+        delete(id);
+        add(task);
+        return task;
     }
 
-
     @Override
-    //TODO empty ???
-    public List<Task> getAll() throws AppException {
+    public List<Task> getAll()  {
         return datastore.find(Task.class).asList();
     }
 
@@ -102,12 +99,11 @@ public class TaskDaoMongoImpl implements TaskDao {
 
     @Override
     public List<Task> getGroupTasks(String group) {
-        List<Task> groupTasks = datastore.find(Task.class).field("groupName").equal(group).asList();
-        return groupTasks;
+        return  datastore.find(Task.class).field("groupName").equal(group).asList();
     }
 
     @Override
-    public Task addTask(Task task) throws AppException {
+    public Task add(Task task) throws AppException {
         if (!isExist(task.getTitle())) {
             datastore.save(task);
             return task;

@@ -69,7 +69,7 @@ public class InitCodingBatTaskTrigger {
         Collection<Task> collection = appDataJsonSerializer.load(dbJsonPath);
         for (Task task : collection) {
             try {
-                taskDao.addTask(task);
+                taskDao.add(task);
             } catch (AppValidationException e) {
                 LOG.warn(e.getExceptionMessageList());
                 throw e;

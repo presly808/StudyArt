@@ -40,7 +40,7 @@ public class User implements Comparable<User> {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.userType = UserType.ROLE_USER;
+        this.userType = UserType.ROLE_STUDENT;
     }
 
     public User(String name, String password, String email, UserType userType) {

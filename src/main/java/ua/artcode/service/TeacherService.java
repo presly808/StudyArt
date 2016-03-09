@@ -59,7 +59,7 @@ public interface TeacherService {
 
     void addUserToGroup(String name, User user) throws AppException, NoSuchGroupException;
 
-    void updateGroup(UserGroup userGroup) throws AppException, NoSuchGroupException;
+    void updateGroup(ObjectId id,UserGroup userGroup) throws AppException, NoSuchGroupException;
 
     List<UserGroup> getAllGroups() throws AppException;
 

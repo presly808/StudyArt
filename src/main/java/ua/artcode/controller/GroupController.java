@@ -20,6 +20,7 @@ import ua.artcode.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -92,7 +93,7 @@ public class GroupController {
                 list.add(user);
             }
         }
-        teacherService.updateGroup(userGroup);
+        teacherService.updateGroup(userGroup.getId(),userGroup);
         redirectAttributes.addFlashAttribute("message", "Group has been successfully create.");
         mav.setViewName("redirect:/group-menu");
         return mav;
@@ -111,8 +112,15 @@ public class GroupController {
         ModelAndView mav = new ModelAndView("group/edit-group");
         try {
             String id = req.getParameter("id");
-            UserGroup group = teacherService.findUserGroupById(new ObjectId(id));
-            mav.addObject("group", group);
+            UserGroup userGroup = teacherService.findUserGroupById(new ObjectId(id));
+            List<User> usersInGroup = userGroup.getStudents();
+
+            List<User> allUsers=userService.getAllUsers();
+            allUsers.removeAll(usersInGroup);
+
+            mav.addObject("userGroup", userGroup);
+            mav.addObject("usersInGroup", usersInGroup);
+            mav.addObject("allUsers",allUsers);
             //TODO
         } catch (NoSuchGroupException e) {
             mav.addObject("message",e.getMessage());
@@ -120,6 +128,45 @@ public class GroupController {
         }
         return mav;
     }
+
+
+    @RequestMapping(value = "/update-group")
+    public ModelAndView updateGroup(@Valid UserGroup userGroup, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes)  {
+
+        ModelAndView mav = new ModelAndView("group/edit-group");
+        List<User> userInGroup = new ArrayList<>();
+
+        List<User> allUsers = userService.getAllUsers();
+
+        for (User user : allUsers) {
+            if (req.getParameter(user.getEmail()) != null) {
+                userInGroup.add(user);
+            }
+        }
+
+        if (result.hasErrors()) {
+            allUsers.removeAll(userInGroup);
+
+            mav.addObject("userInGroup", userInGroup);
+            mav.addObject("allUsers", allUsers);
+
+        } else {
+            try {
+                userGroup.setStudents(userInGroup);
+                teacherService.updateGroup(userGroup.getId(),userGroup);
+                redirectAttributes.addFlashAttribute("message", "The group has been successfully updated.");
+                mav.setViewName("redirect:/group-menu");
+            } catch (AppException e) {
+                mav.addObject("message", e.getMessage());
+                mav.setViewName("main/group-menu");
+                //TODO
+            } catch (NoSuchGroupException e) {
+                e.printStackTrace();
+            }
+        }
+        return mav;
+    }
+
 
     @RequestMapping(value = "/find-group")
     public ModelAndView loadFindGroup() {

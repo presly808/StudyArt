@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface TaskDao {
 
-    Task findByTitle(String title) throws NoSuchTaskException;
+    Task find(String title) throws NoSuchTaskException;
 
-    Task findById(ObjectId id) throws NoSuchTaskException;
+    Task find(ObjectId id) throws NoSuchTaskException;
 
-    boolean deleteById(ObjectId id);
+    boolean delete(ObjectId id);
 
-    boolean deleteByTitle(String title) throws NoSuchTaskException;
+    boolean delete(String title) throws NoSuchTaskException;
 
     Task update(ObjectId id, Task updateTask) throws AppException;
 
-    List<Task> getAll() throws AppException;
+    List<Task> getAll();
 
-    Task addTask(Task task) throws AppException;
+    Task add(Task task) throws AppException;
 
     boolean isExist(String title);
 
