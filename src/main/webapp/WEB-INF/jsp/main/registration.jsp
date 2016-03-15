@@ -36,7 +36,7 @@
             <td>User type:</td>
             <td><form:select path="userType">
                 <form:option value="" label="Select user type"/>
-                <form:option value="ROLE_USER" label="Student"/>
+                <form:option value="ROLE_STUDENT" label="Student"/>
                 <form:option value="ROLE_TEACHER" label="Teacher"/>
             </form:select></td>
             <td><form:errors path="userType" /></td>

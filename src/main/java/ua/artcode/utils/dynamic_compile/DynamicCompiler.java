@@ -20,8 +20,8 @@ import java.net.URLClassLoader;
 //TODO avoid static , add field root, resolve multithreading using stream
 public class DynamicCompiler {
     private static final Logger LOG = Logger.getLogger(DynamicCompiler.class);
-    //public static final String LIBS_CLASSPATH = "/home/serhii/dev/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/classes/";
-    public static final String LIBS_CLASSPATH = getLibsClasspath();
+    public static final String LIBS_CLASSPATH = "/apache-tomcat/webapps/ROOT/WEB-INF/classes/";
+    //public static final String LIBS_CLASSPATH = getLibsClasspath();
 
     private static String getLibsClasspath() {
         StringBuilder classPaths = new StringBuilder();
@@ -31,8 +31,8 @@ public class DynamicCompiler {
         }
 
         return classPaths.toString();
-
     }
+
 
     public DynamicCompiler() {
     }
@@ -42,8 +42,8 @@ public class DynamicCompiler {
         String message = null;
         try {
             String absolutePath = sourceFile.getCanonicalPath();
-            //String result=String.format("javac -cp  " + LIBS_CLASSPATH + " %s",absolutePath);
-            String result = "javac -cp " + LIBS_CLASSPATH + " " + absolutePath;
+            String result=String.format("javac -cp  " + LIBS_CLASSPATH + " %s",absolutePath);
+            //String result = "javac -cp " + LIBS_CLASSPATH + " " + absolutePath;
             Process pr = Runtime.getRuntime().exec(result);
 
             if (pr.waitFor() != 0) {

@@ -78,17 +78,18 @@ public class MainController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) throws ServletException, IOException{
-        ModelAndView mav=new ModelAndView();
+        ModelAndView mav = new ModelAndView();
         if (result.hasErrors()) {
             mav.setViewName("main/registration");
-        }
-        try {
-            userService.register(user);
-            redirectAttributes.addFlashAttribute("message", messageSource.getMessage("registration.successful", null, LocaleContextHolder.getLocale()));
-            mav.setViewName("redirect:/login");
-        } catch (UserAccountExistException e) {
-            mav.setViewName("main/registration");
-            mav.addObject("message",e.getMessage());
+        } else {
+            try {
+                userService.register(user);
+                redirectAttributes.addFlashAttribute("message", messageSource.getMessage("registration.successful", null, LocaleContextHolder.getLocale()));
+                mav.setViewName("redirect:/login");
+            } catch (UserAccountExistException e) {
+                mav.setViewName("main/registration");
+                mav.addObject("message",e.getMessage());
+            }
         }
         return mav;
     }
