@@ -1,7 +1,10 @@
 package ua.artcode.controller;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.model.common.User;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
+import ua.artcode.service.UserService;
 import ua.artcode.to.ResultTablePart;
 import ua.artcode.to.ResultTableUtils;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
@@ -36,6 +42,9 @@ public class TaskController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private TaskRunFacade taskRunFacade;
@@ -60,13 +69,21 @@ public class TaskController {
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
                 task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
-                adminService.addTask(task);
-                mav.setViewName("redirect:/task-menu");
-                redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
+                String solution = req.getParameter("solution");
+
+                TaskTestResult testResult = taskRunFacade.runTask(task, solution);
+                if (testResult.getPassedAll()) {
+                    adminService.addTask(task);
+                    mav.setViewName("redirect:/task-menu");
+                    redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
+                } else {
+                    mav.addObject("message", "Wrong solution. The task is not verified!");
+                }
+
             } catch (AppValidationException e) {
-                req.setAttribute("message", "Invalid test points");
-            } catch (AppException e) {
-                req.setAttribute("message", "Task with title: " + task.getTitle() + " already exist.");
+                mav.addObject("message", "Invalid test points!");
+            } catch (DuplicateKeyException e) {
+                mav.addObject("message", "Task with title: " + task.getTitle() + " already exist!");
             }
         }
         return mav;
@@ -97,26 +114,63 @@ public class TaskController {
         return mav;
     }
 
-    @RequestMapping(value = "/do-task/{name}", method = RequestMethod.GET)
-    public ModelAndView doTasks(@PathVariable String name, Model model) throws ServletException, IOException, NoSuchTaskException {
-        Task task = adminService.findTaskByTitle(name);
-        model.addAttribute("task", task);
-        return new ModelAndView("task/do-task");
+    @RequestMapping(value = "/do-task/{title}", method = RequestMethod.GET)
+    public ModelAndView doTasks(@PathVariable String title, Model model) throws ServletException, IOException, NoSuchTaskException {
+        ModelAndView mav = new ModelAndView("task/do-task");
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+            String template;
+
+            Task task = adminService.findTaskByTitle(title);
+
+            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
+            if (taskTestResult != null) {
+                String userCode = taskTestResult.getUserCode();
+                template = userCode;
+            } else {
+                template = task.getTemplate();
+            }
+
+            mav.addObject("template", template);
+            model.addAttribute(task);
+
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTasksPost(HttpServletRequest req) throws ServletException, IOException {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView("task/do-task");
         try {
-            String id = req.getParameter("taskId");
-            Task task = adminService.findTaskByTitle(id);
-            mav.setViewName("task/do-task");
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+            String template;
+
+            //TODO taskId change to title in jsp
+            String title = req.getParameter("taskId");
+            Task task = adminService.findTaskByTitle(title);
+
+            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
+            String userCode = taskTestResult.getUserCode();
+
+            if (userCode != null) {
+                template = userCode;
+            } else {
+                template = task.getTemplate();
+            }
+
+            mav.addObject("template", template);
             mav.addObject(task);
-            //req.setAttribute("task", task);
         } catch (NoSuchTaskException e) {
             mav.setViewName("task/find-task");
             mav.addObject("error", e.getMessage());
-            //req.setAttribute("error", e.getMessage());
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
         }
         return mav;
     }
@@ -125,19 +179,51 @@ public class TaskController {
     public ModelAndView checkTask(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
-        TaskTestResult taskTestResult = null;
+        ObjectId taskId = new ObjectId(id);
+        TaskTestResult newTaskTestResult = null;
         List<ResultTablePart> resultTablePartList = null;
         try {
-            Task task = adminService.findTaskById(new ObjectId(id));
-            taskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
-            resultTablePartList = ResultTableUtils.getResultTableList(task, taskTestResult);
+            Task task = adminService.findTaskById(taskId);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+
+            newTaskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
+
+            writeResult(user, newTaskTestResult, taskId);
+
+            String email = user.getEmail();
+            userService.update(email, user);
+            resultTablePartList = ResultTableUtils.getResultTableList(task, newTaskTestResult);
+            //TODO
         } catch (NoSuchTaskException e) {
+            e.printStackTrace();
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
+        } catch (AppException e) {
             e.printStackTrace();
         }
         req.setAttribute("resultList", resultTablePartList);
-        req.setAttribute("status", taskTestResult.getStatus());
+        req.setAttribute("status", newTaskTestResult.getStatus());
         mav.setViewName("task/check-task");
         return mav;
+    }
+
+    private void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) throws AppException {
+
+        TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);
+
+        if (oldTaskTestResult != null) {
+            if (oldTaskTestResult.getPassedAll() == false) {
+                user.addSolvedTask(taskId, newTaskTestResult);
+            } else if (newTaskTestResult.getPassedAll()) {
+                user.addSolvedTask(taskId, newTaskTestResult);
+            }
+        } else {
+            user.addSolvedTask(taskId, newTaskTestResult);
+        }
+        String email = user.getEmail();
+        userService.update(email, user);
     }
 
     @RequestMapping(value = "/edit-task", method = RequestMethod.POST)

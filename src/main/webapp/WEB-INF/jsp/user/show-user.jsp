@@ -10,5 +10,9 @@
 <p>${user.name}</p>
 <p>${user.userType}</p>
 
+<c:forEach items="${result}" var="entry">
+    ${entry.key}=${entry.value}<br>
+</c:forEach>
+
 </body>
 </html>

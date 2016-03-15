@@ -1,10 +1,12 @@
 package ua.artcode.dao;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.Lesson;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
@@ -18,19 +20,16 @@ public class LessonDaoMongoImpl implements LessonDao {
 
     public LessonDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
+        datastore.ensureIndexes();
     }
 
     @Override
-    public Lesson add(Lesson lesson) throws AppException {
-        if (!isExist(lesson.getTitle())) {
-            datastore.save(lesson);
-            return lesson;
-        }
-        throw new AppException("Lesson with title: "+lesson.getTitle()+" already exist");
+    public void add(Lesson lesson) throws DuplicateKeyException {
+        datastore.save(lesson);
     }
 
     @Override
-    public void update(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException {
+    public void update(ObjectId id, Lesson lesson) throws NoSuchLessonException, AppException {
         delete(id);
         add(lesson);
     }
@@ -39,34 +38,36 @@ public class LessonDaoMongoImpl implements LessonDao {
     public List<Lesson> getAll() {
         return datastore.find(Lesson.class).asList();
     }
-    //TODO
+
     @Override
     public void addTask(String title, Task task) throws NoSuchLessonException, AppException {
         Lesson lesson = find(title);
         List<Task> taskList = lesson.getTasks();
         taskList.add(task);
         lesson.setTasks(taskList);
-        update(lesson.getId(),lesson);
+        update(lesson.getId(), lesson);
     }
 
     @Override
     public boolean delete(String title) throws NoSuchLessonException {
-        Lesson lesson = find(title);
-        if (lesson != null) {
-            datastore.delete(Lesson.class, lesson.getId());
-            return true;
-        } else
-            return false;
+        Query<Lesson> query = datastore.createQuery(Lesson.class);
+        query.field("title").equal(title);
+        Lesson lesson = datastore.findAndDelete(query);
+        if (lesson == null) {
+            throw new NoSuchLessonException("There is no lesson with title: "+title);
+        }
+        return true;
     }
 
     @Override
     public boolean delete(ObjectId id) throws NoSuchLessonException {
-        Lesson lesson = find(id);
-        if (lesson != null) {
-            datastore.delete(Lesson.class, id);
-            return true;
-        } else
-            return false;
+        Query<Lesson> query = datastore.createQuery(Lesson.class);
+        query.field("id").equal(id);
+        Lesson lesson=datastore.findAndDelete(query);
+        if (lesson == null) {
+            throw new NoSuchLessonException("No lesson");
+        }
+        return true;
     }
 
     @Override

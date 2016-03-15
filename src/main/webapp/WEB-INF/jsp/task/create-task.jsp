@@ -39,7 +39,7 @@
     </label><br>
 
     <spring:message code="create.task.template"/>:<br>
-    <code>public String methodName(int argName1, char argName2) {}</code><br>
+    <code>public int methodName(int a, int b) {}</code><br>
     <label>
         <form:textarea path="template" rows="3" cols="50" />
         <form:errors path="template" />
@@ -47,9 +47,14 @@
     </label><br>
 
     <spring:message code="create.task.datapoint"/>:<br>
-    <code>25-2.45,12,12</code><br>
+    <code>25-10,15</code><br>
     <label>
         <textarea name="data_points" rows="10" cols="50"></textarea>
+    </label><br>
+     Solution: <br>
+    <code>public int methodName(int a, int b) {  return a + b;  }</code><br>
+    <label>
+        <textarea name="solution" rows="8" cols="50"></textarea>
     </label><br>
 
     <input type="submit" value="<spring:message code="send"/>">

@@ -1,14 +1,15 @@
 package ua.artcode.service;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.Course;
+import ua.artcode.model.common.Course;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
-import ua.artcode.model.Lesson;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public interface TeacherService {
 
     //Lesson methods
-    void addLesson(Lesson lesson) throws AppException;
+    void addLesson(Lesson lesson) throws DuplicateKeyException;
 
     List<Lesson> getAllLessons();
 
@@ -38,7 +39,7 @@ public interface TeacherService {
     int sizeOfLesson();
 
     //Course methods
-    Course addCourse(Course course) throws AppException;
+    void addCourse(Course course) throws DuplicateKeyException;
 
     boolean deleteCourse(String title) throws NoSuchCourseException;
 
@@ -53,7 +54,7 @@ public interface TeacherService {
     int sizeOfCourse();
 
     //Group methods
-    UserGroup addGroup(UserGroup group) throws AppException;
+    void addGroup(UserGroup group) throws DuplicateKeyException;
 
     boolean deleteGroup(String name) throws NoSuchGroupException;
 

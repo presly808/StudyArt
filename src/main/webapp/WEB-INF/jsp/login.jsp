@@ -20,8 +20,7 @@
 </span>
 
 <br>
-    <form name='loginForm'
-          action="j_spring_security_check" method='POST'>
+    <form name='loginForm' action="j_spring_security_check" method='POST'>
         <spring:message code="user.email"/>:<p><input  type='text' name="username"></p>
         <spring:message code="user.password"/>:<p><input type="password" name="password"></p>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -35,6 +34,7 @@
     <c:if test="${not empty message}" >
         <div class="error" style="color: red">${message}</div>
     </c:if>
+
 </div>
 </body>
 </html>

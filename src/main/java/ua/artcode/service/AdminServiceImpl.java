@@ -1,5 +1,6 @@
 package ua.artcode.service;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,13 +39,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean deleteById(ObjectId id) {
+    public boolean deleteById(ObjectId id) throws NoSuchTaskException {
         return taskDao.delete(id);
     }
 
     @Override
-    public Task addTask(Task codingBatTask) throws AppException {
-        return taskDao.add(codingBatTask);
+    public void addTask(Task task) throws DuplicateKeyException {
+         taskDao.add(task);
     }
 
     @Override
@@ -67,7 +68,6 @@ public class AdminServiceImpl implements AdminService {
         return taskDao.size();
     }
 
-    //TODO update
     @Override
     public Task update(ObjectId id,Task updateTask) throws AppException {
         return taskDao.update(id,updateTask);

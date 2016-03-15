@@ -1,21 +1,22 @@
 package ua.artcode.service;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.CourseDao;
-import ua.artcode.dao.UserGroupDao;
 import ua.artcode.dao.LessonDao;
+import ua.artcode.dao.UserGroupDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.Course;
+import ua.artcode.model.common.Course;
+import ua.artcode.model.common.Lesson;
+import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
-import ua.artcode.model.Lesson;
-import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     //Lesson methods
     @Override
-    public void addLesson(Lesson lesson) throws AppException {
+    public void addLesson(Lesson lesson) throws DuplicateKeyException {
         lessonDao.add(lesson);
     }
 
@@ -84,8 +85,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     //Course methods
     @Override
-    public Course addCourse(Course course) throws AppException {
-       return courseDao.add(course);
+    public void addCourse(Course course) throws DuplicateKeyException {
+        courseDao.add(course);
     }
 
     @Override
@@ -121,8 +122,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     //Group methods
     @Override
-    public UserGroup addGroup(UserGroup group) throws AppException {
-       return userGroupDao.addGroup(group);
+    public void addGroup(UserGroup group) throws DuplicateKeyException {
+        userGroupDao.addGroup(group);
     }
 
     @Override

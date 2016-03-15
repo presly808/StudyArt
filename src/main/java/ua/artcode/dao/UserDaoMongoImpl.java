@@ -1,11 +1,12 @@
 package ua.artcode.dao;
 
+import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
-import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 import ua.artcode.utils.Security;
 
@@ -26,25 +27,31 @@ public class UserDaoMongoImpl implements UserDao {
 
     public UserDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
+        datastore.ensureIndexes();
     }
 
     @Override
-    public User add(User user) throws UserAccountExistException {
-
-        if (!isExist(user.getEmail())) {
-            user.setPassword(Security.toMd5(user.getPassword()));
-            datastore.save(user);
-            LOG.info("User with email: " + user.getEmail() + " was added to data base.");
-            return user;
-        }
-        throw new UserAccountExistException("Account already exist!");
+    public void add(User user) throws DuplicateKeyException {
+        user.setPassword(Security.toMd5(user.getPassword()));
+        datastore.save(user);
+        //TODO
+        LOG.info("User with email: " + user.getEmail() + " was added to data base.");
     }
 
     @Override
-    public User find(String userEmail) throws NoSuchUserException {
-        User user = datastore.find(User.class, "email", userEmail).get();
+    public User find(String name) throws NoSuchUserException {
+        User user = datastore.find(User.class, "name", name).get();
         if (user == null) {
-            throw new NoSuchUserException("There is no user with the email: " + userEmail);
+            throw new NoSuchUserException("There is no user with name " + name);
+        }
+        return user;
+    }
+
+    @Override
+    public User findByEmail(String email) throws NoSuchUserException {
+        User user = datastore.find(User.class, "email", email).get();
+        if (user == null) {
+            throw new NoSuchUserException("There is no user with email " + email);
         }
         return user;
     }
@@ -59,29 +66,26 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public boolean delete(String userEmail) throws NoSuchUserException {
-        User user = datastore.find(User.class).field("email").equal(userEmail).get();
-        // TODO use next code line datastore.findAndDelete(datastore.find(User.class,"email",userEmail));
+    public boolean delete(String email) throws NoSuchUserException {
+        Query<User> query = datastore.createQuery(User.class);
+        query.field("email").equal(email);
+        User user = datastore.findAndDelete(query);
         if (user == null) {
-            throw new NoSuchUserException("There are no user with email: " + userEmail);
+            throw new NoSuchUserException("There is no user with email: " + email);
         }
-        datastore.delete(User.class, user.getId());
-        LOG.info("User with email -  " + userEmail + " was deleted from data base.");
+        LOG.info("User with email -  " + email + " was deleted from data base.");
         return true;
     }
 
     @Override
-    public User update(String email, User user) throws AppException {
-        User oldUser = find(email);
-        user.setEmail(oldUser.getEmail());
+    public void update(String email, User user) throws AppException,DuplicateKeyException {
         delete(email);
-        add(user);
-        return user;
+        datastore.save(user);
     }
 
     @Override
     public List<User> getAll() {
-        return datastore.find(User.class,"userType","ROLE_STUDENT").asList();
+        return datastore.find(User.class, "userType", "ROLE_STUDENT").asList();
     }
 
     @Override

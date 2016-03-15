@@ -1,5 +1,6 @@
 package ua.artcode.controller;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.Lesson;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
@@ -62,7 +63,8 @@ public class LessonController {
                 }
             } catch (AppException e) {
                 mav.addObject("message", e.getMessage());
-                mav.setViewName("lesson/create-lesson");
+            } catch (DuplicateKeyException e) {
+                mav.addObject("message", "Lesson with title: " + lesson.getTitle() + " already exist!");
             }
         }
         return mav;
@@ -130,7 +132,7 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/update-lesson")
-    public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes)  {
+    public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
 
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
         List<Task> taskInLesson = new ArrayList<>();
@@ -224,7 +226,7 @@ public class LessonController {
             redirectAttributes.addFlashAttribute("message", "The lesson has been successfully deleted.");
             mav.setViewName("redirect:/lesson-menu");
         } catch (NoSuchLessonException e) {
-            mav.addObject("message", "There is no lesson with title: " + lessonTitle);
+            mav.addObject("message", e.getMessage());
             mav.setViewName("lesson/delete-lesson");
         }
         return mav;

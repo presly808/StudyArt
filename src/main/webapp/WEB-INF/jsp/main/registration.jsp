@@ -12,7 +12,7 @@
 
 <body>
 
-<form:form action="${pageContext.request.contextPath}/registration" modelAttribute="user">
+<form:form action="${pageContext.request.contextPath}/registration" modelAttribute="user"  method="post">
     <table>
         <tr>
             <td><spring:message code="user.name"/>:</td>

@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
-import ua.artcode.model.Course;
-import ua.artcode.model.Lesson;
+import ua.artcode.model.common.Course;
+import ua.artcode.model.common.Lesson;
 
 import java.io.IOException;
 import java.util.ArrayList;

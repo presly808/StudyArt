@@ -3,6 +3,7 @@ package ua.artcode.model.codingbat;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Template;
 import ua.artcode.validation.Title;
@@ -16,6 +17,7 @@ public class Task implements Comparable<Task> {
     @Title
     private String groupName;
     @Title
+    @Indexed(unique = true)
     private String title;
     @Description
     private String description;
@@ -130,6 +132,7 @@ public class Task implements Comparable<Task> {
 
         return !(id != null ? !id.equals(that.id) : that.id != null);
     }
+
 
     @Override
     public int hashCode() {

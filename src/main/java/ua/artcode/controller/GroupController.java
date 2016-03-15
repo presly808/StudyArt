@@ -1,5 +1,6 @@
 package ua.artcode.controller;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,33 +45,30 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/create-group", method = RequestMethod.POST)
-    public ModelAndView createGroup(@Valid UserGroup userGroup, BindingResult result,RedirectAttributes redirectAttributes)  {
-        ModelAndView mav = new ModelAndView("group/setup-users");
-        if (result.hasErrors()) {
-            mav.setViewName("group/create-group");
-            return mav;
-        }
-        try {
-            teacherService.addGroup(userGroup);
-            redirectAttributes.addFlashAttribute("name", userGroup.getName());
-            redirectAttributes.addFlashAttribute("users", userService.getAllUsers());
-            mav.setViewName("redirect:/group-menu/setup-users");
-        } catch (AppException e) {
-            mav.addObject("message",e.getMessage());
-            mav.setViewName("group/create-group");
+    public ModelAndView createGroup(@Valid UserGroup userGroup, BindingResult result, RedirectAttributes redirectAttributes) {
+        ModelAndView mav = new ModelAndView("group/create-group");
+        if (!result.hasErrors()) {
+            try {
+                teacherService.addGroup(userGroup);
+                redirectAttributes.addFlashAttribute("name", userGroup.getName());
+                redirectAttributes.addFlashAttribute("users", userService.getAllUsers());
+                mav.setViewName("redirect:/group-menu/setup-users");
+            } catch (DuplicateKeyException e) {
+                mav.addObject("message", "Group with ");
+            }
         }
         return mav;
     }
 
     @RequestMapping(value = "/setup-users")
-    public ModelAndView setupUsers(RedirectAttributes attributes,HttpServletRequest req){
+    public ModelAndView setupUsers(RedirectAttributes attributes, HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("group/setup-users");
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
-            mav.addObject("name",map.get("name"));
-            mav.addObject("users",map.get("users"));
-        }else {
-            attributes.addFlashAttribute("message","Group created successful");
+            mav.addObject("name", map.get("name"));
+            mav.addObject("users", map.get("users"));
+        } else {
+            attributes.addFlashAttribute("message", "Group created successful");
             mav.setViewName("redirect:/group-menu");
         }
         return mav;
@@ -93,7 +91,7 @@ public class GroupController {
                 list.add(user);
             }
         }
-        teacherService.updateGroup(userGroup.getId(),userGroup);
+        teacherService.updateGroup(userGroup.getId(), userGroup);
         redirectAttributes.addFlashAttribute("message", "Group has been successfully create.");
         mav.setViewName("redirect:/group-menu");
         return mav;
@@ -108,22 +106,22 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/edit-group", method = RequestMethod.POST)
-    public ModelAndView editGroup(HttpServletRequest req)  {
+    public ModelAndView editGroup(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("group/edit-group");
         try {
             String id = req.getParameter("id");
             UserGroup userGroup = teacherService.findUserGroupById(new ObjectId(id));
             List<User> usersInGroup = userGroup.getStudents();
 
-            List<User> allUsers=userService.getAllUsers();
+            List<User> allUsers = userService.getAllUsers();
             allUsers.removeAll(usersInGroup);
 
             mav.addObject("userGroup", userGroup);
             mav.addObject("usersInGroup", usersInGroup);
-            mav.addObject("allUsers",allUsers);
+            mav.addObject("allUsers", allUsers);
             //TODO
         } catch (NoSuchGroupException e) {
-            mav.addObject("message",e.getMessage());
+            mav.addObject("message", e.getMessage());
             mav.setViewName("");
         }
         return mav;
@@ -131,7 +129,7 @@ public class GroupController {
 
 
     @RequestMapping(value = "/update-group")
-    public ModelAndView updateGroup(@Valid UserGroup userGroup, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes)  {
+    public ModelAndView updateGroup(@Valid UserGroup userGroup, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
 
         ModelAndView mav = new ModelAndView("group/edit-group");
         List<User> userInGroup = new ArrayList<>();
@@ -153,7 +151,7 @@ public class GroupController {
         } else {
             try {
                 userGroup.setStudents(userInGroup);
-                teacherService.updateGroup(userGroup.getId(),userGroup);
+                teacherService.updateGroup(userGroup.getId(), userGroup);
                 redirectAttributes.addFlashAttribute("message", "The group has been successfully updated.");
                 mav.setViewName("redirect:/group-menu");
             } catch (AppException e) {
