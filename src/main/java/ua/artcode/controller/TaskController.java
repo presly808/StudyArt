@@ -1,7 +1,10 @@
 package ua.artcode.controller;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.model.common.User;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
+import ua.artcode.service.UserService;
 import ua.artcode.to.ResultTablePart;
 import ua.artcode.to.ResultTableUtils;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
@@ -36,6 +42,9 @@ public class TaskController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private TaskRunFacade taskRunFacade;
@@ -64,9 +73,9 @@ public class TaskController {
                 mav.setViewName("redirect:/task-menu");
                 redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
             } catch (AppValidationException e) {
-                req.setAttribute("message", "Invalid test points");
-            } catch (AppException e) {
-                req.setAttribute("message", "Task with title: " + task.getTitle() + " already exist.");
+                mav.addObject("message", "Invalid test points");
+            } catch (DuplicateKeyException e) {
+                mav.addObject("message", "Task with title: " + task.getTitle() + " already exist.");
             }
         }
         return mav;
@@ -125,13 +134,27 @@ public class TaskController {
     public ModelAndView checkTask(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
+        ObjectId taskId = new ObjectId(id);
         TaskTestResult taskTestResult = null;
         List<ResultTablePart> resultTablePartList = null;
         try {
-            Task task = adminService.findTaskById(new ObjectId(id));
+            Task task = adminService.findTaskById(taskId);
             taskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+
+            user.addSolvedTask(taskId, taskTestResult);
+
+            String email = user.getEmail();
+            userService.update(email, user);
             resultTablePartList = ResultTableUtils.getResultTableList(task, taskTestResult);
+            //TODO
         } catch (NoSuchTaskException e) {
+            e.printStackTrace();
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
+        } catch (AppException e) {
             e.printStackTrace();
         }
         req.setAttribute("resultList", resultTablePartList);

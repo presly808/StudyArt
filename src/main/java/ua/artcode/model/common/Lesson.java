@@ -1,8 +1,8 @@
-package ua.artcode.model;
-
+package ua.artcode.model.common;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Reference;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.validation.Description;
@@ -14,12 +14,15 @@ import java.util.List;
 /**
  * Created by Razer on 02.02.16.
  */
-@Embedded
+@Entity
 public class Lesson implements Comparable<Lesson>{
     @Id
     private ObjectId id;
+
     @Title
+    @Indexed(unique = true)
     private String title;
+
     @Description
     private String description;
 

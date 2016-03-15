@@ -1,9 +1,11 @@
-package ua.artcode.model;
+package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Reference;
+import ua.artcode.model.Lesson;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Title;
 
@@ -18,6 +20,7 @@ public class Course {
     private ObjectId id;
 
     @Title
+    @Indexed(unique = true)
     private String title;
 
     @Description
