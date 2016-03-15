@@ -1,13 +1,12 @@
 package ua.artcode.script;
 
+import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.TaskDaoMongoImpl;
-import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
-import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.codingbat.CodingBatTaskGrabber;
@@ -54,11 +53,12 @@ public class InitCodingBatTaskTrigger {
     /**
      * @download tasks to database if it need
      */
-    public static void loadTasksToDataBase() throws UserAccountExistException, AppValidationException {
+    public static void loadTasksToDataBase() throws DuplicateKeyException, AppValidationException {
 
         ApplicationContext context = SpringContext.getContext();
 
         Datastore datastore = (Datastore) context.getBean("datastore");
+
 
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
@@ -70,11 +70,8 @@ public class InitCodingBatTaskTrigger {
         for (Task task : collection) {
             try {
                 taskDao.add(task);
-            } catch (AppValidationException e) {
-                LOG.warn(e.getExceptionMessageList());
-                throw e;
-            } catch (AppException e) {
-                e.printStackTrace();
+            } catch (DuplicateKeyException e) {
+                LOG.warn(e.getMessage());
             }
         }
     }
@@ -82,11 +79,11 @@ public class InitCodingBatTaskTrigger {
     /**
      * @create dump of database if it need
      */
-    //TODO add mongo.db
     public static void createDumpOfDataBase() {
         try {
+            String dbName = AppPropertiesHolder.getProperty("mongo.db");
             LOG.trace("addUser dump from db");
-            Process process = Runtime.getRuntime().exec("mongodump --db StudyArt");
+            Process process = Runtime.getRuntime().exec("mongodump --db "+dbName);
             process.waitFor();
         } catch (IOException e) {
             LOG.error(e);

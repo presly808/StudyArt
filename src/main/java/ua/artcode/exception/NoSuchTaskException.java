@@ -9,4 +9,6 @@ public class NoSuchTaskException extends AppException {
         super(message);
     }
 
+    public NoSuchTaskException() {
+    }
 }

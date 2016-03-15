@@ -8,7 +8,7 @@
 
 <c:forEach var="user" items="${users}">
     <div align="center">
-        <li><a href="${pageContext.request.contextPath}/user-menu/show-user/${user.email}"> <p>${user.email}</p> </a></li>
+        <li><a href="${pageContext.request.contextPath}/user-menu/show-user/${user.name}"> <p>${user.name}</p> </a></li>
     </div>
 </c:forEach>
 

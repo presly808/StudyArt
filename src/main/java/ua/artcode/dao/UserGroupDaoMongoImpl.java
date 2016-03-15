@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import ua.artcode.exception.AppException;
@@ -19,6 +20,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
 
     public UserGroupDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
+        datastore.ensureIndexes();
     }
 
     @Override
@@ -71,12 +73,8 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
-    public UserGroup addGroup(UserGroup group) throws AppException {
-        if (!isExist(group.getName())) {
+    public void addGroup(UserGroup group) throws DuplicateKeyException {
             datastore.save(group);
-            return group;
-        }
-        throw new AppException("Group with name: "+group.getName()+" already exist");
     }
 
     @Override

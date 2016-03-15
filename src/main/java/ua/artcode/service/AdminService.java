@@ -1,5 +1,6 @@
 package ua.artcode.service;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface AdminService {
 
-    Task addTask(Task codingBatTask) throws AppException;
+    void addTask(Task task) throws DuplicateKeyException;
 
     Task findTaskByTitle(String title) throws NoSuchTaskException;
 
@@ -24,9 +25,9 @@ public interface AdminService {
 
     boolean deleteByTitle(String title) throws NoSuchTaskException;
 
-    boolean deleteById(ObjectId id);
+    boolean deleteById(ObjectId id) throws NoSuchTaskException;
 
-    Task update(ObjectId id, Task updateTask) throws AppException;
+    Task update(ObjectId id, Task task) throws AppException;
 
     List<Task> getGroupTasks(String group);
 

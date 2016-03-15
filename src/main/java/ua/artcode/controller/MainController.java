@@ -1,5 +1,6 @@
 package ua.artcode.controller;
 
+import com.mongodb.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
-import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
 
@@ -77,18 +77,16 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) throws ServletException, IOException{
-        ModelAndView mav=new ModelAndView();
-        if (result.hasErrors()) {
-            mav.setViewName("main/registration");
-        }
-        try {
-            userService.register(user);
-            redirectAttributes.addFlashAttribute("message", messageSource.getMessage("registration.successful", null, LocaleContextHolder.getLocale()));
-            mav.setViewName("redirect:/login");
-        } catch (UserAccountExistException e) {
-            mav.setViewName("main/registration");
-            mav.addObject("message",e.getMessage());
+    public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) throws ServletException, IOException {
+        ModelAndView mav = new ModelAndView("main/registration");
+        if (!result.hasErrors()) {
+            try {
+                userService.register(user);
+                redirectAttributes.addFlashAttribute("message", messageSource.getMessage("registration.successful", null, LocaleContextHolder.getLocale()));
+                mav.setViewName("redirect:/login");
+            } catch (DuplicateKeyException e) {
+                mav.addObject("message", "User already exist!");
+            }
         }
         return mav;
     }

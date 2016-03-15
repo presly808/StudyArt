@@ -100,7 +100,6 @@ public class Lesson implements Comparable<Lesson>{
         return !(id != null ? !id.equals(that.id) : that.id != null);
     }
 
-
     @Override
     public int compareTo(Lesson o) {
         return this.id.compareTo(o.id);

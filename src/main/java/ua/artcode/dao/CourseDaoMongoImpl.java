@@ -1,10 +1,12 @@
 package ua.artcode.dao;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
-import ua.artcode.model.Course;
+import ua.artcode.model.common.Course;
 
 import java.util.List;
 
@@ -15,11 +17,13 @@ public class CourseDaoMongoImpl implements CourseDao {
 
     private Datastore datastore;
 
+
     public CourseDaoMongoImpl() {
     }
 
     public CourseDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
+        datastore.ensureIndexes();
     }
 
     @Override
@@ -31,7 +35,7 @@ public class CourseDaoMongoImpl implements CourseDao {
     public Course find(ObjectId id) throws NoSuchCourseException {
         Course course = datastore.find(Course.class, "id", id).get();
         if (course == null) {
-            throw new NoSuchCourseException("There is no course with id:" + id+ " !");
+            throw new NoSuchCourseException("There is no course with id:" + id + " !");
         }
         return course;
     }
@@ -46,12 +50,8 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     @Override
-    public Course add(Course course) throws AppException {
-        if (!isExist(course.getTitle())) {
-            datastore.save(course);
-            return course;
-        }
-        throw new AppException("Course with title: "+course.getTitle()+" already exist");
+    public void add(Course course) throws DuplicateKeyException {
+        datastore.save(course);
     }
 
     @Override
@@ -61,12 +61,13 @@ public class CourseDaoMongoImpl implements CourseDao {
 
     @Override
     public boolean delete(String title) throws NoSuchCourseException {
-        Course course = find(title);
-        if (course != null) {
-            datastore.delete(Course.class, course.getId());
-            return true;
+        Query<Course> query = datastore.createQuery(Course.class);
+        query.field("title").equal(title);
+        Course course = datastore.findAndDelete(query);
+        if (course == null) {
+            throw new NoSuchCourseException("There is no course with title: " + title);
         }
-        return false;
+        return true;
     }
 
     @Override

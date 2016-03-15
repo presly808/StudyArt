@@ -38,7 +38,7 @@ public class MongoUserDetailsService implements UserDetailsService {
         boolean accountNonLocked = true;
         ua.artcode.model.common.User user;
         try {
-            user=userDao.find(email);
+            user=userDao.findByEmail(email);
         } catch (NoSuchUserException e) {
             LOG.trace("Entered wrong email.");
             throw new UsernameNotFoundException(e.getMessage());

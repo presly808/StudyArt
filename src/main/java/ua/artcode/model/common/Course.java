@@ -5,7 +5,6 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Reference;
-import ua.artcode.model.Lesson;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Title;
 
@@ -14,7 +13,7 @@ import java.util.List;
 
 
 @Entity
-public class Course {
+public class Course implements Comparable<Course>{
 
     @Id
     private ObjectId id;
@@ -81,5 +80,25 @@ public class Course {
         sb.append(", lessonList=").append(lessonList);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Course that = (Course) o;
+
+        return !(id != null ? !id.equals(that.id) : that.id != null);
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return this.id.compareTo(o.id);
     }
 }

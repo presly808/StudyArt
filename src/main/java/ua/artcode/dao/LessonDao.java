@@ -1,9 +1,10 @@
 package ua.artcode.dao;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.Lesson;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface LessonDao {
 
-    Lesson add(Lesson lesson) throws AppException;
+    void add(Lesson lesson) throws DuplicateKeyException;
 
     List<Lesson> getAll();
 

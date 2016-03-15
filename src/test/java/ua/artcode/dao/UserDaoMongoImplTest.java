@@ -1,5 +1,6 @@
 package ua.artcode.dao;
 
+import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
-import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.model.common.User;
 
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class UserDaoMongoImplTest {
     private final int AMOUNT_OF_USERS = 100;
 
     @Before
-    public void initializeDB() throws InterruptedException, AppException {
+    public void initializeDB() throws InterruptedException,DuplicateKeyException {
         try {
             //TODO show commandline result of start server
             Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
@@ -57,14 +57,10 @@ public class UserDaoMongoImplTest {
             LOG.error(e);
         }
         for (int i = 0; i < AMOUNT_OF_USERS; i++) {
-            try {
                 userDao.add(new User("User_" + i, "password_" + i, "something_" + i + "@gmail.com"));
-            } catch (UserAccountExistException e) {
-                e.printStackTrace();
             }
-
         }
-    }
+
 
     @Test
     public void sizeTest() {
@@ -111,7 +107,7 @@ public class UserDaoMongoImplTest {
     }
 
     @Test
-    public void addUserTest() throws UserAccountExistException, NoSuchUserException {
+    public void addUserTest() throws DuplicateKeyException, NoSuchUserException {
         User user = new User("User_2b", "password_2b", "test_2@gmail.com");
         userDao.add(user);
         assertEquals(AMOUNT_OF_USERS + 1, userDao.size());

@@ -1,12 +1,12 @@
 package ua.artcode.service;
 
+import com.mongodb.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchUserException;
-import ua.artcode.exception.UserAccountExistException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
@@ -23,8 +23,18 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User findUser(String email) throws NoSuchUserException {
-       return userDao.find(email);
+    public User findUserByEmail(String email) throws NoSuchUserException {
+        return userDao.findByEmail(email);
+    }
+
+    @Override
+    public void update(String email, User user) throws AppException,DuplicateKeyException {
+        userDao.update(email,user);
+    }
+
+    @Override
+    public User findUser(String name) throws NoSuchUserException {
+       return userDao.find(name);
     }
 
     @Override
@@ -37,13 +47,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(String username, String password, String email) throws AppException {
-        return userDao.add(new User(username, password, email));
+    public void register(String username, String password, String email) throws DuplicateKeyException {
+        userDao.add(new User(username, password, email));
     }
 
     @Override
-    public User register(String username, String password, String email, UserType userType) throws AppException {
-        return userDao.add(new User(username, password, email, userType));
+    public void register(String username, String password, String email, UserType userType) throws DuplicateKeyException {
+        userDao.add(new User(username, password, email, userType));
     }
 
     @Override
@@ -65,8 +75,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) throws UserAccountExistException {
-        return userDao.add(user);
+    public void register(User user) throws DuplicateKeyException {
+         userDao.add(user);
     }
 
     @Override

@@ -1,9 +1,10 @@
 package ua.artcode.dao;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
-import ua.artcode.model.Course;
+import ua.artcode.model.common.Course;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface CourseDao {
 
-    Course add(Course course) throws AppException;
+    void add(Course course) throws DuplicateKeyException;
 
     boolean delete(String title) throws NoSuchCourseException;
 

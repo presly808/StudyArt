@@ -17,7 +17,7 @@
 <br>
 <%--TODO add compile error--%>
 <form action="${pageContext.request.contextPath}/task-menu/check-task" method="post">
-    <textarea rows="24" cols="80" name="userCode">${task.template}</textarea>
+    <textarea rows="24" cols="80" name="userCode">${template}</textarea>
     <input type="hidden" name="id" value="${task.id.toString()}">
     <p><input type="submit" value="<spring:message code="check"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

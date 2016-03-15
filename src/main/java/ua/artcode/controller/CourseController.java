@@ -1,5 +1,6 @@
 package ua.artcode.controller;
 
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchCourseException;
-import ua.artcode.model.Course;
-import ua.artcode.model.Lesson;
+import ua.artcode.model.common.Course;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.service.TeacherService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,8 +59,9 @@ public class CourseController {
                     redirectAttributes.addFlashAttribute("message", "The course has been successfully created.");
                     mav.setViewName("redirect:/course-menu");
                 }
-            } catch (AppException e) {
-                mav.addObject("message", e.getMessage());
+            } 
+            catch (DuplicateKeyException e){
+                mav.addObject("message","Course with title: "+course.getTitle()+" already exist!");
             }
         }
         return mav;
@@ -217,7 +219,7 @@ public class CourseController {
             redirectAttributes.addFlashAttribute("message", "The course has been successfully deleted.");
             mav.setViewName("redirect:/course-menu");
         } catch (NoSuchCourseException e) {
-            mav.addObject("message", "There is no course with title: " + courseTitle);
+            mav.addObject("message", e.getMessage());
             mav.setViewName("course/delete-course");
         }
         return mav;

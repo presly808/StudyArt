@@ -1,9 +1,10 @@
 package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import ua.artcode.exception.AppException;
+import org.mongodb.morphia.annotations.Indexed;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.validation.Email;
 import ua.artcode.validation.Password;
@@ -20,20 +21,27 @@ public class User implements Comparable<User> {
     private ObjectId id;
 
     @UserName
+    @Indexed(unique = true)
     private String name;
 
     @Password
     private String password;
 
     @Email
+    @Indexed(unique = true)
     private String email;
 
     @User_Type
     private UserType userType;
 
+    @Embedded
     private Map<ObjectId, TaskTestResult> solvedTaskContainer = new HashMap<>();
 
     public User() {
+    }
+
+    public void addSolvedTask(ObjectId id,TaskTestResult taskTestResult){
+        solvedTaskContainer.put(id,taskTestResult);
     }
 
     public User(String name, String password, String email) {
@@ -48,6 +56,14 @@ public class User implements Comparable<User> {
         this.password = password;
         this.email = email;
         this.userType = userType;
+    }
+
+    public Map<ObjectId, TaskTestResult> getSolvedTaskContainer() {
+        return solvedTaskContainer;
+    }
+
+    public void setSolvedTaskContainer(Map<ObjectId, TaskTestResult> solvedTaskContainer) {
+        this.solvedTaskContainer = solvedTaskContainer;
     }
 
     public String getPassword() {
@@ -111,15 +127,8 @@ public class User implements Comparable<User> {
         return this.id.compareTo(o.id);
     }
 
-//    public void addSolvedTask(String codingBatId, TaskTestResult solvedTask) {
-//        solvedTaskContainer.put(codingBatId, solvedTask);
-//    }
 
-    public TaskTestResult getSolvedTask(String codingBatId) throws AppException {
-        TaskTestResult solvedTask = solvedTaskContainer.get(codingBatId);
-        if (solvedTask == null) {
-            throw new AppException("Solved task not found with id: " + codingBatId);
-        }
-        return solvedTask;
+    public TaskTestResult getSolvedTask(ObjectId id)  {
+      return  solvedTaskContainer.get(id);
     }
 }

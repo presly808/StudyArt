@@ -106,26 +106,63 @@ public class TaskController {
         return mav;
     }
 
-    @RequestMapping(value = "/do-task/{name}", method = RequestMethod.GET)
-    public ModelAndView doTasks(@PathVariable String name, Model model) throws ServletException, IOException, NoSuchTaskException {
-        Task task = adminService.findTaskByTitle(name);
-        model.addAttribute("task", task);
-        return new ModelAndView("task/do-task");
+    @RequestMapping(value = "/do-task/{title}", method = RequestMethod.GET)
+    public ModelAndView doTasks(@PathVariable String title, Model model) throws ServletException, IOException, NoSuchTaskException {
+        ModelAndView mav = new ModelAndView("task/do-task");
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+            String template;
+
+            Task task = adminService.findTaskByTitle(title);
+
+            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
+            if (taskTestResult != null) {
+                String userCode = taskTestResult.getUserCode();
+                template = userCode;
+            } else {
+                template = task.getTemplate();
+            }
+
+            mav.addObject("template", template);
+            model.addAttribute(task);
+
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTasksPost(HttpServletRequest req) throws ServletException, IOException {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView("task/do-task");
         try {
-            String id = req.getParameter("taskId");
-            Task task = adminService.findTaskByTitle(id);
-            mav.setViewName("task/do-task");
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+            String template;
+
+            //TODO taskId change to title in jsp
+            String title = req.getParameter("taskId");
+            Task task = adminService.findTaskByTitle(title);
+
+            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
+            String userCode = taskTestResult.getUserCode();
+
+            if (userCode != null) {
+                template = userCode;
+            } else {
+                template = task.getTemplate();
+            }
+
+            mav.addObject("template", template);
             mav.addObject(task);
-            //req.setAttribute("task", task);
         } catch (NoSuchTaskException e) {
             mav.setViewName("task/find-task");
             mav.addObject("error", e.getMessage());
-            //req.setAttribute("error", e.getMessage());
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
         }
         return mav;
     }
@@ -135,20 +172,21 @@ public class TaskController {
         ModelAndView mav = new ModelAndView();
         String id = req.getParameter("id");
         ObjectId taskId = new ObjectId(id);
-        TaskTestResult taskTestResult = null;
+        TaskTestResult newTaskTestResult = null;
         List<ResultTablePart> resultTablePartList = null;
         try {
             Task task = adminService.findTaskById(taskId);
-            taskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String name = userDetails.getUsername();
             User user = userService.findUser(name);
 
-            user.addSolvedTask(taskId, taskTestResult);
+            newTaskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
+
+            writeResult(user, newTaskTestResult, taskId);
 
             String email = user.getEmail();
             userService.update(email, user);
-            resultTablePartList = ResultTableUtils.getResultTableList(task, taskTestResult);
+            resultTablePartList = ResultTableUtils.getResultTableList(task, newTaskTestResult);
             //TODO
         } catch (NoSuchTaskException e) {
             e.printStackTrace();
@@ -158,9 +196,26 @@ public class TaskController {
             e.printStackTrace();
         }
         req.setAttribute("resultList", resultTablePartList);
-        req.setAttribute("status", taskTestResult.getStatus());
+        req.setAttribute("status", newTaskTestResult.getStatus());
         mav.setViewName("task/check-task");
         return mav;
+    }
+
+    private void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) throws AppException {
+
+        TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);
+
+        if (oldTaskTestResult != null) {
+            if (oldTaskTestResult.getPassedAll() == false) {
+                user.addSolvedTask(taskId, newTaskTestResult);
+            } else if (newTaskTestResult.getPassedAll()) {
+                user.addSolvedTask(taskId, newTaskTestResult);
+            }
+        } else {
+            user.addSolvedTask(taskId, newTaskTestResult);
+        }
+        String email = user.getEmail();
+        userService.update(email, user);
     }
 
     @RequestMapping(value = "/edit-task", method = RequestMethod.POST)

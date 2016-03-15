@@ -1,8 +1,10 @@
 package ua.artcode.dao;
 
 import com.mongodb.DBCollection;
+import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.codingbat.Task;
@@ -24,11 +26,12 @@ public class TaskDaoMongoImpl implements TaskDao {
 
     public TaskDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
+        datastore.ensureIndexes();
     }
 
     @Override
     public Task find(String title) throws NoSuchTaskException {
-        Task task = datastore.find(Task.class,"title", title).get();
+        Task task = datastore.find(Task.class, "title", title).get();
         if (task == null) {
             throw new NoSuchTaskException("No task with title: " + title);
         }
@@ -46,22 +49,24 @@ public class TaskDaoMongoImpl implements TaskDao {
 
     @Override
     public boolean delete(String title) throws NoSuchTaskException {
-        Task task=find(title);
-        if (task != null) {
-            datastore.delete(Task.class, task.getId());
-            return true;
+        Query<Task> query = datastore.createQuery(Task.class);
+        query.field("title").equal(title);
+        Task task = datastore.findAndDelete(query);
+        if (task == null) {
+            throw new NoSuchTaskException("There is no task with title: "+title);
         }
-        return false;
+        return true;
     }
 
     @Override
-    public boolean delete(ObjectId id) {
-        Task task = datastore.find(Task.class).field("id").equal(id).get();
-        if (task != null) {
-            datastore.delete(Task.class, id);
-            return true;
+    public boolean delete(ObjectId id) throws NoSuchTaskException {
+        Query<Task> query = datastore.createQuery(Task.class);
+        query.field("id").equal(id);
+        Task task = datastore.findAndDelete(query);
+        if (task == null) {
+            throw new NoSuchTaskException();
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -72,12 +77,13 @@ public class TaskDaoMongoImpl implements TaskDao {
     @Override
     public Task update(ObjectId id, Task task) throws AppException {
         delete(id);
+        task.setId(id);
         add(task);
         return task;
     }
 
     @Override
-    public List<Task> getAll()  {
+    public List<Task> getAll() {
         return datastore.find(Task.class).asList();
     }
 
@@ -99,16 +105,12 @@ public class TaskDaoMongoImpl implements TaskDao {
 
     @Override
     public List<Task> getGroupTasks(String group) {
-        return  datastore.find(Task.class).field("groupName").equal(group).asList();
+        return datastore.find(Task.class).field("groupName").equal(group).asList();
     }
 
     @Override
-    public Task add(Task task) throws AppException {
-        if (!isExist(task.getTitle())) {
-            datastore.save(task);
-            return task;
-        }
-        throw new AppException("Task with title: " + task.getTitle() + " already exist");
+    public void add(Task task) throws DuplicateKeyException {
+        datastore.save(task);
     }
 
 }

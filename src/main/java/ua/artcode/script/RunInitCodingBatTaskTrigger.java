@@ -22,13 +22,13 @@ public class RunInitCodingBatTaskTrigger {
 //        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
 //        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
         //InitCodingBatTaskTrigger.loadTasksIfNeeded();
-//        InitCodingBatTaskTrigger.loadTasksToDataBase();
-        //InitCodingBatTaskTrigger.createDumpOfDataBase();
+          //InitCodingBatTaskTrigger.loadTasksToDataBase();
+          //InitCodingBatTaskTrigger.createDumpOfDataBase();
 //        InitCodingBatTaskTrigger.restoreDataBaseFromDump();
 
 //        UserDao userDao = new UserDaoMongoImpl(datastore);
-//        userDao.addUser(new User("Razer","000000","chernyshov.dev@gmail.com", UserType.ROLE_ADMIN));
-//        userDao.addUser(new User("Maxim","111111","obonemax@gmail.com", UserType.ROLE_ADMIN));
+//        userDao.add(new User("Razer","000000","chernyshov.dev@gmail.com", UserType.ROLE_ADMIN));
+//        userDao.add(new User("Maxim","111111","obonemax@gmail.com", UserType.ROLE_ADMIN));
 //        InitCodingBatTaskTrigger.createDumpOfDataBase();
 //        CodingBatTask codingBatTask = new CodingBatTask();
 //        codingBatTask.setCodingBatId("00000");
