@@ -4,6 +4,8 @@ import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.model.codingbat.TestArg;
 
+import java.util.Arrays;
+
 
 public class DataUnmarshaller {
 
@@ -51,6 +53,9 @@ public class DataUnmarshaller {
         } else if ("String".equals(type) || "java.lang.String".contains(type)) {
             testArg.setType("String");
             testArg.setValue(value);
+        } else if ("List".equals(type) || "java.util.List".contains(type)) {
+            testArg.setType("java.util.List");
+            testArg.setValue(Arrays.asList(value));
         } else {
             return null; // TODO refactor this place
         }
