@@ -135,6 +135,16 @@ public class MainController {
     public ModelAndView loadUserMenu() {
         return new ModelAndView("main/user-menu");
     }
+
+    @RequestMapping(value = "/service-menu")
+    public ModelAndView loadServiceMenu(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("main/service-menu");
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
+        if (map != null) {
+            mav.addObject("message", map.get("message"));
+        }
+        return mav;
+    }
 }
 
 

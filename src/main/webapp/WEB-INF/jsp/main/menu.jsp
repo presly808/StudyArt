@@ -36,6 +36,11 @@
         <li><a href="user-menu"><spring:message code="user.menu"/></a></li>
     </security:authorize>
 
+    <security:authorize
+            access="hasAnyRole('ROLE_ADMIN')">
+        <li><a href="service-menu"><spring:message code="service.menu"/></a></li>
+    </security:authorize>
+
 </menu>
 </body>
 </html>
