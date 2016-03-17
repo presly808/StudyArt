@@ -135,39 +135,8 @@ public class CodingBatTaskUtils {
         return testDataContainer;
     }
 
-    public TaskTestResult checkCodingBatTask(final String id, final String code) {
-        TaskTestResult result = new TaskTestResult();
-        //result.setCodingBatTask(task);
+    public static MethodSignature getMethodSignature(String template){
 
-        HttpResponse response = getResponseFromCodingBat(code,id);
-        HttpEntity entity = response.getEntity(); // incoming data
-
-        if (entity != null) {
-
-            try (InputStream inStream = entity.getContent();
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(inStream))) {
-
-                String dataHtml;
-
-                while ((dataHtml = reader.readLine()) != null) {
-                    String[] actualValue = StringUtils.substringsBetween(dataHtml, "<td>", "</td>");
-                    if (actualValue != null) {
-                        result.getActualValues().add(actualValue[1]);
-                        result.getResults().add(actualValue[2]);
-                    }
-                }
-
-            } catch (IOException e) {
-                LOG.error(e);
-            }
-
-        }
-        return result;
-    }
-
-    public static MethodSignature getMethodSignature(String template){ //throws AppValidationException {
-
-        //new CodingBatTaskValidator().validateTemplate(template);
         MethodSignature methodSignature = new MethodSignature();
 
         String[] parts = template.split(" ");
