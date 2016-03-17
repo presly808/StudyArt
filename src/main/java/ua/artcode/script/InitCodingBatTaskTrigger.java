@@ -59,7 +59,6 @@ public class InitCodingBatTaskTrigger {
 
         Datastore datastore = (Datastore) context.getBean("datastore");
 
-
         String dbJsonPath = AppPropertiesHolder.getProperty("db.json.task.path");
 
         TaskDao taskDao = new TaskDaoMongoImpl(datastore);
@@ -79,33 +78,21 @@ public class InitCodingBatTaskTrigger {
     /**
      * @create dump of database if it need
      */
-    public static void createDumpOfDataBase() {
-        try {
+    public static void createDumpOfDataBase() throws IOException, InterruptedException {
             String dbName = AppPropertiesHolder.getProperty("mongo.db");
-            LOG.trace("addUser dump from db");
             Process process = Runtime.getRuntime().exec("mongodump --db "+dbName);
+            LOG.info("Create dump from db");
             process.waitFor();
-        } catch (IOException e) {
-            LOG.error(e);
-        } catch (InterruptedException e) {
-            LOG.error(e);
-        }
     }
 
     /**
      * @restore dump of database if it need
      */
-    public static void restoreDataBaseFromDump() {
-        try {
-            LOG.trace("Restore db from dump");
+    public static void restoreDataBaseFromDump() throws IOException, InterruptedException {
             Process process = Runtime.getRuntime().exec("mongorestore dump");
+            LOG.info("Restore db from dump");
             process.waitFor();
             LOG.debug(getData(process.getErrorStream()));
-        } catch (IOException e) {
-            LOG.error(e);
-        } catch (InterruptedException e) {
-            LOG.error(e);
-        }
     }
 
     public static String getData(InputStream is) {
