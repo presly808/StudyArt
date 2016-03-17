@@ -14,26 +14,26 @@
 
 <menu>
 
+    <security:authentication property="principal.username" var="name" />
+
+    <li><a href="user-menu/show-user/${name}"><spring:message code="account"/></a></li>
+
     <li><a href="task-menu"><spring:message code="task.menu"/></a></li>
 
-    <security:authorize
-            access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-        <li><a href="lesson-menu"><spring:message code="lesson"/></a></li>
-    </security:authorize>
+    <li><a href="lesson-menu"><spring:message code="lesson"/></a></li>
 
-    <security:authorize
-            access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-        <li><a href="course-menu"><spring:message code="course"/></a></li>
-    </security:authorize>
+    <li><a href="course-menu"><spring:message code="course"/></a></li>
 
-    <security:authorize
-            access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-        <li><a href="group-menu"><spring:message code="group"/></a></li>
-    </security:authorize>
+    <li><a href="group-menu"><spring:message code="group"/></a></li>
 
     <security:authorize
             access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
         <li><a href="user-menu"><spring:message code="user.menu"/></a></li>
+    </security:authorize>
+
+    <security:authorize
+            access="hasAnyRole('ROLE_ADMIN')">
+        <li><a href="service-menu"><spring:message code="service.menu"/></a></li>
     </security:authorize>
 
 </menu>

@@ -13,8 +13,8 @@
         <access-denied-handler error-page="/403"/>
         <!--<logout logout-success-url="/menu" />-->
         <logout logout-success-url="/login"/>
-        <!--<intercept-url pattern="/course-menu/create" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="/course-menu/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <intercept-url pattern="/course-menu/create" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+        <intercept-url pattern="/course-menu/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
 
         <!--<intercept-url pattern="tasks-menu/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
         <!--<intercept-url pattern="tasks-menu/add-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->

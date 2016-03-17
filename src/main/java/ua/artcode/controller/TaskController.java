@@ -141,6 +141,34 @@ public class TaskController {
         return mav;
     }
 
+    @RequestMapping(value = "/show-solution/{title}", method = RequestMethod.GET)
+    public ModelAndView showSolution(@PathVariable String title, Model model) throws ServletException, IOException, NoSuchTaskException {
+        ModelAndView mav = new ModelAndView("task/show-solution");
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+            String template;
+
+            Task task = adminService.findTaskByTitle(title);
+
+            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
+            if (taskTestResult != null) {
+                String userCode = taskTestResult.getUserCode();
+                template = userCode;
+            } else {
+                template = task.getTemplate();
+            }
+
+            mav.addObject("template", template);
+            model.addAttribute(task);
+
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
+        }
+        return mav;
+    }
+
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTasksPost(HttpServletRequest req) throws ServletException, IOException {
         ModelAndView mav = new ModelAndView("task/do-task");

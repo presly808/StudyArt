@@ -68,7 +68,6 @@ public class TaskRunFacade {
             try {
                 MethodInvoker action = (MethodInvoker) cl.newInstance();
                 taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
-                taskTestResult.setUserCode(userCode);
                 taskTestResult.setStatus(CodingBatTaskUtils.statusGenerator(taskTestResult.getResults()));
                 //TODO passed false!!!
                 boolean passed = passedAll(taskTestResult);
@@ -79,6 +78,7 @@ public class TaskRunFacade {
         } else {
             taskTestResult.setStatus(message);
         }
+        taskTestResult.setUserCode(userCode);
         return taskTestResult;
     }
 

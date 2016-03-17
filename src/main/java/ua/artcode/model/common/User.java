@@ -9,7 +9,7 @@ import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.validation.Email;
 import ua.artcode.validation.Password;
 import ua.artcode.validation.UserName;
-import ua.artcode.validation.User_Type;
+import ua.artcode.validation.UserType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +31,8 @@ public class User implements Comparable<User> {
     @Indexed(unique = true)
     private String email;
 
-    @User_Type
-    private UserType userType;
+    @UserType
+    private ua.artcode.model.common.UserType userType;
 
     @Embedded
     private Map<ObjectId, TaskTestResult> solvedTaskContainer = new HashMap<>();
@@ -48,10 +48,10 @@ public class User implements Comparable<User> {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.userType = UserType.ROLE_STUDENT;
+        this.userType = ua.artcode.model.common.UserType.ROLE_STUDENT;
     }
 
-    public User(String name, String password, String email, UserType userType) {
+    public User(String name, String password, String email, ua.artcode.model.common.UserType userType) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -99,11 +99,11 @@ public class User implements Comparable<User> {
         this.email = email;
     }
 
-    public UserType getUserType() {
+    public ua.artcode.model.common.UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(ua.artcode.model.common.UserType userType) {
         this.userType = userType;
     }
 

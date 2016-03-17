@@ -39,6 +39,7 @@ public class UserController {
 
     @RequestMapping(value = "/show-users")
     public ModelAndView showUsers() {
+        //TODO  user role,message if no passed tasks
         ModelAndView mav = new ModelAndView("user/list-users");
         mav.addObject("users", userService.getAllUsers());
         return mav;

@@ -14,7 +14,7 @@ public class RunInitCodingBatTaskTrigger {
 //         InitCodingBatTaskTrigger.loadTasksIfNeeded();
 //        InitCodingBatTaskTrigger.loadTasksToDataBase();
 //        ApplicationContext context = SpringContext.getContext();
-      //  Morphia morphia = context.getBean(Morphia.class);
+        //  Morphia morphia = context.getBean(Morphia.class);
 //        morphia.map(CodingBatTask.class);
 //        Datastore datastore = (Datastore) context.getBean("datastore");
 //        CodingBatTaskDao codingBatTaskDao = new CodingBatTaskDaoMongoImpl(datastore);
@@ -22,8 +22,8 @@ public class RunInitCodingBatTaskTrigger {
 //        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
 //        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
         //InitCodingBatTaskTrigger.loadTasksIfNeeded();
-          //InitCodingBatTaskTrigger.loadTasksToDataBase();
-          //InitCodingBatTaskTrigger.createDumpOfDataBase();
+        //InitCodingBatTaskTrigger.loadTasksToDataBase();
+//        InitCodingBatTaskTrigger.createDumpOfDataBase();
 //        InitCodingBatTaskTrigger.restoreDataBaseFromDump();
 
 //        UserDao userDao = new UserDaoMongoImpl(datastore);

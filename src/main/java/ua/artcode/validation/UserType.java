@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = UserTypeValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface User_Type {
+public @interface UserType {
     String message() default  "Chose user type";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

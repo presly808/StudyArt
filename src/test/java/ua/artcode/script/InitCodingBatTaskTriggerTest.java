@@ -42,7 +42,13 @@ public class InitCodingBatTaskTriggerTest {
 
     @Test
     public void createDumpOfDataBaseTest() {
-        InitCodingBatTaskTrigger.createDumpOfDataBase();
+        try {
+            InitCodingBatTaskTrigger.createDumpOfDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         assertEquals(true, dataBase.exists());
     }
