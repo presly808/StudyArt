@@ -1,22 +1,20 @@
 package ua.artcode.validation;
 
-import ua.artcode.model.common.UserType;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * Created by Maxim on 21.02.2016.
  */
-public class UserTypeValidator implements ConstraintValidator<User_Type, UserType> {
+public class UserTypeValidator implements ConstraintValidator<UserType, ua.artcode.model.common.UserType> {
     @Override
-    public void initialize(User_Type constraintAnnotation) {
+    public void initialize(UserType constraintAnnotation) {
 
     }
 
     @Override
-    public boolean isValid(UserType userType, ConstraintValidatorContext context) {
-        if (userType!=null && (userType.equals(UserType.ROLE_STUDENT) || userType.equals(UserType.ROLE_TEACHER))) {
+    public boolean isValid(ua.artcode.model.common.UserType userType, ConstraintValidatorContext context) {
+        if (userType!=null && (userType.equals(ua.artcode.model.common.UserType.ROLE_STUDENT) || userType.equals(ua.artcode.model.common.UserType.ROLE_TEACHER))) {
             return true;
         }
         return false;
