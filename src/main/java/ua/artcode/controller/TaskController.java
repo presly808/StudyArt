@@ -98,7 +98,6 @@ public class TaskController {
                 String testData = req.getParameter("data_points");
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
                 task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
-
                 adminService.update(new ObjectId(id), task);
 
                 mav.setViewName("redirect:/task-menu");
