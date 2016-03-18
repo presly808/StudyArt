@@ -204,25 +204,36 @@ public class TaskController {
 
     @RequestMapping(value = "/check-task", method = RequestMethod.POST)
     public ModelAndView checkTask(HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView("task/check-task");
         String id = req.getParameter("id");
         ObjectId taskId = new ObjectId(id);
-        TaskTestResult newTaskTestResult = null;
-        List<ResultTablePart> resultTablePartList = null;
+
         try {
             Task task = adminService.findTaskById(taskId);
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String name = userDetails.getUsername();
             User user = userService.findUser(name);
 
-            newTaskTestResult = taskRunFacade.runTask(task, req.getParameter("userCode"));
+            String userCode = req.getParameter("userCode");
+            TaskTestResult newTaskTestResult = taskRunFacade.runTask(task, userCode);
+
+            // When we got compilation error, userCode = null
+            if(newTaskTestResult.getUserCode() == null) {
+                mav.setViewName("task/do-task");
+                mav.addObject(task);
+                mav.addObject("template", userCode);
+                mav.addObject("message", newTaskTestResult.getStatus());
+                return mav;
+            }
 
             writeResult(user, newTaskTestResult, taskId);
 
             String email = user.getEmail();
             userService.update(email, user);
-            resultTablePartList = ResultTableUtils.getResultTableList(task, newTaskTestResult);
-            //TODO
+            List<ResultTablePart> resultTablePartList = ResultTableUtils.getResultTableList(task, newTaskTestResult);
+
+            req.setAttribute("resultList", resultTablePartList);
+            req.setAttribute("status", newTaskTestResult.getStatus());
         } catch (NoSuchTaskException e) {
             e.printStackTrace();
         } catch (NoSuchUserException e) {
@@ -230,9 +241,6 @@ public class TaskController {
         } catch (AppException e) {
             e.printStackTrace();
         }
-        req.setAttribute("resultList", resultTablePartList);
-        req.setAttribute("status", newTaskTestResult.getStatus());
-        mav.setViewName("task/check-task");
         return mav;
     }
 

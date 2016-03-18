@@ -69,7 +69,8 @@ public class TaskRunFacade {
                 MethodInvoker action = (MethodInvoker) cl.newInstance();
                 taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
                 taskTestResult.setStatus(CodingBatTaskUtils.statusGenerator(taskTestResult.getResults()));
-                //TODO passed false!!!
+                taskTestResult.setUserCode(userCode);
+
                 boolean passed = passedAll(taskTestResult);
                 taskTestResult.setPassedAll(passed);
             } catch (InstantiationException | IllegalAccessException e) {
@@ -78,7 +79,7 @@ public class TaskRunFacade {
         } else {
             taskTestResult.setStatus(message);
         }
-        taskTestResult.setUserCode(userCode);
+//        taskTestResult.setUserCode(userCode);
         return taskTestResult;
     }
 

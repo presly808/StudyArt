@@ -15,9 +15,14 @@
 <br>
 <p>${task.examples}</p>
 <br>
-<%--TODO add compile error--%>
+
+<c:if test="${message != null}">
+<p style="color:red"><c:out value="${message}"/><p>
+    </c:if>
+
 <form action="${pageContext.request.contextPath}/task-menu/check-task" method="post">
     <textarea rows="24" cols="80" name="userCode">${template}</textarea>
+
     <input type="hidden" name="id" value="${task.id.toString()}">
     <p><input type="submit" value="<spring:message code="check"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
