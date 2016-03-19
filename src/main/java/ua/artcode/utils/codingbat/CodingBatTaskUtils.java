@@ -108,7 +108,8 @@ public class CodingBatTaskUtils {
     }
 
     private static String getExpectedValueFromHtml(String dataHtml) {
-        return StringUtils.substringBetween(dataHtml, "&rarr; ", "<");
+        String expectedValue = StringUtils.substringBetween(dataHtml, "&rarr; ", "<");
+        return CodingBatHtmlDataParser.trimStringIfNeeded(expectedValue);
     }
 
     private static List<String> getInDataFromHtml(String dataHtml) {

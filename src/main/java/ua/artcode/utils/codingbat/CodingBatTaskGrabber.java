@@ -19,8 +19,8 @@ public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
 
-    @Value("${codingbat.url}")
-    public  String codingBatUrl;
+    //@Value("${codingbat.url}")
+    public  String codingBatUrl = "http://codingbat.com";
 
     private List<String> taskLinksContainer;
 
