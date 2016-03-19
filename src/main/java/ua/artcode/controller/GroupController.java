@@ -127,7 +127,6 @@ public class GroupController {
         return mav;
     }
 
-
     @RequestMapping(value = "/update-group")
     public ModelAndView updateGroup(@Valid UserGroup userGroup, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
 
@@ -164,7 +163,6 @@ public class GroupController {
         }
         return mav;
     }
-
 
     @RequestMapping(value = "/find-group")
     public ModelAndView loadFindGroup() {

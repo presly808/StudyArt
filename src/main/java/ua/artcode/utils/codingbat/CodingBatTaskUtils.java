@@ -27,7 +27,7 @@ public class CodingBatTaskUtils {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskUtils.class);
 
-    private static HttpResponse getResponseFromCodingBat(String codeForRequest,String Id) {
+    private static HttpResponse getResponseFromCodingBat(String codeForRequest, String Id) {
         HttpResponse response = null;
 
         String url = "http://codingbat.com/run";
@@ -79,7 +79,7 @@ public class CodingBatTaskUtils {
 
     public static void initTaskTestDataContainer(Task task, String codingBatId) {
         String codeForRequest = getCodeForRequestToCodingBat(task);
-        HttpResponse response = getResponseFromCodingBat(codeForRequest,codingBatId);
+        HttpResponse response = getResponseFromCodingBat(codeForRequest, codingBatId);
         HttpEntity entity = response.getEntity(); // incoming data
 
         if (entity != null) {
@@ -108,11 +108,25 @@ public class CodingBatTaskUtils {
     }
 
     private static String getExpectedValueFromHtml(String dataHtml) {
-        return StringUtils.substringBetween(dataHtml, "&rarr; ", "<");
+        String expectedValue = StringUtils.substringBetween(dataHtml, "&rarr; ", "<");
+        expectedValue = trimStringIfNeeded(expectedValue);
+        return expectedValue;
+    }
+
+    private static String trimStringIfNeeded(String params) {
+        if (params == null) {
+            return params;
+        }
+        System.out.println(params);
+        if (params.charAt(0) == '"' && params.charAt(1) == '"') {
+            params.substring(1, params.length() - 1);
+        }
+        return params;
     }
 
     private static List<String> getInDataFromHtml(String dataHtml) {
         String params = StringUtils.substringBetween(dataHtml, "(", ")");
+        params = trimStringIfNeeded(params);
         return params != null ? CodingBatHtmlDataParser.parseTestData(params) : new LinkedList<>();
     }
 
@@ -135,7 +149,7 @@ public class CodingBatTaskUtils {
         return testDataContainer;
     }
 
-    public static MethodSignature getMethodSignature(String template){
+    public static MethodSignature getMethodSignature(String template) {
 
         MethodSignature methodSignature = new MethodSignature();
 

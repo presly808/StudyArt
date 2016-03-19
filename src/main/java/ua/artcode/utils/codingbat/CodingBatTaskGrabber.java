@@ -5,7 +5,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Value;
 import ua.artcode.model.codingbat.Task;
 
 import java.io.IOException;
@@ -19,8 +18,8 @@ public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
 
-    @Value("${codingbat.url}")
-    public  String codingBatUrl;
+//    @Value("${codingbat.url}")
+    public  String codingBatUrl="http://codingbat.com";
 
     private List<String> taskLinksContainer;
 

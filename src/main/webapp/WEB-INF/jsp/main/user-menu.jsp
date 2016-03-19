@@ -7,8 +7,8 @@
 <body>
 <menu>
     <li><a href="user-menu/add-admin"><spring:message code="user.menu.create"/></a></li>
-    <li><a href="user-menu/show-users"><spring:message code="user.menu.show.users"/></a></li>
-    <li><a href="user-menu/delete-user"><spring:message code="user.menu.delete"/></a></li>
+    <li><a href="user-menu/show-users"><spring:message code="menu.show"/></a></li>
+    <li><a href="user-menu/delete-user"><spring:message code="menu.delete"/></a></li>
 </menu>
 <br>
 

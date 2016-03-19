@@ -244,6 +244,7 @@ public class TaskController {
         return mav;
     }
 
+
     private void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) throws AppException {
 
         TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);

@@ -25,9 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * Created by Razer on 07.02.16.
- */
 @Controller
 @RequestMapping(value = "/course-menu")
 public class CourseController {
