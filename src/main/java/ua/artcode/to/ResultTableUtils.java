@@ -16,8 +16,8 @@ public class ResultTableUtils {
         List<ResultTablePart> resultTablePartList = new ArrayList<>();
         for (int i = 0; i < taskResult.getActualValues().size(); i++) {
             String inArgsTemplate = getInArgsTemplate(task, i);
-            String actualValue = taskResult.getActualValues().get(i);
-            String expectedValue = (String) taskResult.getExpectedValues().get(i);
+            Object actualValue = taskResult.getActualValues().get(i);
+            Object expectedValue =  taskResult.getExpectedValues().get(i);
             String result = taskResult.getResults().get(i);
 
             resultTablePartList.add(new ResultTablePart(inArgsTemplate, actualValue, expectedValue, result));

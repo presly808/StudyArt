@@ -65,6 +65,8 @@ public class TaskRunFacade {
             Class cl = BaseClassLoader.uriLoadClass(srcRoot, className);
             //Convert types, which retrieved fromDB as String
             dateConverter.convert(task);
+            dateConverter.convertExpectedValue(task);
+            //
             try {
                 MethodInvoker action = (MethodInvoker) cl.newInstance();
                 taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());
@@ -96,8 +98,10 @@ public class TaskRunFacade {
     private List prepareData(Task task) {
         List argsForTemplate = task.getTaskTestDataContainer().getTaskTestDataList().get(0).getInData();
         List<TestArg> adapterList = new ArrayList<>();
-        for (int i = 0; i < argsForTemplate.size(); i++) {
-            adapterList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
+        if (argsForTemplate != null) {
+            for (int i = 0; i < argsForTemplate.size(); i++) {
+                adapterList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
+            }
         }
         return adapterList;
     }

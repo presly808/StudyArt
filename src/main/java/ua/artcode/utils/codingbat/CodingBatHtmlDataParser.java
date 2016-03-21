@@ -43,7 +43,6 @@ public class CodingBatHtmlDataParser {
 
         return container;
     }
-
     // Trim string from html. Like ""something"" return "something"
     public static String trimStringIfNeeded(String str) {
         if (str != null && str.startsWith("\"")) {

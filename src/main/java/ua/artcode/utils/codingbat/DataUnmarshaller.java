@@ -1,9 +1,12 @@
 package ua.artcode.utils.codingbat;
 
+import org.apache.commons.lang.StringUtils;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.model.codingbat.TestArg;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 
 
@@ -21,6 +24,18 @@ public class DataUnmarshaller {
         }
     }
 
+    public void convertExpectedValue(Task task) {
+        TestArg testArg;
+        List list;
+        String returnType = task.getMethodSignature().getReturnType();
+        for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
+            testArg = convertDispatcher(returnType, data.getExpectedValue());
+            list = new ArrayList<>();
+            list.add(testArg.getValue());
+            data.setExpectedValue(list);
+        }
+    }
+
 
     //TODO think about collection (List, Set, Map)
     private TestArg convertDispatcher(String type, Object val) {
@@ -32,6 +47,9 @@ public class DataUnmarshaller {
         } else if ("short".equals(type) || "java.lang.Short".contains(type)) {
             testArg.setType("Short");
             testArg.setValue(unmarshalShort(value));
+        } else if ("int[]".equals(type) || "java.lang.Integer".contains(type)) {
+            testArg.setType("int[]");
+            testArg.setValue(unmarshalIntegerArr(value));
         } else if ("int".equals(type) || "java.lang.Integer".contains(type)) {
             testArg.setType("Integer");
             testArg.setValue(unmarshalInteger(value));
@@ -57,9 +75,19 @@ public class DataUnmarshaller {
             testArg.setType("java.util.List");
             testArg.setValue(Arrays.asList(value));
         } else {
-            return null; // TODO refactor this place
+
         }
         return testArg;
+    }
+
+    private int[] unmarshalIntegerArr(String s) {
+        String allArgs = StringUtils.substringBetween(s, "{", "}");
+        String[] partsArgs = allArgs.split(",");
+        int[] result = new int[partsArgs.length];
+        for (int i = 0; i < partsArgs.length; i++) {
+            result[i] = Integer.parseInt(partsArgs[i].trim());
+        }
+        return result;
     }
 
     private Byte unmarshalByte(String s) {

@@ -1,11 +1,11 @@
 package ua.artcode.process;
 
 
+import ua.artcode.model.codingbat.TaskTestData;
+import ua.artcode.model.codingbat.TaskTestDataContainer;
 import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 import ua.artcode.utils.dynamic_compile.MethodInvoker;
-import ua.artcode.model.codingbat.TaskTestData;
-import ua.artcode.model.codingbat.TaskTestDataContainer;
 
 import java.util.List;
 
@@ -14,18 +14,16 @@ import java.util.List;
  */
 public class TestRunner {
 
-
     public static TaskTestResult run(MethodInvoker method, TaskTestDataContainer taskTestData) {
         List<TaskTestData> steps = taskTestData.getTaskTestDataList();
         TaskTestResult taskTestResult = new TaskTestResult();
-        //TODO refactor this approach generate test result, dont modify exists data
         for (TaskTestData testData : steps) {
             Object[] convertedArg = testData.getInData().toArray();
             Object actualValue = method.call(convertedArg);
-            Object expectedValue = testData.getExpectedValue();
+            Object expectedValue = testData.getValue();
             taskTestResult.addActualValues(actualValue.toString());
             taskTestResult.addExpectedValues(expectedValue);
-            taskTestResult.addResult(CodingBatTaskUtils.checkResult(actualValue.toString(), expectedValue));
+            taskTestResult.addResult(CodingBatTaskUtils.checkResult(actualValue, expectedValue));
         }
         return taskTestResult;
     }

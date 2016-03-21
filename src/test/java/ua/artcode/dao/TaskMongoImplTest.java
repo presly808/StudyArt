@@ -14,9 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.MethodSignature;
-import ua.artcode.model.codingbat.TaskTestData;
+import ua.artcode.model.codingbat.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,12 +73,12 @@ public class TaskMongoImplTest {
 
             String expectedValue = "true";
 
-            TaskTestData taskTestData = new TaskTestData(expectedValue, inData);
+            //TaskTestData taskTestData = new TaskTestData(expectedValue, inData);
 
-            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-            taskDao.add(task);
+//            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+//            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+//            task.getTaskTestDataContainer().addTaskTestData(taskTestData);
+//            taskDao.add(task);
         }
     }
 
