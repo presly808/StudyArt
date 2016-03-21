@@ -80,18 +80,25 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/add-users", method = RequestMethod.POST)
-    public ModelAndView addUser(HttpServletRequest req, RedirectAttributes redirectAttributes) throws NoSuchGroupException, AppException {
+    public ModelAndView addUser(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
-        List<User> userList = userService.getAllUsers();
-        String name = req.getParameter("name");
-        UserGroup userGroup = teacherService.findUserGroupByName(name);
-        List<User> list = userGroup.getStudents();
-        for (User user : userList) {
-            if (req.getParameter(user.getName()) != null) {
-                list.add(user);
+        try {
+            List<User> userList = userService.getAllUsers();
+            String name = req.getParameter("name");
+            UserGroup userGroup = teacherService.findUserGroupByName(name);
+            List<User> list = userGroup.getStudents();
+            for (User user : userList) {
+                if (req.getParameter(user.getName()) != null) {
+                    list.add(user);
+                }
             }
+            teacherService.updateGroup(userGroup.getId(), userGroup);
+        //TODO
+        } catch (AppException e) {
+            e.printStackTrace();
+        } catch (NoSuchGroupException e) {
+            e.printStackTrace();
         }
-        teacherService.updateGroup(userGroup.getId(), userGroup);
         redirectAttributes.addFlashAttribute("message", "Group has been successfully create.");
         mav.setViewName("redirect:/group-menu");
         return mav;

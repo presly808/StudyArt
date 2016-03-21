@@ -20,10 +20,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Map;
 
 
@@ -69,7 +67,7 @@ public class MainController {
         }
         return mav;
     }
-
+    //TODO
     @RequestMapping(value = "/registration-form")
     public String registrationForm(Model model) {
         model.addAttribute("user", new User());
@@ -77,7 +75,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) throws ServletException, IOException {
+    public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes)  {
         ModelAndView mav = new ModelAndView("main/registration");
         if (!result.hasErrors()) {
             try {
@@ -132,8 +130,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/user-menu")
-    public ModelAndView loadUserMenu() {
-        return new ModelAndView("main/user-menu");
+    public ModelAndView loadUserMenu(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("main/user-menu");
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
+        if (map != null) {
+            mav.addObject("message", map.get("message"));
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/service-menu")

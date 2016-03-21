@@ -56,9 +56,8 @@ public class CourseController {
                     redirectAttributes.addFlashAttribute("message", "The course has been successfully created.");
                     mav.setViewName("redirect:/course-menu");
                 }
-            } 
-            catch (DuplicateKeyException e){
-                mav.addObject("message","Course with title: "+course.getTitle()+" already exist!");
+            } catch (DuplicateKeyException e) {
+                mav.addObject("message", "Course with title: " + course.getTitle() + " already exist!");
             }
         }
         return mav;
@@ -78,23 +77,26 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/add-lesson")
-    public ModelAndView addLesson(RedirectAttributes redirectAttributes, HttpServletRequest req) throws NoSuchCourseException {
+    public ModelAndView addLesson(RedirectAttributes redirectAttributes, HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("lesson/setup-tasks");
-        List<Lesson> allLessons = teacherService.getAllLessons();
-        String title = req.getParameter("title");
-        Course course = teacherService.findCourseByTitle(title);
-        List<Lesson> lessonsForCourse = new ArrayList<>();
-        for (Lesson lesson : allLessons) {
-            if (req.getParameter(lesson.getTitle()) != null) {
-                lessonsForCourse.add(lesson);
-            }
-        }
-        course.setLessonList(lessonsForCourse);
         try {
+            List<Lesson> allLessons = teacherService.getAllLessons();
+            String title = req.getParameter("title");
+            Course course = teacherService.findCourseByTitle(title);
+            List<Lesson> lessonsForCourse = new ArrayList<>();
+            for (Lesson lesson : allLessons) {
+                if (req.getParameter(lesson.getTitle()) != null) {
+                    lessonsForCourse.add(lesson);
+                }
+            }
+            course.setLessonList(lessonsForCourse);
             teacherService.updateCourse(course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
         } catch (AppException e) {
+            e.printStackTrace();
+        //TODO
+        } catch (NoSuchCourseException e) {
             e.printStackTrace();
         }
 

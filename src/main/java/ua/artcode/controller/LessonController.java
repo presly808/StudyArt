@@ -14,15 +14,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.common.Lesson;
 import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +45,7 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/create-lesson", method = RequestMethod.POST)
-    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, RedirectAttributes redirectAttributes) throws NoSuchLessonException, AppException {
+    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("lesson/create-lesson");
         if (!result.hasErrors()) {
             try {
@@ -85,10 +83,10 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/add-task")
-    public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) throws AppException, ServletException, IOException {
+    public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("lesson/setup-tasks");
-        List<Task> tasks = adminService.getAllTasks();
         try {
+            List<Task> tasks = adminService.getAllTasks();
             String title = req.getParameter("title");
             Lesson lesson = teacherService.findLessonByTitle(title);
             List<Task> list = lesson.getTasks();
@@ -104,6 +102,9 @@ public class LessonController {
         } catch (NoSuchLessonException e) {
             mav.setViewName("");
             mav.addObject("message", e.getMessage());
+            //TODO
+        } catch (AppException e) {
+            e.printStackTrace();
         }
         return mav;
     }

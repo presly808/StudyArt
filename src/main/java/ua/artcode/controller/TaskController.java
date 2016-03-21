@@ -27,10 +27,8 @@ import ua.artcode.to.ResultTablePart;
 import ua.artcode.to.ResultTableUtils;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -114,7 +112,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/do-task/{title}", method = RequestMethod.GET)
-    public ModelAndView doTasks(@PathVariable String title, Model model) throws ServletException, IOException, NoSuchTaskException {
+    public ModelAndView doTasks(@PathVariable String title, Model model) {
         ModelAndView mav = new ModelAndView("task/do-task");
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -137,12 +135,14 @@ public class TaskController {
 
         } catch (NoSuchUserException e) {
             e.printStackTrace();
+        } catch (NoSuchTaskException e) {
+            e.printStackTrace();
         }
         return mav;
     }
 
     @RequestMapping(value = "/show-solution/{title}", method = RequestMethod.GET)
-    public ModelAndView showSolution(@PathVariable String title, Model model) throws ServletException, IOException, NoSuchTaskException {
+    public ModelAndView showSolution(@PathVariable String title, Model model) {
         ModelAndView mav = new ModelAndView("task/show-solution");
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -165,12 +165,14 @@ public class TaskController {
 
         } catch (NoSuchUserException e) {
             e.printStackTrace();
+        } catch (NoSuchTaskException e) {
+            e.printStackTrace();
         }
         return mav;
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
-    public ModelAndView doTasksPost(HttpServletRequest req) throws ServletException, IOException {
+    public ModelAndView doTasksPost(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("task/do-task");
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -218,7 +220,7 @@ public class TaskController {
             TaskTestResult newTaskTestResult = taskRunFacade.runTask(task, userCode);
 
             // When we got compilation error, userCode = null
-            if(newTaskTestResult.getUserCode() == null) {
+            if (newTaskTestResult.getUserCode() == null) {
                 mav.setViewName("task/do-task");
                 mav.addObject(task);
                 mav.addObject("template", userCode);
@@ -244,30 +246,39 @@ public class TaskController {
         return mav;
     }
 
+    private void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) {
+        try {
+            TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);
 
-    private void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) throws AppException {
-
-        TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);
-
-        if (oldTaskTestResult != null) {
-            if (oldTaskTestResult.getPassedAll() == false) {
-                user.addSolvedTask(taskId, newTaskTestResult);
-            } else if (newTaskTestResult.getPassedAll()) {
+            if (oldTaskTestResult != null) {
+                if (oldTaskTestResult.getPassedAll() == false) {
+                    user.addSolvedTask(taskId, newTaskTestResult);
+                } else if (newTaskTestResult.getPassedAll()) {
+                    user.addSolvedTask(taskId, newTaskTestResult);
+                }
+            } else {
                 user.addSolvedTask(taskId, newTaskTestResult);
             }
-        } else {
-            user.addSolvedTask(taskId, newTaskTestResult);
+            String email = user.getEmail();
+
+            userService.update(email, user);
+            //TODO
+        } catch (AppException e) {
+            e.printStackTrace();
         }
-        String email = user.getEmail();
-        userService.update(email, user);
     }
 
     @RequestMapping(value = "/edit-task", method = RequestMethod.POST)
-    public ModelAndView editTask(HttpServletRequest req) throws NoSuchTaskException {
+    public ModelAndView editTask(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("task/edit-task");
-        String id = req.getParameter("id");
-        Task task = adminService.findTaskById(new ObjectId(id));
-        mav.addObject(task);
+        try {
+            String id = req.getParameter("id");
+            Task task = adminService.findTaskById(new ObjectId(id));
+            mav.addObject(task);
+            //TODO
+        } catch (NoSuchTaskException e) {
+            e.printStackTrace();
+        }
         return mav;
     }
 
@@ -284,16 +295,16 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/delete")
-    public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) throws NoSuchTaskException {
+    public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String title = reg.getParameter("title");
-        if (adminService.deleteByTitle(title)) {
-            //redirectAttributes.addFlashAttribute("message", "The task has been successfully removed.");
-            mav.addObject("message", "The task has been successfully removed.");
-            mav.setViewName("main/task-menu");
-        } else {
-            mav.setViewName("delete-task-form");
-            mav.addObject("message", "The task has been not removed. There is no task with title: " + title);
+        try {
+            adminService.deleteByTitle(title);
+            redirectAttributes.addFlashAttribute("message", "The task has been successfully removed.");
+            mav.setViewName("redirect:/task-menu");
+        } catch (NoSuchTaskException e) {
+            mav.addObject("message", e.getMessage());
+            mav.setViewName("task/delete-task");
         }
         return mav;
     }
