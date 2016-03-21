@@ -16,7 +16,7 @@
     </security:authorize>
 
 
-    <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message code="menu.show"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message code="task.menu.show"/></a></li>
 
 
     <li><a href="${pageContext.request.contextPath}/task-menu/size"><spring:message code="menu.size"/></a></li>

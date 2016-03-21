@@ -6,7 +6,7 @@
 </head>
 <body>
     <form action="${pageContext.request.contextPath}/group-menu/add-users" method="post"
-    <%--TODO check empty lessons--%>
+
     <c:forEach var="user" items="${users}">
         <div align="center">
             <p><input type="checkbox" name="${user.name}">${user.name}</p>

@@ -7,7 +7,7 @@
 <body>
 <menu>
     <li><a href="${pageContext.request.contextPath}/group-menu/add-group"><spring:message code="menu.add"/></a></li>
-    <li><a href="${pageContext.request.contextPath}/group-menu/show-groups"><spring:message code="menu.show"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/group-menu/show-groups"><spring:message code="group.menu.show"/></a></li>
     <li><a href="${pageContext.request.contextPath}/group-menu/find-group"><spring:message code="menu.find"/></a></li>
     <li><a href="${pageContext.request.contextPath}/group-menu/delete-group-form"><spring:message code="menu.delete"/></a></li>
 </menu>

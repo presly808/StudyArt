@@ -15,7 +15,6 @@
     <spring:message code="create.course.lesson.title"/>:<br>
     <label>
         <form:input path="title" size="47"/>
-            <%--<form:textarea path="title" rows="1" cols="50" />--%>
         <form:errors path="title"/>
     </label><br>
 

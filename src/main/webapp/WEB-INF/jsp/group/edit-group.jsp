@@ -11,7 +11,7 @@
 
 <form:form action="${pageContext.request.contextPath}/group-menu/update-group" modelAttribute="userGroup" method="post">
 
-        <spring:message code="create.group.title"/>:<br>
+        <spring:message code="title"/>:<br>
         <label>
             <form:input path="name" size="47"/>
             <form:errors path="name"/>
@@ -38,7 +38,7 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="hidden" name="id" value="${userGroup.id}"/>
 
-    <p><input type="submit" value="<spring:message code="edit"/>"></p>
+    <p><input type="submit" value="<spring:message code="menu.edit"/>"></p>
 
 
 </form:form>

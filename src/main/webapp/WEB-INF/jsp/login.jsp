@@ -27,7 +27,6 @@
         <p><input type="submit" value="<spring:message code="login"/>"></p>
 
     </form>
-    <%--registration-form--%>
     <a href="registration-form"><spring:message code="registration"/></a>
     <br>
     <br>

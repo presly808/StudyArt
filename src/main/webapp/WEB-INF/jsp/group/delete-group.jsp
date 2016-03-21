@@ -7,7 +7,7 @@
 <body>
 <form action="${pageContext.request.contextPath}/group-menu/delete-group" method="post">
     <spring:message code="group.menu.delete.name"/>:<p><input name="groupName"></p>
-    <p><input type="submit" value="<spring:message code="delete"/>"></p>
+    <p><input type="submit" value="<spring:message code="menu.delete"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 

@@ -7,9 +7,9 @@
 
 <body>
 <form action="${pageContext.request.contextPath}/course-menu/show-course" method="post">
-    <spring:message code="lesson.menu.title"/>:<p><input type="text" name="title" ></p>
+    <spring:message code="title"/>:<p><input type="text" name="title" ></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <p><input type="submit" value="<spring:message code="find"/>"></p>
+    <p><input type="submit" value="<spring:message code="menu.find"/>"></p>
 </form>
 
 <c:if test="${error != null}">

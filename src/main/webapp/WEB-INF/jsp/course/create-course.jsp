@@ -24,7 +24,6 @@
         <form:errors path="description"/>
     </label><br>
 
-<%--TODO If no lessons in db throw error no lessons to add to course create lessons first--%>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <p><input type="submit" value="<spring:message code="create.course.add.course"/>"></p>
 </form:form>
