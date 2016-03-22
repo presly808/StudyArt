@@ -165,9 +165,9 @@ public class CodingBatTaskUtils {
         String[] words = parts[0].split(" ");
         return words[words.length - 1].trim();
     }
-
-    public static String checkResult(Object actualValue, Object expectedValue) {
-        if (actualValue instanceof Object[]) {
+        //todo empty values fizzArray2(0) → {}	{""}
+        public static String checkResult(Object actualValue, Object expectedValue) {
+        if (actualValue instanceof Object[] || actualValue instanceof int[] ) {
             if (Arrays.deepEquals(new Object[]{actualValue}, new Object[]{expectedValue})) {
                 return "OK";
             } else {

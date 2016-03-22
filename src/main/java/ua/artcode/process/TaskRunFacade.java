@@ -49,6 +49,7 @@ public class TaskRunFacade {
 
     public TaskTestResult runTask(Task task, String userCode) {
 
+
         TaskTestResult taskTestResult = new TaskTestResult();
 
         String className = generateMagicTempClassName(task);
@@ -64,7 +65,8 @@ public class TaskRunFacade {
         if (message == null) {
             Class cl = BaseClassLoader.uriLoadClass(srcRoot, className);
             //Convert types, which retrieved fromDB as String
-            dateConverter.convert(task);
+            dateConverter.convertInData(task);
+            //TODO
             dateConverter.convertExpectedValue(task);
             //
             try {

@@ -18,12 +18,14 @@ public class TaskTestData {
     public TaskTestData() {
     }
 
-    public Object getValue(){
-        return expectedValue.get(0);
-    }
+
     public TaskTestData(List expectedValue, List inData) {
         this.expectedValue = expectedValue;
         this.inData = inData;
+    }
+
+    public Object getValue(){
+        return expectedValue.get(0);
     }
 
     public List getExpectedValue() {

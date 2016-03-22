@@ -5,6 +5,7 @@ import ua.artcode.model.codingbat.TaskTestResult;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class ResultTableUtils {
     public static List<ResultTablePart> getResultTableList(Task task, TaskTestResult taskResult) {
         List<ResultTablePart> resultTablePartList = new ArrayList<>();
         for (int i = 0; i < taskResult.getActualValues().size(); i++) {
+
             String inArgsTemplate = getInArgsTemplate(task, i);
             Object actualValue = taskResult.getActualValues().get(i);
             Object expectedValue =  taskResult.getExpectedValues().get(i);

@@ -6,11 +6,11 @@ package ua.artcode.to;
 public class ResultTablePart {
 
     private String inArgsTemplate;
-    private Object actualValue;
-    private Object expectedValue;
+    private String actualValue;
+    private String expectedValue;
     private String done;
 
-    public ResultTablePart(String inArgs, Object actualValue, Object expectedValue, String result) {
+    public ResultTablePart(String inArgs, String actualValue, String expectedValue, String result) {
         this.inArgsTemplate = inArgs;
         this.actualValue = actualValue;
         this.expectedValue = expectedValue;
@@ -37,7 +37,7 @@ public class ResultTablePart {
         return expectedValue;
     }
 
-    public void setExpectedValue(Object expectedValue) {
+    public void setExpectedValue(String expectedValue) {
         this.expectedValue = expectedValue;
     }
 

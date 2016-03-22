@@ -217,6 +217,7 @@ public class TaskController {
             User user = userService.findUser(name);
 
             String userCode = req.getParameter("userCode");
+            //List<ResultTablePart> resultTablePartList=resultTable.createTable(task);
             TaskTestResult newTaskTestResult = taskRunFacade.runTask(task, userCode);
 
             // When we got compilation error, userCode = null
