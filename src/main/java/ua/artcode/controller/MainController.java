@@ -54,7 +54,7 @@ public class MainController {
             model.addObject("username", userDetail.getUsername());
         }
 
-        model.setViewName("main/403");
+        model.setViewName("403");
         return model;
 
     }

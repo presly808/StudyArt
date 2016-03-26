@@ -17,6 +17,11 @@ public class ResultTablePart {
         this.done = result;
     }
 
+    public ResultTablePart(String expectedValue, String inArgsTemplate) {
+        this.expectedValue = expectedValue;
+        this.inArgsTemplate = inArgsTemplate;
+    }
+
     public String getInArgsTemplate() {
         return inArgsTemplate;
     }

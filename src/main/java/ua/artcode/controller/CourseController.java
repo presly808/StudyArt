@@ -4,7 +4,6 @@ import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,15 +31,15 @@ public class CourseController {
     @Autowired
     private TeacherService teacherService;
 
-    @RequestMapping(value = "/add-course")
-    public String addCourse(Model model) {
-        model.addAttribute("course", new Course());
-        return "course/create-course";
+    @RequestMapping(value = "/create-course")
+    public ModelAndView addCourse() {
+        ModelAndView mav = new ModelAndView("course/create-course");
+        mav.addObject("course", new Course());
+        return mav;
     }
 
-    @RequestMapping(value = "/create-course", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-course", method = RequestMethod.POST)
     public ModelAndView createCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes) {
-
         ModelAndView mav = new ModelAndView("course/create-course");
 
         if (!result.hasErrors()) {
@@ -78,10 +77,12 @@ public class CourseController {
 
     @RequestMapping(value = "/add-lesson")
     public ModelAndView addLesson(RedirectAttributes redirectAttributes, HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView("lesson/setup-tasks");
+        ModelAndView mav = new ModelAndView("course/setup-lessons");
+
         try {
             List<Lesson> allLessons = teacherService.getAllLessons();
             String title = req.getParameter("title");
+
             Course course = teacherService.findCourseByTitle(title);
             List<Lesson> lessonsForCourse = new ArrayList<>();
             for (Lesson lesson : allLessons) {
@@ -93,11 +94,11 @@ public class CourseController {
             teacherService.updateCourse(course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
+            //TODO delete and test
         } catch (AppException e) {
-            e.printStackTrace();
-        //TODO
+            mav.addObject("message", e.getMessage());
         } catch (NoSuchCourseException e) {
-            e.printStackTrace();
+            mav.addObject("message", e.getMessage());
         }
 
         return mav;

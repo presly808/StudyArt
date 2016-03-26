@@ -18,7 +18,7 @@ public class TaskTestResult {
 
     private List<Object> expectedValues;
 
-    private List<String> actualValues;
+    private List<Object> actualValues;
 
     private List<String> results;
 
@@ -52,7 +52,7 @@ public class TaskTestResult {
         this.passedAll = passedAll;
     }
 
-    public List<String> getActualValues() {
+    public List<Object> getActualValues() {
         return actualValues;
     }
 
@@ -60,7 +60,7 @@ public class TaskTestResult {
         return expectedValues;
     }
 
-    public void setActualValues(List<String> actualValues) {
+    public void setActualValues(List<Object> actualValues) {
         this.actualValues = actualValues;
     }
 
@@ -72,7 +72,7 @@ public class TaskTestResult {
         results.add(result);
     }
 
-    public void addActualValues(String actualValue) {
+    public void addActualValues(Object actualValue) {
         actualValues.add(actualValue);
     }
 

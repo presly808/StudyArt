@@ -9,7 +9,7 @@
 <h1><spring:message code="title.create.new.course"/></h1>
 
 
-<form:form action="${pageContext.request.contextPath}/course-menu/create-course" modelAttribute="course"
+<form:form action="${pageContext.request.contextPath}/course-menu/add-course" modelAttribute="course"
            method="post">
 
     <spring:message code="create.course.title"/>:<br>

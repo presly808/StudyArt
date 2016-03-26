@@ -21,7 +21,7 @@ public class TestRunner {
             Object[] convertedArg = testData.getInData().toArray();
             Object actualValue = method.call(convertedArg);
             Object expectedValue = testData.getValue();
-            taskTestResult.addActualValues(actualValue.toString());
+            taskTestResult.addActualValues(actualValue);
             taskTestResult.addExpectedValues(expectedValue);
             taskTestResult.addResult(CodingBatTaskUtils.checkResult(actualValue, expectedValue));
         }

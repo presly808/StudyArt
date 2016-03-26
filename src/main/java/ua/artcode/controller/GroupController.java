@@ -4,7 +4,6 @@ import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,14 +37,15 @@ public class GroupController {
     @Autowired
     private TeacherService teacherService;
 
-    @RequestMapping(value = "/add-group")
-    public String addGroup(Model model) {
-        model.addAttribute("userGroup", new UserGroup());
-        return "group/create-group";
+    @RequestMapping(value = "/create-group")
+    public ModelAndView createGroup() {
+        ModelAndView mav=new ModelAndView("group/create-group");
+        mav.addObject("userGroup", new UserGroup());
+        return mav;
     }
 
-    @RequestMapping(value = "/create-group", method = RequestMethod.POST)
-    public ModelAndView createGroup(@Valid UserGroup userGroup, BindingResult result, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/add-group", method = RequestMethod.POST)
+    public ModelAndView addGroup(@Valid UserGroup userGroup, BindingResult result, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("group/create-group");
         if (!result.hasErrors()) {
             try {
@@ -207,7 +207,7 @@ public class GroupController {
         return mav;
     }
 
-    @RequestMapping(value = "/delete-group-form")
+    @RequestMapping(value = "/delete-form")
     public ModelAndView deleteForm() {
         return new ModelAndView("group/delete-group");
     }

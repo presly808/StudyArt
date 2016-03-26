@@ -8,21 +8,32 @@
                     http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
 
-    <http>
+    <http auto-config='true' use-expressions="true">
 
         <access-denied-handler error-page="/403"/>
-        <!--<logout logout-success-url="/menu" />-->
         <logout logout-success-url="/login"/>
-        <intercept-url pattern="/course-menu/create" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
-        <intercept-url pattern="/course-menu/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
 
-        <!--<intercept-url pattern="tasks-menu/delete" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="tasks-menu/add-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="tasks-menu/size" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="tasks-menu/find-task" access="hasRole('ROLE_ADMIN')"/>-->
-        <!--<intercept-url pattern="tasks-menu/delete-form" access="hasRole('ROLE_ADMIN')"/>-->
-        <!--<intercept-url pattern="/lesson-menu" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
-        <!--<intercept-url pattern="/lesson-menu/*" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>-->
+        <intercept-url pattern="/task-menu/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/lesson-menu/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/course-menu/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/service-menu/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/user-menu/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/group-menu/**" access="isAuthenticated()"/>
+
+        <intercept-url pattern="/task-menu/delete-form" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/task-menu/create-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+
+        <intercept-url pattern="/lesson-menu/delete-form" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/lesson-menu/create-lesson" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+
+        <intercept-url pattern="/course-menu/delete-form" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+        <intercept-url pattern="/course-menu/create-task" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+
+        <intercept-url pattern="/group-menu/delete-form" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+        <intercept-url pattern="/group-menu/create-group" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+
+        <intercept-url pattern="/user-menu/" access="hasAnyRole('ROLE_ADMIN , ROLE_TEACHER')"/>
+
 
         <form-login login-page="/login"
                     username-parameter="username"

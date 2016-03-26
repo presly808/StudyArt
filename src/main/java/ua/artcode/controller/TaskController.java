@@ -52,13 +52,14 @@ public class TaskController {
         return new ModelAndView("task/find-task");
     }
 
-    @RequestMapping(value = "/add-task")
-    public String addTask(Model model) {
-        model.addAttribute("task", new Task());
-        return "task/create-task";
+    @RequestMapping(value = "/create-task")
+    public ModelAndView addTask() {
+        ModelAndView mav = new ModelAndView("task/create-task");
+        mav.addObject("task", new Task());
+        return mav;
     }
 
-    @RequestMapping(value = "/create-task", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-task", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("task/create-task");
         if (!result.hasErrors()) {
@@ -217,7 +218,7 @@ public class TaskController {
             User user = userService.findUser(name);
 
             String userCode = req.getParameter("userCode");
-            //List<ResultTablePart> resultTablePartList=resultTable.createTable(task);
+            List<ResultTablePart> resultTablePartList = ResultTableUtils.createTable(task);
             TaskTestResult newTaskTestResult = taskRunFacade.runTask(task, userCode);
 
             // When we got compilation error, userCode = null
@@ -233,7 +234,7 @@ public class TaskController {
 
             String email = user.getEmail();
             userService.update(email, user);
-            List<ResultTablePart> resultTablePartList = ResultTableUtils.getResultTableList(task, newTaskTestResult);
+            resultTablePartList = ResultTableUtils.getResultTableList(task, newTaskTestResult, resultTablePartList);
 
             req.setAttribute("resultList", resultTablePartList);
             req.setAttribute("status", newTaskTestResult.getStatus());
@@ -295,7 +296,7 @@ public class TaskController {
         return new ModelAndView("task/delete-task");
     }
 
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/delete-task")
     public ModelAndView deleteTask(HttpServletRequest reg, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String title = reg.getParameter("title");

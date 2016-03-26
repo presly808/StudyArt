@@ -76,12 +76,12 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping(value = "/delete-user")
+    @RequestMapping(value = "/delete-form")
     public ModelAndView loadDeleteUser() {
         return new ModelAndView("user/delete-user");
     }
 
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/delete-user")
     public ModelAndView delete(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String email = req.getParameter("userEmail");

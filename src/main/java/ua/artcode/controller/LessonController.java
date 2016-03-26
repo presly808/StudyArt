@@ -38,13 +38,13 @@ public class LessonController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/add-lesson")
+    @RequestMapping(value = "/create-lesson")
     public String addLesson(Model model) {
         model.addAttribute("lesson", new Lesson());
         return "lesson/create-lesson";
     }
 
-    @RequestMapping(value = "/create-lesson", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-lesson", method = RequestMethod.POST)
     public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("lesson/create-lesson");
         if (!result.hasErrors()) {
@@ -213,12 +213,12 @@ public class LessonController {
         return mav;
     }
 
-    @RequestMapping(value = "/delete-lesson")
+    @RequestMapping(value = "/delete-form")
     public ModelAndView deleteLessonForm() {
         return new ModelAndView("lesson/delete-lesson");
     }
 
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/delete-lesson")
     public ModelAndView deleteLesson(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String lessonTitle = req.getParameter("lessonTitle");
