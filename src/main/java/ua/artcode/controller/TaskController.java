@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,8 +47,8 @@ public class TaskController {
     private TaskRunFacade taskRunFacade;
 
     @RequestMapping(value = "/find-task")
-    public ModelAndView findTask() {
-        return new ModelAndView("task/find-task");
+    public String findTask() {
+        return "task/find-task";
     }
 
     @RequestMapping(value = "/create-task")
@@ -104,17 +103,20 @@ public class TaskController {
             } catch (AppValidationException e) {
                 req.setAttribute("message", "Invalid test points");
                 redirectAttributes.addFlashAttribute("id", id);
-                //TODO
             } catch (AppException e) {
-                e.printStackTrace();
+                req.setAttribute("message", e.getMessage());
             }
         }
         return mav;
     }
 
     @RequestMapping(value = "/do-task/{title}", method = RequestMethod.GET)
-    public ModelAndView doTasks(@PathVariable String title, Model model) {
+    public ModelAndView doTasks(@PathVariable String title) {
         ModelAndView mav = new ModelAndView("task/do-task");
+        return prepareTask(title, mav);
+    }
+
+    private ModelAndView prepareTask(String title, ModelAndView mav) {
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String name = userDetails.getUsername();
@@ -132,44 +134,23 @@ public class TaskController {
             }
 
             mav.addObject("template", template);
-            model.addAttribute(task);
+            mav.addObject(task);
+            //model.addAttribute(task);
 
         } catch (NoSuchUserException e) {
-            e.printStackTrace();
+            mav.addObject("message", e.getMessage());
+            mav.setViewName("main/task-menu");
         } catch (NoSuchTaskException e) {
-            e.printStackTrace();
+            mav.addObject("message", e.getMessage());
+            mav.setViewName("main/task-menu");
         }
-        return mav;
+        return  mav;
     }
 
     @RequestMapping(value = "/show-solution/{title}", method = RequestMethod.GET)
-    public ModelAndView showSolution(@PathVariable String title, Model model) {
+    public ModelAndView showSolution(@PathVariable String title) {
         ModelAndView mav = new ModelAndView("task/show-solution");
-        try {
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String name = userDetails.getUsername();
-            User user = userService.findUser(name);
-            String template;
-
-            Task task = adminService.findTaskByTitle(title);
-
-            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
-            if (taskTestResult != null) {
-                String userCode = taskTestResult.getUserCode();
-                template = userCode;
-            } else {
-                template = task.getTemplate();
-            }
-
-            mav.addObject("template", template);
-            model.addAttribute(task);
-
-        } catch (NoSuchUserException e) {
-            e.printStackTrace();
-        } catch (NoSuchTaskException e) {
-            e.printStackTrace();
-        }
-        return mav;
+        return prepareTask(title,mav);
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)

@@ -65,7 +65,7 @@ public class ServiceController {
         } catch (Exception e) {
             mav.setViewName("main/service-menu");
             mav.addObject("message", "Error. Dump has not been created!");
-            LOG.warn("Dump has not been created!");
+            //LOG.warn("Dump has not been created!");
         }
         return mav;
     }
@@ -79,7 +79,7 @@ public class ServiceController {
         } catch (Exception e) {
             mav.setViewName("main/service-menu");
             mav.addObject("message", "Error. Database has not been restored!");
-            LOG.warn("Database has not been restored!");
+            //LOG.warn("Database has not been restored!");
         }
         return mav;
     }

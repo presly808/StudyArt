@@ -12,7 +12,7 @@
     <context:annotation-config/>
 
     <!-- support JSR303 annotation -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven validator="validator"/>
 
     <context:component-scan base-package="ua.artcode"/>
 
@@ -135,6 +135,10 @@
     </bean>
 
     <!--SPRING LOCALE CONTEXT-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
     <bean id="messageSource"
           class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="label"/>
@@ -157,6 +161,7 @@
             <ref bean="localeChangeInterceptor"/>
         </property>
     </bean>
+
 
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">

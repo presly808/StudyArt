@@ -77,7 +77,7 @@ public class CourseController {
 
     @RequestMapping(value = "/add-lesson")
     public ModelAndView addLesson(RedirectAttributes redirectAttributes, HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView("course/setup-lessons");
+        ModelAndView mav = new ModelAndView("main/course-menu");
 
         try {
             List<Lesson> allLessons = teacherService.getAllLessons();
@@ -94,7 +94,6 @@ public class CourseController {
             teacherService.updateCourse(course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
-            //TODO delete and test
         } catch (AppException e) {
             mav.addObject("message", e.getMessage());
         } catch (NoSuchCourseException e) {
@@ -112,8 +111,8 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/find-course")
-    public ModelAndView loadFindCourse() {
-        return new ModelAndView("course/find-course");
+    public String loadFindCourse() {
+        return "course/find-course";
     }
 
     @RequestMapping(value = "/edit-course", method = RequestMethod.POST)
@@ -131,7 +130,8 @@ public class CourseController {
             mav.addObject("allLessons", allLessons);
             mav.addObject("course", course);
         } catch (NoSuchCourseException e) {
-            // TODO
+            mav.setViewName("main/course-menu");
+            mav.addObject(e.getMessage());
         }
         return mav;
     }
@@ -147,7 +147,6 @@ public class CourseController {
                 lessonInCourse.add(lesson);
             }
         }
-
         if (result.hasErrors()) {
 
             allLessons.removeAll(lessonInCourse);
@@ -192,8 +191,8 @@ public class CourseController {
     @RequestMapping(value = "/show-course")
     public ModelAndView showCourse(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
-        String title = req.getParameter("title");
         try {
+            String title = req.getParameter("title");
             Course course = teacherService.findCourseByTitle(title);
             mav.setViewName("course/show-course");
             mav.addObject("course", course);
@@ -206,18 +205,17 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/delete-course")
-    public ModelAndView loadDeleteLesson() {
-        return new ModelAndView("course/delete-course");
+    public String loadDeleteLesson() {
+        return "course/delete-course";
     }
 
     @RequestMapping(value = "/delete")
     public ModelAndView deleteCourse(HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView();
-        String courseTitle = req.getParameter("courseTitle");
+        ModelAndView mav = new ModelAndView("redirect:/course-menu");
         try {
+            String courseTitle = req.getParameter("courseTitle");
             teacherService.deleteCourse(courseTitle);
             redirectAttributes.addFlashAttribute("message", "The course has been successfully deleted.");
-            mav.setViewName("redirect:/course-menu");
         } catch (NoSuchCourseException e) {
             mav.addObject("message", e.getMessage());
             mav.setViewName("course/delete-course");

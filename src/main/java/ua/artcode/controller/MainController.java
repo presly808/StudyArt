@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,24 +37,21 @@ public class MainController {
     @Autowired
     private MessageSource messageSource;
 
-
     @RequestMapping(value = "/menu")
-    public ModelAndView loadMenu() {
-        return new ModelAndView("main/menu");
+    public String loadMenu() {
+        return "main/menu";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public ModelAndView accessDenied() {
-        ModelAndView model = new ModelAndView();
+        ModelAndView mav = new ModelAndView("403");
         //check if user is login
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("username", userDetail.getUsername());
+            mav.addObject("username", userDetail.getUsername());
         }
-
-        model.setViewName("403");
-        return model;
+        return mav;
 
     }
 
@@ -67,11 +63,12 @@ public class MainController {
         }
         return mav;
     }
-    //TODO
+
     @RequestMapping(value = "/registration-form")
-    public String registrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "main/registration";
+    public ModelAndView registrationForm() {
+        ModelAndView mav=new ModelAndView("main/registration");
+        mav.addObject("user", new User());
+        return mav;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)

@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserType {
-    String message() default  "Chose user type";
+    String message() default  "{user.type.error}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
