@@ -1,5 +1,7 @@
 package ua.artcode.utils.codingbat;
 
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.helper.StringUtil;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.model.codingbat.TestArg;
@@ -32,6 +34,9 @@ public class DataUnmarshaller {
         } else if ("short".equals(type) || "java.lang.Short".contains(type)) {
             testArg.setType("Short");
             testArg.setValue(unmarshalShort(value));
+        } else if ("int[]".equals(type)) {
+            testArg.setType("Integer");
+            testArg.setValue(unmarshalInteger(value));
         } else if ("int".equals(type) || "java.lang.Integer".contains(type)) {
             testArg.setType("Integer");
             testArg.setValue(unmarshalInteger(value));
@@ -92,6 +97,16 @@ public class DataUnmarshaller {
 
     private Character unmarshalCharacter(String s) {
         return s.charAt(0);
+    }
+
+    private Integer[] unmarshalIntegerArr(String s) {
+        String allArgs = StringUtils.substringBetween("{", "}");
+        String[] partsArgs = allArgs.split(",");
+        Integer[] result = new Integer[partsArgs.length];
+        for (int i = 0; i < partsArgs.length; i++) {
+            result[i] = Integer.parseInt(partsArgs[i]);
+        }
+        return result;
     }
 
 }
