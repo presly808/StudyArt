@@ -26,18 +26,22 @@ public class CourseDaoMongoImpl implements CourseDao {
         datastore.ensureIndexes();
     }
 
+
     @Override
-    public int size() {
-        return (int) datastore.getDB().getCollection("Course").count();
+    public void add(Course course) throws DuplicateKeyException {
+        datastore.save(course);
     }
 
     @Override
-    public Course find(ObjectId id) throws NoSuchCourseException {
-        Course course = datastore.find(Course.class, "id", id).get();
-        if (course == null) {
-            throw new NoSuchCourseException("There is no course with id:" + id + " !");
-        }
-        return course;
+    public void update(ObjectId id, Course course) throws NoSuchCourseException, AppException {
+        delete(id);
+        add(course);
+    }
+
+    @Override
+    public void update(Course course) throws NoSuchCourseException, AppException {
+        delete(course.getTitle());
+        add(course);
     }
 
     @Override
@@ -50,13 +54,32 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     @Override
-    public void add(Course course) throws DuplicateKeyException {
-        datastore.save(course);
+    public Course find(ObjectId id) throws NoSuchCourseException {
+        Course course = datastore.find(Course.class, "id", id).get();
+        if (course == null) {
+            throw new NoSuchCourseException("There is no course with id:" + id);
+        }
+        return course;
     }
 
     @Override
-    public List<Course> getAll() {
-        return datastore.find(Course.class).asList();
+    public Course find(String title) throws NoSuchCourseException {
+        Course course = datastore.find(Course.class, "title", title).get();
+        if (course == null) {
+            throw new NoSuchCourseException("There is no course with title:" + title);
+        }
+        return course;
+    }
+
+    @Override
+    public boolean delete(ObjectId id) throws NoSuchCourseException {
+        Query<Course> query = datastore.createQuery(Course.class);
+        query.field("id").equal(id);
+        Course course = datastore.findAndDelete(query);
+        if (course == null) {
+            throw new NoSuchCourseException("The course is not found.");
+        }
+        return true;
     }
 
     @Override
@@ -71,17 +94,13 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     @Override
-    public void update(Course course) throws NoSuchCourseException, AppException {
-        delete(course.getTitle());
-        add(course);
+    public int size() {
+        return (int) datastore.getDB().getCollection("Course").count();
     }
 
     @Override
-    public Course find(String title) throws NoSuchCourseException {
-        Course course = datastore.find(Course.class, "title", title).get();
-        if (course == null) {
-            throw new NoSuchCourseException("There is no course with title:" + title + " !");
-        }
-        return course;
+    public List<Course> getAll() {
+        return datastore.find(Course.class).asList();
     }
+
 }

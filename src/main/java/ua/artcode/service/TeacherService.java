@@ -47,6 +47,8 @@ public interface TeacherService {
 
     void updateCourse(Course course) throws NoSuchCourseException, AppException;
 
+    void updateCourse(ObjectId id, Course course) throws NoSuchCourseException, AppException;
+
     Course findCourseByTitle(String title) throws NoSuchCourseException;
 
     Course findCourseById(ObjectId id) throws NoSuchCourseException;

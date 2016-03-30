@@ -15,6 +15,10 @@ public interface CourseDao {
 
     void add(Course course) throws DuplicateKeyException;
 
+    void update(ObjectId id,Course course) throws NoSuchCourseException, AppException;
+
+    boolean delete(ObjectId id) throws NoSuchCourseException;
+
     boolean delete(String title) throws NoSuchCourseException;
 
     Course find(String title) throws NoSuchCourseException;

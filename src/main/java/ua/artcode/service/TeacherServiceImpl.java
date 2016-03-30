@@ -31,6 +31,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private LessonDao lessonDao;
 
+    @Override
+    public void updateCourse(ObjectId id, Course course) throws NoSuchCourseException, AppException {
+        courseDao.update(id, course);
+    }
+
     @Qualifier("groupDaoImpl")
     @Autowired
     private UserGroupDao userGroupDao;
