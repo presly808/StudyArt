@@ -13,7 +13,7 @@
 </c:forEach>
 
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-<input type="hidden" name="title" value="${title}"/>
+<input type="hidden" name="title639824Course" value="${title}"/>
 
 <p><input type="submit" value="<spring:message code="create.course.add.lesson"/>"></p>
 <form/>

@@ -67,7 +67,7 @@ public class CourseController {
         ModelAndView mav = new ModelAndView("course/setup-lessons");
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
-            mav.addObject("title", map.get("title"));
+            mav.addObject("title639824Course", map.get("title"));
             mav.addObject("lessons", map.get("lessons"));
         } else {
             mav.setViewName("redirect:/course-menu");
@@ -81,7 +81,7 @@ public class CourseController {
 
         try {
             List<Lesson> allLessons = teacherService.getAllLessons();
-            String title = req.getParameter("title");
+            String title = req.getParameter("title639824Course");
 
             Course course = teacherService.findCourseByTitle(title);
             List<Lesson> lessonsForCourse = new ArrayList<>();
@@ -151,12 +151,12 @@ public class CourseController {
 
             allLessons.removeAll(lessonInCourse);
 
-            mav.addObject("lessonInCourse", lessonInCourse);
+            mav.addObject("lessonsInCourse", lessonInCourse);
             mav.addObject("allLessons", allLessons);
         } else {
             try {
                 course.setLessonList(lessonInCourse);
-                teacherService.updateCourse(course);
+                teacherService.updateCourse(course.getId(), course);
                 redirectAttributes.addFlashAttribute("message", "The course has been successfully updated.");
                 mav.setViewName("redirect:/course-menu");
             } catch (NoSuchCourseException e) {
@@ -209,7 +209,7 @@ public class CourseController {
         return "course/delete-course";
     }
 
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/delete-form")
     public ModelAndView deleteCourse(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("redirect:/course-menu");
         try {

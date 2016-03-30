@@ -73,7 +73,7 @@ public class LessonController {
         ModelAndView mav = new ModelAndView("lesson/setup-tasks");
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
-            mav.addObject("title", map.get("title"));
+            mav.addObject("title047163Lesson", map.get("title"));
             mav.addObject("tasks", map.get("tasks"));
         } else {
             attributes.addFlashAttribute("message", "Lesson created successful");
@@ -87,7 +87,7 @@ public class LessonController {
         ModelAndView mav = new ModelAndView("main/lesson-menu");
         try {
             List<Task> tasks = adminService.getAllTasks();
-            String title = req.getParameter("title");
+            String title = req.getParameter("title047163Lesson");
             Lesson lesson = teacherService.findLessonByTitle(title);
             List<Task> list = lesson.getTasks();
             for (Task task : tasks) {
@@ -118,7 +118,7 @@ public class LessonController {
             allTasks.removeAll(tasksOnLesson);
 
             mav.addObject("lesson", lesson);
-            mav.addObject("tasksOnLesson", tasksOnLesson);
+            mav.addObject("tasksInLesson", tasksOnLesson);
             mav.addObject("allTasks", allTasks);
         } catch (NoSuchLessonException e) {
             mav.setViewName("lesson/list-lessons");
@@ -151,7 +151,7 @@ public class LessonController {
         if (result.hasErrors()) {
             allTasks.removeAll(taskInLesson);
 
-            mav.addObject("tasksOnLesson", taskInLesson);
+            mav.addObject("tasksInLesson", taskInLesson);
             mav.addObject("allTasks", allTasks);
 
         } else {
@@ -211,12 +211,12 @@ public class LessonController {
         return mav;
     }
 
-    @RequestMapping(value = "/delete-form")
+    @RequestMapping(value = "/delete-lesson")
     public String deleteLessonForm() {
         return "lesson/delete-lesson";
     }
 
-    @RequestMapping(value = "/delete-lesson")
+    @RequestMapping(value = "/delete-form")
     public ModelAndView deleteLesson(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("redirect:/lesson-menu");
         try {
