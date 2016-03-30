@@ -14,7 +14,7 @@
     </div>
     </c:forEach>
 
-    <p><input type="submit" value="<spring:message code="course.add.tasks"/>"></p>
+    <p><input type="submit" value="<spring:message code="add"/>"></p>
 
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="hidden" name="title" value="${title}"/>

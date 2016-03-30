@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Template {
-    String message() default  "Invalid method template";
+    String message() default  "{template.error}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -12,7 +12,7 @@
     <context:annotation-config/>
 
     <!-- support JSR303 annotation -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven validator="validator"/>
 
     <context:component-scan base-package="ua.artcode"/>
 
@@ -102,6 +102,7 @@
 
     <bean id="dataUnmarshaller" class="ua.artcode.utils.codingbat.DataUnmarshaller"/>
 
+
     <bean id="templateProcessor" class="ua.artcode.preprocess.TemplateProcessor">
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="vc" ref="velocityContext"/>
@@ -134,6 +135,10 @@
     </bean>
 
     <!--SPRING LOCALE CONTEXT-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
     <bean id="messageSource"
           class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="label"/>
@@ -142,24 +147,25 @@
 
     <bean id="localeChangeInterceptor"
           class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        <property name="paramName" value="lang" />
+        <property name="paramName" value="lang"/>
     </bean>
 
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <property name="defaultLocale" value="ru"/>
+        <property name="defaultLocale" value="en"/>
     </bean>
 
     <bean id="handlerMapping"
           class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
         <property name="interceptors">
-            <ref bean="localeChangeInterceptor" />
+            <ref bean="localeChangeInterceptor"/>
         </property>
     </bean>
 
+
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang" />
+            <property name="paramName" value="lang"/>
         </bean>
     </mvc:interceptors>
 

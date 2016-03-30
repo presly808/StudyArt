@@ -8,9 +8,9 @@
 
 <h1>${user.email}</h1>
 <p>${user.name}</p>
-<p>${user.userType}</p><br>
+<p>${role}</p><br>
 
-<p><spring:message code="passed.tasks"/></p>
+<p><spring:message code="passed.tasks"/>:</p>
 <c:forEach items="${result}" var="entry">
     <a href="${pageContext.request.contextPath}/task-menu/show-solution/${entry.key}">${entry.key}<br>
 </c:forEach>

@@ -12,7 +12,7 @@
 <form:form action="${pageContext.request.contextPath}/group-menu/create-group" modelAttribute="userGroup"
            method="post">
 
-    <spring:message code="create.group.title"/>:<br>
+    <spring:message code="title"/>:<br>
     <label>
         <form:input path="name" size="47" />
         <form:errors path="name" />

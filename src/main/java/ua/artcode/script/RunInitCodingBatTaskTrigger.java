@@ -21,8 +21,8 @@ public class RunInitCodingBatTaskTrigger {
 //        CodingBatTask task = codingBatTaskDao.findById("p187868");
 //        TaskRunFacade taskRunFacade = context.getBean(TaskRunFacade.class);
 //        taskRunFacade.runTask(task, task.getTemplate().substring(0, task.getTemplate().length() - 1) + "return(!weekday||vacation);\n}");
-        //InitCodingBatTaskTrigger.loadTasksIfNeeded();
-        //InitCodingBatTaskTrigger.loadTasksToDataBase();
+//         InitCodingBatTaskTrigger.loadTasksIfNeeded();
+//         InitCodingBatTaskTrigger.loadTasksToDataBase();
 //        InitCodingBatTaskTrigger.createDumpOfDataBase();
 //        InitCodingBatTaskTrigger.restoreDataBaseFromDump();
 

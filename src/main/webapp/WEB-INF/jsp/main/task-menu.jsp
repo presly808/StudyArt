@@ -8,22 +8,21 @@
 <body>
 
 <menu>
-    <li><a href="${pageContext.request.contextPath}/task-menu/add-task"><spring:message code="task.menu.add"/></a></li>
-
-    <security:authorize
-            access="hasRole('ROLE_ADMIN')">
-        <li><a href="${pageContext.request.contextPath}/task-menu/find-task"/><spring:message code="task.menu.find"/></li>
-    </security:authorize>
-
-
-    <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message code="task.menu.show.tasks"/></a></li>
-
-
-    <li><a href="${pageContext.request.contextPath}/task-menu/size"><spring:message code="task.menu.size"/></a></li>
 
     <security:authorize
             access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-        <li><a href="${pageContext.request.contextPath}/task-menu/delete-form"><spring:message code="task.menu.delete"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/task-menu/create-task"><spring:message code="menu.add"/></a></li>
+    </security:authorize>
+
+    <li><a href="${pageContext.request.contextPath}/task-menu/find-task"/><spring:message code="menu.find"/></li>
+
+    <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message code="task.menu.show"/></a></li>
+
+    <li><a href="${pageContext.request.contextPath}/task-menu/size"><spring:message code="menu.size"/></a></li>
+
+    <security:authorize
+            access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+        <li><a href="${pageContext.request.contextPath}/task-menu/delete-form"><spring:message code="menu.delete"/></a></li>
     </security:authorize>
 </menu>
 

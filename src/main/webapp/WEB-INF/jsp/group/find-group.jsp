@@ -7,9 +7,9 @@
 
 <body>
 <form action="${pageContext.request.contextPath}/group-menu/show-group" method="post">
-    <spring:message code="create.group.title"/>:<p><input type="text" name="name" ></p>
+    <spring:message code="title"/>:<p><input type="text" name="name" ></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <p><input type="submit" value="<spring:message code="find"/>"></p>
+    <p><input type="submit" value="<spring:message code="menu.find"/>"></p>
 </form>
 
 <c:if test="${message != null}">

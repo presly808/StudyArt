@@ -34,7 +34,6 @@ public class UserDaoMongoImpl implements UserDao {
     public void add(User user) throws DuplicateKeyException {
         user.setPassword(Security.toMd5(user.getPassword()));
         datastore.save(user);
-        //TODO
         LOG.info("User with email: " + user.getEmail() + " was added to data base.");
     }
 
@@ -73,7 +72,6 @@ public class UserDaoMongoImpl implements UserDao {
         if (user == null) {
             throw new NoSuchUserException("There is no user with email: " + email);
         }
-        LOG.info("User with email -  " + email + " was deleted from data base.");
         return true;
     }
 

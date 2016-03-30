@@ -7,9 +7,11 @@
 <body>
 
 <menu>
-    <li><a href="user-menu/add-admin"><spring:message code="user.menu.create"/></a></li>
-    <li><a href="service/createDump"><spring:message code="service.createDump"/></a></li>
-    <li><a href="service/restoreDB"><spring:message code="service.restoreDB"/></a></li>
+    <security:authorize access="hasRole('ROLE_ADMIN')">
+        <li><a href="service-menu/add-admin"><spring:message code="user.menu.create"/></a></li>
+        <li><a href="service-menu/createDump"><spring:message code="service.createDump"/></a></li>
+        <li><a href="service-menu/restoreDB"><spring:message code="service.restoreDB"/></a></li>
+    </security:authorize>
 </menu>
 <br>
 

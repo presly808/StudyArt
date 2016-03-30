@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Description {
 
-    String message() default  "Invalid description";
+    String message() default  "{description.error}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

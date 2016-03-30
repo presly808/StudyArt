@@ -27,7 +27,7 @@ public class CodingBatTaskUtils {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskUtils.class);
 
-    private static HttpResponse getResponseFromCodingBat(String codeForRequest,String Id) {
+    private static HttpResponse getResponseFromCodingBat(String codeForRequest, String Id) {
         HttpResponse response = null;
 
         String url = "http://codingbat.com/run";
@@ -79,7 +79,7 @@ public class CodingBatTaskUtils {
 
     public static void initTaskTestDataContainer(Task task, String codingBatId) {
         String codeForRequest = getCodeForRequestToCodingBat(task);
-        HttpResponse response = getResponseFromCodingBat(codeForRequest,codingBatId);
+        HttpResponse response = getResponseFromCodingBat(codeForRequest, codingBatId);
         HttpEntity entity = response.getEntity(); // incoming data
 
         if (entity != null) {
@@ -88,13 +88,18 @@ public class CodingBatTaskUtils {
                  BufferedReader reader = new BufferedReader(new InputStreamReader(inStream))) {
 
                 String dataHtml;
-
+                List list;
                 while ((dataHtml = reader.readLine()) != null) {
                     TaskTestData taskTestData = new TaskTestData();
-                    taskTestData.setExpectedValue(getExpectedValueFromHtml(dataHtml));
+                    list = new ArrayList<>();
+                    String data = getExpectedValueFromHtml(dataHtml);
+                    if (data != null) {
+                        list.add(getExpectedValueFromHtml(dataHtml));
+                    }
+                    taskTestData.setExpectedValue(list);
                     taskTestData.setInData(getInDataFromHtml(dataHtml));
 
-                    if (taskTestData.getExpectedValue() != null && taskTestData.getInData() != null) {
+                    if (taskTestData.getExpectedValue().size() > 0 && taskTestData.getInData() != null) {
                         task.getTaskTestDataContainer().addTaskTestData(taskTestData);
                         LOG.trace("added new taskTestData to taskTestDataContainer");
                     }
@@ -120,13 +125,15 @@ public class CodingBatTaskUtils {
     public static TaskTestDataContainer getTestDataContainer(String testData) throws AppValidationException {
         TaskTestDataContainer testDataContainer = new TaskTestDataContainer();
         List<String> dataPoints = new ArrayList<>(Arrays.asList(testData.split("\r\n")));
+        List list;
         try {
             for (String dataPoint : dataPoints) {
                 String[] dataParts = dataPoint.split("-");
                 String expectedValue = dataParts[0];
                 List<String> inParams = new ArrayList<>(Arrays.asList(dataParts[1].split(",")));
-
-                TaskTestData taskTestData = new TaskTestData(expectedValue, inParams);
+                list = new ArrayList<>();
+                list.add(expectedValue);
+                TaskTestData taskTestData = new TaskTestData(list, inParams);
                 testDataContainer.addTaskTestData(taskTestData);
             }
         } catch (Exception e) {
@@ -136,7 +143,7 @@ public class CodingBatTaskUtils {
         return testDataContainer;
     }
 
-    public static MethodSignature getMethodSignature(String template){
+    public static MethodSignature getMethodSignature(String template) {
 
         MethodSignature methodSignature = new MethodSignature();
 
@@ -158,9 +165,15 @@ public class CodingBatTaskUtils {
         String[] words = parts[0].split(" ");
         return words[words.length - 1].trim();
     }
-
-    public static String checkResult(String actualValue, Object expectedValue) {
-        if (expectedValue.equals(actualValue)) {
+        //todo empty values fizzArray2(0) → {}	{""}
+        public static String checkResult(Object actualValue, Object expectedValue) {
+        if (actualValue instanceof Object[] || actualValue instanceof int[] ) {
+            if (Arrays.deepEquals(new Object[]{actualValue}, new Object[]{expectedValue})) {
+                return "OK";
+            } else {
+                return "X";
+            }
+        } else if (expectedValue.equals(actualValue)) {
             return "OK";
         } else {
             return "X";

@@ -6,8 +6,8 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/group-menu/add-users" method="post">
-    <spring:message code="task.menu.delete.id"/>:<p><input name="taskId"></p>
-    <p><input type="submit" value="<spring:message code="send"/>"></p>
+    <spring:message code="task.menu.id"/>:<p><input name="taskId"></p>
+    <p><input type="submit" value="<spring:message code="create"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 

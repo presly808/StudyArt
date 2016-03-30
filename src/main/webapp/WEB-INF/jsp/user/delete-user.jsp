@@ -5,9 +5,9 @@
     <title><spring:message code="title.delete.user"/></title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/user-menu/delete" method="post">
+<form action="${pageContext.request.contextPath}/delete-user" method="post">
     <spring:message code="user.menu.delete.email"/>:<p><input name="userEmail"></p>
-    <p><input type="submit" value="<spring:message code="delete"/>"></p>
+    <p><input type="submit" value="<spring:message code="menu.delete"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 

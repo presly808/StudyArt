@@ -13,21 +13,26 @@ public class TaskTestData {
 
     private List inData;
 
-    private String expectedValue;
+    private List expectedValue;
 
     public TaskTestData() {
     }
 
-    public TaskTestData(String  expectedValue, List inData) {
+
+    public TaskTestData(List expectedValue, List inData) {
         this.expectedValue = expectedValue;
         this.inData = inData;
     }
 
-    public Object getExpectedValue() {
+    public Object getValue(){
+        return expectedValue.get(0);
+    }
+
+    public List getExpectedValue() {
         return expectedValue;
     }
 
-    public void setExpectedValue(String expectedValue) {
+    public void setExpectedValue(List expectedValue) {
         this.expectedValue = expectedValue;
     }
 

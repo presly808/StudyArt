@@ -10,12 +10,11 @@
 
 <h1><h1><spring:message code="title.create.new.lesson"/></h1></h1>
 
-<form:form action="${pageContext.request.contextPath}/lesson-menu/create-lesson" modelAttribute="lesson" method="post">
+<form:form action="${pageContext.request.contextPath}/lesson-menu/add-lesson" modelAttribute="lesson" method="post">
 
     <spring:message code="create.course.lesson.title"/>:<br>
     <label>
         <form:input path="title" size="47"/>
-            <%--<form:textarea path="title" rows="1" cols="50" />--%>
         <form:errors path="title"/>
     </label><br>
 

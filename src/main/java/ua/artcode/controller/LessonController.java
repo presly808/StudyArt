@@ -4,7 +4,6 @@ import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +13,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.common.Lesson;
 import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,14 +37,15 @@ public class LessonController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/add-lesson")
-    public String addLesson(Model model) {
-        model.addAttribute("lesson", new Lesson());
-        return "lesson/create-lesson";
+    @RequestMapping(value = "/create-lesson")
+    public ModelAndView addLesson() {
+        ModelAndView mav = new ModelAndView("lesson/create-lesson");
+        mav.addObject("lesson", new Lesson());
+        return mav;
     }
 
-    @RequestMapping(value = "/create-lesson", method = RequestMethod.POST)
-    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, RedirectAttributes redirectAttributes) throws NoSuchLessonException, AppException {
+    @RequestMapping(value = "/add-lesson", method = RequestMethod.POST)
+    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("lesson/create-lesson");
         if (!result.hasErrors()) {
             try {
@@ -85,10 +83,10 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/add-task")
-    public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) throws AppException, ServletException, IOException {
-        ModelAndView mav = new ModelAndView("lesson/setup-tasks");
-        List<Task> tasks = adminService.getAllTasks();
+    public ModelAndView addTask(RedirectAttributes redirectAttributes, HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("main/lesson-menu");
         try {
+            List<Task> tasks = adminService.getAllTasks();
             String title = req.getParameter("title");
             Lesson lesson = teacherService.findLessonByTitle(title);
             List<Task> list = lesson.getTasks();
@@ -102,7 +100,8 @@ public class LessonController {
             redirectAttributes.addFlashAttribute("message", "The lesson has been successfully created.");
             mav.setViewName("redirect:/lesson-menu");
         } catch (NoSuchLessonException e) {
-            mav.setViewName("");
+            mav.addObject("message", e.getMessage());
+        } catch (AppException e) {
             mav.addObject("message", e.getMessage());
         }
         return mav;
@@ -124,23 +123,24 @@ public class LessonController {
         } catch (NoSuchLessonException e) {
             mav.setViewName("lesson/list-lessons");
             mav.addObject("message", e.getMessage());
-            //TODO
+
         } catch (AppException e) {
-            e.printStackTrace();
+            mav.addObject("message", e.getMessage());
+            mav.setViewName("main/lesson-menu");
         }
         return mav;
     }
-
+    //TODO
     @RequestMapping(value = "/update-lesson")
     public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
         List<Task> taskInLesson = new ArrayList<>();
         List<Task> allTasks = null;
         try {
             allTasks = adminService.getAllTasks();
         } catch (AppException e) {
-            e.printStackTrace();
+            mav.addObject("message", e.getMessage());
+            mav.setViewName("main/lesson-menu");
         }
 
         for (Task task : allTasks) {
@@ -178,8 +178,8 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/find-lesson")
-    public ModelAndView findLesson() {
-        return new ModelAndView("lesson/find-lesson");
+    public String findLesson() {
+        return "lesson/find-lesson";
     }
 
     @RequestMapping(value = "/show-lesson/{title}")
@@ -198,11 +198,10 @@ public class LessonController {
 
     @RequestMapping(value = "/show-lesson", method = RequestMethod.POST)
     public ModelAndView showLessonPost(HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView();
-        String title = req.getParameter("title");
+        ModelAndView mav = new ModelAndView("lesson/show-lesson");
         try {
+            String title = req.getParameter("title");
             Lesson lesson = teacherService.findLessonByTitle(title);
-            mav.setViewName("lesson/show-lesson");
             mav.addObject("lesson", lesson);
             mav.addObject("tasks", lesson.getTasks());
         } catch (NoSuchLessonException e) {
@@ -212,19 +211,18 @@ public class LessonController {
         return mav;
     }
 
-    @RequestMapping(value = "/delete-lesson")
-    public ModelAndView deleteLessonForm() {
-        return new ModelAndView("lesson/delete-lesson");
+    @RequestMapping(value = "/delete-form")
+    public String deleteLessonForm() {
+        return "lesson/delete-lesson";
     }
 
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/delete-lesson")
     public ModelAndView deleteLesson(HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView();
-        String lessonTitle = req.getParameter("lessonTitle");
+        ModelAndView mav = new ModelAndView("redirect:/lesson-menu");
         try {
+            String lessonTitle = req.getParameter("lessonTitle");
             teacherService.deleteLessonByTitle(lessonTitle);
             redirectAttributes.addFlashAttribute("message", "The lesson has been successfully deleted.");
-            mav.setViewName("redirect:/lesson-menu");
         } catch (NoSuchLessonException e) {
             mav.addObject("message", e.getMessage());
             mav.setViewName("lesson/delete-lesson");

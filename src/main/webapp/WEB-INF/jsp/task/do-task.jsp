@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title><spring:message code="send"/></title>
+    <title><spring:message code="check.task"/></title>
 </head>
 <body>
 
@@ -24,13 +24,13 @@
     <textarea rows="24" cols="80" name="userCode">${template}</textarea>
 
     <input type="hidden" name="id" value="${task.id.toString()}">
-    <p><input type="submit" value="<spring:message code="check"/>"></p>
+    <p><input type="submit" value="<spring:message code="check.task"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 
 <form action="${pageContext.request.contextPath}/task-menu/edit-task" method="post">
     <input type="hidden" name="id" value="${task.id}">
-    <input type="submit" value="<spring:message code="edit"/>">
+    <input type="submit" value="<spring:message code="menu.edit"/>">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 

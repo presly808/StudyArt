@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,10 +19,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Map;
 
 
@@ -40,24 +37,21 @@ public class MainController {
     @Autowired
     private MessageSource messageSource;
 
-
     @RequestMapping(value = "/menu")
-    public ModelAndView loadMenu() {
-        return new ModelAndView("main/menu");
+    public String loadMenu() {
+        return "main/menu";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public ModelAndView accessDenied() {
-        ModelAndView model = new ModelAndView();
+        ModelAndView mav = new ModelAndView("403");
         //check if user is login
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            model.addObject("username", userDetail.getUsername());
+            mav.addObject("username", userDetail.getUsername());
         }
-
-        model.setViewName("main/403");
-        return model;
+        return mav;
 
     }
 
@@ -71,13 +65,14 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration-form")
-    public String registrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "main/registration";
+    public ModelAndView registrationForm() {
+        ModelAndView mav=new ModelAndView("main/registration");
+        mav.addObject("user", new User());
+        return mav;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) throws ServletException, IOException {
+    public ModelAndView registration(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes)  {
         ModelAndView mav = new ModelAndView("main/registration");
         if (!result.hasErrors()) {
             try {
@@ -132,8 +127,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/user-menu")
-    public ModelAndView loadUserMenu() {
-        return new ModelAndView("main/user-menu");
+    public ModelAndView loadUserMenu(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("main/user-menu");
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
+        if (map != null) {
+            mav.addObject("message", map.get("message"));
+        }
+        return mav;
     }
 
     @RequestMapping(value = "/service-menu")

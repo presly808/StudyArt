@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserName {
 
-    String message() default ("label.error.username") ;
+    String message() default ("{name.error}") ;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

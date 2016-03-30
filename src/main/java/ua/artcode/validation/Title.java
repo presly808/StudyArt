@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Title {
-    String message() default  "Invalid title";
+    String message() default  "{title.error}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

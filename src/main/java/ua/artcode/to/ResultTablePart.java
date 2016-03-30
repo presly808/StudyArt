@@ -17,6 +17,11 @@ public class ResultTablePart {
         this.done = result;
     }
 
+    public ResultTablePart(String expectedValue, String inArgsTemplate) {
+        this.expectedValue = expectedValue;
+        this.inArgsTemplate = inArgsTemplate;
+    }
+
     public String getInArgsTemplate() {
         return inArgsTemplate;
     }
@@ -25,7 +30,7 @@ public class ResultTablePart {
         this.inArgsTemplate = inArgsTemplate;
     }
 
-    public String getActualValue() {
+    public Object getActualValue() {
         return actualValue;
     }
 
@@ -33,7 +38,7 @@ public class ResultTablePart {
         this.actualValue = actualValue;
     }
 
-    public String getExpectedValue() {
+    public Object getExpectedValue() {
         return expectedValue;
     }
 

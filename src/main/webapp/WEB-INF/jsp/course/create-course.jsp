@@ -9,7 +9,7 @@
 <h1><spring:message code="title.create.new.course"/></h1>
 
 
-<form:form action="${pageContext.request.contextPath}/course-menu/create-course" modelAttribute="course"
+<form:form action="${pageContext.request.contextPath}/course-menu/add-course" modelAttribute="course"
            method="post">
 
     <spring:message code="create.course.title"/>:<br>
@@ -24,7 +24,6 @@
         <form:errors path="description"/>
     </label><br>
 
-<%--TODO If no lessons in db throw error no lessons to add to course create lessons first--%>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <p><input type="submit" value="<spring:message code="create.course.add.course"/>"></p>
 </form:form>

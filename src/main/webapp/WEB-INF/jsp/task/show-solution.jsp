@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title><spring:message code="send"/></title>
+    <title><spring:message code="solution"/></title>
 </head>
 <body>
 
@@ -15,7 +15,6 @@
 <br>
 <p>${task.examples}</p>
 <br>
-<%--TODO add compile error--%>
 
     <textarea readonly rows="24" cols="80" name="userCode">${template}</textarea>
 

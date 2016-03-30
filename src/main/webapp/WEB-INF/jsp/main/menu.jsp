@@ -20,11 +20,11 @@
 
     <li><a href="task-menu"><spring:message code="task.menu"/></a></li>
 
-    <li><a href="lesson-menu"><spring:message code="lesson"/></a></li>
+    <li><a href="lesson-menu"><spring:message code="lesson.menu"/></a></li>
 
-    <li><a href="course-menu"><spring:message code="course"/></a></li>
+    <li><a href="course-menu"><spring:message code="course.menu"/></a></li>
 
-    <li><a href="group-menu"><spring:message code="group"/></a></li>
+    <li><a href="group-menu"><spring:message code="group.menu"/></a></li>
 
     <security:authorize
             access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">

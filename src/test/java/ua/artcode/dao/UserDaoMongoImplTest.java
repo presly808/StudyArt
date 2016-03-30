@@ -93,7 +93,6 @@ public class UserDaoMongoImplTest {
         userDao.find("nonexistent_email@gmail.com");
     }
 
-
     @Test(expected = NoSuchUserException.class)
     public void removeUserTest() throws AppException {
         userDao.add(new User("User666", "password666", "test_1@gmail.com"));

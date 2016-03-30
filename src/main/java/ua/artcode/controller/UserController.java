@@ -32,11 +32,6 @@ public class UserController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/add-admin")
-    public ModelAndView addAdmin() {
-        return new ModelAndView("user/create-admin");
-    }
-
     @RequestMapping(value = "/show-users")
     public ModelAndView showUsers() {
         //TODO  user role,message if no passed tasks
@@ -50,6 +45,14 @@ public class UserController {
         ModelAndView mav = new ModelAndView();
         try {
             User user = userService.findUser(name);
+            String role = String.valueOf(user.getUserType());
+            if (role.equals("ROLE_TEACHER")) {
+                role = "Teacher";
+            } else if (role.equals("ROLE_STUDENT")) {
+                role = "Student";
+            } else {
+                role = "Admin";
+            }
             mav.addObject("user", user);
             Map<String, String> result = new HashMap<>();
             Map<ObjectId, TaskTestResult> statistic = user.getSolvedTaskContainer();
@@ -62,6 +65,7 @@ public class UserController {
                 }
             }
             mav.addObject("result", result);
+            mav.addObject("role", role);
             mav.setViewName("user/show-user");
         } catch (NoSuchUserException e) {
             mav.addObject("message", e.getMessage());
@@ -72,12 +76,12 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping(value = "/delete-user")
+    @RequestMapping(value = "/delete-form")
     public ModelAndView loadDeleteUser() {
         return new ModelAndView("user/delete-user");
     }
 
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/delete-user")
     public ModelAndView delete(HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView();
         String email = req.getParameter("userEmail");

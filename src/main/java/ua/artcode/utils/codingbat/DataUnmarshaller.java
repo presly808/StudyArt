@@ -1,17 +1,18 @@
 package ua.artcode.utils.codingbat;
 
 import org.apache.commons.lang.StringUtils;
-import org.jsoup.helper.StringUtil;
 import ua.artcode.model.codingbat.Task;
 import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.model.codingbat.TestArg;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 
 
 public class DataUnmarshaller {
 
-    public void convert(Task task) {
+    public void convertInData(Task task) {
         TestArg testArg;
         for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
             for (int i = 0; i < data.getInData().size(); i++) {
@@ -23,6 +24,17 @@ public class DataUnmarshaller {
         }
     }
 
+    public void convertExpectedValue(Task task) {
+        TestArg testArg;
+        List list;
+        String returnType = task.getMethodSignature().getReturnType();
+        for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
+            testArg = convertDispatcher(returnType, data.getValue());
+            list = new ArrayList<>();
+            list.add(testArg.getValue());
+            data.setExpectedValue(list);
+        }
+    }
 
     //TODO think about collection (List, Set, Map)
     private TestArg convertDispatcher(String type, Object val) {
@@ -35,8 +47,8 @@ public class DataUnmarshaller {
             testArg.setType("Short");
             testArg.setValue(unmarshalShort(value));
         } else if ("int[]".equals(type)) {
-            testArg.setType("Integer");
-            testArg.setValue(unmarshalInteger(value));
+            testArg.setType("int[]");
+            testArg.setValue(unmarshalIntegerArr(value));
         } else if ("int".equals(type) || "java.lang.Integer".contains(type)) {
             testArg.setType("Integer");
             testArg.setValue(unmarshalInteger(value));
@@ -51,10 +63,14 @@ public class DataUnmarshaller {
             testArg.setValue(unmarshalDouble(value));
         } else if ("boolean".equals(type) || "java.lang.Boolean".contains(type)) {
             testArg.setType("Boolean");
-            testArg.setValue(unmarshalBoolean(value));
+            boolean result = unmarshalBoolean(value);
+            testArg.setValue(result);
         } else if ("char".equals(type) || "java.lang.Character".contains(type)) {
             testArg.setType("Character");
             testArg.setValue(unmarshalCharacter(value));
+        } else if ("String[]".equals(type)) {
+            testArg.setType("String[]");
+            testArg.setValue(unmarshalStringArr(value));
         } else if ("String".equals(type) || "java.lang.String".contains(type)) {
             testArg.setType("String");
             testArg.setValue(value);
@@ -62,9 +78,35 @@ public class DataUnmarshaller {
             testArg.setType("java.util.List");
             testArg.setValue(Arrays.asList(value));
         } else {
-            return null; // TODO refactor this place
+
         }
         return testArg;
+    }
+
+    private int[] unmarshalIntegerArr(String s) {
+        if (s.length() > 2) {
+            String allArgs = StringUtils.substringBetween(s, "{", "}");
+            String[] partsArgs = allArgs.split(",");
+            int[] result = new int[partsArgs.length];
+            for (int i = 0; i < partsArgs.length; i++) {
+                result[i] = Integer.parseInt(partsArgs[i].trim());
+            }
+            return result;
+        }
+        return new int[0];
+    }
+
+    private String[] unmarshalStringArr(String s) {
+        if (s.length() > 2) {
+            String allArgs = StringUtils.substringBetween(s, "{", "}");
+            String[] partsArgs = allArgs.split(",");
+            String[] result = new String[partsArgs.length];
+            for (int i = 0; i < partsArgs.length; i++) {
+                result[i] = partsArgs[i].replaceAll("\"", "").trim();
+            }
+            return result;
+        }
+        return new String[0];
     }
 
     private Byte unmarshalByte(String s) {
@@ -97,16 +139,6 @@ public class DataUnmarshaller {
 
     private Character unmarshalCharacter(String s) {
         return s.charAt(0);
-    }
-
-    private Integer[] unmarshalIntegerArr(String s) {
-        String allArgs = StringUtils.substringBetween("{", "}");
-        String[] partsArgs = allArgs.split(",");
-        Integer[] result = new Integer[partsArgs.length];
-        for (int i = 0; i < partsArgs.length; i++) {
-            result[i] = Integer.parseInt(partsArgs[i]);
-        }
-        return result;
     }
 
 }

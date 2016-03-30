@@ -4,7 +4,6 @@ import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * Created by Razer on 07.02.16.
- */
 @Controller
 @RequestMapping(value = "/course-menu")
 public class CourseController {
@@ -35,15 +31,15 @@ public class CourseController {
     @Autowired
     private TeacherService teacherService;
 
-    @RequestMapping(value = "/add-course")
-    public String addCourse(Model model) {
-        model.addAttribute("course", new Course());
-        return "course/create-course";
+    @RequestMapping(value = "/create-course")
+    public ModelAndView addCourse() {
+        ModelAndView mav = new ModelAndView("course/create-course");
+        mav.addObject("course", new Course());
+        return mav;
     }
 
-    @RequestMapping(value = "/create-course", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-course", method = RequestMethod.POST)
     public ModelAndView createCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes) {
-
         ModelAndView mav = new ModelAndView("course/create-course");
 
         if (!result.hasErrors()) {
@@ -59,9 +55,8 @@ public class CourseController {
                     redirectAttributes.addFlashAttribute("message", "The course has been successfully created.");
                     mav.setViewName("redirect:/course-menu");
                 }
-            } 
-            catch (DuplicateKeyException e){
-                mav.addObject("message","Course with title: "+course.getTitle()+" already exist!");
+            } catch (DuplicateKeyException e) {
+                mav.addObject("message", "Course with title: " + course.getTitle() + " already exist!");
             }
         }
         return mav;
@@ -81,24 +76,28 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/add-lesson")
-    public ModelAndView addLesson(RedirectAttributes redirectAttributes, HttpServletRequest req) throws NoSuchCourseException {
-        ModelAndView mav = new ModelAndView("lesson/setup-tasks");
-        List<Lesson> allLessons = teacherService.getAllLessons();
-        String title = req.getParameter("title");
-        Course course = teacherService.findCourseByTitle(title);
-        List<Lesson> lessonsForCourse = new ArrayList<>();
-        for (Lesson lesson : allLessons) {
-            if (req.getParameter(lesson.getTitle()) != null) {
-                lessonsForCourse.add(lesson);
-            }
-        }
-        course.setLessonList(lessonsForCourse);
+    public ModelAndView addLesson(RedirectAttributes redirectAttributes, HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("main/course-menu");
+
         try {
+            List<Lesson> allLessons = teacherService.getAllLessons();
+            String title = req.getParameter("title");
+
+            Course course = teacherService.findCourseByTitle(title);
+            List<Lesson> lessonsForCourse = new ArrayList<>();
+            for (Lesson lesson : allLessons) {
+                if (req.getParameter(lesson.getTitle()) != null) {
+                    lessonsForCourse.add(lesson);
+                }
+            }
+            course.setLessonList(lessonsForCourse);
             teacherService.updateCourse(course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
         } catch (AppException e) {
-            e.printStackTrace();
+            mav.addObject("message", e.getMessage());
+        } catch (NoSuchCourseException e) {
+            mav.addObject("message", e.getMessage());
         }
 
         return mav;
@@ -112,8 +111,8 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/find-course")
-    public ModelAndView loadFindCourse() {
-        return new ModelAndView("course/find-course");
+    public String loadFindCourse() {
+        return "course/find-course";
     }
 
     @RequestMapping(value = "/edit-course", method = RequestMethod.POST)
@@ -131,7 +130,8 @@ public class CourseController {
             mav.addObject("allLessons", allLessons);
             mav.addObject("course", course);
         } catch (NoSuchCourseException e) {
-            // TODO
+            mav.setViewName("main/course-menu");
+            mav.addObject(e.getMessage());
         }
         return mav;
     }
@@ -147,7 +147,6 @@ public class CourseController {
                 lessonInCourse.add(lesson);
             }
         }
-
         if (result.hasErrors()) {
 
             allLessons.removeAll(lessonInCourse);
@@ -192,8 +191,8 @@ public class CourseController {
     @RequestMapping(value = "/show-course")
     public ModelAndView showCourse(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
-        String title = req.getParameter("title");
         try {
+            String title = req.getParameter("title");
             Course course = teacherService.findCourseByTitle(title);
             mav.setViewName("course/show-course");
             mav.addObject("course", course);
@@ -206,18 +205,17 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/delete-course")
-    public ModelAndView loadDeleteLesson() {
-        return new ModelAndView("course/delete-course");
+    public String loadDeleteLesson() {
+        return "course/delete-course";
     }
 
     @RequestMapping(value = "/delete")
     public ModelAndView deleteCourse(HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView();
-        String courseTitle = req.getParameter("courseTitle");
+        ModelAndView mav = new ModelAndView("redirect:/course-menu");
         try {
+            String courseTitle = req.getParameter("courseTitle");
             teacherService.deleteCourse(courseTitle);
             redirectAttributes.addFlashAttribute("message", "The course has been successfully deleted.");
-            mav.setViewName("redirect:/course-menu");
         } catch (NoSuchCourseException e) {
             mav.addObject("message", e.getMessage());
             mav.setViewName("course/delete-course");

@@ -19,7 +19,7 @@
 
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="hidden" name="id" value="${group.id.toString()}"/>
-    <p><input type="submit" value="<spring:message code="edit"/>"></p>
+    <p><input type="submit" value="<spring:message code="menu.edit"/>"></p>
 </form>
 <br>
 </body>
