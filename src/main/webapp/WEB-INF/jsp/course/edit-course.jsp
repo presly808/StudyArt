@@ -22,9 +22,9 @@
         <form:errors path="description"/>
     </label><br>
 
-    <c:forEach var="lesson1" items="${lessonsInCourse}">
+    <c:forEach var="lesson" items="${lessonsInCourse}">
         <div align="center">
-            <p><input type="checkbox" checked="checked" name="${lesson1.title}">${lesson1.title}</p>
+            <p><input type="checkbox" checked="checked" name="${lesson.title}">${lesson.title}</p>
         </div>
     </c:forEach>
 

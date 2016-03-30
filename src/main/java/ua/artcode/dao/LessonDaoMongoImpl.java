@@ -23,20 +23,10 @@ public class LessonDaoMongoImpl implements LessonDao {
         datastore.ensureIndexes();
     }
 
+
     @Override
     public void add(Lesson lesson) throws DuplicateKeyException {
         datastore.save(lesson);
-    }
-
-    @Override
-    public void update(ObjectId id, Lesson lesson) throws NoSuchLessonException, AppException {
-        delete(id);
-        add(lesson);
-    }
-
-    @Override
-    public List<Lesson> getAll() {
-        return datastore.find(Lesson.class).asList();
     }
 
     @Override
@@ -49,30 +39,9 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public boolean delete(String title) throws NoSuchLessonException {
-        Query<Lesson> query = datastore.createQuery(Lesson.class);
-        query.field("title").equal(title);
-        Lesson lesson = datastore.findAndDelete(query);
-        if (lesson == null) {
-            throw new NoSuchLessonException("There is no lesson with title: "+title);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean delete(ObjectId id) throws NoSuchLessonException {
-        Query<Lesson> query = datastore.createQuery(Lesson.class);
-        query.field("id").equal(id);
-        Lesson lesson=datastore.findAndDelete(query);
-        if (lesson == null) {
-            throw new NoSuchLessonException("No lesson");
-        }
-        return true;
-    }
-
-    @Override
-    public int size() {
-        return (int) datastore.getDB().getCollection("Lesson").count();
+    public void update(ObjectId id, Lesson lesson) throws NoSuchLessonException, AppException {
+        delete(id);
+        add(lesson);
     }
 
     @Override
@@ -85,20 +54,53 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public Lesson find(String title) throws NoSuchLessonException {
-        Lesson lesson = datastore.find(Lesson.class, "title", title).get();
+    public Lesson find(ObjectId id) throws NoSuchLessonException {
+        Lesson lesson = datastore.find(Lesson.class, "id", id).get();
         if (lesson == null) {
-            throw new NoSuchLessonException("There is no lesson with title: " + title + "!");
+            throw new NoSuchLessonException("There is no lesson with id: " + id);
         }
         return lesson;
     }
 
     @Override
-    public Lesson find(ObjectId id) throws NoSuchLessonException {
-        Lesson lesson = datastore.find(Lesson.class, "id", id).get();
+    public Lesson find(String title) throws NoSuchLessonException {
+        Lesson lesson = datastore.find(Lesson.class, "title", title).get();
         if (lesson == null) {
-            throw new NoSuchLessonException("There is no lesson with id: " + id + "!");
+            throw new NoSuchLessonException("There is no lesson with title: " + title);
         }
         return lesson;
     }
+
+    @Override
+    public boolean delete(ObjectId id) throws NoSuchLessonException {
+        Query<Lesson> query = datastore.createQuery(Lesson.class);
+        query.field("id").equal(id);
+        Lesson lesson = datastore.findAndDelete(query);
+        if (lesson == null) {
+            throw new NoSuchLessonException("The lesson is not found.");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean delete(String title) throws NoSuchLessonException {
+        Query<Lesson> query = datastore.createQuery(Lesson.class);
+        query.field("title").equal(title);
+        Lesson lesson = datastore.findAndDelete(query);
+        if (lesson == null) {
+            throw new NoSuchLessonException("There is no lesson with title: " + title);
+        }
+        return true;
+    }
+
+    @Override
+    public int size() {
+        return (int) datastore.getDB().getCollection("Lesson").count();
+    }
+
+    @Override
+    public List<Lesson> getAll() {
+        return datastore.find(Lesson.class).asList();
+    }
+
 }

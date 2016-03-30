@@ -17,7 +17,7 @@
 
     <security:authorize
         access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-    <li><a href="${pageContext.request.contextPath}/lesson-menu/delete-form"><spring:message code="menu.delete"/></a></li>
+    <li><a href="${pageContext.request.contextPath}/lesson-menu/delete-lesson"><spring:message code="menu.delete"/></a></li>
     </security:authorize>
 
 </menu>

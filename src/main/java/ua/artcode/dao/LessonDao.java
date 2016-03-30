@@ -16,6 +16,8 @@ public interface LessonDao {
 
     void add(Lesson lesson) throws DuplicateKeyException;
 
+    void update(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
+
     List<Lesson> getAll();
 
     void addTask(String title, Task codingBatTask) throws NoSuchLessonException, AppException;
@@ -27,8 +29,6 @@ public interface LessonDao {
     boolean isExist(String title);
 
     int size();
-
-    void update(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
 
     Lesson find(String title) throws NoSuchLessonException;
 

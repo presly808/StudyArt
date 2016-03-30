@@ -24,15 +24,15 @@
         <form:errors path="description"/>
     </label><br>
 
-    <c:forEach var="task" items="${tasksOnLesson}">
+    <c:forEach var="task" items="${tasksInLesson}">
         <div align="center">
             <p><input type="checkbox" checked="checked" name="${task.title}">${task.title}</p>
         </div>
     </c:forEach>
 
-    <c:forEach var="tasks" items="${allTasks}">
+    <c:forEach var="task" items="${allTasks}">
         <div align="center">
-            <p><input type="checkbox" name="${tasks.title}">${tasks.title}</p>
+            <p><input type="checkbox" name="${task.title}">${task.title}</p>
         </div>
     </c:forEach>
 
