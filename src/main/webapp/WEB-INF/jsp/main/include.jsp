@@ -9,6 +9,7 @@
 </head>
 <body>
 <spring:message code="hello"/> <security:authentication property="principal.username" />!
+<li><a href="${pageContext.request.contextPath}/menu"><spring:message code="main.menu"/></a></li>
 <br>
 <br>
 </body>
