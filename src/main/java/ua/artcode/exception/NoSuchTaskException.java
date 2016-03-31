@@ -5,10 +5,11 @@ package ua.artcode.exception;
  */
 public class NoSuchTaskException extends AppException {
 
+    public NoSuchTaskException() {
+    }
+
     public NoSuchTaskException(String message) {
         super(message);
     }
 
-    public NoSuchTaskException() {
-    }
 }

@@ -1,6 +1,7 @@
 package ua.artcode.process;
 
 
+import org.apache.log4j.Logger;
 import ua.artcode.model.codingbat.TaskTestData;
 import ua.artcode.model.codingbat.TaskTestDataContainer;
 import ua.artcode.model.codingbat.TaskTestResult;
@@ -11,7 +12,10 @@ import java.util.List;
 
 public class TestRunner {
 
+    private static final Logger LOG = Logger.getLogger(TestRunner.class);
+
     public static TaskTestResult run(MethodInvoker method, TaskTestDataContainer taskTestData) {
+        LOG.debug("Run test for task.");
         List<TaskTestData> steps = taskTestData.getTaskTestDataList();
         TaskTestResult taskTestResult = new TaskTestResult();
         for (TaskTestData testData : steps) {
