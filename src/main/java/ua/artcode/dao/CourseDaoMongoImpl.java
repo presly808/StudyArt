@@ -1,6 +1,7 @@
 package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
+import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
@@ -16,32 +17,38 @@ import java.util.List;
 public class CourseDaoMongoImpl implements CourseDao {
 
     private Datastore datastore;
+    private static final Logger LOG = Logger.getLogger(CourseDaoMongoImpl.class);
 
 
     public CourseDaoMongoImpl() {
+        LOG.debug("CourseDaoMongoImpl instance has been created.");
     }
 
     public CourseDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
         datastore.ensureIndexes();
+        LOG.debug("CourseDaoMongoImpl instance has been created.");
     }
 
 
     @Override
     public void add(Course course) throws DuplicateKeyException {
         datastore.save(course);
+        LOG.info("The new course has been added to DB.");
     }
 
     @Override
     public void update(ObjectId id, Course course) throws NoSuchCourseException, AppException {
         delete(id);
         add(course);
+        LOG.info("The course has been updated.");
     }
 
     @Override
     public void update(Course course) throws NoSuchCourseException, AppException {
         delete(course.getTitle());
         add(course);
+        LOG.info("The course has been updated.");
     }
 
     @Override
@@ -57,7 +64,8 @@ public class CourseDaoMongoImpl implements CourseDao {
     public Course find(ObjectId id) throws NoSuchCourseException {
         Course course = datastore.find(Course.class, "id", id).get();
         if (course == null) {
-            throw new NoSuchCourseException("There is no course with id:" + id);
+            LOG.warn("The course has been not founded. By id: " + id);
+            throw new NoSuchCourseException("The course has been not founded.");
         }
         return course;
     }
@@ -66,6 +74,7 @@ public class CourseDaoMongoImpl implements CourseDao {
     public Course find(String title) throws NoSuchCourseException {
         Course course = datastore.find(Course.class, "title", title).get();
         if (course == null) {
+            LOG.debug("The course has been not founded. By title: " + title);
             throw new NoSuchCourseException("There is no course with title:" + title);
         }
         return course;
@@ -77,8 +86,10 @@ public class CourseDaoMongoImpl implements CourseDao {
         query.field("id").equal(id);
         Course course = datastore.findAndDelete(query);
         if (course == null) {
+            LOG.warn("The course has not been deleted.");
             throw new NoSuchCourseException("The course is not found.");
         }
+        LOG.info("The course has been deleted.");
         return true;
     }
 
@@ -88,8 +99,10 @@ public class CourseDaoMongoImpl implements CourseDao {
         query.field("title").equal(title);
         Course course = datastore.findAndDelete(query);
         if (course == null) {
+            LOG.debug("The course has not been deleted. Title: " + title);
             throw new NoSuchCourseException("There is no course with title: " + title);
         }
+        LOG.info("The course has been deleted. Title: " + title);
         return true;
     }
 

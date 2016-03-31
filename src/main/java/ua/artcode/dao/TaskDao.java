@@ -28,6 +28,9 @@ public interface TaskDao {
 
     int size();
 
+    /**
+     * Return tasks which have common group
+     */
     List<Task> getGroupTasks(String group);
 
     List<String> getGroups();

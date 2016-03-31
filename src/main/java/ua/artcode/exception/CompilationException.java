@@ -5,10 +5,11 @@ package ua.artcode.exception;
  */
 public class CompilationException extends AppException {
 
+    public CompilationException() {
+    }
 
     public CompilationException(String message) {
         super(message);
     }
-
 
 }

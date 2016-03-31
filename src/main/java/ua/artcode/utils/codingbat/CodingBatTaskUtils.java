@@ -45,7 +45,7 @@ public class CodingBatTaskUtils {
             // Execute HTTP Post Request
             response = client.execute(post);// get page
 
-            LOG.info("STATUS got the response from CodingBat - " + response.getStatusLine());
+            LOG.debug("Get table with test data from codingbat.com");
 
         } catch (UnsupportedEncodingException e) {
             LOG.error(e);
@@ -101,7 +101,7 @@ public class CodingBatTaskUtils {
 
                     if (taskTestData.getExpectedValue().size() > 0 && taskTestData.getInData() != null) {
                         task.getTaskTestDataContainer().addTaskTestData(taskTestData);
-                        LOG.trace("added new taskTestData to taskTestDataContainer");
+                        LOG.debug("Added new taskTestData to taskTestDataContainer.");
                     }
                 }
 
@@ -165,19 +165,20 @@ public class CodingBatTaskUtils {
         String[] words = parts[0].split(" ");
         return words[words.length - 1].trim();
     }
-        //todo empty values fizzArray2(0) → {}	{""}
-        public static String checkResult(Object actualValue, Object expectedValue) {
-        if (actualValue instanceof Object[] || actualValue instanceof int[] ) {
+
+    //todo empty values fizzArray2(0) → {}	{""}
+    public static String checkResult(Object actualValue, Object expectedValue) {
+        String result = "X";
+        if (actualValue instanceof Object[] || actualValue instanceof int[]) {
+            LOG.debug("check result: compare actual - " + actualValue.toString() + "-- expected - " + expectedValue.toString());
             if (Arrays.deepEquals(new Object[]{actualValue}, new Object[]{expectedValue})) {
-                return "OK";
-            } else {
-                return "X";
+                result = "OK";
             }
         } else if (expectedValue.equals(actualValue)) {
-            return "OK";
-        } else {
-            return "X";
+            result = "OK";
         }
+        LOG.debug("Result of one test = " + result);
+        return result;
     }
 
     public static String statusGenerator(List<String> results) {
@@ -193,6 +194,7 @@ public class CodingBatTaskUtils {
         } else if (counter > 0) {
             result = counter + " passed from " + results.size() + " tests";
         }
+        LOG.debug("Final result : " + result);
         return result;
     }
 }

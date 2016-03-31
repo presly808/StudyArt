@@ -28,7 +28,7 @@ public class CodingBatTaskGrabber {
     }
 
     private void findGroupLinks() {
-        LOG.trace("find group links");
+        LOG.debug("Find links of group tasks.");
         taskLinksContainer = new ArrayList<>();
         try {
             Document doc = Jsoup.connect(codingBatUrl + "/java").get();
@@ -103,7 +103,7 @@ public class CodingBatTaskGrabber {
     }
 
     public Collection<Task> getTasksFromCodingBat() {
-        LOG.trace("Start loading tasks from coding bat");
+        LOG.info("Start loading tasks from codingbat.com");
 
         Collection<Task> taskCollection = new LinkedList<>();
 
@@ -137,12 +137,14 @@ public class CodingBatTaskGrabber {
                     CodingBatTaskUtils.initTaskTestDataContainer(codingBatTask,codingBatId);
 
                     taskCollection.add(codingBatTask);
+                    LOG.info("Grab task: " + codingBatTask.getTitle());
                 }
             } catch (IOException e) {
                 LOG.error(e);
             }
 
         }
+        LOG.info("Finish loading tasks from codingbat.com");
         return taskCollection;
     }
 }

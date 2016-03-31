@@ -5,6 +5,9 @@ package ua.artcode.exception;
  */
 public class NoSuchLessonException extends Exception {
 
+    public NoSuchLessonException() {
+    }
+
     public NoSuchLessonException(String message) {
         super(message);
     }

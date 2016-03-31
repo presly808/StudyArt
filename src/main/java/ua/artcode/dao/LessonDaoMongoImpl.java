@@ -1,6 +1,7 @@
 package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
+import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
@@ -17,16 +18,19 @@ import java.util.List;
 public class LessonDaoMongoImpl implements LessonDao {
 
     private Datastore datastore;
+    private static final Logger LOG = Logger.getLogger(LessonDaoMongoImpl.class);
 
     public LessonDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
         datastore.ensureIndexes();
+        LOG.debug("LessonDaoMongoImpl instance has been created.");
     }
 
 
     @Override
     public void add(Lesson lesson) throws DuplicateKeyException {
         datastore.save(lesson);
+        LOG.info("The new lesson has been added to DB.");
     }
 
     @Override
@@ -42,6 +46,7 @@ public class LessonDaoMongoImpl implements LessonDao {
     public void update(ObjectId id, Lesson lesson) throws NoSuchLessonException, AppException {
         delete(id);
         add(lesson);
+        LOG.info("The lesson has been updated.");
     }
 
     @Override
@@ -57,7 +62,8 @@ public class LessonDaoMongoImpl implements LessonDao {
     public Lesson find(ObjectId id) throws NoSuchLessonException {
         Lesson lesson = datastore.find(Lesson.class, "id", id).get();
         if (lesson == null) {
-            throw new NoSuchLessonException("There is no lesson with id: " + id);
+            LOG.warn("The lesson has been not founded. By id: " + id);
+            throw new NoSuchLessonException("The lesson has been not founded.");
         }
         return lesson;
     }
@@ -66,6 +72,7 @@ public class LessonDaoMongoImpl implements LessonDao {
     public Lesson find(String title) throws NoSuchLessonException {
         Lesson lesson = datastore.find(Lesson.class, "title", title).get();
         if (lesson == null) {
+            LOG.debug("The lesson has been not founded. By title: " + title);
             throw new NoSuchLessonException("There is no lesson with title: " + title);
         }
         return lesson;
@@ -77,8 +84,10 @@ public class LessonDaoMongoImpl implements LessonDao {
         query.field("id").equal(id);
         Lesson lesson = datastore.findAndDelete(query);
         if (lesson == null) {
+            LOG.warn("The lesson has not been deleted.");
             throw new NoSuchLessonException("The lesson is not found.");
         }
+        LOG.info("The lesson has been deleted.");
         return true;
     }
 
@@ -88,8 +97,10 @@ public class LessonDaoMongoImpl implements LessonDao {
         query.field("title").equal(title);
         Lesson lesson = datastore.findAndDelete(query);
         if (lesson == null) {
+            LOG.debug("The lesson has not been deleted.");
             throw new NoSuchLessonException("There is no lesson with title: " + title);
         }
+        LOG.info("The lesson has been deleted. Title: " + title);
         return true;
     }
 

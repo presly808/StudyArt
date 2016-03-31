@@ -44,6 +44,7 @@ public class InitCodingBatTaskTrigger {
             AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer(Task.class);
 
             appDataJsonSerializer.save(collections, dbJsonPath);
+            LOG.info("Tasks collection save in json");
 
             return true;
         }
@@ -73,6 +74,7 @@ public class InitCodingBatTaskTrigger {
                 LOG.warn(e.getMessage());
             }
         }
+        LOG.info("Tasks collection from json put in DB.");
     }
 
     /**
@@ -80,8 +82,8 @@ public class InitCodingBatTaskTrigger {
      */
     public static void createDumpOfDataBase() throws IOException, InterruptedException {
             String dbName = AppPropertiesHolder.getProperty("mongo.db");
-            Process process = Runtime.getRuntime().exec("mongodump --db "+dbName);
-            LOG.info("Create dump from db");
+            Process process = Runtime.getRuntime().exec("mongodump --db "  + dbName);
+            LOG.info("Created dump from DB.");
             process.waitFor();
     }
 
@@ -90,7 +92,7 @@ public class InitCodingBatTaskTrigger {
      */
     public static void restoreDataBaseFromDump() throws IOException, InterruptedException {
             Process process = Runtime.getRuntime().exec("mongorestore dump");
-            LOG.info("Restore db from dump");
+            LOG.info("Restore DB from dump.");
             process.waitFor();
             LOG.debug(getData(process.getErrorStream()));
     }
