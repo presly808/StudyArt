@@ -9,9 +9,6 @@ import ua.artcode.utils.dynamic_compile.MethodInvoker;
 
 import java.util.List;
 
-/**
- * TODO create interface, SOLID code
- */
 public class TestRunner {
 
     public static TaskTestResult run(MethodInvoker method, TaskTestDataContainer taskTestData) {

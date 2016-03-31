@@ -7,7 +7,7 @@
 
 <body>
 <form action="${pageContext.request.contextPath}/task-menu/do-task" method="post">
-    <spring:message code="title"/>:<p><input name="taskId"></p>
+    <spring:message code="title"/>:<p><input name="title"></p>
     <p><input type="submit" value="<spring:message code="menu.find"/>"></p>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>

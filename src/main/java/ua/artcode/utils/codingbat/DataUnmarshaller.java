@@ -36,7 +36,6 @@ public class DataUnmarshaller {
         }
     }
 
-    //TODO think about collection (List, Set, Map)
     private TestArg convertDispatcher(String type, Object val) {
         String value = val.toString();
         TestArg testArg = new TestArg();

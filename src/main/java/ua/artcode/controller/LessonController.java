@@ -130,7 +130,7 @@ public class LessonController {
         }
         return mav;
     }
-    //TODO
+
     @RequestMapping(value = "/update-lesson")
     public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
@@ -164,7 +164,8 @@ public class LessonController {
                 mav.addObject("message", e.getMessage());
                 mav.setViewName("main/lesson-menu");
             } catch (NoSuchLessonException e) {
-                e.printStackTrace();
+                mav.addObject("message", e.getMessage());
+                mav.setViewName("main/lesson-menu");
             }
         }
         return mav;

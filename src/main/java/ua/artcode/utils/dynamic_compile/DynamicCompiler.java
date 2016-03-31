@@ -17,11 +17,11 @@ import java.net.URLClassLoader;
 /**
  * use command for compile javac -cp /home/serhii/dev/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/classes/ /home/serhii/dev/javafun/temp/_sum59382.java
  */
-//TODO avoid static , add field root, resolve multithreading using stream
+
 public class DynamicCompiler {
     private static final Logger LOG = Logger.getLogger(DynamicCompiler.class);
-    public static final String LIBS_CLASSPATH = "/apache-tomcat/webapps/ROOT/WEB-INF/classes/";
-    //public static final String LIBS_CLASSPATH = getLibsClasspath();
+    //public static final String LIBS_CLASSPATH = "/apache-tomcat/webapps/ROOT/WEB-INF/classes/";
+    public static final String LIBS_CLASSPATH = getLibsClasspath();
 
     private static String getLibsClasspath() {
         StringBuilder classPaths = new StringBuilder();

@@ -156,34 +156,8 @@ public class TaskController {
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTasksPost(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("task/do-task");
-        try {
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String name = userDetails.getUsername();
-            User user = userService.findUser(name);
-            String template;
-
-            //TODO taskId change to title in jsp
-            String title = req.getParameter("taskId");
-            Task task = adminService.findTaskByTitle(title);
-
-            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
-            String userCode = taskTestResult.getUserCode();
-
-            if (userCode != null) {
-                template = userCode;
-            } else {
-                template = task.getTemplate();
-            }
-
-            mav.addObject("template", template);
-            mav.addObject(task);
-        } catch (NoSuchTaskException e) {
-            mav.setViewName("task/find-task");
-            mav.addObject("error", e.getMessage());
-        } catch (NoSuchUserException e) {
-            e.printStackTrace();
-        }
-        return mav;
+        String title = req.getParameter("title");
+        return prepareTask(title,mav);
     }
 
     @RequestMapping(value = "/check-task", method = RequestMethod.POST)
@@ -245,9 +219,9 @@ public class TaskController {
             String email = user.getEmail();
 
             userService.update(email, user);
-            //TODO
+          //todo
         } catch (AppException e) {
-            e.printStackTrace();
+            //mav.addObject("message", "Invalid test points!");
         }
     }
 
@@ -273,8 +247,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/delete-form")
-    public ModelAndView deleteForm() {
-        return new ModelAndView("task/delete-task");
+    public String deleteForm() {
+        return "task/delete-task";
     }
 
     @RequestMapping(value = "/delete-task")

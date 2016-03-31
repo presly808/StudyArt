@@ -32,7 +32,6 @@ public class TemplateProcessor {
 
         Template template = velocityEngine.getTemplate(templatePath, "utf-8"); // download template from file
 
-        //TODO hold template in app for optimization
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(srcFileDest)))) {
             template.merge(vc, bw); // метод merge() принимает набор данных в виде объекта "vc" и объект потока "bw"
             bw.flush();
