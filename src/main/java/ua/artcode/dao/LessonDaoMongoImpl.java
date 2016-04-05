@@ -11,6 +11,7 @@ import ua.artcode.model.common.Lesson;
 import ua.artcode.model.codingbat.Task;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Created by Razer on 08.02.16.
@@ -74,6 +75,8 @@ public class LessonDaoMongoImpl implements LessonDao {
         if (lesson == null) {
             LOG.debug("The lesson has been not founded. By title: " + title);
             throw new NoSuchLessonException("There is no lesson with title: " + title);
+            //TODO
+            //throw new NoSuchLessonException(ResourceBundle.getBundle("lesson.not.found").toString());
         }
         return lesson;
     }

@@ -76,7 +76,7 @@ public class LessonController {
             mav.addObject("title047163Lesson", map.get("title"));
             mav.addObject("tasks", map.get("tasks"));
         } else {
-            attributes.addFlashAttribute("message", "Lesson created successful");
+            attributes.addFlashAttribute("message", "Lesson created successfully.");
             mav.setViewName("redirect:/lesson-menu");
         }
         return mav;
