@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
@@ -94,7 +94,7 @@ public class CourseController {
             teacherService.updateCourse(course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
-        } catch (AppException e) {
+        } catch (DuplicateDataException e) {
             mav.addObject("message", e.getMessage());
         } catch (NoSuchCourseException e) {
             mav.addObject("message", e.getMessage());
@@ -137,7 +137,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/update-course")
-    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) throws AppException, NoSuchCourseException {
+    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes)  {
         ModelAndView mav = new ModelAndView("course/edit-course");
         List<Lesson> lessonInCourse = new ArrayList<>();
         List<Lesson> allLessons = teacherService.getAllLessons();
@@ -162,6 +162,8 @@ public class CourseController {
             } catch (NoSuchCourseException e) {
                 redirectAttributes.addFlashAttribute("message", e.getMessage());
                 mav.setViewName("redirect:/course-menu");
+            } catch (DuplicateDataException e){
+                mav.addObject("message", e.getMessage());
             }
         }
         return mav;

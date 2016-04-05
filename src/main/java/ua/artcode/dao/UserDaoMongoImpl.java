@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.User;
 import ua.artcode.utils.Security;
@@ -40,9 +40,16 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public void update(String email, User user) throws AppException,DuplicateKeyException {
-        delete(email);
-        datastore.save(user);
+    public void update(String email, User user) throws NoSuchUserException, DuplicateDataException {
+        User oldUser = findByEmail(email);
+        try {
+            delete(email);
+            datastore.save(user);
+        } catch (DuplicateKeyException e) {
+            datastore.save(oldUser);
+            throw new DuplicateDataException("User with email: "+user.getEmail()+" is already exist");
+        }
+
         LOG.info("The user has been updated.");
     }
 

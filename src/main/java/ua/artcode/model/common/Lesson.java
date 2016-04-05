@@ -4,16 +4,14 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Reference;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Title;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Razer on 02.02.16.
- */
+
 @Entity
 public class Lesson implements Comparable<Lesson>{
     @Id

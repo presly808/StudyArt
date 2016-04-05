@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
-import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.exception.NoSuchUserException;
-import ua.artcode.model.codingbat.Task;
-import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.exception.*;
+import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.model.common.User;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
@@ -103,7 +100,9 @@ public class TaskController {
             } catch (AppValidationException e) {
                 req.setAttribute("message", "Invalid test points");
                 redirectAttributes.addFlashAttribute("id", id);
-            } catch (AppException e) {
+            } catch (NoSuchTaskException e) {
+                req.setAttribute("message", e.getMessage());
+            } catch (DuplicateDataException e) {
                 req.setAttribute("message", e.getMessage());
             }
         }
@@ -144,46 +143,20 @@ public class TaskController {
             mav.addObject("message", e.getMessage());
             mav.setViewName("main/task-menu");
         }
-        return  mav;
+        return mav;
     }
 
     @RequestMapping(value = "/show-solution/{title}", method = RequestMethod.GET)
     public ModelAndView showSolution(@PathVariable String title) {
         ModelAndView mav = new ModelAndView("task/show-solution");
-        return prepareTask(title,mav);
+        return prepareTask(title, mav);
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTasksPost(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("task/do-task");
-        try {
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String name = userDetails.getUsername();
-            User user = userService.findUser(name);
-            String template;
-
-            //TODO taskId change to title in jsp
-            String title = req.getParameter("taskId");
-            Task task = adminService.findTaskByTitle(title);
-
-            TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
-            String userCode = taskTestResult.getUserCode();
-
-            if (userCode != null) {
-                template = userCode;
-            } else {
-                template = task.getTemplate();
-            }
-
-            mav.addObject("template", template);
-            mav.addObject(task);
-        } catch (NoSuchTaskException e) {
-            mav.setViewName("task/find-task");
-            mav.addObject("error", e.getMessage());
-        } catch (NoSuchUserException e) {
-            e.printStackTrace();
-        }
-        return mav;
+        String title = req.getParameter("title");
+        return prepareTask(title, mav);
     }
 
     @RequestMapping(value = "/check-task", method = RequestMethod.POST)
@@ -223,7 +196,7 @@ public class TaskController {
             e.printStackTrace();
         } catch (NoSuchUserException e) {
             e.printStackTrace();
-        } catch (AppException e) {
+        } catch (DuplicateDataException e) {
             e.printStackTrace();
         }
         return mav;
@@ -245,9 +218,9 @@ public class TaskController {
             String email = user.getEmail();
 
             userService.update(email, user);
-            //TODO
+            //todo
         } catch (AppException e) {
-            e.printStackTrace();
+            //mav.addObject("message", "Invalid test points!");
         }
     }
 
@@ -273,8 +246,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/delete-form")
-    public ModelAndView deleteForm() {
-        return new ModelAndView("task/delete-task");
+    public String deleteForm() {
+        return "task/delete-task";
     }
 
     @RequestMapping(value = "/delete-task")

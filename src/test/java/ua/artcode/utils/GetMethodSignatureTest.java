@@ -3,7 +3,7 @@ package ua.artcode.utils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.artcode.model.codingbat.MethodSignature;
+import ua.artcode.model.taskComponent.MethodSignature;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 

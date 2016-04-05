@@ -1,9 +1,9 @@
 package ua.artcode.utils.codingbat;
 
 import org.apache.commons.lang.StringUtils;
-import ua.artcode.model.codingbat.Task;
-import ua.artcode.model.codingbat.TaskTestData;
-import ua.artcode.model.codingbat.TestArg;
+import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.taskComponent.TaskTestData;
+import ua.artcode.model.taskComponent.TestArg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,6 @@ public class DataUnmarshaller {
         }
     }
 
-    //TODO think about collection (List, Set, Map)
     private TestArg convertDispatcher(String type, Object val) {
         String value = val.toString();
         TestArg testArg = new TestArg();

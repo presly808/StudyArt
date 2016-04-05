@@ -2,9 +2,9 @@ package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface TaskDao {
 
     boolean delete(String title) throws NoSuchTaskException;
 
-    Task update(ObjectId id, Task updateTask) throws AppException;
+    Task update(ObjectId id, Task updateTask) throws NoSuchTaskException, DuplicateDataException;
 
     List<Task> getAll();
 

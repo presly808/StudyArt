@@ -1,12 +1,15 @@
-package ua.artcode.model.codingbat;
+package ua.artcode.model.taskComponent;
 
 import org.mongodb.morphia.annotations.Embedded;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// parsed template
-
+/**
+ * public String name(int a,int b){}
+ * String-returnType
+ * int a,b-inArg
+ */
 @Embedded
 public class MethodSignature {
 

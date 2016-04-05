@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.TaskDaoMongoImpl;
 import ua.artcode.exception.AppValidationException;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 import ua.artcode.utils.SpringContext;
 import ua.artcode.utils.codingbat.CodingBatTaskGrabber;
 import ua.artcode.utils.io.AppPropertiesHolder;

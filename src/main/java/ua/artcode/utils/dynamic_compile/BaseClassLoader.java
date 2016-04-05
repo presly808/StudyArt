@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-//todo try to init class loader only once for several loading
+
 public class BaseClassLoader {
 
     private static final Logger LOG = Logger.getLogger(BaseClassLoader.class);

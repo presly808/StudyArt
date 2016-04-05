@@ -1,10 +1,17 @@
-package ua.artcode.model.codingbat;
+package ua.artcode.model.taskComponent;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class generate after run task
+ * actualValues - task return actual value
+ * expectedValues - data that task must return after run
+ * results - results of compare actual and expected values (oK or X)
+ * status - final result
+ */
 
 public class TaskTestResult {
 

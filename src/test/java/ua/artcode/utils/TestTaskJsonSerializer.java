@@ -3,7 +3,7 @@ package ua.artcode.utils;
 import jdk.nashorn.internal.runtime.Source;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 import ua.artcode.utils.io.FileUtils;
 import ua.artcode.utils.serialization.AppDataJsonSerializer;
 

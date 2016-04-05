@@ -7,7 +7,7 @@ package ua.artcode.preprocess;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import ua.artcode.model.codingbat.TestArg;
+import ua.artcode.model.taskComponent.TestArg;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -32,7 +32,6 @@ public class TemplateProcessor {
 
         Template template = velocityEngine.getTemplate(templatePath, "utf-8"); // download template from file
 
-        //TODO hold template in app for optimization
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(srcFileDest)))) {
             template.merge(vc, bw); // метод merge() принимает набор данных в виде объекта "vc" и объект потока "bw"
             bw.flush();

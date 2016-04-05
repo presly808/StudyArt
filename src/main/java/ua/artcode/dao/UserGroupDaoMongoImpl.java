@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
@@ -35,9 +35,15 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
-    public void update(ObjectId id, UserGroup userGroup) throws NoSuchGroupException, AppException {
-        delete(id);
-        addGroup(userGroup);
+    public void update(ObjectId id, UserGroup userGroup) throws NoSuchGroupException, DuplicateDataException {
+        UserGroup oldUserGroup = find(id);
+        try {
+            delete(id);
+            addGroup(userGroup);
+        } catch (DuplicateKeyException e) {
+            addGroup(oldUserGroup);
+            throw new DuplicateDataException("The group with name: "+userGroup.getName()+" is already exist!");
+        }
         LOG.info("The Group of users has been updated.");
     }
 
@@ -87,7 +93,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
-    public List<UserGroup> getAll()  {
+    public List<UserGroup> getAll() {
         return datastore.find(UserGroup.class).asList();
     }
 
@@ -106,10 +112,10 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
     }
 
     @Override
-    public void addUserToGroup(String name, User user) throws NoSuchGroupException, AppException {
+    public void addUserToGroup(String name, User user) throws NoSuchGroupException, DuplicateDataException {
         UserGroup userGroup = find(name);
         List<User> userList = userGroup.getStudents();
         userList.add(user);
-        update(userGroup.getId(),userGroup);
+        update(userGroup.getId(), userGroup);
     }
 }

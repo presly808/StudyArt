@@ -3,7 +3,7 @@ package ua.artcode.exception;
 /**
  * Created by Razer on 08.02.16.
  */
-public class NoSuchLessonException extends Exception {
+public class NoSuchLessonException extends AppException {
 
     public NoSuchLessonException() {
     }

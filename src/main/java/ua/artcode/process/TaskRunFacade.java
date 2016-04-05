@@ -1,9 +1,9 @@
 package ua.artcode.process;
 
 import org.apache.log4j.Logger;
-import ua.artcode.model.codingbat.Task;
-import ua.artcode.model.codingbat.TaskTestResult;
-import ua.artcode.model.codingbat.TestArg;
+import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.taskComponent.TaskTestResult;
+import ua.artcode.model.taskComponent.TestArg;
 import ua.artcode.preprocess.TemplateProcessor;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 import ua.artcode.utils.codingbat.DataUnmarshaller;

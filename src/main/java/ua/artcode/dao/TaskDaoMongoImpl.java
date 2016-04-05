@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 
 import java.util.List;
 
@@ -41,10 +41,16 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public Task update(ObjectId id, Task task) throws AppException {
-        delete(id);
-        task.setId(id);
-        add(task);
+    public Task update(ObjectId id, Task task) throws NoSuchTaskException, DuplicateDataException {
+        Task oldTask = find(id);
+        try {
+            delete(id);
+            task.setId(id);
+            add(task);
+        } catch (DuplicateKeyException e) {
+            add(oldTask);
+            throw new DuplicateDataException("The task with title: "+task.getTitle()+" is already exist!");
+        }
         LOG.info("The task has been updated.");
         return task;
     }

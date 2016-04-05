@@ -2,15 +2,12 @@ package ua.artcode.service;
 
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
-import ua.artcode.exception.AppException;
-import ua.artcode.exception.NoSuchCourseException;
-import ua.artcode.exception.NoSuchGroupException;
-import ua.artcode.exception.NoSuchLessonException;
+import ua.artcode.exception.*;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 
 import java.util.List;
 
@@ -34,7 +31,7 @@ public interface TeacherService {
 
     boolean deleteLessonById(ObjectId id) throws NoSuchLessonException;
 
-    void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
+    void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException,  DuplicateDataException;
 
     int sizeOfLesson();
 
@@ -45,9 +42,9 @@ public interface TeacherService {
 
     List<Course> getAllCourses();
 
-    void updateCourse(Course course) throws NoSuchCourseException, AppException;
+    void updateCourse(Course course) throws NoSuchCourseException, DuplicateDataException;
 
-    void updateCourse(ObjectId id, Course course) throws NoSuchCourseException, AppException;
+    void updateCourse(ObjectId id, Course course) throws NoSuchCourseException, DuplicateDataException;
 
     Course findCourseByTitle(String title) throws NoSuchCourseException;
 
@@ -60,9 +57,9 @@ public interface TeacherService {
 
     boolean deleteGroup(String name) throws NoSuchGroupException;
 
-    void addUserToGroup(String name, User user) throws AppException, NoSuchGroupException;
+    void addUserToGroup(String name, User user) throws DuplicateDataException, NoSuchGroupException;
 
-    void updateGroup(ObjectId id,UserGroup userGroup) throws AppException, NoSuchGroupException;
+    void updateGroup(ObjectId id,UserGroup userGroup) throws  DuplicateDataException, NoSuchGroupException;
 
     List<UserGroup> getAllGroups() throws AppException;
 

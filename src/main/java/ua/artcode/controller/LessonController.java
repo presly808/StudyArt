@@ -12,8 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 import ua.artcode.model.common.Lesson;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
@@ -101,8 +102,12 @@ public class LessonController {
             mav.setViewName("redirect:/lesson-menu");
         } catch (NoSuchLessonException e) {
             mav.addObject("message", e.getMessage());
-        } catch (AppException e) {
+        } catch (DuplicateDataException e) {
             mav.addObject("message", e.getMessage());
+        }
+        //TODO
+        catch (AppException e){
+
         }
         return mav;
     }
@@ -130,7 +135,8 @@ public class LessonController {
         }
         return mav;
     }
-    //TODO
+
+    //TODO update in mongodb
     @RequestMapping(value = "/update-lesson")
     public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
@@ -160,11 +166,15 @@ public class LessonController {
                 teacherService.updateLesson(lesson.getId(), lesson);
                 redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
                 mav.setViewName("redirect:/lesson-menu");
-            } catch (AppException e) {
+                //TODO
+            } catch (DuplicateDataException e) {
+                mav.addObject("message", e.getMessage());
+                mav.setViewName("lesson/edit-lesson");
+                mav.addObject("tasksInLesson", taskInLesson);
+                mav.addObject("allTasks", allTasks);
+            } catch (NoSuchLessonException e) {
                 mav.addObject("message", e.getMessage());
                 mav.setViewName("main/lesson-menu");
-            } catch (NoSuchLessonException e) {
-                e.printStackTrace();
             }
         }
         return mav;

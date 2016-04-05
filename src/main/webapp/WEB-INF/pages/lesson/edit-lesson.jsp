@@ -24,9 +24,13 @@
         <form:errors path="description"/>
     </label><br>
 
+    <c:if test="${message != null}">
+        <p style="color:red"><c:out value="${message}"/><p>
+    </c:if>
+
     <c:forEach var="task" items="${tasksInLesson}">
         <div align="center">
-            <p><input type="checkbox" checked="checked" name="${task.title}">${task.title}</p>
+        <p><input type="checkbox" checked="checked" name="${task.title}">${task.title}</p>
         </div>
     </c:forEach>
 

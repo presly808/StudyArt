@@ -2,25 +2,23 @@ package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 
 import java.util.List;
 
-/**
- * Created by Razer on 08.02.16.
- */
+
 public interface LessonDao {
 
     void add(Lesson lesson) throws DuplicateKeyException;
 
-    void update(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException;
+    void update(ObjectId id,Lesson lesson) throws NoSuchLessonException, DuplicateDataException;
 
     List<Lesson> getAll();
 
-    void addTask(String title, Task codingBatTask) throws NoSuchLessonException, AppException;
+    void addTask(String title, Task codingBatTask) throws NoSuchLessonException, DuplicateDataException;
 
     boolean delete(String title) throws NoSuchLessonException;
 

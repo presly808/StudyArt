@@ -8,13 +8,10 @@ import org.springframework.stereotype.Service;
 import ua.artcode.dao.CourseDao;
 import ua.artcode.dao.LessonDao;
 import ua.artcode.dao.UserGroupDao;
-import ua.artcode.exception.AppException;
-import ua.artcode.exception.NoSuchCourseException;
-import ua.artcode.exception.NoSuchGroupException;
-import ua.artcode.exception.NoSuchLessonException;
+import ua.artcode.exception.*;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 
@@ -32,7 +29,7 @@ public class TeacherServiceImpl implements TeacherService {
     private LessonDao lessonDao;
 
     @Override
-    public void updateCourse(ObjectId id, Course course) throws NoSuchCourseException, AppException {
+    public void updateCourse(ObjectId id, Course course) throws NoSuchCourseException,DuplicateDataException {
         courseDao.update(id, course);
     }
 
@@ -53,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void addTaskToLesson(String title, Task codingBatTask) throws NoSuchLessonException, AppException {
+    public void addTaskToLesson(String title, Task codingBatTask) throws NoSuchLessonException, DuplicateDataException {
         lessonDao.addTask(title,codingBatTask);
     }
 
@@ -63,7 +60,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, AppException {
+    public void updateLesson(ObjectId id,Lesson lesson) throws NoSuchLessonException, DuplicateDataException{
         lessonDao.update(id,lesson);
     }
 
@@ -120,7 +117,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateCourse(Course course) throws NoSuchCourseException, AppException {
+    public void updateCourse(Course course) throws NoSuchCourseException, DuplicateDataException {
         courseDao.update(course);
     }
 
@@ -157,12 +154,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void addUserToGroup(String name, User user) throws AppException, NoSuchGroupException {
+    public void addUserToGroup(String name, User user) throws DuplicateDataException, NoSuchGroupException {
         userGroupDao.addUserToGroup(name,user);
     }
 
     @Override
-    public void updateGroup(ObjectId id,UserGroup userGroup) throws AppException, NoSuchGroupException {
+    public void updateGroup(ObjectId id,UserGroup userGroup) throws DuplicateDataException, NoSuchGroupException {
         userGroupDao.update(id,userGroup);
     }
 

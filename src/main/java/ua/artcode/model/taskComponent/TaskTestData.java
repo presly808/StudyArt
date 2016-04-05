@@ -1,4 +1,4 @@
-package ua.artcode.model.codingbat;
+package ua.artcode.model.taskComponent;
 
 import java.util.List;
 
@@ -17,7 +17,6 @@ public class TaskTestData {
 
     public TaskTestData() {
     }
-
 
     public TaskTestData(List expectedValue, List inData) {
         this.expectedValue = expectedValue;

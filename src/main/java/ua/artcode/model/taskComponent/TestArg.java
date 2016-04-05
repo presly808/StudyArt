@@ -1,4 +1,4 @@
-package ua.artcode.model.codingbat;
+package ua.artcode.model.taskComponent;
 
 import java.io.Serializable;
 
@@ -11,7 +11,6 @@ public class TestArg implements Serializable {
     public TestArg() {
     }
 
-    //constructor for return type and value
     public TestArg(String type, Object value) {
         this.type = type;
         this.value = value;

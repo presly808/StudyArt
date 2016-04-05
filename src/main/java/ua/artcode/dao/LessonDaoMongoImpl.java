@@ -5,10 +5,10 @@ import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,7 +35,7 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public void addTask(String title, Task task) throws NoSuchLessonException, AppException {
+    public void addTask(String title, Task task) throws NoSuchLessonException, DuplicateDataException {
         Lesson lesson = find(title);
         List<Task> taskList = lesson.getTasks();
         taskList.add(task);
@@ -44,9 +44,15 @@ public class LessonDaoMongoImpl implements LessonDao {
     }
 
     @Override
-    public void update(ObjectId id, Lesson lesson) throws NoSuchLessonException, AppException {
-        delete(id);
-        add(lesson);
+    public void update(ObjectId id, Lesson lesson) throws NoSuchLessonException, DuplicateDataException {
+        Lesson oldLesson = find(id);
+        try {
+            delete(id);
+            add(lesson);
+        } catch (DuplicateKeyException e) {
+            add(oldLesson);
+            throw new DuplicateDataException("Lesson with title: "+lesson.getTitle()+" is already exist");
+        }
         LOG.info("The lesson has been updated.");
     }
 
