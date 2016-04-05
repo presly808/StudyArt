@@ -1,11 +1,9 @@
-package ua.artcode.model.codingbat;
+package ua.artcode.model.taskComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by serhii on 25.11.15.
- */
+
 
 public class TaskTestDataContainer {
 

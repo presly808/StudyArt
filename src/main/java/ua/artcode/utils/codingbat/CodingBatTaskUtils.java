@@ -12,7 +12,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import ua.artcode.exception.AppValidationException;
-import ua.artcode.model.codingbat.*;
+import ua.artcode.model.taskComponent.MethodSignature;
+import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.taskComponent.TaskTestData;
+import ua.artcode.model.taskComponent.TaskTestDataContainer;
 
 import java.io.*;
 import java.util.ArrayList;

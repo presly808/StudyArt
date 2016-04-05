@@ -1,4 +1,4 @@
-package ua.artcode.model.codingbat;
+package ua.artcode.model.taskComponent;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;

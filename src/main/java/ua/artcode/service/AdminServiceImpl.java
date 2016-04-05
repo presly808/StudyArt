@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Task update(ObjectId id,Task updateTask) throws AppException {
+    public Task update(ObjectId id,Task updateTask) throws NoSuchTaskException , DuplicateDataException{
         return taskDao.update(id,updateTask);
     }
 

@@ -2,9 +2,9 @@ package ua.artcode.process;
 
 
 import org.apache.log4j.Logger;
-import ua.artcode.model.codingbat.TaskTestData;
-import ua.artcode.model.codingbat.TaskTestDataContainer;
-import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.model.taskComponent.TaskTestData;
+import ua.artcode.model.taskComponent.TaskTestDataContainer;
+import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 import ua.artcode.utils.dynamic_compile.MethodInvoker;
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.common.User;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(String email, User user) throws AppException,DuplicateKeyException {
+    public void update(String email, User user) throws NoSuchUserException,DuplicateDataException {
         userDao.update(email,user);
     }
 

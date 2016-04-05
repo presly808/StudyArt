@@ -3,7 +3,7 @@ package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
@@ -24,9 +24,9 @@ public interface UserGroupDao {
 
     void addGroup(UserGroup group)  throws DuplicateKeyException;
 
-    void addUserToGroup(String name, User user) throws NoSuchGroupException, AppException;
+    void addUserToGroup(String name, User user) throws NoSuchGroupException, DuplicateDataException;
 
-    void update(ObjectId id,UserGroup userGroup) throws NoSuchGroupException, AppException;
+    void update(ObjectId id,UserGroup userGroup) throws NoSuchGroupException, DuplicateDataException;
 
     boolean isExist(String name);
 

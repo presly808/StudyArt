@@ -5,15 +5,13 @@ import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.common.Course;
 
 import java.util.List;
 
-/**
- * Created by Razer on 02.02.16.
- */
+
 public class CourseDaoMongoImpl implements CourseDao {
 
     private Datastore datastore;
@@ -38,16 +36,27 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     @Override
-    public void update(ObjectId id, Course course) throws NoSuchCourseException, AppException {
-        delete(id);
-        add(course);
+    public void update(ObjectId id, Course course) throws NoSuchCourseException, DuplicateDataException {
+        Course oldCourse = find(id);
+        try {
+            delete(id);
+            add(course);
+        } catch (DuplicateKeyException e) {
+            add(oldCourse);
+            throw new DuplicateDataException("Course with title: " + course.getTitle() + " already exist!");
+        }
         LOG.info("The course has been updated.");
     }
 
     @Override
-    public void update(Course course) throws NoSuchCourseException, AppException {
-        delete(course.getTitle());
-        add(course);
+    public void update(Course course) throws NoSuchCourseException {
+        Course oldCourse = find(course.getId());
+        try {
+            delete(course.getId());
+            add(course);
+        } catch (DuplicateKeyException e) {
+            add(oldCourse);
+        }
         LOG.info("The course has been updated.");
     }
 

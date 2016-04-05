@@ -1,6 +1,4 @@
-package ua.artcode.model.codingbat;
-
-import ua.artcode.model.codingbat.TaskTestResult;
+package ua.artcode.model.taskComponent;
 
 import java.util.List;
 

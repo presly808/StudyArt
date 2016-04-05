@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
-import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.exception.NoSuchUserException;
-import ua.artcode.model.codingbat.Task;
-import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.exception.*;
+import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.model.common.User;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
@@ -103,7 +100,9 @@ public class TaskController {
             } catch (AppValidationException e) {
                 req.setAttribute("message", "Invalid test points");
                 redirectAttributes.addFlashAttribute("id", id);
-            } catch (AppException e) {
+            } catch (NoSuchTaskException e) {
+                req.setAttribute("message", e.getMessage());
+            } catch (DuplicateDataException e) {
                 req.setAttribute("message", e.getMessage());
             }
         }
@@ -144,20 +143,20 @@ public class TaskController {
             mav.addObject("message", e.getMessage());
             mav.setViewName("main/task-menu");
         }
-        return  mav;
+        return mav;
     }
 
     @RequestMapping(value = "/show-solution/{title}", method = RequestMethod.GET)
     public ModelAndView showSolution(@PathVariable String title) {
         ModelAndView mav = new ModelAndView("task/show-solution");
-        return prepareTask(title,mav);
+        return prepareTask(title, mav);
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
     public ModelAndView doTasksPost(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView("task/do-task");
         String title = req.getParameter("title");
-        return prepareTask(title,mav);
+        return prepareTask(title, mav);
     }
 
     @RequestMapping(value = "/check-task", method = RequestMethod.POST)
@@ -197,7 +196,7 @@ public class TaskController {
             e.printStackTrace();
         } catch (NoSuchUserException e) {
             e.printStackTrace();
-        } catch (AppException e) {
+        } catch (DuplicateDataException e) {
             e.printStackTrace();
         }
         return mav;
@@ -219,7 +218,7 @@ public class TaskController {
             String email = user.getEmail();
 
             userService.update(email, user);
-          //todo
+            //todo
         } catch (AppException e) {
             //mav.addObject("message", "Invalid test points!");
         }

@@ -1,4 +1,4 @@
-package ua.artcode.model.codingbat;
+package ua.artcode.model.taskComponent;
 
 /**
  * Created by Razer on 13.12.15.

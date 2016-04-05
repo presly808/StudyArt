@@ -2,20 +2,18 @@ package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
-import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.common.Course;
 
 import java.util.List;
 
-/**
- * Created by Razer on 02.02.16.
- */
+
 public interface CourseDao {
 
     void add(Course course) throws DuplicateKeyException;
 
-    void update(ObjectId id,Course course) throws NoSuchCourseException, AppException;
+    void update(ObjectId id,Course course) throws NoSuchCourseException, DuplicateDataException;
 
     boolean delete(ObjectId id) throws NoSuchCourseException;
 
@@ -31,6 +29,6 @@ public interface CourseDao {
 
     List<Course> getAll();
 
-    void update(Course course) throws NoSuchCourseException, AppException;
+    void update(Course course) throws NoSuchCourseException, DuplicateDataException;
 
 }

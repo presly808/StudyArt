@@ -5,7 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import ua.artcode.model.codingbat.Task;
+import ua.artcode.model.taskComponent.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package ua.artcode.to;
 
-import ua.artcode.model.codingbat.Task;
-import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 import java.util.ArrayList;

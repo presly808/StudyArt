@@ -38,6 +38,7 @@ public class UserGroup {
         this.description = description;
     }
 
+
     public ObjectId getId() {
         return id;
     }

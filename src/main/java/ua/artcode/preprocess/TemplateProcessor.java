@@ -7,7 +7,7 @@ package ua.artcode.preprocess;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import ua.artcode.model.codingbat.TestArg;
+import ua.artcode.model.taskComponent.TestArg;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

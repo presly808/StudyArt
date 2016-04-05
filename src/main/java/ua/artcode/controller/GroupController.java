@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
+import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchGroupException;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
@@ -94,7 +95,7 @@ public class GroupController {
                 }
             }
             teacherService.updateGroup(userGroup.getId(), userGroup);
-        } catch (AppException e) {
+        } catch (DuplicateDataException e) {
             mav.addObject("message", e.getMessage());
         } catch (NoSuchGroupException e) {
             mav.addObject("message", e.getMessage());
@@ -157,7 +158,8 @@ public class GroupController {
                 teacherService.updateGroup(userGroup.getId(), userGroup);
                 redirectAttributes.addFlashAttribute("message", "The group has been successfully updated.");
                 mav.setViewName("redirect:/group-menu");
-            } catch (AppException e) {
+                //TODO
+            } catch (DuplicateDataException e) {
                 mav.addObject("message", e.getMessage());
 
             } catch (NoSuchGroupException e) {

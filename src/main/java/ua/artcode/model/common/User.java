@@ -5,7 +5,7 @@ import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
-import ua.artcode.model.codingbat.TaskTestResult;
+import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.validation.Email;
 import ua.artcode.validation.Password;
 import ua.artcode.validation.UserName;
@@ -37,11 +37,8 @@ public class User implements Comparable<User> {
     @Embedded
     private Map<ObjectId, TaskTestResult> solvedTaskContainer = new HashMap<>();
 
-    public User() {
-    }
 
-    public void addSolvedTask(ObjectId id,TaskTestResult taskTestResult){
-        solvedTaskContainer.put(id,taskTestResult);
+    public User() {
     }
 
     public User(String name, String password, String email) {
@@ -58,12 +55,22 @@ public class User implements Comparable<User> {
         this.userType = userType;
     }
 
+
+
     public Map<ObjectId, TaskTestResult> getSolvedTaskContainer() {
         return solvedTaskContainer;
     }
 
     public void setSolvedTaskContainer(Map<ObjectId, TaskTestResult> solvedTaskContainer) {
         this.solvedTaskContainer = solvedTaskContainer;
+    }
+
+    public void addSolvedTask(ObjectId id,TaskTestResult taskTestResult){
+        solvedTaskContainer.put(id,taskTestResult);
+    }
+
+    public TaskTestResult getSolvedTask(ObjectId id)  {
+        return  solvedTaskContainer.get(id);
     }
 
     public String getPassword() {
@@ -89,7 +96,6 @@ public class User implements Comparable<User> {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getEmail() {
         return email;
@@ -127,8 +133,4 @@ public class User implements Comparable<User> {
         return this.id.compareTo(o.id);
     }
 
-
-    public TaskTestResult getSolvedTask(ObjectId id)  {
-      return  solvedTaskContainer.get(id);
-    }
 }
