@@ -14,11 +14,14 @@ public class Task implements Comparable<Task> {
 
     @Id
     private ObjectId id;
+
     @Title
     private String groupName;
+
     @Title
     @Indexed(unique = true)
     private String title;
+
     @Description
     private String description;
     @Description

@@ -10,7 +10,7 @@
 <h1><spring:message code="title.create.new.task"/></h1>
 
 
-<form:form action="${pageContext.request.contextPath}/task-menu/create-task" modelAttribute="task"
+<form:form action="${pageContext.request.contextPath}/task-menu/add-task" modelAttribute="task"
            method="post">
     <spring:message code="create.task.name"/>:<br>
     <label>
