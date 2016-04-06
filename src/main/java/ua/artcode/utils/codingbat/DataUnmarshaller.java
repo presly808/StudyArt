@@ -1,7 +1,7 @@
 package ua.artcode.utils.codingbat;
 
 import org.apache.commons.lang.StringUtils;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.taskComponent.TaskTestData;
 import ua.artcode.model.taskComponent.TestArg;
 

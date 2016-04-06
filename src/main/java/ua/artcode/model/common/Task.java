@@ -1,9 +1,11 @@
-package ua.artcode.model.taskComponent;
+package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
+import ua.artcode.model.taskComponent.MethodSignature;
+import ua.artcode.model.taskComponent.TaskTestDataContainer;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Template;
 import ua.artcode.validation.Title;

@@ -4,7 +4,7 @@ import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
 

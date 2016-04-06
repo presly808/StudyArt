@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.common.Lesson;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;

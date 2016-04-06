@@ -8,10 +8,9 @@ import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * Created by Razer on 08.02.16.

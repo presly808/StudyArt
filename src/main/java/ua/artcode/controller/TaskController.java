@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.*;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.model.common.User;
 import ua.artcode.process.TaskRunFacade;

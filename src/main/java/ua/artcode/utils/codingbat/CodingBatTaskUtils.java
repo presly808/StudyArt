@@ -11,10 +11,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.model.taskComponent.MethodSignature;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.taskComponent.TaskTestData;
 import ua.artcode.model.taskComponent.TaskTestDataContainer;
 

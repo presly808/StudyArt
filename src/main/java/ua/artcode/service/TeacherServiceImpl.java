@@ -11,7 +11,7 @@ import ua.artcode.dao.UserGroupDao;
 import ua.artcode.exception.*;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 
