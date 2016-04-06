@@ -20,6 +20,6 @@ public class DescriptionValidator implements ConstraintValidator<Description, St
         // allowed 0 - 5 white spaces, then must be at least one letter,
         // after that any characters. Length 10 - 1000.
         // Can use special symbols as (.,:;!@#$%?-=+{}[]).
-        return description.matches("\\s{0,5}[a-zA-z][\\w\\s\\n-.,;:=?@{}\\[\\]]{9,1000}");
+        return description.matches("\\s{0,5}[a-zA-z][\\w\\s\\n-.,;\u2192:=?@{}\\[\\]]{9,1000}");
     }
 }

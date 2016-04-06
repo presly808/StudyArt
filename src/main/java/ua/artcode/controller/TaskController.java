@@ -86,7 +86,7 @@ public class TaskController {
 
     @RequestMapping(value = "/update-task", method = RequestMethod.POST)
     public ModelAndView updateTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView("redirect:/task-menu/edit-task");
+        ModelAndView mav = new ModelAndView("task/edit-task");
         if (!result.hasErrors()) {
             String id = req.getParameter("id");
             try {
