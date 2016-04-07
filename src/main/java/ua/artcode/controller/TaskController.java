@@ -51,6 +51,7 @@ public class TaskController {
     @RequestMapping(value = "/create-task")
     public ModelAndView addTask() {
         ModelAndView mav = new ModelAndView("task/create-task");
+        mav.addObject("title", "Create task");
         mav.addObject("task", new Task());
         return mav;
     }
@@ -60,6 +61,7 @@ public class TaskController {
         ModelAndView mav = new ModelAndView("task/create-task");
         String testData = req.getParameter("data_points");
         String solution = req.getParameter("code_solution");
+        String operationType = req.getParameter("title");
         if (!result.hasErrors()) {
             try {
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
@@ -67,9 +69,16 @@ public class TaskController {
 
                 TaskTestResult testResult = taskRunFacade.runTask(task, solution);
                 if (testResult.getPassedAll()) {
-                    adminService.addTask(task);
-                    mav.setViewName("redirect:/task-menu");
-                    redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
+                    if (operationType.equals("Create task")) {
+                        adminService.addTask(task);
+                        mav.setViewName("redirect:/task-menu");
+                        redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
+                    } else {
+                        adminService.update(task.getId(), task);
+                        mav.setViewName("redirect:/task-menu");
+                        redirectAttributes.addFlashAttribute("message", "The task has been successfully updated.");
+                    }
+
                 } else {
                     mav.addObject("message", "Wrong solution. The task is not verified!");
                 }
@@ -78,12 +87,47 @@ public class TaskController {
                 mav.addObject("message", "Task with title: " + task.getTitle() + " already exist!");
             } catch (AppValidationException e) {
                 mav.addObject("message", "Invalid test points!");
+            } catch (DuplicateDataException e) {
+                mav.addObject("message", e.getMessage());
+            } catch (NoSuchTaskException e) {
+                req.setAttribute("message", e.getMessage());
             }
         }
+        mav.addObject("title", operationType);
         mav.addObject("testData", testData);
         mav.addObject("solution", solution);
         return mav;
     }
+
+    @RequestMapping(value = "/edit-task", method = RequestMethod.POST)
+    public ModelAndView editTask(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("task/create-task");
+        mav.addObject("title", "Edit task");
+        try {
+            String id = req.getParameter("id");
+            Task task = adminService.findTaskById(new ObjectId(id));
+            mav.addObject("task",task);
+            mav.addObject("testData", task.getTaskTestDataContainer().toString());
+            // need Solution field!!!
+        } catch (NoSuchTaskException e) {
+            e.printStackTrace();
+        }
+        return mav;
+    }
+
+//    @RequestMapping(value = "/edit-task", method = RequestMethod.POST)
+//    public ModelAndView editTask(HttpServletRequest req) {
+//        ModelAndView mav = new ModelAndView("task/edit-task");
+//        try {
+//            String id = req.getParameter("id");
+//            Task task = adminService.findTaskById(new ObjectId(id));
+//            mav.addObject(task);
+//            //TODO
+//        } catch (NoSuchTaskException e) {
+//            e.printStackTrace();
+//        }
+//        return mav;
+//    }
 
     @RequestMapping(value = "/update-task", method = RequestMethod.POST)
     public ModelAndView updateTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
@@ -223,20 +267,6 @@ public class TaskController {
         } catch (AppException e) {
             //mav.addObject("message", "Invalid test points!");
         }
-    }
-
-    @RequestMapping(value = "/edit-task", method = RequestMethod.POST)
-    public ModelAndView editTask(HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView("task/edit-task");
-        try {
-            String id = req.getParameter("id");
-            Task task = adminService.findTaskById(new ObjectId(id));
-            mav.addObject(task);
-            //TODO
-        } catch (NoSuchTaskException e) {
-            e.printStackTrace();
-        }
-        return mav;
     }
 
     @RequestMapping(value = "/size")
