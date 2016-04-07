@@ -45,6 +45,6 @@ public class TaskTestData {
 
     @Override
     public String toString() {
-        return expectedValue+"-"+String.join(",",inData);
+        return expectedValue.get(0)+"-"+String.join(",",inData);
     }
 }
