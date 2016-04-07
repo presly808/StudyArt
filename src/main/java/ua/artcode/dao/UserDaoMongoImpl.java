@@ -28,7 +28,7 @@ public class UserDaoMongoImpl implements UserDao {
 
     public UserDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        datastore.ensureIndexes(User.class);
         LOG.debug("UserDaoMongoImpl instance has been created.");
     }
 

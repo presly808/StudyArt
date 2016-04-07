@@ -22,7 +22,7 @@ public class LessonDaoMongoImpl implements LessonDao {
 
     public LessonDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        datastore.ensureIndexes(Lesson.class);
         LOG.debug("LessonDaoMongoImpl instance has been created.");
     }
 

@@ -4,6 +4,7 @@ import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
@@ -23,8 +24,10 @@ public class CourseDaoMongoImpl implements CourseDao {
     }
 
     public CourseDaoMongoImpl(Datastore datastore) {
+        //Morphia morphia = new Morphia();
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        //morphia.map(Course.class);
+        datastore.ensureIndexes(Course.class);
         LOG.debug("CourseDaoMongoImpl instance has been created.");
     }
 

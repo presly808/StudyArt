@@ -29,7 +29,7 @@ public class TaskDaoMongoImpl implements TaskDao {
 
     public TaskDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        datastore.ensureIndexes(Task.class);
         LOG.debug("TaskDaoMongoImpl instance has been created.");
     }
 
