@@ -44,12 +44,13 @@
     <spring:message code="create.task.datapoint"/>:<br>
     <code>25-10,15</code><br>
     <label>
-        <textarea name="data_points" rows="10" cols="50"></textarea>
+        <textarea name="data_points" rows="10" cols="50"><c:if test="${testData != null}">${testData}</c:if></textarea>
     </label><br>
-     Solution: <br>
+
+         Solution: <br>
     <code>public int methodName(int a, int b) {  return a + b;  }</code><br>
     <label>
-        <textarea name="solution" rows="8" cols="50"></textarea>
+        <textarea name="code_solution" rows="8" cols="50"><c:if test="${solution != null}">${solution}</c:if></textarea>
     </label><br>
 
     <input type="submit" value="<spring:message code="create"/>">

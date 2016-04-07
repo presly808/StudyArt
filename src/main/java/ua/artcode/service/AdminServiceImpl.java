@@ -21,7 +21,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    @Qualifier("сodingBatTaskMongoImpl")
+    @Qualifier("taskMongoImpl")
     private TaskDao taskDao;
 
 

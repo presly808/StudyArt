@@ -58,13 +58,12 @@ public class TaskController {
     @RequestMapping(value = "/add-task", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("task/create-task");
+        String testData = req.getParameter("data_points");
+        String solution = req.getParameter("code_solution");
         if (!result.hasErrors()) {
             try {
-                String testData = req.getParameter("data_points");
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
                 task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
-
-                String solution = req.getParameter("solution");
 
                 TaskTestResult testResult = taskRunFacade.runTask(task, solution);
                 if (testResult.getPassedAll()) {
@@ -75,12 +74,14 @@ public class TaskController {
                     mav.addObject("message", "Wrong solution. The task is not verified!");
                 }
 
-            } catch (AppValidationException e) {
-                mav.addObject("message", "Invalid test points!");
             } catch (DuplicateKeyException e) {
                 mav.addObject("message", "Task with title: " + task.getTitle() + " already exist!");
+            } catch (AppValidationException e) {
+                mav.addObject("message", "Invalid test points!");
             }
         }
+        mav.addObject("testData", testData);
+        mav.addObject("solution", solution);
         return mav;
     }
 
