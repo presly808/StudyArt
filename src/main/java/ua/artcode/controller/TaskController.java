@@ -51,7 +51,7 @@ public class TaskController {
     @RequestMapping(value = "/create-task")
     public ModelAndView addTask() {
         ModelAndView mav = new ModelAndView("task/create-task");
-        mav.addObject("title", "Create task");
+        mav.addObject("mainTitle", "Create task");
         mav.addObject("task", new Task());
         return mav;
     }
@@ -61,7 +61,7 @@ public class TaskController {
         ModelAndView mav = new ModelAndView("task/create-task");
         String testData = req.getParameter("data_points");
         String solution = req.getParameter("code_solution");
-        String operationType = req.getParameter("title");
+        String operationType = req.getParameter("mainTitle");
         if (!result.hasErrors()) {
             try {
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
@@ -74,6 +74,7 @@ public class TaskController {
                         mav.setViewName("redirect:/task-menu");
                         redirectAttributes.addFlashAttribute("message", "The task has been successfully created.");
                     } else {
+                        task.setId(new ObjectId(req.getParameter("id")));
                         adminService.update(task.getId(), task);
                         mav.setViewName("redirect:/task-menu");
                         redirectAttributes.addFlashAttribute("message", "The task has been successfully updated.");
@@ -93,7 +94,7 @@ public class TaskController {
                 req.setAttribute("message", e.getMessage());
             }
         }
-        mav.addObject("title", operationType);
+        mav.addObject("mainTitle", operationType);
         mav.addObject("testData", testData);
         mav.addObject("solution", solution);
         return mav;
@@ -106,9 +107,9 @@ public class TaskController {
         try {
             String id = req.getParameter("id");
             Task task = adminService.findTaskById(new ObjectId(id));
-            mav.addObject("task",task);
+            mav.addObject("task", task);
             mav.addObject("testData", task.getTaskTestDataContainer().toString());
-            // need Solution field!!!
+            // need Solution field!x!!
         } catch (NoSuchTaskException e) {
             e.printStackTrace();
         }
