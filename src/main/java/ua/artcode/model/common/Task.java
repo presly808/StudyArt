@@ -26,10 +26,14 @@ public class Task implements Comparable<Task> {
 
     @Description
     private String description;
+
     @Description
     private String examples;
+
     @Template
     private String template;
+
+    private String solution;
 
 
     private MethodSignature methodSignature;
@@ -48,6 +52,16 @@ public class Task implements Comparable<Task> {
         this.groupName = groupName;
     }
 
+    public Task(String title, String description,
+                String examples, String template, String groupName, String solution) {
+        this.title = title;
+        this.description = description;
+        this.examples = examples;
+        this.template = template;
+        this.groupName = groupName;
+        this.solution = solution;
+    }
+
 
     public ObjectId getId() {
         return id;
@@ -55,6 +69,14 @@ public class Task implements Comparable<Task> {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
     }
 
     public String getTitle() {
