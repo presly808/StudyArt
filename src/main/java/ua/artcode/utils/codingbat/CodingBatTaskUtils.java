@@ -132,8 +132,13 @@ public class CodingBatTaskUtils {
         try {
             for (String dataPoint : dataPoints) {
                 String[] dataParts = dataPoint.split("-");
-                String expectedValue = dataParts[0];
-                List<String> inParams = new ArrayList<>(Arrays.asList(dataParts[1].split(",")));
+                String expectedValue = dataParts[0].trim();
+                String[] inData = dataParts[1].split(",");
+                for (String value : inData) {
+                    value.trim();
+                }
+                List<String> inParams = new ArrayList<>(Arrays.asList(inData));
+
                 list = new ArrayList<>();
                 list.add(expectedValue);
                 TaskTestData taskTestData = new TaskTestData(list, inParams);
