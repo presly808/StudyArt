@@ -8,7 +8,7 @@ import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class LessonDaoMongoImpl implements LessonDao {
 
     public LessonDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        datastore.ensureIndexes(Lesson.class);
         LOG.debug("LessonDaoMongoImpl instance has been created.");
     }
 

@@ -55,8 +55,7 @@ public class GroupController {
                 redirectAttributes.addFlashAttribute("users", userService.getAllUsers());
                 mav.setViewName("redirect:/group-menu/setup-users");
             } catch (DuplicateKeyException e) {
-                mav.setViewName("main/group-menu");
-                mav.addObject("message", "Group with name" + userGroup.getName() + " is exist");
+                mav.addObject("message", "Group with name: " + userGroup.getName() + " is exist");
             }
         }
         return mav;

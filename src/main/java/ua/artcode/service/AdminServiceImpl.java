@@ -10,7 +10,7 @@ import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    @Qualifier("сodingBatTaskMongoImpl")
+    @Qualifier("taskMongoImpl")
     private TaskDao taskDao;
 
 

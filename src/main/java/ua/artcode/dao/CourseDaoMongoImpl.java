@@ -24,7 +24,7 @@ public class CourseDaoMongoImpl implements CourseDao {
 
     public CourseDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        datastore.ensureIndexes(Course.class);
         LOG.debug("CourseDaoMongoImpl instance has been created.");
     }
 

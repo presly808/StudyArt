@@ -1,5 +1,6 @@
 package ua.artcode.model.taskComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public class TaskTestData {
 
     private List inData;
-
+    //TODO check list content(how to compare arrays?)
     private List expectedValue;
 
     public TaskTestData() {
@@ -23,7 +24,7 @@ public class TaskTestData {
         this.inData = inData;
     }
 
-    public Object getValue(){
+    public Object getValue() {
         return expectedValue.get(0);
     }
 
@@ -45,6 +46,10 @@ public class TaskTestData {
 
     @Override
     public String toString() {
-        return expectedValue+"-"+String.join(",",inData);
+        List<String> convertedList = new ArrayList<>();
+        for (Object o : inData) {
+            convertedList.add(o.toString());
+        }
+        return expectedValue.get(0) + "-" + String.join(",", convertedList);
     }
 }

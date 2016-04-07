@@ -34,12 +34,12 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!--TODO rename-->
-    <bean id="сodingBatTaskMongoTestImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
+
+    <bean id="taskMongoTestImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
         <constructor-arg name="datastore" ref="testStore"/>
     </bean>
 
-    <bean id="сodingBatTaskMongoImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
+    <bean id="taskMongoImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
         <constructor-arg name="datastore" ref="datastore"/>
     </bean>
 

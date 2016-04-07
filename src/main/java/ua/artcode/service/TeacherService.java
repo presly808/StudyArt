@@ -7,7 +7,7 @@ import ua.artcode.model.common.Course;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
 

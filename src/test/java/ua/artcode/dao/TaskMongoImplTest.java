@@ -15,7 +15,7 @@ import ua.artcode.exception.AppException;
 import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.taskComponent.MethodSignature;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;

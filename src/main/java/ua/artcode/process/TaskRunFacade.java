@@ -1,7 +1,7 @@
 package ua.artcode.process;
 
 import org.apache.log4j.Logger;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.model.taskComponent.TestArg;
 import ua.artcode.preprocess.TemplateProcessor;

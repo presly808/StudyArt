@@ -24,7 +24,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
 
     public UserGroupDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        datastore.ensureIndexes(UserGroup.class);
         LOG.debug("UserGroupDaoMongoImpl instance has been created.");
     }
 

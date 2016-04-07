@@ -8,7 +8,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.model.taskComponent.Task;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class TaskDaoMongoImpl implements TaskDao {
 
     public TaskDaoMongoImpl(Datastore datastore) {
         this.datastore = datastore;
-        datastore.ensureIndexes();
+        datastore.ensureIndexes(Task.class);
         LOG.debug("TaskDaoMongoImpl instance has been created.");
     }
 
