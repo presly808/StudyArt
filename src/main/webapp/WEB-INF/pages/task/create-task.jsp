@@ -9,9 +9,7 @@
 
 <%--<h1><spring:message code="title.create.new.task"/></h1>--%>
 <c:if test="${title != null}">
-<h1><c:out value="${title}"/>
-    <h1>
-        </c:if>
+<h1><c:out value="${title}"/></h1></c:if>
 
 
         <form:form action="${pageContext.request.contextPath}/task-menu/add-task" modelAttribute="task"
