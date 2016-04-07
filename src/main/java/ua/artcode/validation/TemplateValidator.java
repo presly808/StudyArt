@@ -18,6 +18,6 @@ public class TemplateValidator implements ConstraintValidator<Template, String> 
             return false;
         }
         return template.matches("(public\\s+|private\\s+|protected\\s+)?(static\\s+)?" +
-                ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{[\\s\\S]*\\}");
+                ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{[\\s\\S]*\\}[\\s\\n]*");
     }
 }
