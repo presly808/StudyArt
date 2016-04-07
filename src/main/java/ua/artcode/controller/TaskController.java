@@ -60,14 +60,13 @@ public class TaskController {
     public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("task/create-task");
         String testData = req.getParameter("data_points");
-        String solution = req.getParameter("code_solution");
         String operationType = req.getParameter("mainTitle");
         if (!result.hasErrors()) {
             try {
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
                 task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
-                TaskTestResult testResult = taskRunFacade.runTask(task, solution);
+                TaskTestResult testResult = taskRunFacade.runTask(task, task.getSolution());
                 if (testResult.getPassedAll()) {
                     if (operationType.equals("Create task")) {
                         adminService.addTask(task);
@@ -96,7 +95,6 @@ public class TaskController {
         }
         mav.addObject("mainTitle", operationType);
         mav.addObject("testData", testData);
-        mav.addObject("solution", solution);
         return mav;
     }
 
@@ -115,20 +113,6 @@ public class TaskController {
         }
         return mav;
     }
-
-//    @RequestMapping(value = "/edit-task", method = RequestMethod.POST)
-//    public ModelAndView editTask(HttpServletRequest req) {
-//        ModelAndView mav = new ModelAndView("task/edit-task");
-//        try {
-//            String id = req.getParameter("id");
-//            Task task = adminService.findTaskById(new ObjectId(id));
-//            mav.addObject(task);
-//            //TODO
-//        } catch (NoSuchTaskException e) {
-//            e.printStackTrace();
-//        }
-//        return mav;
-//    }
 
     @RequestMapping(value = "/update-task", method = RequestMethod.POST)
     public ModelAndView updateTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
