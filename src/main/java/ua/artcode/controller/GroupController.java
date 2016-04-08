@@ -157,7 +157,6 @@ public class GroupController {
                 teacherService.updateGroup(userGroup.getId(), userGroup);
                 redirectAttributes.addFlashAttribute("message", "The group has been successfully updated.");
                 mav.setViewName("redirect:/group-menu");
-                //TODO
             } catch (DuplicateDataException e) {
                 mav.addObject("message", e.getMessage());
 

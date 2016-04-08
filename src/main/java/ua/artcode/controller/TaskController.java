@@ -1,6 +1,7 @@
 package ua.artcode.controller;
 
 import com.mongodb.DuplicateKeyException;
+import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +34,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/task-menu")
 public class TaskController {
+
+    private static final Logger LOG = Logger.getLogger(TaskController.class);
 
     @Autowired
     private AdminService adminService;
@@ -247,9 +250,10 @@ public class TaskController {
             String email = user.getEmail();
 
             userService.update(email, user);
-            //todo
-        } catch (AppException e) {
-            //mav.addObject("message", "Invalid test points!");
+        } catch (DuplicateDataException e) {
+            LOG.warn(e.getMessage());
+        } catch (NoSuchUserException e) {
+            LOG.warn(e.getMessage());
         }
     }
 

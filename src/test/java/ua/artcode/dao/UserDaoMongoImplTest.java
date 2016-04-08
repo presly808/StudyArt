@@ -48,7 +48,6 @@ public class UserDaoMongoImplTest {
     @Before
     public void initializeDB() throws InterruptedException,DuplicateKeyException {
         try {
-            //TODO show commandline result of start server
             Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
             LOG.info(getData(process.getInputStream()));
             LOG.debug((getData(process.getErrorStream())));

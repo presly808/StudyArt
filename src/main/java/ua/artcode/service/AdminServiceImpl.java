@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.UserDao;
-import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.common.Task;
@@ -50,7 +49,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Task> getAllTasks() throws AppException {
+    public List<Task> getAllTasks()  {
         return taskDao.getAll();
     }
 

@@ -91,7 +91,7 @@ public class CourseController {
                 }
             }
             course.setLessonList(lessonsForCourse);
-            teacherService.updateCourse(course);
+            teacherService.updateCourse(course.getId(),course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
         } catch (DuplicateDataException e) {

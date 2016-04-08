@@ -19,8 +19,10 @@ public class TestRunner {
         List<TaskTestData> steps = taskTestData.getTaskTestDataList();
         TaskTestResult taskTestResult = new TaskTestResult();
         for (TaskTestData testData : steps) {
-            Object[] convertedArg = testData.getInData().toArray();
-            Object actualValue = method.call(convertedArg);
+
+            //Object[] convertedArg = testData.getInData().toArray();
+            Object actualValue = method.call(null);
+
             Object expectedValue = testData.getValue();
             taskTestResult.addActualValues(actualValue);
             taskTestResult.addExpectedValues(expectedValue);

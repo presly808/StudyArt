@@ -34,7 +34,6 @@ public class UserController {
 
     @RequestMapping(value = "/show-users")
     public ModelAndView showUsers() {
-        //TODO  user role,message if no passed tasks
         ModelAndView mav = new ModelAndView("user/list-users");
         mav.addObject("users", userService.getAllUsers());
         return mav;
@@ -42,7 +41,7 @@ public class UserController {
 
     @RequestMapping(value = "/show-user/{name}")
     public ModelAndView showUser(@PathVariable String name) {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView("user/show-user");
         try {
             User user = userService.findUser(name);
             String role = String.valueOf(user.getUserType());
@@ -64,9 +63,10 @@ public class UserController {
                     result.put(task.getTitle(), "passed");
                 }
             }
-            mav.addObject("result", result);
+            if (result.size() != 0) {
+                mav.addObject("result", result);
+            }
             mav.addObject("role", role);
-            mav.setViewName("user/show-user");
         } catch (NoSuchUserException e) {
             mav.addObject("message", e.getMessage());
             mav.setViewName("user/list-users");

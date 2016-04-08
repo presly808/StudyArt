@@ -47,6 +47,7 @@ public class LessonDaoMongoImpl implements LessonDao {
         Lesson oldLesson = find(id);
         try {
             delete(id);
+            lesson.setId(id);
             add(lesson);
         } catch (DuplicateKeyException e) {
             add(oldLesson);
@@ -80,7 +81,7 @@ public class LessonDaoMongoImpl implements LessonDao {
         if (lesson == null) {
             LOG.debug("The lesson has been not founded. By title: " + title);
             throw new NoSuchLessonException("There is no lesson with title: " + title);
-            //TODO
+            //TODO internationalization
             //throw new NoSuchLessonException(ResourceBundle.getBundle("lesson.not.found").toString());
         }
         return lesson;
