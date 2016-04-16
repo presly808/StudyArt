@@ -18,7 +18,6 @@ public class CodingBatTaskGrabber {
 
     private static final Logger LOG = Logger.getLogger(CodingBatTaskGrabber.class);
 
-    //@Value("${codingbat.url}")
     public  String codingBatUrl = "http://codingbat.com";
 
     private List<String> taskLinksContainer;
@@ -32,13 +31,22 @@ public class CodingBatTaskGrabber {
         taskLinksContainer = new ArrayList<>();
         try {
             Document doc = Jsoup.connect(codingBatUrl + "/java").get();
-            // added one unnecessary element with empty link. Can't fix this
-            Elements groupLinks = doc.getElementsMatchingOwnText("more");
+
+
+            Elements groupLinks = new Elements();
+            Elements groupClass = doc.getElementsByClass("summ");
+            for(Element e : groupClass) {
+                Elements group = e.getElementsByAttribute("href");
+                groupLinks.addAll(group);
+            }
+
             for (Element link : groupLinks) {
+
                 // verify not empty links
                 if (!link.attr("href").equals("")) {
                     // create actual link of task group
                     String linkOfTaskGroup = codingBatUrl + link.attr("href");
+                    LOG.info("Task's groups: " + linkOfTaskGroup);
                     initTaskLinks(linkOfTaskGroup);
                 }
             }
@@ -72,20 +80,21 @@ public class CodingBatTaskGrabber {
     }
 
     private String getTitle(Document doc) {
-        return getFullTitle(doc)[3];
+        String title = getFullTitle(doc)[3];
+        LOG.debug("Title: " + title);
+        return title;
     }
 
     private String getGroupName(Document doc) {
-        return getFullTitle(doc)[2];
+        String group = getFullTitle(doc)[2];
+        LOG.debug("Group: " + group);
+        return group;
     }
 
-    private String getTemplate(Document doc) {
-        return doc.body().getElementsByTag("textarea").val();
-    }
-
-    private String getDescription(Element infoTable) {
-        String[] fullDescription = infoTable.html().split("<br>");
-        return fullDescription[0];
+    private String getDescription(Document doc) {
+        String description = doc.getElementsByClass("minh").text();
+        LOG.debug("Description: " + description);
+        return description;
     }
 
     private String getExamples(Element infoTable, String title) {
@@ -99,7 +108,14 @@ public class CodingBatTaskGrabber {
                 examples = examples + title + taskInfo[j];
             }
         }
+        LOG.debug("Examples: " + examples);
         return examples;
+    }
+
+    private String getTemplate(Document doc) {
+        String template = doc.getElementById("ace_div").text();
+        LOG.debug("Template: " + template);
+        return template;
     }
 
     public Collection<Task> getTasksFromCodingBat() {
@@ -108,6 +124,8 @@ public class CodingBatTaskGrabber {
         Collection<Task> taskCollection = new LinkedList<>();
 
         findGroupLinks();
+
+        LOG.info("Task links found: " + taskLinksContainer.size());
 
         for (String taskLink : taskLinksContainer) {
 
@@ -119,7 +137,7 @@ public class CodingBatTaskGrabber {
                 String groupName = getGroupName(doc);
                 String title = getTitle(doc);
 
-                String description;
+                String description = getDescription(doc);
                 String examples;
                 String template = getTemplate(doc);
 
@@ -127,8 +145,7 @@ public class CodingBatTaskGrabber {
                 Elements tables = doc.body().getElementsByAttributeValue("width", "700");
 
                 for (Element infoTable : tables) {
-
-                    description = getDescription(infoTable);
+                    //description = getDescription(infoTable);
                     examples = getExamples(infoTable, title);
 
                     Task codingBatTask = new Task(title, description, examples, template, groupName);
