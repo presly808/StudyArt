@@ -30,7 +30,9 @@ public class InitCodingBatTaskTrigger {
      */
     public static synchronized boolean loadTasksIfNeeded() {
 
+
         String dbJsonPath =AppPropertiesHolder.getProperty("db.json.task.path");
+
 
         if (FileUtils.exists(dbJsonPath)) {
             AppDataJsonSerializer appDataJsonSerializer = new AppDataJsonSerializer();
