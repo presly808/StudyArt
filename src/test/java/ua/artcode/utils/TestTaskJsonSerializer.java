@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 import static ua.artcode.utils.RandomDataGenerator.generateNameWith;
 import static ua.artcode.utils.RandomDataGenerator.generateRandomId;
 
-
+@Ignore
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestTaskJsonSerializer {
 
@@ -41,7 +41,6 @@ public class TestTaskJsonSerializer {
                 collect(Collectors.toList());
 
     }
-    @Ignore
     @Test
     public void _01testSimpleSaving() {
         appDataJsonSerializer.save(codingBatTasks, dbTaskPath.getPath());

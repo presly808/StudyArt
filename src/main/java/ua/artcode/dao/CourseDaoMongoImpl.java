@@ -15,6 +15,8 @@ import java.util.List;
 public class CourseDaoMongoImpl implements CourseDao {
 
     private Datastore datastore;
+
+
     private static final Logger LOG = Logger.getLogger(CourseDaoMongoImpl.class);
 
 

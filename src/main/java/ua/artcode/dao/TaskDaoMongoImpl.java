@@ -39,7 +39,7 @@ public class TaskDaoMongoImpl implements TaskDao {
         datastore.save(task);
         LOG.info("The new task has been added to DB. Title:" + task.getTitle());
     }
-
+    //TODO
     @Override
     public Task update(ObjectId id, Task task) throws NoSuchTaskException, DuplicateDataException {
         Task oldTask = find(id);

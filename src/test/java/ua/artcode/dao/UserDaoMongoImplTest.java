@@ -22,7 +22,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
 public class UserDaoMongoImplTest {
@@ -43,7 +42,7 @@ public class UserDaoMongoImplTest {
     @Value("${mongo.test.db}")
     private String nameOfTestDb;
 
-    private final int AMOUNT_OF_USERS = 100;
+    private final int AMOUNT_OF_USERS = 50;
 
     @Before
     public void initializeDB() throws InterruptedException,DuplicateKeyException {
@@ -79,16 +78,16 @@ public class UserDaoMongoImplTest {
     public void findUserByExistentEmailTest() {
         User foundedUser = null;
         try {
-            foundedUser = userDao.find("something_33@gmail.com");
+            foundedUser = userDao.findByEmail("something_30@gmail.com");
         } catch (NoSuchUserException e) {
             LOG.warn("There are no user with email: something_33@gmail.com");
 
         }
-        assertEquals("something_33@gmail.com", foundedUser.getEmail());
+        assertEquals("something_30@gmail.com", foundedUser.getEmail());
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void findUserByNonexistentEmailTest() throws NoSuchUserException {
+    public void findUserByNonExistentEmailTest() throws NoSuchUserException {
         userDao.find("nonexistent_email@gmail.com");
     }
 
@@ -105,11 +104,16 @@ public class UserDaoMongoImplTest {
     }
 
     @Test
-    public void addUserTest() throws DuplicateKeyException, NoSuchUserException {
+    public void addTest() throws DuplicateKeyException {
         User user = new User("User_2b", "password_2b", "test_2@gmail.com");
         userDao.add(user);
         assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
-        userDao.delete("test_2@gmail.com");
+    }
+
+    @Test(expected = DuplicateKeyException.class)
+    public void addNegativeTest() throws DuplicateKeyException {
+        User user=new User("User_0", "password_0", "something_0@gmail.com");
+        userDao.add(user);
     }
 
     @Test
