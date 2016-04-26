@@ -32,7 +32,6 @@ public class CodingBatTaskGrabber {
         try {
             Document doc = Jsoup.connect(codingBatUrl + "/java").get();
 
-
             Elements groupLinks = new Elements();
             Elements groupClass = doc.getElementsByClass("summ");
             for(Element e : groupClass) {

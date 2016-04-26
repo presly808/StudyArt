@@ -29,7 +29,7 @@ public class DynamicCompiler {
         for (URL url : urls) {
             classPaths.append(url.getFile()).append(":");
         }
-
+        LOG.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + classPaths.toString());
         return classPaths.toString();
     }
 
