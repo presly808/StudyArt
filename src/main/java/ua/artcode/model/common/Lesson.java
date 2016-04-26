@@ -75,6 +75,10 @@ public class Lesson implements Comparable<Lesson> {
         this.tasks = tasks;
     }
 
+    public int size() {
+        return tasks.size();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Lesson{");

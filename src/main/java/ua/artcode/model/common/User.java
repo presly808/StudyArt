@@ -39,6 +39,7 @@ public class User implements Comparable<User> {
 
 
     public User() {
+        id=new ObjectId();
     }
 
     public User(String name, String password, String email) {

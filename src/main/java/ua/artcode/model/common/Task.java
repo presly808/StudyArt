@@ -40,7 +40,11 @@ public class Task implements Comparable<Task> {
 
     private TaskTestDataContainer taskTestDataContainer = new TaskTestDataContainer();
 
+//    public Task() {
+//    }
+
     public Task() {
+        id = new ObjectId();
     }
 
     public Task(String title, String description,

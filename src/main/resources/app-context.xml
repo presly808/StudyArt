@@ -33,10 +33,10 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    <!--TODO-->
-    <!--<bean id="serviceImplTest" class="ua.artcode.service.UserServiceImpl">-->
-        <!--<constructor-arg name="userDao" ref="userDaoMongoTestImpl"/>-->
-    <!--</bean>-->
+
+    <bean id="serviceImplTest" class="ua.artcode.service.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDaoMongoTestImpl"/>
+    </bean>
 
 
     <bean id="taskMongoTestImpl" class="ua.artcode.dao.TaskDaoMongoImpl">

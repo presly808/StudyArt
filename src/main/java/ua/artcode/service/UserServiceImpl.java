@@ -23,6 +23,13 @@ public class UserServiceImpl implements UserService {
     @Qualifier("userDaoMongoMongoImpl")
     private UserDao userDao;
 
+    public UserServiceImpl() {
+    }
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao=userDao;
+    }
+
     @Override
     public User findUserByEmail(String email) throws NoSuchUserException {
         return userDao.findByEmail(email);

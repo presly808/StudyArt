@@ -3,6 +3,7 @@ package ua.artcode.controller;
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ import java.util.Map;
 @RequestMapping(value = "/group-menu")
 public class GroupController {
 
+    @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
 
