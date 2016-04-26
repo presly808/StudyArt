@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import ua.artcode.model.common.User;
 
 import java.io.IOException;
 
+import static junit.framework.Assert.assertEquals;
 import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
+
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
@@ -26,10 +29,10 @@ public class UserServiceTest {
 
     private static final Logger LOG = Logger.getLogger(UserServiceTest.class);
 
-    //TODO
-//    @Autowired
-//    @Qualifier("serviceImplTest")
-//    private UserServiceImpl userService;
+
+    @Autowired
+    @Qualifier("serviceImplTest")
+    private UserServiceImpl userService;
 
     @Autowired
     @Qualifier("testStore")
@@ -63,19 +66,14 @@ public class UserServiceTest {
     }
 
 
-//    @Test
-//    public void sizeTest() {
-//        int dbSize = userService.size();
-//        assertEquals(AMOUNT_OF_USERS, dbSize);
-//    }
-//
-//    @Test
-//    public void getAllUsersTest() {
-//        List<User> users = userService.getAllUsers();
-//        int sizeOfList = users.size();
-//        int sizeOfDb = userDao.size();
-//        assertEquals(sizeOfDb, sizeOfList);
-//    }
+    //
+    @Test
+    public void getAllUsersTest() {
+        java.util.List<User> users = userService.getAllUsers();
+        int sizeOfList = users.size();
+        int sizeOfDb = userDao.size();
+        assertEquals(sizeOfDb, sizeOfList);
+    }
 //
 //    @Test
 //    public void findUserByExistentEmailTest() {

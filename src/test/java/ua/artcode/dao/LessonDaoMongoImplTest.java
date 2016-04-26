@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
-import ua.artcode.exception.NoSuchLessonException;
+import ua.artcode.exception.*;
 import ua.artcode.model.common.Lesson;
+import ua.artcode.model.common.Task;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +40,10 @@ public class LessonDaoMongoImplTest {
     @Qualifier("lessonDaoImplTest")
     @Autowired
     private LessonDao lessonDao;
+
+    @Autowired
+    @Qualifier("taskMongoTestImpl")
+    private TaskDao taskDao;
 
     @Value("${mongo.test.db}")
     private String nameOfTestDb;
@@ -100,7 +103,7 @@ public class LessonDaoMongoImplTest {
     }
 
     @Test(expected = NoSuchLessonException.class)
-    public void negativeRemoveTest() throws  NoSuchLessonException {
+    public void negativeRemoveTest() throws NoSuchLessonException {
         lessonDao.delete("");
     }
 
@@ -111,15 +114,27 @@ public class LessonDaoMongoImplTest {
     }
 
     @Test
+    public void addTaskToLesson() throws DuplicateDataException, NoSuchLessonException, NoSuchTaskException {
+        Lesson lesson = lessonDao.find("title-1");
+        int sizeBeforeAdd = lesson.size();
+        taskDao.add(new Task("title-000", "Simple description-000",
+                "methodName(true, false) → false",
+                "public boolean $ome_Method(int arg-000", "String arg-000" + ", boolean arg"));
+        lessonDao.addTask("title-1", taskDao.find("title-000"));
+        Lesson lessonAfterUpdate = lessonDao.find("title-1");
+        assertEquals(sizeBeforeAdd + 1, lessonAfterUpdate.size());
+    }
+
+    @Test
     public void addTest() throws AppException {
-        Lesson lesson = new Lesson("title","description");
+        Lesson lesson = new Lesson("title", "description");
         lessonDao.add(lesson);
         assertEquals(lessonDao.size(), AMOUNT_OF_ELEMENTS + 1);
     }
 
     @Test(expected = DuplicateKeyException.class)
     public void negativeAddTest() throws DuplicateKeyException {
-        Lesson lesson=new Lesson("title-0","description-0");
+        Lesson lesson = new Lesson("title-0", "description-0");
         lessonDao.add(lesson);
     }
 

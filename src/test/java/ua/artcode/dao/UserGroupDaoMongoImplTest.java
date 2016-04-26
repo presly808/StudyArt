@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
-import ua.artcode.exception.DuplicateDataException;
-import ua.artcode.exception.NoSuchGroupException;
+import ua.artcode.exception.*;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserGroup;
 
@@ -45,6 +42,10 @@ public class UserGroupDaoMongoImplTest {
     @Qualifier("groupDaoImplTest")
     @Autowired
     private UserGroupDao groupDao;
+
+    @Autowired
+    @Qualifier("userDaoMongoTestImpl")
+    private UserDao userDao;
 
     @Value("${mongo.test.db}")
     private String nameOfTestDb;
@@ -142,11 +143,13 @@ public class UserGroupDaoMongoImplTest {
     }
 
     @Test
-    public void addUserToGroup() throws DuplicateDataException, NoSuchGroupException {
+    public void addUserToGroup() throws DuplicateDataException, NoSuchGroupException, NoSuchUserException {
         UserGroup userGroup = groupDao.find("name-1");
         int sizeBeforeAdd = userGroup.size();
-        groupDao.addUserToGroup("name-1", new User());
-        assertEquals(sizeBeforeAdd + 1, groupDao.size());
+        userDao.add(new User("test","000000","test@gmail.com"));
+        groupDao.addUserToGroup("name-1",userDao.findByEmail("test@gmail.com"));
+        UserGroup group=groupDao.find("name-1");
+        assertEquals(sizeBeforeAdd + 1,group.size());
     }
 
     @After

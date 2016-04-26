@@ -121,7 +121,7 @@ public class CourseDaoImplTest {
     }
 
     @Test(expected = DuplicateKeyException.class)
-    public void addNegativeTest() throws DuplicateKeyException {
+    public void negativeAddTest() throws DuplicateKeyException {
         Course course=new Course("title-0","description-0");
         courseDao.add(course);
     }
