@@ -20,8 +20,8 @@ import java.net.URLClassLoader;
 //TODO Maxim pc dont work with getLibsClasspath();
 public class DynamicCompiler {
     private static final Logger LOG = Logger.getLogger(DynamicCompiler.class);
-//    public static final String LIBS_CLASSPATH = "/apache-tomcat/webapps/ROOT/WEB-INF/classes/";
-     public static final String LIBS_CLASSPATH = getLibsClasspath();
+    public static final String LIBS_CLASSPATH = "/apache-tomcat/webapps/ROOT/WEB-INF/classes/";
+     //public static final String LIBS_CLASSPATH = getLibsClasspath();
 
     private static String getLibsClasspath() {
         StringBuilder classPaths = new StringBuilder();

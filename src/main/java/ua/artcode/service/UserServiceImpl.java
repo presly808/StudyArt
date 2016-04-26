@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void register(User user) throws DuplicateKeyException {
+        userDao.add(user);
+    }
+
+    @Override
     public void register(String username, String password, String email) throws DuplicateKeyException {
         userDao.add(new User(username, password, email));
     }
@@ -75,10 +80,6 @@ public class UserServiceImpl implements UserService {
        return userDao.delete(email);
     }
 
-    @Override
-    public void register(User user) throws DuplicateKeyException {
-         userDao.add(user);
-    }
 
     @Override
     public List<User> getAllUsers() {

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
+
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.HandlerAdapter;
@@ -32,11 +33,8 @@ public class MainControllerTest {
         //Creating HandlerAdapter to handle our request
         //in this case this is RequestMappingHandlerAdapter
 
-       // handlerAdapter = new RequestMappingHandlerAdapter();
+//        handlerAdapter = new RequestMappingHandlerAdapter();
         handlerAdapter = new AnnotationMethodHandlerAdapter();
-
-//        //Mocking live(mock) stub for MainController
-//        mainController = mock(MainController.class);
 
         mainController = new MainController();
     }
@@ -45,7 +43,7 @@ public class MainControllerTest {
     public void goTaskMenu() throws Exception {
         //Creating Mock request
         //no response is expected
-        request.setRequestURI("/menu/task-menu");
+        request.setRequestURI("/task-menu");
         request.setMethod("POST");
         response = null;
 
