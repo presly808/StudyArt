@@ -20,7 +20,7 @@ public class HtmlDataParserTest {
     public void testParseMixedDataTypes(){
         String arg1 = "{1,2,3,4},4,5,6,\"sdfsd\",\"sdfsdf\",2.87,{2,2,2,2},2,2";
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
-        Assert.assertEquals(lines1.stream().count(),10);;
+        Assert.assertEquals(lines1.stream().count(),10);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class HtmlDataParserTest {
 
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
 
-        Assert.assertEquals(lines1.stream().count(), 10);;
+        Assert.assertEquals(lines1.stream().count(), 10);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class HtmlDataParserTest {
 
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
 
-        Assert.assertEquals(lines1.stream().count(), 10);;
+        Assert.assertEquals(lines1.stream().count(), 10);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class HtmlDataParserTest {
 
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
 
-        Assert.assertEquals(lines1.stream().count(), 3);;
+        Assert.assertEquals(lines1.stream().count(), 3);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class HtmlDataParserTest {
 
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
 
-        Assert.assertEquals(lines1.stream().count(), 3);;
+        Assert.assertEquals(lines1.stream().count(), 3);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class HtmlDataParserTest {
 
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
 
-        Assert.assertEquals(lines1.stream().count(), 6);;
+        Assert.assertEquals(lines1.stream().count(), 6);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class HtmlDataParserTest {
 
         List<String> lines1 = CodingBatHtmlDataParser.parseTestData(arg1);
 
-        Assert.assertEquals(lines1.get(3), "69");;
+        Assert.assertEquals(lines1.get(3), "69");
 
     }
 
