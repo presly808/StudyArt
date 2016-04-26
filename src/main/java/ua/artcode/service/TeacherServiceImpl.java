@@ -116,11 +116,6 @@ public class TeacherServiceImpl implements TeacherService {
         return courseDao.size();
     }
 
-    @Override
-    public void updateCourse(Course course) throws NoSuchCourseException, DuplicateDataException {
-        courseDao.update(course);
-    }
-
 
     //Group methods
     @Override

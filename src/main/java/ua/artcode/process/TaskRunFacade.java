@@ -66,9 +66,7 @@ public class TaskRunFacade {
             Class cl = BaseClassLoader.uriLoadClass(srcRoot, className);
             //Convert types, which retrieved fromDB as String
             dateConverter.convertInData(task);
-            //TODO
             dateConverter.convertExpectedValue(task);
-            //
             try {
                 MethodInvoker action = (MethodInvoker) cl.newInstance();
                 taskTestResult = TestRunner.run(action, task.getTaskTestDataContainer());

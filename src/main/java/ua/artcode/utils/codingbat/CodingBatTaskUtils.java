@@ -174,7 +174,6 @@ public class CodingBatTaskUtils {
         return words[words.length - 1].trim();
     }
 
-    //todo empty values fizzArray2(0) → {}	{""}
     public static String checkResult(Object actualValue, Object expectedValue) {
         String result = "X";
         if (actualValue instanceof Object[] || actualValue instanceof int[]) {

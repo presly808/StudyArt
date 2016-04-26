@@ -1,4 +1,5 @@
 package ua.artcode.model.common;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -12,7 +13,8 @@ import java.util.List;
 
 
 @Entity
-public class Lesson implements Comparable<Lesson>{
+public class Lesson implements Comparable<Lesson> {
+
     @Id
     private ObjectId id;
 
@@ -24,7 +26,7 @@ public class Lesson implements Comparable<Lesson>{
     private String description;
 
     @Reference
-    private List<Task> tasks=new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
 
     public Lesson() {
     }
@@ -38,7 +40,8 @@ public class Lesson implements Comparable<Lesson>{
         this.title = title;
         this.description = description;
         this.tasks = tasks;
-   }
+    }
+
 
     public ObjectId getId() {
         return id;

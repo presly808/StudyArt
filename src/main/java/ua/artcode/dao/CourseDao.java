@@ -29,6 +29,4 @@ public interface CourseDao {
 
     List<Course> getAll();
 
-    void update(Course course) throws NoSuchCourseException, DuplicateDataException;
-
 }

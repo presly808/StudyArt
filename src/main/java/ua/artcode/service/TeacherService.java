@@ -42,7 +42,6 @@ public interface TeacherService {
 
     List<Course> getAllCourses();
 
-    void updateCourse(Course course) throws NoSuchCourseException, DuplicateDataException;
 
     void updateCourse(ObjectId id, Course course) throws NoSuchCourseException, DuplicateDataException;
 

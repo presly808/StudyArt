@@ -15,6 +15,8 @@ import java.util.List;
 public class CourseDaoMongoImpl implements CourseDao {
 
     private Datastore datastore;
+
+
     private static final Logger LOG = Logger.getLogger(CourseDaoMongoImpl.class);
 
 
@@ -40,22 +42,11 @@ public class CourseDaoMongoImpl implements CourseDao {
         Course oldCourse = find(id);
         try {
             delete(id);
+            course.setId(id);
             add(course);
         } catch (DuplicateKeyException e) {
             add(oldCourse);
             throw new DuplicateDataException("Course with title: " + course.getTitle() + " already exist!");
-        }
-        LOG.info("The course has been updated.");
-    }
-
-    @Override
-    public void update(Course course) throws NoSuchCourseException {
-        Course oldCourse = find(course.getId());
-        try {
-            delete(course.getId());
-            add(course);
-        } catch (DuplicateKeyException e) {
-            add(oldCourse);
         }
         LOG.info("The course has been updated.");
     }

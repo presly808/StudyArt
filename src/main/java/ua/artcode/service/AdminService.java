@@ -2,7 +2,6 @@ package ua.artcode.service;
 
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
-import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.common.Task;
@@ -22,7 +21,7 @@ public interface AdminService {
 
     int size();
 
-    List<Task> getAllTasks() throws AppException;
+    List<Task> getAllTasks();
 
     boolean deleteByTitle(String title) throws NoSuchTaskException;
 

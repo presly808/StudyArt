@@ -3,6 +3,8 @@ package ua.artcode.controller;
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,9 @@ public class CourseController {
     @Autowired
     private TeacherService teacherService;
 
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping(value = "/create-course")
     public ModelAndView addCourse() {
         ModelAndView mav = new ModelAndView("course/create-course");
@@ -52,7 +57,7 @@ public class CourseController {
                     redirectAttributes.addFlashAttribute("lessons", lessonsList);
                     mav.setViewName("redirect:/course-menu/setup-lessons");
                 } else {
-                    redirectAttributes.addFlashAttribute("message", "The course has been successfully created.");
+                    redirectAttributes.addFlashAttribute("message", messageSource.getMessage("course.successfully.create", null, LocaleContextHolder.getLocale()));
                     mav.setViewName("redirect:/course-menu");
                 }
             } catch (DuplicateKeyException e) {
@@ -91,7 +96,7 @@ public class CourseController {
                 }
             }
             course.setLessonList(lessonsForCourse);
-            teacherService.updateCourse(course);
+            teacherService.updateCourse(course.getId(),course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
         } catch (DuplicateDataException e) {

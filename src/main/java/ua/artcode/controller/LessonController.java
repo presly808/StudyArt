@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
-import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.model.common.Task;
 import ua.artcode.model.common.Lesson;
+import ua.artcode.model.common.Task;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 
@@ -60,8 +59,6 @@ public class LessonController {
                     redirectAttributes.addFlashAttribute("message", "The lesson has been successfully created.");
                     mav.setViewName("redirect:/lesson-menu");
                 }
-            } catch (AppException e) {
-                mav.addObject("message", e.getMessage());
             } catch (DuplicateKeyException e) {
                 mav.addObject("message", "Lesson with title: " + lesson.getTitle() + " already exist!");
             }
@@ -105,10 +102,6 @@ public class LessonController {
         } catch (DuplicateDataException e) {
             mav.addObject("message", e.getMessage());
         }
-        //TODO
-        catch (AppException e){
-
-        }
         return mav;
     }
 
@@ -128,27 +121,15 @@ public class LessonController {
         } catch (NoSuchLessonException e) {
             mav.setViewName("lesson/list-lessons");
             mav.addObject("message", e.getMessage());
-
-        } catch (AppException e) {
-            mav.addObject("message", e.getMessage());
-            mav.setViewName("main/lesson-menu");
         }
         return mav;
     }
 
-    //TODO update in mongodb
     @RequestMapping(value = "/update-lesson")
     public ModelAndView updateLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("lesson/edit-lesson");
         List<Task> taskInLesson = new ArrayList<>();
-        List<Task> allTasks = null;
-        try {
-            allTasks = adminService.getAllTasks();
-        } catch (AppException e) {
-            mav.addObject("message", e.getMessage());
-            mav.setViewName("main/lesson-menu");
-        }
-
+        List<Task> allTasks = adminService.getAllTasks();
         for (Task task : allTasks) {
             if (req.getParameter(task.getTitle()) != null) {
                 taskInLesson.add(task);
@@ -166,7 +147,6 @@ public class LessonController {
                 teacherService.updateLesson(lesson.getId(), lesson);
                 redirectAttributes.addFlashAttribute("message", "The lesson has been successfully updated.");
                 mav.setViewName("redirect:/lesson-menu");
-                //TODO
             } catch (DuplicateDataException e) {
                 mav.addObject("message", e.getMessage());
                 mav.setViewName("lesson/edit-lesson");

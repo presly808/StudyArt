@@ -39,6 +39,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
         UserGroup oldUserGroup = find(id);
         try {
             delete(id);
+            userGroup.setId(id);
             addGroup(userGroup);
         } catch (DuplicateKeyException e) {
             addGroup(oldUserGroup);
@@ -108,7 +109,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
 
     @Override
     public int size() {
-        return (int) datastore.getDB().getCollection("Group").count();
+        return (int) datastore.getDB().getCollection("UserGroup").count();
     }
 
     @Override
@@ -116,6 +117,7 @@ public class UserGroupDaoMongoImpl implements UserGroupDao {
         UserGroup userGroup = find(name);
         List<User> userList = userGroup.getStudents();
         userList.add(user);
+        userGroup.setStudents(userList);
         update(userGroup.getId(), userGroup);
     }
 }

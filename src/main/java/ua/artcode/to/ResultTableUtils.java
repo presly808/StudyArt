@@ -45,10 +45,12 @@ public class ResultTableUtils {
     private static String getInArgsTemplate(Task task, int iter) {
         String inArgsTemplate = CodingBatTaskUtils.getMethodName(task.getTemplate()) + "(";
         List inArgList = task.getTaskTestDataContainer().getTaskTestDataList().get(iter).getInData();
-        for (int i = 0; i < inArgList.size(); i++) {
-            inArgsTemplate += inArgList.get(i).toString();
-            if (i != inArgList.size() - 1) {
-                inArgsTemplate += ",";
+        if (inArgList != null) {
+            for (int i = 0; i < inArgList.size(); i++) {
+                inArgsTemplate += inArgList.get(i).toString();
+                if (i != inArgList.size() - 1) {
+                    inArgsTemplate += ",";
+                }
             }
         }
         return inArgsTemplate + ")";

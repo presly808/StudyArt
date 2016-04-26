@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.artcode.dao.TaskDao;
-import ua.artcode.dao.UserDao;
-import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.common.Task;
@@ -23,11 +21,6 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     @Qualifier("taskMongoImpl")
     private TaskDao taskDao;
-
-
-    @Autowired
-    @Qualifier("userDaoMongoMongoImpl")
-    private UserDao userDao;
 
     public AdminServiceImpl() {
 
@@ -46,11 +39,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addTask(Task task) throws DuplicateKeyException {
-         taskDao.add(task);
+        taskDao.add(task);
     }
 
     @Override
-    public List<Task> getAllTasks() throws AppException {
+    public List<Task> getAllTasks() {
         return taskDao.getAll();
     }
 
@@ -60,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Task findTaskById(ObjectId id) throws NoSuchTaskException{
+    public Task findTaskById(ObjectId id) throws NoSuchTaskException {
         return taskDao.find(id);
     }
 
@@ -70,8 +63,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Task update(ObjectId id,Task updateTask) throws NoSuchTaskException , DuplicateDataException{
-        return taskDao.update(id,updateTask);
+    public Task update(ObjectId id, Task updateTask) throws NoSuchTaskException, DuplicateDataException {
+        return taskDao.update(id, updateTask);
     }
 
     @Override

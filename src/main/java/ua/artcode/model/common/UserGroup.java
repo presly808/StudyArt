@@ -12,18 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class UserGroup {
+public class UserGroup implements Comparable<UserGroup> {
 
     @Id
     private ObjectId id;
+
     @Title
     @Indexed(unique = true)
     private String name;
+
     @Description
     private String description;
 
     @Reference
-    private List<User> students=new ArrayList<>();
+    private List<User> students = new ArrayList<>();
 
     public UserGroup() {
     }
@@ -71,4 +73,27 @@ public class UserGroup {
         return students;
     }
 
+    public int size() {
+        return students.size();
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserGroup that = (UserGroup) o;
+
+        return !(id != null ? !id.equals(that.id) : that.id != null);
+    }
+
+    @Override
+    public int compareTo(UserGroup o) {
+        return this.id.compareTo(o.id);
+    }
 }

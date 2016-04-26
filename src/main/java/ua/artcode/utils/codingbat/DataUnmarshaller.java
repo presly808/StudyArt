@@ -15,11 +15,13 @@ public class DataUnmarshaller {
     public void convertInData(Task task) {
         TestArg testArg;
         for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
-            for (int i = 0; i < data.getInData().size(); i++) {
-                testArg = convertDispatcher(task.getMethodSignature().getInArgList().get(i).getType(), data.getInData().get(i));
-                task.getMethodSignature().getInArgList().get(i).setType(testArg.getType());
-                data.getInData().remove(i);
-                data.getInData().add(i, testArg.getValue());
+            if (data.getInData() != null) {
+                for (int i = 0; i < data.getInData().size(); i++) {
+                    testArg = convertDispatcher(task.getMethodSignature().getInArgList().get(i).getType(), data.getInData().get(i));
+                    task.getMethodSignature().getInArgList().get(i).setType(testArg.getType());
+                    data.getInData().remove(i);
+                    data.getInData().add(i, testArg.getValue());
+                }
             }
         }
     }
