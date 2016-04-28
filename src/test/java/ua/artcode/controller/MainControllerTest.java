@@ -1,22 +1,20 @@
 package ua.artcode.controller;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.mockito.Mockito.*;
-
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import static org.springframework.test.web.ModelAndViewAssert.*;
+import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 
 /**
  * Created by Maxim on 24.04.2016.
  */
+@Ignore
 public class MainControllerTest {
 
     private MainController mainController;

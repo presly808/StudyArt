@@ -2,8 +2,10 @@ package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
@@ -42,7 +44,7 @@ public class UserDaoMongoImplTest {
     @Value("${mongo.test.db}")
     private String nameOfTestDb;
 
-    private final int AMOUNT_OF_USERS = 50;
+    private final int AMOUNT_OF_USERS = 10;
 
     @Before
     public void initializeDB() throws InterruptedException,DuplicateKeyException {
@@ -67,6 +69,15 @@ public class UserDaoMongoImplTest {
     }
 
     @Test
+    public void updateTest() throws AppException {
+        User user=userDao.find("User_1");
+        user.setName("testName");
+        User userToUpdate=userDao.find("User_2");
+        userDao.update(userToUpdate.getEmail(),user);
+        assertEquals(user.getName(), userDao.find("testName").getName());
+    }
+
+    @Test
     public void getAllUsersTest() {
         List<User> users = userDao.getAll();
         int sizeOfList = users.size();
@@ -75,7 +86,7 @@ public class UserDaoMongoImplTest {
     }
 
     @Test
-    public void findUserByExistentEmailTest() {
+    public void findByEmailTest() {
         User foundedUser = null;
         try {
             foundedUser = userDao.findByEmail("something_30@gmail.com");
@@ -87,8 +98,8 @@ public class UserDaoMongoImplTest {
     }
 
     @Test(expected = NoSuchUserException.class)
-    public void findUserByNonExistentEmailTest() throws NoSuchUserException {
-        userDao.find("nonexistent_email@gmail.com");
+    public void negativefindByEmailTest() throws NoSuchUserException {
+        userDao.findByEmail("nonexistent_email@gmail.com");
     }
 
     @Test(expected = NoSuchUserException.class)
@@ -110,6 +121,7 @@ public class UserDaoMongoImplTest {
         assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
     }
 
+    @Ignore
     @Test(expected = DuplicateKeyException.class)
     public void addNegativeTest() throws DuplicateKeyException {
         User user=new User("User_0", "password_0", "something_0@gmail.com");
@@ -129,6 +141,18 @@ public class UserDaoMongoImplTest {
         } catch (AppException e) {
             LOG.warn(e.getExceptionMessageList());
         }
+    }
+
+    @Test
+    public void findByIdTest() throws AppException {
+        User user= userDao.find("User_1");
+        User user1=userDao.find(user.getId());
+        assertEquals(user, user1);
+    }
+
+    @Test(expected =NoSuchUserException.class )
+    public void negativeFindByIdTest() throws NoSuchUserException {
+        userDao.find(new ObjectId());
     }
 
     @Test

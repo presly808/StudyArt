@@ -2,8 +2,10 @@ package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
@@ -31,7 +33,7 @@ public class CourseDaoImplTest {
 
     private static final Logger LOG = Logger.getLogger(CourseDaoImplTest.class);
 
-    private final int AMOUNT_OF_ELEMENTS = 50;
+    private final int AMOUNT_OF_ELEMENTS = 10;
 
     @Autowired
     @Qualifier("testStore")
@@ -73,13 +75,34 @@ public class CourseDaoImplTest {
     }
 
     @Test
-    public void deleteTest() throws AppException {
+    public void deleteByTitleTest() throws AppException {
         int sizeBeforeRemove = courseDao.size();
         courseDao.delete("title-5");
         int sizeAfterDel = courseDao.size();
         assertEquals(sizeBeforeRemove, sizeAfterDel + 1);
     }
 
+    @Test
+    public void deleteByIdTest() throws AppException {
+        int sizeBeforeRemove = courseDao.size();
+        Course course = courseDao.find("title-5");
+        courseDao.delete(course.getId());
+        assertEquals(sizeBeforeRemove, courseDao.size() + 1);
+    }
+
+    @Test
+    public void updateTest() throws AppException {
+          Course course=courseDao.find("title-1");
+          course.setTitle("title-00011134324");
+          Course courseToUpdate=courseDao.find("title-2");
+          courseDao.update(courseToUpdate.getId(),course);
+          assertEquals(course.getTitle(), courseDao.find("title-00011134324").getTitle());
+    }
+
+    @Test(expected = NoSuchCourseException.class)
+    public void negativeDeleteByIdTest() throws NoSuchCourseException {
+        courseDao.delete(new ObjectId());
+    }
 
     @Test(expected = NoSuchCourseException.class)
     public void negativeDeleteTest() throws NoSuchCourseException {
@@ -102,6 +125,18 @@ public class CourseDaoImplTest {
         assertEquals(course.getTitle(), "title-10");
     }
 
+    @Test
+    public void findByIdTest() throws AppException {
+        Course course = courseDao.find("title-10");
+        Course course1=courseDao.find(course.getId());
+        assertEquals(course,course1);
+    }
+
+    @Test(expected = NoSuchCourseException.class)
+    public void negativeFindByIdTest() throws NoSuchCourseException {
+        courseDao.find(new ObjectId());
+    }
+
     @Test(expected = NoSuchCourseException.class)
     public void findByIdExceptionTest() throws NoSuchCourseException {
         courseDao.find(" ");
@@ -115,14 +150,15 @@ public class CourseDaoImplTest {
 
     @Test
     public void addTest() throws AppException {
-        Course course = new Course("title","description");
+        Course course = new Course("title", "description");
         courseDao.add(course);
         assertEquals(courseDao.size(), AMOUNT_OF_ELEMENTS + 1);
     }
 
+    @Ignore
     @Test(expected = DuplicateKeyException.class)
     public void negativeAddTest() throws DuplicateKeyException {
-        Course course=new Course("title-0","description-0");
+        Course course = new Course("title-0", "description-0");
         courseDao.add(course);
     }
 

@@ -21,6 +21,8 @@ public interface UserService {
 
     User getUserInfo(String username);
 
+    int size();
+
     List<User> getAllUsers();
 
     User findUser(String name) throws NoSuchUserException;

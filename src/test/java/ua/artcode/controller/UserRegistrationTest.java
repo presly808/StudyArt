@@ -2,6 +2,7 @@ package ua.artcode.controller;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,6 +18,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by Maxim on 26.04.2016.
  */
+@Ignore
 public class UserRegistrationTest {
 
     private static UserService userService;

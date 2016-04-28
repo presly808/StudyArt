@@ -83,6 +83,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int size() {
+        return userDao.size();
+    }
+
+    @Override
     public boolean delete(String email) throws NoSuchUserException {
        return userDao.delete(email);
     }

@@ -2,6 +2,7 @@ package ua.artcode.controller;
 
 import com.mongodb.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -31,6 +32,8 @@ import java.util.Map;
 @Controller
 public class MainController {
 
+
+    @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
 

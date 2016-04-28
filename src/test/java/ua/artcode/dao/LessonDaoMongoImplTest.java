@@ -2,8 +2,10 @@ package ua.artcode.dao;
 
 import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
@@ -31,7 +33,7 @@ public class LessonDaoMongoImplTest {
 
     private static final Logger LOG = Logger.getLogger(LessonDaoMongoImplTest.class);
 
-    private final int AMOUNT_OF_ELEMENTS = 50;
+    private final int AMOUNT_OF_ELEMENTS = 10;
 
     @Autowired
     @Qualifier("testStore")
@@ -85,7 +87,12 @@ public class LessonDaoMongoImplTest {
 
     @Test(expected = NoSuchLessonException.class)
     public void findByIdExceptionTest() throws NoSuchLessonException {
-        lessonDao.find(" ");
+        lessonDao.find(new ObjectId());
+    }
+
+    @Test(expected = NoSuchLessonException.class)
+    public void findByTitleExceptionTest() throws NoSuchLessonException {
+        lessonDao.find("");
     }
 
     @Test
@@ -100,6 +107,11 @@ public class LessonDaoMongoImplTest {
         lessonDao.delete("title-5");
         int sizeAfterDel = lessonDao.size();
         assertEquals(sizeBeforeRemove, sizeAfterDel + 1);
+    }
+
+    @Test(expected = NoSuchLessonException.class)
+    public void negativeDeleteTest() throws NoSuchLessonException {
+        lessonDao.delete(new ObjectId());
     }
 
     @Test(expected = NoSuchLessonException.class)
@@ -132,6 +144,7 @@ public class LessonDaoMongoImplTest {
         assertEquals(lessonDao.size(), AMOUNT_OF_ELEMENTS + 1);
     }
 
+    @Ignore
     @Test(expected = DuplicateKeyException.class)
     public void negativeAddTest() throws DuplicateKeyException {
         Lesson lesson = new Lesson("title-0", "description-0");

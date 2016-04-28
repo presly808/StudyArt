@@ -34,11 +34,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="serviceImplTest" class="ua.artcode.service.UserServiceImpl">
-        <constructor-arg name="userDao" ref="userDaoMongoTestImpl"/>
-    </bean>
-
-
     <bean id="taskMongoTestImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
         <constructor-arg name="datastore" ref="testStore"/>
     </bean>

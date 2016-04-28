@@ -4,6 +4,7 @@ import com.mongodb.DuplicateKeyException;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class TaskController {
     @Autowired
     private AdminService adminService;
 
+    @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
 
