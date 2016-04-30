@@ -97,6 +97,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public boolean deleteCourse(ObjectId id) throws NoSuchCourseException {
+        return courseDao.delete(id);
+    }
+
+    @Override
     public List<Course> getAllCourses() {
        return courseDao.getAll();
     }

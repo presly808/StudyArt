@@ -1,11 +1,11 @@
-package ua.artcode.dao;
+package ua.artcode.service;
 
-import com.mongodb.DuplicateKeyException;
+
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
@@ -14,8 +14,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.util.ReflectionTestUtils;
+import ua.artcode.dao.TaskDao;
 import ua.artcode.exception.AppException;
-import ua.artcode.exception.AppValidationException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.common.Task;
@@ -26,35 +27,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
-public class TaskDaoMongoImplTest {
+public class AdminServiceImplTest {
 
-    private static final Logger LOG = Logger.getLogger(TaskDaoMongoImplTest.class);
+    private static final Logger LOG = Logger.getLogger(UserServiceImplTest.class);
+
 
     @Autowired
-    @Qualifier("taskMongoTestImpl")
-    private TaskDao taskDao;
+    private  AdminServiceImpl adminService;
 
     @Autowired
     @Qualifier("testStore")
     private Datastore datastore;
 
-    @Value("${mongo.test.db}")
-    private String nameOfTestDb;
-
     @Value("${mongo.data.db.path}")
     private String mongoDataPath;
 
+    @Value("${mongo.test.db}")
+    private String nameOfTestDb;
 
 
-    private final int AMOUNT_OF_ELEMENTS = 10;
+    @Qualifier("taskMongoTestImpl")
+    @Autowired
+    private TaskDao taskDao;
+
+    private final int AMOUNT_OF_TASKS = 10;
 
 
     @Before
     public void initializeDB() throws InterruptedException, AppException {
+        ReflectionTestUtils.setField(adminService, "taskDao", taskDao);
         try {
             Process process = Runtime.getRuntime().exec("mongod --dbpath " + mongoDataPath);
 //            LOG.warn((getData(process.getInputStream())));
@@ -63,7 +69,7 @@ public class TaskDaoMongoImplTest {
             LOG.error(e.getMessage());
         }
         String value;
-        for (int i = 0; i < AMOUNT_OF_ELEMENTS; i++) {
+        for (int i = 0; i < AMOUNT_OF_TASKS; i++) {
             value = Integer.toString(i);
             Task task = new Task("title-".concat(value), "Simple description-".concat(value),
                     "methodName(true, false) → false",
@@ -92,108 +98,85 @@ public class TaskDaoMongoImplTest {
     }
 
     @Test
+    public void sizeTest() {
+        Assert.assertEquals(AMOUNT_OF_TASKS, adminService.size());
+    }
+
+    @Test
     public void findByTitleTest() throws AppException {
-        Task task = taskDao.find("title-1");
-        assertEquals(task.getTitle(), "title-1");
+        Task task = adminService.findTaskByTitle("title-3");
+        assertEquals(task.getTitle(), "title-3");
+    }
+
+    @Test
+    public void findByIdTest() throws AppException {
+        Task task=adminService.findTaskByTitle("title-3");
+        Task task1 = adminService.findTaskById(task.getId());
+        assertEquals(task,task1);
     }
 
     @Test(expected = NoSuchTaskException.class)
     public void findByIdExceptionTest() throws NoSuchTaskException {
-        taskDao.find(new ObjectId());
+        adminService.findTaskById(new ObjectId());
     }
 
     @Test(expected = NoSuchTaskException.class)
     public void negativeFindByTitleTest() throws NoSuchTaskException {
-        taskDao.find(" ");
+        adminService.findTaskByTitle("");
     }
 
     @Test
-    public void getAllTest() {
-        List<Task> tasks = taskDao.getAll();
-        assertEquals(tasks.size(), taskDao.size());
+    public void deleteByIdTest() throws AppException {
+        Task task=adminService.findTaskByTitle("title-5");
+        int sizeBeforeRemove = adminService.size();
+        adminService.deleteById(task.getId());
+        assertEquals(sizeBeforeRemove-1, adminService.size());
     }
 
     @Test
-    public void getGroupsTest() {
-        List<String> gropList = taskDao.getGroups();
-        assertEquals(gropList.size(), AMOUNT_OF_ELEMENTS);
-    }
-
-    @Test
-    public void getGroupTasksTest() throws NoSuchTaskException {
-        Task task = taskDao.find("title-1");
-        List<Task> codingBatTaskList = taskDao.getGroupTasks(task.getGroupName());
-        assertEquals(codingBatTaskList.size(), 1);
-    }
-
-    @Test
-    public void sizeTest() {
-        int sizeOfdb = taskDao.size();
-        assertEquals(sizeOfdb, AMOUNT_OF_ELEMENTS);
-    }
-
-    @Test
-    public void updateTest() throws AppException {
-        Task newTask = taskDao.find("title-5");
-        newTask.setTitle("title-010111");
-        Task taskToUpdate = taskDao.find("title-7");
-        taskDao.update(taskToUpdate.getId(), newTask);
-        assertEquals(newTask.getTitle(), taskDao.find("title-010111").getTitle());
-    }
-
-    @Ignore
-    @Test(expected = DuplicateDataException.class)
-    public void negativeUpdateTest() throws NoSuchTaskException, DuplicateDataException {
-        Task newTask = taskDao.find("title-22");
-        Task taskToDelete = taskDao.find("title-25");
-        taskDao.update(taskToDelete.getId(),newTask);
-    }
-
-    @Test
-    public void deleteTest() throws AppException {
-        int sizeBeforeRemove = taskDao.size();
-        taskDao.delete("title-5");
-        assertEquals(sizeBeforeRemove-1, taskDao.size());
-    }
-
-    @Test(expected =NoSuchTaskException.class )
-    public void deleteExceptionTest() throws NoSuchTaskException {
-        taskDao.delete(new ObjectId());
-    }
-
-    @Test(expected = NoSuchTaskException.class)
-    public void negativeDeleteTest() throws NoSuchTaskException {
-        taskDao.delete("");
-    }
-
-    @Test
-    public void isExistTest() throws AppValidationException {
-        assertTrue(taskDao.isExist("title-0"));
-    }
-
-    @Test
-    public void negativeIsExistTest() {
-        assertFalse(taskDao.isExist("p0"));
+    public void deleteByTitleTest() throws AppException {
+        int sizeBeforeRemove = adminService.size();
+        adminService.deleteByTitle("title-5");
+        assertEquals(sizeBeforeRemove-1, adminService.size());
     }
 
     @Test
     public void addTest() throws AppException {
         Task task= new Task();
-        taskDao.add(task);
-        assertEquals(taskDao.size(), AMOUNT_OF_ELEMENTS + 1);
+        adminService.addTask(task);
+        assertEquals(adminService.size(), AMOUNT_OF_TASKS + 1);
     }
 
-    @Ignore
-    @Test(expected = DuplicateKeyException.class)
-    public void negativeAddTest() throws DuplicateKeyException {
-        Task task= new Task();
-        task.setTitle("title-1");
-        taskDao.add(task);
+    @Test
+    public void getAllTest() {
+        List<Task> tasks = adminService.getAllTasks();
+        assertEquals(tasks.size(), adminService.size());
+    }
+
+    @Test
+    public void getGroupsTest() {
+        List<String> gropList = adminService.getGroups();
+        assertEquals(gropList.size(), AMOUNT_OF_TASKS);
+    }
+
+    @Test
+    public void getGroupTasksTest() throws NoSuchTaskException {
+        Task task = adminService.findTaskByTitle("title-1");
+        List<Task> codingBatTaskList = adminService.getGroupTasks(task.getGroupName());
+        assertEquals(codingBatTaskList.size(), 1);
+    }
+
+    @Test
+    public void updateTest() throws NoSuchTaskException, DuplicateDataException {
+        Task newTask = adminService.findTaskByTitle("title-5");
+        newTask.setTitle("title-010111");
+        Task taskToUpdate = adminService.findTaskByTitle("title-7");
+        adminService.update(taskToUpdate.getId(), newTask);
+        assertEquals(newTask.getTitle(), adminService.findTaskByTitle("title-010111").getTitle());
     }
 
     @After
     public void deleteDb() {
         datastore.getMongo().dropDatabase(nameOfTestDb);
     }
-
 }

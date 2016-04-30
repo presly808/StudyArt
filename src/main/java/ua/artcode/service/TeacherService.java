@@ -40,6 +40,8 @@ public interface TeacherService {
 
     boolean deleteCourse(String title) throws NoSuchCourseException;
 
+    boolean deleteCourse(ObjectId id) throws NoSuchCourseException;
+
     List<Course> getAllCourses();
 
 

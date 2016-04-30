@@ -135,8 +135,8 @@ public class UserGroupDaoMongoImplTest {
 
     @Test
     public void findByTitleTest() throws AppException {
-        UserGroup userGroup = groupDao.find("name-10");
-        assertEquals(userGroup.getName(), "name-10");
+        UserGroup userGroup = groupDao.find("name-2");
+        assertEquals(userGroup.getName(), "name-2");
     }
 
     @Test(expected = NoSuchGroupException.class)

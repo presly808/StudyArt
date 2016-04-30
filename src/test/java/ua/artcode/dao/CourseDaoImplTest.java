@@ -121,13 +121,13 @@ public class CourseDaoImplTest {
 
     @Test
     public void findByTitleTest() throws AppException {
-        Course course = courseDao.find("title-10");
-        assertEquals(course.getTitle(), "title-10");
+        Course course = courseDao.find("title-1");
+        assertEquals(course.getTitle(), "title-1");
     }
 
     @Test
     public void findByIdTest() throws AppException {
-        Course course = courseDao.find("title-10");
+        Course course = courseDao.find("title-1");
         Course course1=courseDao.find(course.getId());
         assertEquals(course,course1);
     }

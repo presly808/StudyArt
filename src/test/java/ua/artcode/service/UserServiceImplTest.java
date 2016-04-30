@@ -29,9 +29,9 @@ import static ua.artcode.script.InitCodingBatTaskTrigger.getData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/app-context.xml")
-public class UserServiceTest {
+public class UserServiceImplTest {
 
-    private static final Logger LOG = Logger.getLogger(UserServiceTest.class);
+    private static final Logger LOG = Logger.getLogger(UserServiceImplTest.class);
 
     @Qualifier("userServiceImpl")
     @Autowired
@@ -122,10 +122,10 @@ public class UserServiceTest {
     }
 
     @Test
-    public void addTest() throws DuplicateKeyException {
+    public void registerTest() throws DuplicateKeyException {
         User user = new User("User_2b", "password_2b", "test_2@gmail.com");
         userService.register(user);
-        Assert.assertEquals(AMOUNT_OF_USERS + 1, userDao.size());
+        Assert.assertEquals(AMOUNT_OF_USERS + 1, userService.size());
     }
 
     @Test

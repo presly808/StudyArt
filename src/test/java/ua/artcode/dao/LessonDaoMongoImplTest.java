@@ -71,8 +71,8 @@ public class LessonDaoMongoImplTest {
 
     @Test
     public void findByTitleTest() throws AppException {
-        Lesson lesson = lessonDao.find("title-10");
-        assertEquals(lesson.getTitle(), "title-10");
+        Lesson lesson = lessonDao.find("title-1");
+        assertEquals(lesson.getTitle(), "title-1");
     }
 
     @Test

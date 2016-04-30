@@ -89,12 +89,12 @@ public class UserDaoMongoImplTest {
     public void findByEmailTest() {
         User foundedUser = null;
         try {
-            foundedUser = userDao.findByEmail("something_30@gmail.com");
+            foundedUser = userDao.findByEmail("something_3@gmail.com");
         } catch (NoSuchUserException e) {
-            LOG.warn("There are no user with email: something_33@gmail.com");
+            LOG.warn("There are no user with email: something_4@gmail.com");
 
         }
-        assertEquals("something_30@gmail.com", foundedUser.getEmail());
+        assertEquals("something_3@gmail.com", foundedUser.getEmail());
     }
 
     @Test(expected = NoSuchUserException.class)
@@ -157,7 +157,7 @@ public class UserDaoMongoImplTest {
 
     @Test
     public void isExistTest() {
-        assertTrue(userDao.isExist("something_12@gmail.com"));
+        assertTrue(userDao.isExist("something_2@gmail.com"));
     }
 
     @Test
