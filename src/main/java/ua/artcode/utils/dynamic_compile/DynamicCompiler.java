@@ -20,14 +20,13 @@ import java.net.URLClassLoader;
 //TODO Maxim pc dont work with getLibsClasspath();
 public class DynamicCompiler {
     private static final Logger LOG = Logger.getLogger(DynamicCompiler.class);
-    public static final String LIBS_CLASSPATH = "/apache-tomcat/webapps/ROOT/WEB-INF/classes/";
-     //public static final String LIBS_CLASSPATH = getLibsClasspath();
+    public static final String LIBS_CLASSPATH = getLibsClasspath();
 
     private static String getLibsClasspath() {
         StringBuilder classPaths = new StringBuilder();
         URL[] urls = ((URLClassLoader) (Thread.currentThread().getContextClassLoader())).getURLs();
         for (URL url : urls) {
-            classPaths.append(url.getFile()).append(":");
+            classPaths.append(url.getFile()).append(File.pathSeparator); // use ; for Windows like
         }
         LOG.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + classPaths.toString());
         return classPaths.toString();

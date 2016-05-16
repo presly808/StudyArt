@@ -2,9 +2,11 @@ package ua.artcode.script;
 
 import ua.artcode.exception.AppException;
 
+import java.io.IOException;
+
 public class RunInitCodingBatTaskTrigger {
 
-    public static void main(String[] args) throws AppException {
+    public static void main(String[] args) throws AppException, IOException, InterruptedException {
 //        ApplicationContext context = SpringContext.getContext();
 //        Datastore datastore = (Datastore) context.getBean("datastore");
 //        CourseDao courseDao=new CourseDaoImpl(datastore);
@@ -24,7 +26,8 @@ public class RunInitCodingBatTaskTrigger {
 //         InitCodingBatTaskTrigger.loadTasksIfNeeded();
           //InitCodingBatTaskTrigger.loadTasksToDataBase();
 //        InitCodingBatTaskTrigger.createDumpOfDataBase();
-//        InitCodingBatTaskTrigger.restoreDataBaseFromDump();
+
+        InitCodingBatTaskTrigger.restoreDataBaseFromDump();
 
 //        UserDao userDao = new UserDaoMongoImpl(datastore);
 //        userDao.add(new User("Razer","000000","chernyshov.dev@gmail.com", UserType.ROLE_ADMIN));
