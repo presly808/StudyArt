@@ -1,0 +1,375 @@
+{
+  "title": "ArtStudyTask",
+  "id": 1,
+  "formatVersion": 2,
+  "ideas": {
+    "1": {
+      "title": "project",
+      "id": 2,
+      "ideas": {
+        "2": {
+          "title": "tasks",
+          "id": 7,
+          "ideas": {
+            "1": {
+              "title": "Pagination",
+              "ideas": {
+                "1": {
+                  "title": "show components by parts",
+                  "ideas": {
+                    "1": {
+                      "title": "we can replace morphia to spring data",
+                      "id": 85,
+                      "ideas": {
+                        "1": {
+                          "title": "Spring Data contains Pagination",
+                          "id": 86
+                        }
+                      }
+                    }
+                  },
+                  "id": 9
+                }
+              },
+              "id": 8,
+              "attr": {
+                "style": {}
+              }
+            },
+            "2": {
+              "title": "Add Text Area for body in",
+              "id": 10,
+              "ideas": {
+                "1": {
+                  "title": "create",
+                  "id": 11,
+                  "ideas": {
+                    "1": {
+                      "title": "Course",
+                      "id": 12
+                    },
+                    "2": {
+                      "title": "Lesson",
+                      "id": 13
+                    },
+                    "3": {
+                      "title": "Task",
+                      "id": 14
+                    }
+                  }
+                },
+                "2": {
+                  "title": "use",
+                  "id": 15,
+                  "ideas": {
+                    "1": {
+                      "title": "MarkDown",
+                      "id": 16
+                    }
+                  }
+                }
+              }
+            },
+            "3": {
+              "title": "In Code text Area",
+              "id": 17,
+              "ideas": {
+                "1": {
+                  "title": "add online IDE",
+                  "id": 18,
+                  "attr": {
+                    "style": {}
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "codemirror https://codemirror.net/doc/manual.html",
+                      "id": 19
+                    },
+                    "2": {
+                      "title": "ace https://ace.c9.io/#nav=about",
+                      "id": 20
+                    }
+                  }
+                }
+              }
+            },
+            "4": {
+              "title": "Search and Filtering",
+              "id": 57,
+              "ideas": {
+                "1": {
+                  "title": "https://jqueryui.com/autocomplete/",
+                  "id": 59
+                },
+                "2": {
+                  "title": "with ajax https://www.devbridge.com/sourcery/components/jquery-autocomplete/",
+                  "id": 60
+                },
+                "3": {
+                  "title": "examples jquery plugins https://www.sitepoint.com/10-ajaxjquery-autocomplete-tutorial-examples/",
+                  "id": 66
+                }
+              }
+            },
+            "5": {
+              "title": "site template",
+              "id": 61,
+              "ideas": {
+                "1.5": {
+                  "title": "example2 http://startbootstrap.com/template-overviews/sb-admin/",
+                  "id": 64
+                },
+                "2.5": {
+                  "title": "example3 http://startbootstrap.com/template-overviews/sb-admin-2/",
+                  "id": 65
+                },
+                "12.5": {
+                  "title": "example4 https://shapebootstrap.net/item/1524955-janux-free-responsive-admin-dashboard-template",
+                  "id": 62,
+                  "attr": {
+                    "style": {}
+                  }
+                }
+              }
+            },
+            "6": {
+              "title": "Testing",
+              "id": 69,
+              "ideas": {
+                "1": {
+                  "title": "Unit",
+                  "id": 70,
+                  "ideas": {
+                    "1": {
+                      "title": "Services",
+                      "id": 71
+                    },
+                    "2": {
+                      "title": "Core",
+                      "id": 72
+                    }
+                  }
+                },
+                "2": {
+                  "title": "Integrational",
+                  "id": 74,
+                  "ideas": {
+                    "1": {
+                      "title": "Contollers",
+                      "id": 76,
+                      "ideas": {
+                        "1": {
+                          "title": "restassured framework",
+                          "id": 79
+                        }
+                      }
+                    },
+                    "2": {
+                      "title": "Views",
+                      "id": 77,
+                      "ideas": {
+                        "1": {
+                          "title": "selenium",
+                          "id": 78
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "-10": {
+      "title": "topics",
+      "id": 21,
+      "ideas": {
+        "1": {
+          "title": "JavaScript",
+          "id": 22,
+          "ideas": {
+            "1": {
+              "title": "codecademy  https://www.codecademy.com/learn/javascript",
+              "id": 23
+            },
+            "2": {
+              "title": "mindmups",
+              "id": 24,
+              "ideas": {
+                "1": {
+                  "title": "ink https://xmindshare.s3.amazonaws.com/preview/javascript-2-ejrer-1260138598787.jpg",
+                  "id": 25
+                },
+                "2": {
+                  "title": "link2 https://raw.githubusercontent.com/coodict/javascript-in-one-pic/master/js%20in%20one%20pic.png",
+                  "id": 35
+                }
+              }
+            },
+            "3": {
+              "title": "resources",
+              "id": 26,
+              "ideas": {
+                "1": {
+                  "title": "online res http://learn.javascript.ru/",
+                  "id": 27
+                },
+                "2": {
+                  "title": "article https://habrahabr.ru/post/243403/",
+                  "id": 29
+                }
+              }
+            },
+            "4": {
+              "title": "frameworks",
+              "id": 31,
+              "ideas": {
+                "1": {
+                  "title": "JQuery",
+                  "id": 32,
+                  "ideas": {
+                    "1": {
+                      "title": "mindmaps",
+                      "id": 33,
+                      "ideas": {
+                        "1": {
+                          "title": "1 http://www.successfulprojectmanager.com/wp-content/uploads/smashing-jquery-mind-map.jpg",
+                          "id": 34
+                        }
+                      }
+                    },
+                    "2": {
+                      "title": "additional",
+                      "id": 39,
+                      "ideas": {
+                        "1": {
+                          "title": "CSS selectors",
+                          "id": 40
+                        },
+                        "2": {
+                          "title": "AJAX",
+                          "id": 41
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "2": {
+          "title": "WebServices",
+          "id": 44,
+          "ideas": {
+            "1": {
+              "title": "SOAP",
+              "id": 45,
+              "ideas": {
+                "1": {
+                  "title": "video https://www.youtube.com/watch?v=KIdn669PFdE&index=15&list=PLvmHg49t5OCSTcNLL4Hti29nXPueU8Wt7",
+                  "id": 48
+                }
+              }
+            },
+            "2": {
+              "title": "REST",
+              "id": 46,
+              "ideas": {
+                "1": {
+                  "title": "video https://www.youtube.com/watch?v=S11OLY68CME&index=16&list=PLvmHg49t5OCSTcNLL4Hti29nXPueU8Wt7",
+                  "id": 49
+                }
+              }
+            }
+          }
+        },
+        "3": {
+          "title": "HTML CSS",
+          "id": 51,
+          "ideas": {
+            "1": {
+              "title": "Grid Framework",
+              "id": 53,
+              "ideas": {
+                "1": {
+                  "title": "Bootstrap",
+                  "id": 54,
+                  "ideas": {
+                    "1": {
+                      "title": "tutorial",
+                      "id": 55,
+                      "ideas": {
+                        "1": {
+                          "title": "http://www.w3schools.com/bootstrap/default.asp",
+                          "id": 56
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "attr": {
+        "position": [
+          167,
+          5,
+          1
+        ],
+        "style": {}
+      }
+    },
+    "-5": {
+      "title": "CV",
+      "id": 67,
+      "attr": {
+        "position": [
+          161,
+          -349,
+          2
+        ],
+        "style": {}
+      },
+      "ideas": {
+        "1": {
+          "title": "examples",
+          "id": 80,
+          "ideas": {
+            "1": {
+              "title": "one https://drive.google.com/drive/u/0/folders/0B3pUqYFBBsi-STNmc0g5WjlZaWc",
+              "id": 81
+            },
+            "2": {
+              "title": "linkedin profiles https://www.linkedin.com/title/java-developer",
+              "id": 82,
+              "ideas": {
+                "1": {
+                  "title": "use as template for resume",
+                  "id": 83
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "links": [
+    {
+      "ideaIdFrom": 61,
+      "ideaIdTo": 51,
+      "attr": {
+        "style": {
+          "color": "#FF0000",
+          "lineStyle": "solid",
+          "arrow": true
+        }
+      }
+    }
+  ]
+}
