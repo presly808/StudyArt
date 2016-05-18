@@ -1,57 +1,112 @@
+<%@ include file="/WEB-INF/pages/component/jsp-include.jsp" %>
 
-
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<!DOCTYPE html>
 <html>
 <head>
     <title><spring:message code="title.registration.form"/></title>
+
+    <%@include file="/WEB-INF/pages/component/css-include.jsp"%>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<c:out value="${bootstrapMinCss}"/>" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="<c:out value="${metisMenuCss}"/>" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<c:out value="${sbAdminCss}"/>" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 
 <body>
 
-<form:form action="${pageContext.request.contextPath}/registration" modelAttribute="user"  method="post">
-    <table>
-        <tr>
-            <td><spring:message code="user.name"/>:</td>
-            <td><form:input path="name"/></td>
-            <td><form:errors path="name"/></td>
-        </tr>
+<div class="container">
 
-        <tr>
-            <td><spring:message code="user.email"/>:</td>
-            <td><form:input path="email"/></td>
-            <td><form:errors path="email"/></td>
-        </tr>
+    <div class="panel panel-default">
+        <div class="panel-heading">Registration</div>
+        <div class="panel-body">
+            <div class="row">
+                <form:form action="${pageContext.request.contextPath}/registration" modelAttribute="user"  method="post">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="InputName"><spring:message code="user.name"/></label>
 
-        <tr>
-            <td><spring:message code="user.password"/>:</td>
-            <td><form:input path="password"/></td>
-            <td><form:errors path="password" /></td>
-        </tr>
+                            <div class="input-group">
+                                <form:input path="name" type="text" class="form-control" name="InputName" id="InputName" placeholder="Enter Name"
+                                            required="true"/>
+                                <form:errors path="name"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputEmail"><spring:message code="user.email"/></label>
 
-        <tr>
-            <td>User type:</td>
-            <td><form:select path="userType">
-                <form:option value="" label="Select user type"/>
-                <form:option value="ROLE_STUDENT" label="Student"/>
-                <form:option value="ROLE_TEACHER" label="Teacher"/>
-            </form:select></td>
-            <td><form:errors path="userType" /></td>
-        </tr>
+                            <div class="input-group">
+                                <form:input path="email" type="email" class="form-control" id="InputEmailFirst" name="InputEmail"
+                                            placeholder="Enter Email" required="true"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputPassword">Input pass</label>
+                            <div class="input-group">
+                                <form:input path="password" type="password" class="form-control" id="InputPassFirst" name="InputPassword"
+                                            placeholder="Input Pass" required="true"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ChooseType">Choose type</label>
+                            <div class="input-group">
+                                <form:select path="userType" id="ChooseType" class="form-control">
+                                    <form:option value="" label="Select user type"/>
+                                    <form:option value="ROLE_STUDENT" label="Student"/>
+                                    <form:option value="ROLE_TEACHER" label="Teacher"/>
+                                </form:select>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <input type="submit" name="submit" id="submit" value="Register" class="btn btn-info pull-left">
+                    </div>
+                </form:form>
+                <div class="col-lg-5 col-md-push-1">
+                    <div class="col-md-12">
+                        <c:if test="${message != null}">
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-remove"></span><strong><c:out value="${message}"/></strong>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <tr>
-            <td><input type="submit" value="<spring:message code="registration"/>"/></td>
-        </tr>
 
-    </table>
-</form:form>
+</div>
 
-<c:if test="${message != null}">
-<p style="color:red"><c:out value="${message}"/><p>
-    </c:if>
+
+<%@include file="/WEB-INF/pages/component/js-include.jsp" %>
+<script src="${jqueryJs}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="${bootstrapJs}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="${metisMenuJs}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="${sbAdminJs}"></script>
 
 </body>
 </html>

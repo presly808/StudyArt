@@ -10,11 +10,11 @@
 
 
     <context:annotation-config/>
+    <context:component-scan base-package="ua.artcode"/>
 
     <!-- support JSR303 annotation -->
     <mvc:annotation-driven validator="validator"/>
 
-    <context:component-scan base-package="ua.artcode"/>
 
     <!--context:property-placeholder location="app.properties"/-->
 
@@ -33,6 +33,8 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    <mvc:resources mapping="/resources/**" location="/resources/theme2/"/>
 
     <bean id="taskMongoTestImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
         <constructor-arg name="datastore" ref="testStore"/>

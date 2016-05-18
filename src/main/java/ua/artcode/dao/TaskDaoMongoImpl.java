@@ -12,12 +12,6 @@ import ua.artcode.model.common.Task;
 
 import java.util.List;
 
-
-/**
- * Created by Razer on 09.11.15.
- */
-
-
 public class TaskDaoMongoImpl implements TaskDao {
 
     private Datastore datastore;
@@ -114,10 +108,7 @@ public class TaskDaoMongoImpl implements TaskDao {
     @Override
     public boolean isExist(String title) {
         Task existTask = datastore.find(Task.class).field("title").equal(title).get();
-        if (existTask == null) {
-            return false;
-        }
-        return true;
+        return existTask != null;
     }
 
     @Override
