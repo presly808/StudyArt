@@ -60,7 +60,7 @@
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="<spring:message code="user.email"/>"
-                                       name="email" type="email" autofocus>
+                                       name="username" type="email" autofocus>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="<spring:message code="user.password"/>"

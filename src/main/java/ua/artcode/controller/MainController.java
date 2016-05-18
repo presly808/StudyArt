@@ -60,7 +60,7 @@ public class MainController {
 
     @RequestMapping(value = "/login")
     public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView();//todo forward to main menu
         if (error != null) {
             mav.addObject("message", "Invalid username or password!");
         }

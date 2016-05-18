@@ -5,7 +5,7 @@
 <head>
     <title><spring:message code="title.registration.form"/></title>
 
-    <%@include file="/WEB-INF/pages/component/css-include.jsp"%>
+    <%@include file="/WEB-INF/pages/component/css-include.jsp" %>
 
     <!-- Bootstrap Core CSS -->
     <link href="<c:out value="${bootstrapMinCss}"/>" rel="stylesheet">
@@ -36,58 +36,72 @@
         <div class="panel-heading">Registration</div>
         <div class="panel-body">
             <div class="row">
-                <form:form action="${pageContext.request.contextPath}/registration" modelAttribute="user"  method="post">
-                    <div class="col-lg-6">
+                <form:form action="${pageContext.request.contextPath}/registration" modelAttribute="user" method="post">
+                    <div class="col-xs-12">
                         <div class="form-group">
                             <label for="InputName"><spring:message code="user.name"/></label>
 
                             <div class="input-group">
-                                <form:input path="name" type="text" class="form-control" name="InputName" id="InputName" placeholder="Enter Name"
+                                <form:input path="name" type="text" class="form-control" name="InputName" id="InputName"
+                                            placeholder="Enter Name"
                                             required="true"/>
-                                <form:errors path="name"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
+                            <form:errors path="name"/>
                         </div>
                         <div class="form-group">
                             <label for="InputEmail"><spring:message code="user.email"/></label>
 
                             <div class="input-group">
-                                <form:input path="email" type="email" class="form-control" id="InputEmailFirst" name="InputEmail"
+                                <form:input path="email" type="email" class="form-control" id="InputEmailFirst"
+                                            name="InputEmail"
                                             placeholder="Enter Email" required="true"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
+                            <form:errors path="email"/>
                         </div>
                         <div class="form-group">
                             <label for="InputPassword">Input pass</label>
+
                             <div class="input-group">
-                                <form:input path="password" type="password" class="form-control" id="InputPassFirst" name="InputPassword"
+                                <form:input path="password" type="password" class="form-control" id="InputPassFirst"
+                                            name="InputPassword"
                                             placeholder="Input Pass" required="true"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
+                            <form:errors path="password" />
                         </div>
                         <div class="form-group">
                             <label for="ChooseType">Choose type</label>
+
                             <div class="input-group">
                                 <form:select path="userType" id="ChooseType" class="form-control">
                                     <form:option value="" label="Select user type"/>
                                     <form:option value="ROLE_STUDENT" label="Student"/>
                                     <form:option value="ROLE_TEACHER" label="Teacher"/>
                                 </form:select>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
+                            <form:errors  path="userType" />
                         </div>
                         <input type="submit" name="submit" id="submit" value="Register" class="btn btn-info pull-left">
                     </div>
                 </form:form>
-                <div class="col-lg-5 col-md-push-1">
-                    <div class="col-md-12">
-                        <c:if test="${message != null}">
-                            <div class="alert alert-danger">
-                                <span class="glyphicon glyphicon-remove"></span><strong><c:out value="${message}"/></strong>
-                            </div>
-                        </c:if>
-                    </div>
+
+                <c:if test="${message != null}">
+                <div class="alert alert-danger" role="alert">
+
+                        <div class="alert alert-danger">
+                            <span class="glyphicon glyphicon-remove"></span><strong><c:out value="${message}"/></strong>
+                        </div>
+
                 </div>
+                </c:if>
+
             </div>
         </div>
     </div>
