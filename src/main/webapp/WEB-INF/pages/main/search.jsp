@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Main Menu</title>
+    <title>Search</title>
 
     <%@include file="/WEB-INF/pages/component/css-include.jsp" %>
 
@@ -48,7 +48,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/menu">ArtStudy</a>
+            <a class="navbar-brand" href="${CONTEXT_PATH}/menu">ArtStudy</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -264,7 +264,7 @@
                     <%--todo replace via get request--%>
                     <li>
 
-                        <form method="post" action="${pageContext.request.contextPath}/logout">
+                        <form method="post" action="${CONTEXT_PATH}/logout">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                             <p><input type="submit" style="margin-left: 38px" class="btn" value="logout"></p>
@@ -282,14 +282,12 @@
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
                         <div class="input-group custom-search-form">
-                            <form action="${CONTEXT_PATH}/search" method="get">
-                            <input type="text" name="key" class="form-control" placeholder="Search...">
+                            <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">
+                                    <button class="btn btn-default" type="button">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-                            </form>
                         </div>
                         <!-- /input-group -->
                     </li>
@@ -298,18 +296,18 @@
                         <ul class="nav nav-second-level">
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/course-menu/create-course"><spring:message
+                                    <a href="${CONTEXT_PATH}/course-menu/create-course"><spring:message
                                             code="menu.add"/></a></li>
                             </security:authorize>
-                            <li><a href="${pageContext.request.contextPath}/course-menu/show-courses"><spring:message
+                            <li><a href="${CONTEXT_PATH}/course-menu/show-courses"><spring:message
                                     code="course.menu.show"/></a></li>
 
-                            <li><a href="${pageContext.request.contextPath}/course-menu/find-course"><spring:message
+                            <li><a href="${CONTEXT_PATH}/course-menu/find-course"><spring:message
                                     code="menu.find"/></a></li>
 
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/course-menu/delete-course"><spring:message
+                                    <a href="${CONTEXT_PATH}/course-menu/delete-course"><spring:message
                                             code="menu.delete"/></a></li>
                             </security:authorize>
                         </ul>
@@ -319,18 +317,18 @@
                         <a href="#"><i class="fa fa-fw"></i>Task Group<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                <li><a href="${pageContext.request.contextPath}/group-menu/create-group"><spring:message
+                                <li><a href="${CONTEXT_PATH}/group-menu/create-group"><spring:message
                                         code="menu.add"/></a></li>
                             </security:authorize>
 
-                            <li><a href="${pageContext.request.contextPath}/group-menu/show-groups"><spring:message
+                            <li><a href="${CONTEXT_PATH}/group-menu/show-groups"><spring:message
                                     code="group.menu.show"/></a></li>
 
-                            <li><a href="${pageContext.request.contextPath}/group-menu/find-group"><spring:message
+                            <li><a href="${CONTEXT_PATH}/group-menu/find-group"><spring:message
                                     code="menu.find"/></a></li>
 
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                <li><a href="${pageContext.request.contextPath}/group-menu/delete-form"><spring:message
+                                <li><a href="${CONTEXT_PATH}/group-menu/delete-form"><spring:message
                                         code="menu.delete"/></a></li>
                             </security:authorize>
                         </ul>
@@ -341,20 +339,20 @@
                         <ul class="nav nav-second-level">
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/lesson-menu/create-lesson"><spring:message
+                                    <a href="${CONTEXT_PATH}/lesson-menu/create-lesson"><spring:message
                                             code="menu.add"/></a></li>
                             </security:authorize>
 
-                            <li><a href="${pageContext.request.contextPath}/lesson-menu/show-lessons"><spring:message
+                            <li><a href="${CONTEXT_PATH}/lesson-menu/show-lessons"><spring:message
                                     code="lesson.menu.show"/></a></li>
 
-                            <li><a href="${pageContext.request.contextPath}/lesson-menu/find-lesson"><spring:message
+                            <li><a href="${CONTEXT_PATH}/lesson-menu/find-lesson"><spring:message
                                     code="menu.find"/></a></li>
 
                             <security:authorize
                                     access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/lesson-menu/delete-lesson"><spring:message
+                                    <a href="${CONTEXT_PATH}/lesson-menu/delete-lesson"><spring:message
                                             code="menu.delete"/></a></li>
                             </security:authorize>
                         </ul>
@@ -383,33 +381,33 @@
                             </ul>
                         </li>
                     </security:authorize>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i>Task Menu<samp class="fa arrow"></samp></a>
-                            <ul class="nav nav-second-level">
-                                <security:authorize
-                                        access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/task-menu/create-task"><spring:message
-                                                code="menu.add"/></a></li>
-                                </security:authorize>
+                    <li>
+                        <a href="#"><i class="fa fa-fw"></i>Task Menu<samp class="fa arrow"></samp></a>
+                        <ul class="nav nav-second-level">
+                            <security:authorize
+                                    access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+                                <li>
+                                    <a href="${CONTEXT_PATH}/task-menu/create-task"><spring:message
+                                            code="menu.add"/></a></li>
+                            </security:authorize>
 
-                                <li><a href="${pageContext.request.contextPath}/task-menu/find-task"/><spring:message
-                                        code="menu.find"/></a></li>
+                            <li><a href="${CONTEXT_PATH}/task-menu/find-task">
+                                <spring:message code="menu.find"/></a></li>
 
-                                <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message
-                                        code="task.menu.show"/></a></li>
+                            <li><a href="${CONTEXT_PATH}/task-menu/groups"><spring:message
+                                    code="task.menu.show"/></a></li>
 
-                                <li><a href="${pageContext.request.contextPath}/task-menu/size"><spring:message
-                                        code="menu.size"/></a></li>
+                            <li><a href="${CONTEXT_PATH}/task-menu/size"><spring:message
+                                    code="menu.size"/></a></li>
 
-                                <security:authorize
-                                        access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/task-menu/delete-form"><spring:message
-                                                code="menu.delete"/></a></li>
-                                </security:authorize>
-                            </ul>
-                        </li>
+                            <security:authorize
+                                    access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+                                <li>
+                                    <a href="${CONTEXT_PATH}/task-menu/delete-form"><spring:message
+                                            code="menu.delete"/></a></li>
+                            </security:authorize>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
@@ -422,11 +420,84 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Blank</h1>
+                    <h1 class="page-header">Search</h1>
+
+                    <div class="row">
+                    </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <form action="${CONTEXT_PATH}/search" method="get" class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="searchWord">Email address</label>
+                            <input name="key" type="text" class="form-control" id="searchWord" value="${searchWord}">
+                        </div>
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </form>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#home" data-toggle="tab">Users</a>
+                        </li>
+                        <li><a href="#profile" data-toggle="tab">Groups</a>
+                        </li>
+                        <li><a href="#messages" data-toggle="tab">Lessons</a>
+                        </li>
+                        <li><a href="#settings" data-toggle="tab">Tasks</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="home">
+                            <ul>
+                                <c:forEach var="iterUser" items="${foundUsers}">
+                                    <li>
+                                        ${iterUser.email} - ${iterUser.name} - ${iterUser.userType}
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="profile">
+                            <h4>Profile Tab</h4>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum.</p>
+                        </div>
+                        <div class="tab-pane fade" id="messages">
+                            <h4>Messages Tab</h4>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum.</p>
+                        </div>
+                        <div class="tab-pane fade" id="settings">
+                            <h4>Settings Tab</h4>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
         </div>
         <!-- /.container-fluid -->
     </div>

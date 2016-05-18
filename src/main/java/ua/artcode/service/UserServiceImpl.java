@@ -71,20 +71,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserInfo(String username) {
-        User user = null;
-        List<User> ListOfUsers = userDao.getAll();
-        for (User listOfUser : ListOfUsers) {
-            if (listOfUser.getName().equals(username)) {
-                user = listOfUser;
-            }
-
+        try {
+            return userDao.find(username);
+        } catch (NoSuchUserException e) {
+            return null;
         }
-        return user;
     }
 
     @Override
     public int size() {
         return userDao.size();
+    }
+
+    @Override
+    public List<User> search(String keyWord) {
+        return userDao.search(keyWord);
     }
 
     @Override

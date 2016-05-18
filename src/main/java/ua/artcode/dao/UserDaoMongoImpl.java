@@ -101,6 +101,19 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
+    public List<User> search(String key) {
+        List<User> users = datastore.find(User.class)
+                .field("name").contains(key)
+                .field("email").contains(key).asList();
+
+        if (users == null || users.isEmpty()) {
+            // todo send empty list
+        }
+
+        return users;
+    }
+
+    @Override
     public boolean isExist(String email) {
         User existUser = datastore.find(User.class).field("email").equal(email).get();
         if (existUser == null) {

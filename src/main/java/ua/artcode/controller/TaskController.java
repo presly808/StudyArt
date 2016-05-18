@@ -241,7 +241,7 @@ public class TaskController {
             TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);
 
             if (oldTaskTestResult != null) {
-                if (oldTaskTestResult.getPassedAll() == false) {
+                if (!oldTaskTestResult.getPassedAll()) {
                     user.addSolvedTask(taskId, newTaskTestResult);
                 } else if (newTaskTestResult.getPassedAll()) {
                     user.addSolvedTask(taskId, newTaskTestResult);
@@ -252,9 +252,7 @@ public class TaskController {
             String email = user.getEmail();
 
             userService.update(email, user);
-        } catch (DuplicateDataException e) {
-            LOG.warn(e.getMessage());
-        } catch (NoSuchUserException e) {
+        } catch (DuplicateDataException | NoSuchUserException e) {
             LOG.warn(e.getMessage());
         }
     }
