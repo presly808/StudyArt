@@ -290,7 +290,7 @@
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-
+                            <input type="hidden" name="type" value="user">
                         </div>
                         </form>
                         <!-- /input-group -->
@@ -395,7 +395,7 @@
                                                 code="menu.add"/></a></li>
                                 </security:authorize>
 
-                                <li><a href="${pageContext.request.contextPath}/task-menu/find-task"/><spring:message
+                                <li><a href="${pageContext.request.contextPath}/task-menu/find-task"><spring:message
                                         code="menu.find"/></a></li>
 
                                 <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message

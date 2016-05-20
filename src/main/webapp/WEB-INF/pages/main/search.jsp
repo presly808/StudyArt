@@ -295,6 +295,7 @@
                             <div class="input-group custom-search-form">
 
                                 <input type="text" name="key" class="form-control" placeholder="Search...">
+                                <input type="hidden" name="type" value="user">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="fa fa-search"></i>
@@ -449,77 +450,68 @@
                         <div class="form-group">
                             <label class="sr-only" for="searchWord">Email address</label>
                             <input name="key" type="text" class="form-control" id="searchWord" value="${searchWord}">
+                            <input type="hidden" name="type" value="user">
                         </div>
                         <button type="submit" class="btn btn-default">Search</button>
                     </form>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <!-- Nav tabs -->
+
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#home" data-toggle="tab">Users <span class="badge">${amountFoundUser}</span></a>
-                        </li>
-                        <li><a href="#profile" data-toggle="tab">Groups</a>
-                        </li>
-                        <li><a href="#messages" data-toggle="tab">Lessons</a>
-                        </li>
-                        <li><a href="#settings" data-toggle="tab">Tasks</a>
-                        </li>
+                        <li role="presentation" class="${searchType == 'user' ? 'active' : ''}">
+                            <a href="search?key=${searchWord}&type=user">Users <span
+                                class="badge">${foundUserSize} </span></a></li>
+
+                        <li role="presentation" class="${searchType == 'task' ? 'active' : ''}">
+                            <a href="search?key=${searchWord}&type=task">Tasks <span
+                                class="badge">${foundTaskSize} </span></a></li>
                     </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="home">
-                                <table width="100%" class="table-responsive table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Type</th>
+
+                    <div class="content">
+                        <table width="100%" class="table-responsive table-striped">
+                            <c:if test="${searchType=='user'}">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="iterUser" items="${foundUsers}">
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            <a href="${CONTEXT_PATH}/user-menu/show-user/${iterUser.name}">${iterUser.name}</a>
+                                        </td>
+                                        <td>${iterUser.email}</td>
+                                        <td>${iterUser.userType}</td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="iterUser" items="${foundUsers}">
-                                        <tr class="odd gradeX">
-                                            <td><a href="${CONTEXT_PATH}/user-menu/show-user/${iterUser.name}">${iterUser.name}</a></td>
-                                            <td>${iterUser.email}</td>
-                                            <td>${iterUser.userType}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                        </div>
-                        <div class="tab-pane fade" id="profile">
-                            <h4>Profile Tab</h4>
+                                </c:forEach>
+                                </tbody>
+                            </c:if>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                mollit anim id est laborum.</p>
-                        </div>
-                        <div class="tab-pane fade" id="messages">
-                            <h4>Messages Tab</h4>
+                            <c:if test="${searchType == 'task'}">
+                                <thead>
+                                <tr>
+                                    <th>TaskName</th>
+                                    <th>GroupName</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="task" items="${foundTasks}">
+                                    <tr class="odd gradeX">
+                                        <td><a href="${CONTEXT_PATH}/task-menu/do-task/${task.title}">${task.title}</a></td>
+                                        <td><a href="${CONTEXT_PATH}/task-menu/show-group/${task.groupName}">${task.groupName}</a></td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </c:if>
+                        </table>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                mollit anim id est laborum.</p>
-                        </div>
-                        <div class="tab-pane fade" id="settings">
-                            <h4>Settings Tab</h4>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                mollit anim id est laborum.</p>
-                        </div>
                     </div>
+
                 </div>
                 <!-- /.panel-body -->
             </div>

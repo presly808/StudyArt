@@ -33,6 +33,7 @@ public class TaskDaoMongoImpl implements TaskDao {
         datastore.save(task);
         LOG.info("The new task has been added to DB. Title:" + task.getTitle());
     }
+
     //TODO
     @Override
     public Task update(ObjectId id, Task task) throws NoSuchTaskException, DuplicateDataException {
@@ -43,7 +44,7 @@ public class TaskDaoMongoImpl implements TaskDao {
             add(task);
         } catch (DuplicateKeyException e) {
             add(oldTask);
-            throw new DuplicateDataException("The task with title: "+task.getTitle()+" is already exist!");
+            throw new DuplicateDataException("The task with title: " + task.getTitle() + " is already exist!");
         }
         LOG.info("The task has been updated.");
         return task;
@@ -116,6 +117,31 @@ public class TaskDaoMongoImpl implements TaskDao {
         DBCollection dBCollection = datastore.getCollection(Task.class);
         List<String> groups = dBCollection.distinct("groupName");
         return groups;
+    }
+
+    @Override
+    public List<Task> searchByTitle(String keyWord) {
+        // todo use pagination
+        Query<Task> tasks = datastore.find(Task.class);
+
+        tasks.or(
+                tasks.criteria("title").containsIgnoreCase(keyWord),
+                tasks.criteria("groupName").containsIgnoreCase(keyWord)
+        );
+
+        return tasks.asList();
+    }
+
+    @Override
+    public long searchTaskCount(String keyWord) {
+        Query<Task> tasks = datastore.find(Task.class);
+
+        tasks.or(
+                tasks.criteria("title").containsIgnoreCase(keyWord),
+                tasks.criteria("groupName").containsIgnoreCase(keyWord)
+        );
+
+        return tasks.countAll();
     }
 
     /**

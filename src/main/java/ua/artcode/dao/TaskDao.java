@@ -35,4 +35,8 @@ public interface TaskDao {
 
     List<String> getGroups();
 
+    List<Task> searchByTitle(String keyWord);
+
+    long searchTaskCount(String keyWord);
+
 }

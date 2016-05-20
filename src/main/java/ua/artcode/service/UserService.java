@@ -4,6 +4,7 @@ import com.mongodb.DuplicateKeyException;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
 
@@ -25,7 +26,7 @@ public interface UserService {
 
     List<User> search(String keyWord);
 
-    long searchCount(String keyWord);
+    long searchUsersCount(String keyWord);
 
     List<User> getAllUsers();
 
@@ -37,4 +38,7 @@ public interface UserService {
 
     boolean delete(String email) throws NoSuchUserException;
 
+    long searchTasksCount(String keyWord);
+
+    List<Task> searchTasks(String keyWord);
 }

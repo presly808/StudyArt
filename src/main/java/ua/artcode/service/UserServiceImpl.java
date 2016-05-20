@@ -4,11 +4,13 @@ import com.mongodb.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAuthenticationFailException;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.model.common.UserType;
 import ua.artcode.utils.Security;
@@ -22,6 +24,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("userDaoMongoMongoImpl")
     private UserDao userDao;
+
+    @Autowired
+    @Qualifier("taskMongoImpl")
+    private TaskDao taskDao;
 
     public UserServiceImpl() {
     }
@@ -89,8 +95,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public long searchCount(String keyWord) {
+    public long searchUsersCount(String keyWord) {
         return userDao.searchCount(keyWord);
+    }
+
+    @Override
+    public long searchTasksCount(String keyWord){
+        return taskDao.searchTaskCount(keyWord);
+    }
+
+    @Override
+    public List<Task> searchTasks(String keyWord) {
+        return taskDao.searchByTitle(keyWord);
     }
 
     @Override

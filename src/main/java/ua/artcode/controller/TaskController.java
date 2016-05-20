@@ -55,7 +55,7 @@ public class TaskController {
 
     @RequestMapping(value = "/create-task")
     public ModelAndView addTask() {
-        ModelAndView mav = new ModelAndView("task/create-task");
+        ModelAndView mav = new ModelAndView("main/create-task");
         mav.addObject("mainTitle", "Create task");
         mav.addObject("task", new Task());
         return mav;
@@ -63,7 +63,7 @@ public class TaskController {
 
     @RequestMapping(value = "/add-task", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView("task/create-task");
+        ModelAndView mav = new ModelAndView("main/create-task");
         String testData = req.getParameter("data_points");
         String operationType = req.getParameter("mainTitle");
         if (!result.hasErrors()) {
@@ -236,6 +236,8 @@ public class TaskController {
         return mav;
     }
 
+
+    // todo are you sure of this method location?
     private void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) {
         try {
             TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);

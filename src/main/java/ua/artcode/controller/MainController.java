@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
+import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
 
@@ -143,14 +143,25 @@ public class MainController {
     }
 
     @RequestMapping("/search")
-    public String generalSearch(@RequestParam("key") String keyWord, Model model){
+    public String generalSearch(@RequestParam("key") String keyWord,@RequestParam("type") String searchType, Model model){
         // use pagination
-        List<User> list = userService.search(keyWord);
-        long amount = userService.searchCount(keyWord);
-        model.addAttribute("foundUsers", list);
+
+        if("user".equals(searchType)){
+            List<User> users = userService.search(keyWord);
+            model.addAttribute("foundUsers", users);
+        } else if("task".equals(searchType)) {
+            List<Task> tasks = userService.searchTasks(keyWord);
+            model.addAttribute("foundTasks", tasks);
+        }
+
+        long usersCount = userService.searchUsersCount(keyWord);
+        long tasksCount = userService.searchTasksCount(keyWord);
+
+        model.addAttribute("searchType", searchType);
         model.addAttribute("searchWord", keyWord);
-        model.addAttribute("amountFoundUser", amount);
-        // add amount found size
+        model.addAttribute("foundUserSize", usersCount);
+        model.addAttribute("foundTaskSize", tasksCount);
+        // add usersCount found size
         return "main/search";
     }
 
@@ -158,7 +169,7 @@ public class MainController {
     public String userGet(@RequestParam("key") String keyWord, Model model){
         // use pagination
         List<User> list = userService.search(keyWord);
-        long amount = userService.searchCount(keyWord);
+        long amount = userService.searchUsersCount(keyWord);
         model.addAttribute("foundUsers", list);
         model.addAttribute("searchWord", keyWord);
         model.addAttribute("amountFoundUser", amount);

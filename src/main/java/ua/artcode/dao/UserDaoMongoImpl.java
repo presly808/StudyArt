@@ -101,23 +101,6 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public List<User> search(String key) {
-        Query<User> query = datastore.createQuery(User.class);
-
-        query.or(query.criteria("email").contains(key),
-                query.criteria("name").contains(key)
-        );
-
-        List<User> users = query.asList();
-
-        if (users == null || users.isEmpty()) {
-            // todo send empty list
-        }
-
-        return users;
-    }
-
-    @Override
     public boolean isExist(String email) {
         User existUser = datastore.find(User.class).field("email").equal(email).get();
         return existUser != null;
@@ -129,12 +112,23 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
+    public List<User> search(String key) {
+        Query<User> query = datastore.createQuery(User.class);
+
+        query.or(query.criteria("email").containsIgnoreCase(key),
+                query.criteria("name").containsIgnoreCase(key)
+        );
+
+        return query.asList();
+    }
+
+    @Override
     public long searchCount(String key) {
 
         Query<User> query = datastore.createQuery(User.class);
 
-        query.or(query.criteria("email").contains(key),
-                query.criteria("name").contains(key)
+        query.or(query.criteria("email").containsIgnoreCase(key),
+                query.criteria("name").containsIgnoreCase(key)
         );
 
         return query.countAll();
