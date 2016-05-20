@@ -159,12 +159,8 @@ public class TaskController {
             Task task = adminService.findTaskByTitle(title);
 
             TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
-            if (taskTestResult != null) {
-                String userCode = taskTestResult.getUserCode();
-                template = userCode;
-            } else {
-                template = task.getTemplate();
-            }
+
+            template = taskTestResult != null ? taskTestResult.getUserCode() : task.getTemplate();
 
             mav.addObject("template", template);
             mav.addObject(task);

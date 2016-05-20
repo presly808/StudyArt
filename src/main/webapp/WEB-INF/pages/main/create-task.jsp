@@ -483,7 +483,7 @@
                             <div class="form-group">
                                 <label>Solution</label>
                                 <p class="help-block"><code>public int methodName(int a, int b) { return a + b; }</code></p>
-                                <form:textarea id="solutionTextArea" path="solution" class="form-control" rows="10"/>
+                                <form:textarea id="solutionTextArea" path="solution" class="form-control cm-s-bar" rows="10"/>
                                 <form:errors path="solution"/>
                             </div>
 
