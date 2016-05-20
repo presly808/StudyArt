@@ -146,8 +146,22 @@ public class MainController {
     public String generalSearch(@RequestParam("key") String keyWord, Model model){
         // use pagination
         List<User> list = userService.search(keyWord);
+        long amount = userService.searchCount(keyWord);
         model.addAttribute("foundUsers", list);
         model.addAttribute("searchWord", keyWord);
+        model.addAttribute("amountFoundUser", amount);
+        // add amount found size
+        return "main/search";
+    }
+
+    @RequestMapping("/user-get")
+    public String userGet(@RequestParam("key") String keyWord, Model model){
+        // use pagination
+        List<User> list = userService.search(keyWord);
+        long amount = userService.searchCount(keyWord);
+        model.addAttribute("foundUsers", list);
+        model.addAttribute("searchWord", keyWord);
+        model.addAttribute("amountFoundUser", amount);
         // add amount found size
         return "main/search";
     }

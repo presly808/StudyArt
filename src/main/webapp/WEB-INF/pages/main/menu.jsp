@@ -281,16 +281,18 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
+                        <form action="${CONTEXT_PATH}/search" method="get">
                         <div class="input-group custom-search-form">
-                            <form action="${CONTEXT_PATH}/search" method="get">
+
                             <input type="text" name="key" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-                            </form>
+
                         </div>
+                        </form>
                         <!-- /input-group -->
                     </li>
                     <li>

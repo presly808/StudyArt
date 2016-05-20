@@ -32,4 +32,6 @@ public interface UserDao {
 
     int size();
 
+    long searchCount(String key);
+
 }

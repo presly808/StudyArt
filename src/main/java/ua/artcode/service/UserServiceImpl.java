@@ -89,6 +89,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public long searchCount(String keyWord) {
+        return userDao.searchCount(keyWord);
+    }
+
+    @Override
     public boolean delete(String email) throws NoSuchUserException {
        return userDao.delete(email);
     }

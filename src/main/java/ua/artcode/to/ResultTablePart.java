@@ -1,8 +1,5 @@
 package ua.artcode.to;
 
-/**
- * Created by Maxim on 11.02.2016.
- */
 public class ResultTablePart {
 
     private String inArgsTemplate;

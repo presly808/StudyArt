@@ -47,13 +47,19 @@ public class UserController {
         try {
             User user = userService.findUser(name);
             String role = String.valueOf(user.getUserType());
-            if (role.equals("ROLE_TEACHER")) {
-                role = "Teacher";
-            } else if (role.equals("ROLE_STUDENT")) {
-                role = "Student";
-            } else {
-                role = "Admin";
+
+            switch (role) {
+                case "ROLE_TEACHER":
+                    role = "Teacher";
+                    break;
+                case "ROLE_STUDENT":
+                    role = "Student";
+                    break;
+                default:
+                    role = "Admin";
+                    break;
             }
+
             mav.addObject("user", user);
             Map<String, String> result = new HashMap<>();
             Map<ObjectId, TaskTestResult> statistic = user.getSolvedTaskContainer();

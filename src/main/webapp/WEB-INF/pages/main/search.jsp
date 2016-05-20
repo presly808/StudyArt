@@ -26,6 +26,16 @@
     <!-- Custom Fonts -->
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"
+                var="dataTablesBootstrapCss"/>
+    <link href="${dataTablesBootstrapCss}" rel="stylesheet">
+
+    <spring:url value="/resources/bower_components/datatables-responsive/css/dataTables.responsive.css"
+                var="dataTablesResponsiveCss"/>
+    <!-- DataTables Responsive CSS -->
+    <link href="${dataTablesResponsiveCss}" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -281,14 +291,18 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
+                        <form action="${CONTEXT_PATH}/search" method="get">
+                            <div class="input-group custom-search-form">
+
+                                <input type="text" name="key" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
+                                    <button class="btn btn-default" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-                        </div>
+
+                            </div>
+                        </form>
                         <!-- /input-group -->
                     </li>
                     <li>
@@ -443,7 +457,7 @@
                 <div class="panel-body">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#home" data-toggle="tab">Users</a>
+                        <li class="active"><a href="#home" data-toggle="tab">Users <span class="badge">${amountFoundUser}</span></a>
                         </li>
                         <li><a href="#profile" data-toggle="tab">Groups</a>
                         </li>
@@ -456,13 +470,24 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="home">
-                            <ul>
-                                <c:forEach var="iterUser" items="${foundUsers}">
-                                    <li>
-                                        ${iterUser.email} - ${iterUser.name} - ${iterUser.userType}
-                                    </li>
-                                </c:forEach>
-                            </ul>
+                                <table width="100%" class="table-responsive table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="iterUser" items="${foundUsers}">
+                                        <tr class="odd gradeX">
+                                            <td><a href="${CONTEXT_PATH}/user-menu/show-user/${iterUser.name}">${iterUser.name}</a></td>
+                                            <td>${iterUser.email}</td>
+                                            <td>${iterUser.userType}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
                         </div>
                         <div class="tab-pane fade" id="profile">
                             <h4>Profile Tab</h4>
@@ -518,6 +543,19 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="${sbAdminJs}"></script>
+
+<spring:url value="/resources/bower_components/datatables/media/js/jquery.dataTables.min.js"
+            var="jqueryDataTablesMinJs"/>
+<spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"
+            var="dataTablesBootstrapMinJs"/>
+<spring:url value="/resources/bower_components/datatables-responsive/js/dataTables.responsive.js"
+            var="dataTablesResponsiveJs"/>
+
+<!-- DataTables JavaScript -->
+<script src="${jqueryDataTablesMinJs}"></script>
+<script src="=${dataTablesBootstrapMinJs}"></script>
+<script src="${dataTablesResponsiveJs}"></script>
+
 
 </body>
 

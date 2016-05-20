@@ -25,6 +25,8 @@ public interface UserService {
 
     List<User> search(String keyWord);
 
+    long searchCount(String keyWord);
+
     List<User> getAllUsers();
 
     User findUser(String name) throws NoSuchUserException;
