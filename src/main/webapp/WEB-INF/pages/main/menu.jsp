@@ -282,16 +282,16 @@
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
                         <form action="${CONTEXT_PATH}/search" method="get">
-                        <div class="input-group custom-search-form">
+                            <div class="input-group custom-search-form">
 
-                            <input type="text" name="key" class="form-control" placeholder="Search...">
+                                <input type="text" name="key" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-                            <input type="hidden" name="type" value="user">
-                        </div>
+                                <input type="hidden" name="type" value="user">
+                            </div>
                         </form>
                         <!-- /input-group -->
                     </li>
@@ -385,33 +385,33 @@
                             </ul>
                         </li>
                     </security:authorize>
-                        <li>
-                            <a href="#"><i class="fa fa-fw"></i>Task Menu<samp class="fa arrow"></samp></a>
-                            <ul class="nav nav-second-level">
-                                <security:authorize
-                                        access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/task-menu/create-task"><spring:message
-                                                code="menu.add"/></a></li>
-                                </security:authorize>
+                    <li>
+                        <a href="#"><i class="fa fa-fw"></i>Task Menu<samp class="fa arrow"></samp></a>
+                        <ul class="nav nav-second-level">
+                            <security:authorize
+                                    access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/task-menu/create-task"><spring:message
+                                            code="menu.add"/></a></li>
+                            </security:authorize>
 
-                                <li><a href="${pageContext.request.contextPath}/task-menu/find-task"><spring:message
-                                        code="menu.find"/></a></li>
+                            <li><a href="${pageContext.request.contextPath}/task-menu/find-task"><spring:message
+                                    code="menu.find"/></a></li>
 
-                                <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message
-                                        code="task.menu.show"/></a></li>
+                            <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message
+                                    code="task.menu.show"/></a></li>
 
-                                <li><a href="${pageContext.request.contextPath}/task-menu/size"><spring:message
-                                        code="menu.size"/></a></li>
+                            <li><a href="${pageContext.request.contextPath}/task-menu/size"><spring:message
+                                    code="menu.size"/></a></li>
 
-                                <security:authorize
-                                        access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/task-menu/delete-form"><spring:message
-                                                code="menu.delete"/></a></li>
-                                </security:authorize>
-                            </ul>
-                        </li>
+                            <security:authorize
+                                    access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/task-menu/delete-form"><spring:message
+                                            code="menu.delete"/></a></li>
+                            </security:authorize>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
@@ -437,7 +437,6 @@
 </div>
 <!-- /#wrapper -->
 
-<
 <%@include file="/WEB-INF/pages/component/js-include.jsp" %>
 <script src="${jqueryJs}"></script>
 

@@ -30,6 +30,9 @@
     <spring:url value="/resources/codemirror-5.15.0/lib/codemirror.css" var="codemirrorCss"/>
     <link href="<c:out value="${codemirrorCss}"/>" rel="stylesheet">
 
+    <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.css" var="fullscreanCSS"/>
+    <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -428,6 +431,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Blank</h1>
+                    <button class="btn btn-default" id="hideButton">Hide button</button>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -475,16 +479,18 @@
                             </div>
 
                             <div class="form-group">
-                                <label><spring:message code="create.task.datapoint"/></label>
-                                <p class="help-block"><code>25-10,15</code></p>
-                                <textarea name="data_points" class="form-control" rows="8"><c:if test="${testData != null}">${testData}</c:if></textarea>
+                                <label>Solution</label>
+                                <p class="help-block"><code>public int methodName(int a, int b) { return a + b; }</code></p>
+
+                                        <form:textarea id="solutionTextArea" path="solution" class="form-control cm-s-bar" rows="10"/>
+
+                                <form:errors path="solution"/>
                             </div>
 
                             <div class="form-group">
-                                <label>Solution</label>
-                                <p class="help-block"><code>public int methodName(int a, int b) { return a + b; }</code></p>
-                                <form:textarea id="solutionTextArea" path="solution" class="form-control cm-s-bar" rows="10"/>
-                                <form:errors path="solution"/>
+                                <label><spring:message code="create.task.datapoint"/></label>
+                                <p class="help-block"><code>25-10,15</code></p>
+                                <textarea name="data_points" class="form-control" rows="8"><c:if test="${testData != null}">${testData}</c:if></textarea>
                             </div>
 
                             <div class="form-group">
@@ -540,16 +546,29 @@
 
 <spring:url value="/resources/codemirror-5.15.0/lib/codemirror.js" var="codemirrorJs"/>
 <spring:url value="/resources/codemirror-5.15.0/mode/clike/clike.js" var="clikeJs"/>
+<spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.js" var="fullscreanJS"/>
 
 
 <script src="${codemirrorJs}"></script>
 <script src="${clikeJs}"></script>
+<script src="${fullscreanJS}"></script>
 
 <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("solutionTextArea"), {
         lineNumbers: true,
         mode: "text/x-java"
     });
+
+</script>
+
+<script>
+
+    /*$("#hideButton").on("click", function(){
+        var $side = $("#demo");
+        $side.css("width",0);
+        $side.hide();
+    });
+*/
 </script>
 
 </body>
