@@ -34,9 +34,10 @@
     <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
 
     <style type="text/css">
-        .CodeMirror {border: 1px solid #ccc;
+        .CodeMirror {
+            border: 1px solid #ccc;
             border-radius: 4px;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
         }
     </style>
 
@@ -61,7 +62,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/menu">ArtStudy</a>
+            <a class="navbar-brand" href="${CONTEXT_PATH}/menu">ArtStudy</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -432,100 +433,106 @@
         <!-- /.navbar-static-side -->
     </nav>
 
+
+    <c:set var="task" value="${task}"/>
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Blank</h1>
+                    <h1 class="page-header">Perform Task</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Task Page
+
                 </div>
 
                 <div class="panel-body">
-                    <div class="col-lg-6">
-                        <form:form action="${CONTEXT_PATH}/task-menu/add-task" modelAttribute="task"
-                                   method="post" role="form">
+                    <div class="row">
+                        <div class="col-lg-6">
 
-                            <div class="form-group">
-                                <label><spring:message code="create.task.name"/></label>
-                                <form:input path="title" class="form-control"/>
-                                <form:errors path="title"/>
-                            </div>
+                            <label>Task ${task.title}</label>
 
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.group"/>:<br>
-                                </label>
-                                <form:input path="groupName" class="form-control"/>
-                                <form:errors path="groupName"/>
-                            </div>
+                            <p><a href="${CONTEXT_PATH}/task-menu/show-group/${task.groupName}">${task.groupName}</a>
+                            </p>
 
+                            <p>${task.description}</p>
 
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.description"/>
-                                </label>
-                                <form:textarea path="description" class="form-control" rows="3"/>
-                                <form:errors path="description"/>
-                            </div>
+                            <p>${task.examples}</p>
 
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.template"/>:<br>
-                                </label>
-                                <p class="help-block"><code>public int methodName(int a, int b) {}</code></p>
-                                <form:textarea id="templateTextArea" path="template" class="form-control" rows="3"/>
-                                <form:errors path="template"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Solution</label>
-                                <p class="help-block"><code>public int methodName(int a, int b) { return a + b; }</code></p>
-                                        <form:textarea id="solutionTextArea" path="solution" class="form-control cm-s-bar" rows="10"/>
-                                <form:errors path="solution"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label><spring:message code="create.task.datapoint"/></label>
-                                <p class="help-block"><code>25-10,15</code></p>
-                                <textarea name="data_points" class="form-control" rows="8"><c:if test="${testData != null}">${testData}</c:if></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.examples"/>
-                                </label>
-                                <form:textarea path="examples" class="form-control" rows="3"/>
-                                <form:errors path="examples"/>
-                            </div>
-
-                            <input type="submit" class="btn btn-default" value="<spring:message code="create"/>">
-                    </div>
-
-                            <c:if test="${task.id != null}">
-                                <input type="hidden" name="id" value="${task.id}"/>
+                            <c:if test="${message != null}">
+                            <p class="help-block"><c:out value="${message}"/><p>
                             </c:if>
-                            <input type="hidden" name="mainTitle" value="${mainTitle}"/>
-                            <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-                        </form:form>
+
+
+                            <form action="${CONTEXT_PATH}/task-menu/check-task" role="form" method="post">
+                                <div class="form-group">
+                                    <label for="codeTextArea">${task.title}</label>
+                                    <textarea id="codeTextArea" class="form-control"
+                                              name="userCode">${template}</textarea>
+                                </div>
+                                <input type="hidden" name="id" value="${task.id.toString()}">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <input id="checkTaskButton" type="submit" class="btn btn-default"
+                                               value="<spring:message code="check.task"/>">
+                                        <form action="${CONTEXT_PATH}/task-menu/edit-task" role="form" method="post">
+                                            <input type="hidden" name="id" value="${task.id}">
+                                            <input type="submit" class="btn btn-default"
+                                                   value="<spring:message code="menu.edit"/>">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                            <%-- todo why do we need this shit--%>
+
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div id="testResults">
+                                <label><spring:message code="check.task"/></label>
+                                <table border="1" style="width:40%">
+                                    <tr>
+                                        <th>in args</th>
+                                        <th>real</th>
+                                        <th>expected</th>
+                                        <th>done</th>
+                                    </tr>
+                                    <c:forEach var="result" items="${resultList}" >
+                                        <tr>
+                                            <td>
+                                                    ${result.inArgsTemplate}
+                                            </td>
+                                            <td>
+                                                    ${result.actualValue}
+                                            </td>
+                                            <td>
+                                                    ${result.expectedValue}
+                                            </td>
+                                            <td>
+                                                    ${result.done}
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+                                </table>
+
+                                <p>${status}</p>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-            <c:set var="error_msg_list" value="${message}"/>
-            <c:if test="${error_msg_list != null}">
-            <c:forEach var="error_msg" items="${error_msg_list}">
-
-            <p style="color:red"><c:out value="${error_msg}"/><p>
-            </c:forEach>
-            </c:if>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
@@ -535,7 +542,6 @@
 </div>
 <!-- /#wrapper -->
 
-<
 <%@include file="/WEB-INF/pages/component/js-include.jsp" %>
 <script src="${jqueryJs}"></script>
 
@@ -557,15 +563,20 @@
 <script src="${fullscreanJS}"></script>
 
 <script>
-    var editor1 = CodeMirror.fromTextArea(document.getElementById("solutionTextArea"), {
+    var editor1 = CodeMirror.fromTextArea(document.getElementById("codeTextArea"), {
         lineNumbers: true,
         mode: "text/x-java"
     });
 
-    var editor2 = CodeMirror.fromTextArea(document.getElementById("templateTextArea"), {
-        lineNumbers: true,
-        mode: "text/x-java"
-    });
+    /*$("#checkTaskButton").on("click",function(){
+        $.ajax({
+            type: "POST",
+            url: "",
+            data: data,
+            success: success,
+            dataType: dataType
+        });
+    });*/
 
 </script>
 

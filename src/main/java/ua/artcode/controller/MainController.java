@@ -27,14 +27,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- * Created by Razer on 23.01.16.
- */
-
 @Controller
 public class MainController {
-
 
     @Qualifier("userServiceImpl")
     @Autowired

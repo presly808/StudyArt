@@ -145,10 +145,11 @@ public class TaskController {
 
     @RequestMapping(value = "/do-task/{title}", method = RequestMethod.GET)
     public ModelAndView doTasks(@PathVariable String title) {
-        ModelAndView mav = new ModelAndView("task/do-task");
+        ModelAndView mav = new ModelAndView("main/do-task");
         return prepareTask(title, mav);
     }
 
+    // todo extract method to a
     private ModelAndView prepareTask(String title, ModelAndView mav) {
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -157,6 +158,7 @@ public class TaskController {
             String template;
 
             Task task = adminService.findTaskByTitle(title);
+
 
             TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
 
