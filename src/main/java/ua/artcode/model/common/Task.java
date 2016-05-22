@@ -27,14 +27,12 @@ public class Task implements Comparable<Task> {
     @Description
     private String description;
 
-    @Description
     private String examples;
 
     @Template
     private String template;
 
     private String solution;
-
 
     private MethodSignature methodSignature;
 

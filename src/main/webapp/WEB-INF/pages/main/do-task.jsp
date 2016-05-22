@@ -31,7 +31,9 @@
     <link href="<c:out value="${codemirrorCss}"/>" rel="stylesheet">
 
     <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.css" var="fullscreanCSS"/>
+    <spring:url value="/resources/codemirror-5.15.0/addon/hint/show-hint.css" var="showHintCss"/>
     <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
+    <link href="<c:out value="${showHintCss}"/>" rel="stylesheet">
 
     <style type="text/css">
         .CodeMirror {
@@ -54,7 +56,7 @@
 
 <div id="wrapper">
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <nav id="mainNavbar" class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -463,12 +465,8 @@
 
                             <p>${task.examples}</p>
 
-                            <c:if test="${message != null}">
-                            <p class="help-block"><c:out value="${message}"/><p>
-                            </c:if>
-
-
-                            <form action="${CONTEXT_PATH}/task-menu/check-task" role="form" method="post">
+                            <form id="checkTaskForm" action="${CONTEXT_PATH}/task-menu/check-task/json" role="form"
+                                  method="post">
                                 <div class="form-group">
                                     <label for="codeTextArea">${task.title}</label>
                                     <textarea id="codeTextArea" class="form-control"
@@ -479,8 +477,9 @@
 
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <input id="checkTaskButton" type="submit" class="btn btn-default"
+                                        <input id="checkTaskButton" class="btn btn-default"
                                                value="<spring:message code="check.task"/>">
+
                                         <form action="${CONTEXT_PATH}/task-menu/edit-task" role="form" method="post">
                                             <input type="hidden" name="id" value="${task.id}">
                                             <input type="submit" class="btn btn-default"
@@ -497,35 +496,37 @@
                         </div>
 
                         <div class="col-lg-6">
-                            <div id="testResults">
-                                <label><spring:message code="check.task"/></label>
-                                <table border="1" style="width:40%">
-                                    <tr>
-                                        <th>in args</th>
-                                        <th>real</th>
-                                        <th>expected</th>
-                                        <th>done</th>
-                                    </tr>
-                                    <c:forEach var="result" items="${resultList}" >
+
+                            <div id="errorContainer" class="panel panel-danger" style="display: none">
+                                <div class="panel panel-heading">
+                                    <label id="errorTitle"></label>
+                                </div>
+                                <div class="panel panel-body">
+                                    <p id="errorMessage" class="help-block"></p>
+                                </div>
+                            </div>
+
+                            <div id="testResults" class="panel panel-default" style="display: none">
+                                <div id="panel-heading">
+                                    <label id="taskName"><spring:message code="check.task"/></label>
+                                </div>
+
+                                <div class="panel-body">
+                                    <table class="table-responsive" style="width:100%">
+                                        <thead>
                                         <tr>
-                                            <td>
-                                                    ${result.inArgsTemplate}
-                                            </td>
-                                            <td>
-                                                    ${result.actualValue}
-                                            </td>
-                                            <td>
-                                                    ${result.expectedValue}
-                                            </td>
-                                            <td>
-                                                    ${result.done}
-                                            </td>
+                                            <th>in args</th>
+                                            <th>real</th>
+                                            <th>expected</th>
+                                            <th>done</th>
                                         </tr>
-                                    </c:forEach>
+                                        </thead>
+                                        <tbody id="resultTableBody">
+                                        </tbody>
 
-                                </table>
-
-                                <p>${status}</p>
+                                    </table>
+                                </div>
+                                <p id="testStatus"></p>
                             </div>
 
 
@@ -557,26 +558,76 @@
 <spring:url value="/resources/codemirror-5.15.0/lib/codemirror.js" var="codemirrorJs"/>
 <spring:url value="/resources/codemirror-5.15.0/mode/clike/clike.js" var="clikeJs"/>
 <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.js" var="fullscreanJS"/>
+<spring:url value="/resources/codemirror-5.15.0/addon/hint/show-hint.js" var="showHintJS"/>
+
 
 <script src="${codemirrorJs}"></script>
 <script src="${clikeJs}"></script>
 <script src="${fullscreanJS}"></script>
+<script src="${showHintJS}"></script>
 
 <script>
     var editor1 = CodeMirror.fromTextArea(document.getElementById("codeTextArea"), {
         lineNumbers: true,
-        mode: "text/x-java"
+        mode: "text/x-java",
+        extraKeys: {
+            "Ctrl-Space": "autocomplete",
+            "F11": function(cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                $("#mainNavbar").css("z-index",0);
+            },
+            "Esc": function(cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                $("#mainNavbar").css("z-index",1000);
+            }
+        }
     });
 
-    /*$("#checkTaskButton").on("click",function(){
+    $("#checkTaskButton").on("click", function () {
+        editor1.save();
+        var data = $("#checkTaskForm").serialize();
+        data.userCode = editor1.getValue();
+        $("#resultTableBody").html("");
         $.ajax({
             type: "POST",
-            url: "",
+            url: "${CONTEXT_PATH}/task-menu/check-task/json",
             data: data,
-            success: success,
-            dataType: dataType
+            success: function (data, textStatus, jqXHR) {
+                $("#testResults").hide();
+                $("#errorContainer").hide();
+
+                var testResultObject = data;
+                var att = $(testResultObject).attr("message");
+                if (typeof att !== typeof undefined && att !== false) {
+                    $("#errorTitle").text(testResultObject.title);
+                    $("#errorMessage").text(testResultObject.message);
+                    $("#errorContainer").show();
+                    return;
+                }
+
+                $("#testStatus").text(testResultObject.status);
+                $("#taskName").text(testResultObject.taskName);
+                var tableTestBody = $("#resultTableBody");
+                tableTestBody.innerHTML = "";
+
+                var resultArray = testResultObject.resultTablePartList;
+                for (var dataRowIndex in resultArray) {
+                    var dataRow = resultArray[dataRowIndex];
+                    var rowResult = "<td>" + dataRow.inArgsTemplate + "</td>" +
+                            "<td>" + dataRow.actualValue + "</td>" +
+                            "<td>" + dataRow.expectedValue + "</td>" +
+                            "<td>" + dataRow.done + "</td>";
+
+                    var rowCssType = dataRow.done === "OK" ? "\"alert alert-success\"" : "\"alert alert-danger\"";
+
+                    tableTestBody.append("<tr class=" + rowCssType + " role=\"alert\">" + rowResult + "</tr>");
+                }
+
+                $("#testResults").show();
+
+            }
         });
-    });*/
+    });
 
 </script>
 

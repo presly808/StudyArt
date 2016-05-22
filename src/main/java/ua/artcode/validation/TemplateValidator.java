@@ -14,10 +14,6 @@ public class TemplateValidator implements ConstraintValidator<Template, String> 
 
     @Override
     public boolean isValid(String template, ConstraintValidatorContext context) {
-        if (template == null) {
-            return false;
-        }
-        return template.matches("(public\\s+|private\\s+|protected\\s+)?(static\\s+)?" +
-                ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{[\\s\\S]*\\}[\\s\\n]*");
+        return template != null && template.matches("(public\\s+|private\\s+|protected\\s+)?(static\\s+)?" + ".+\\s+[\\w\\$]+\\s*\\(.*\\)\\s*\\{[\\s\\S]*\\}[\\s\\n]*");
     }
 }

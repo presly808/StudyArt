@@ -2,6 +2,8 @@ package ua.artcode.process;
 
 import org.apache.log4j.Logger;
 import ua.artcode.model.common.Task;
+import ua.artcode.model.taskComponent.InArg;
+import ua.artcode.model.taskComponent.MethodSignature;
 import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.model.taskComponent.TestArg;
 import ua.artcode.preprocess.TemplateProcessor;
@@ -100,7 +102,11 @@ public class TaskRunFacade {
         List<TestArg> adapterList = new ArrayList<>();
         if (argsForTemplate != null) {
             for (int i = 0; i < argsForTemplate.size(); i++) {
-                adapterList.add(new TestArg(i, task.getMethodSignature().getInArgList().get(i).getType(), argsForTemplate.get(i)));
+                MethodSignature methodSignature = task.getMethodSignature();
+                List<InArg> inArgList = methodSignature.getInArgList();
+                InArg inArg = inArgList.get(i);
+                Object value = argsForTemplate.get(i);
+                adapterList.add(new TestArg(i, inArg.getType(), value));
             }
         }
         return adapterList;

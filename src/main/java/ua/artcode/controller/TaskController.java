@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.*;
@@ -21,8 +22,7 @@ import ua.artcode.model.common.User;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.UserService;
-import ua.artcode.to.ResultTablePart;
-import ua.artcode.to.ResultTableUtils;
+import ua.artcode.to.*;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +61,10 @@ public class TaskController {
         return mav;
     }
 
+    // todo fix if result will be negative example
+    // todo add json for test data in future
+    // -5-3,3
+    // -5-5
     @RequestMapping(value = "/add-task", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("main/create-task");
@@ -189,6 +193,40 @@ public class TaskController {
         ModelAndView mav = new ModelAndView("task/do-task");
         String title = req.getParameter("title");
         return prepareTask(title, mav);
+    }
+
+    @RequestMapping(value = "/check-task/json", method = RequestMethod.POST)
+    public @ResponseBody Object checkTaskJson(HttpServletRequest req) {
+        String id = req.getParameter("id");
+        ObjectId taskId = new ObjectId(id);
+
+        try {
+            Task task = adminService.findTaskById(taskId);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = userDetails.getUsername();
+            User user = userService.findUser(name);
+
+            String userCode = req.getParameter("userCode");
+            List<ResultTablePart> resultTablePartList = ResultTableUtils.createTable(task);
+            TaskTestResult newTaskTestResult = taskRunFacade.runTask(task, userCode);
+
+            // todo check stange logic "userCode = null"
+            // When we got compilation error, userCode = null
+            if (newTaskTestResult.getUserCode() == null) {
+                return new Message("Compilation Error", MessageType.ERROR, newTaskTestResult.getStatus());
+            }
+
+            writeResult(user, newTaskTestResult, taskId);
+
+            String email = user.getEmail();
+            userService.update(email, user);
+            resultTablePartList = ResultTableUtils.getResultTableList(task, newTaskTestResult, resultTablePartList);
+
+            return new TaskTestResults(task.getTitle(), "tested", resultTablePartList);
+        } catch (NoSuchTaskException | NoSuchUserException | DuplicateDataException e) {
+            LOG.error("check task exception", e);
+            return new Message("check task", MessageType.ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/check-task", method = RequestMethod.POST)

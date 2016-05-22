@@ -14,9 +14,6 @@ public class UserTypeValidator implements ConstraintValidator<UserType, ua.artco
 
     @Override
     public boolean isValid(ua.artcode.model.common.UserType userType, ConstraintValidatorContext context) {
-        if (userType!=null && (userType.equals(ua.artcode.model.common.UserType.ROLE_STUDENT) || userType.equals(ua.artcode.model.common.UserType.ROLE_TEACHER)|| userType.equals(ua.artcode.model.common.UserType.ROLE_ADMIN))) {
-            return true;
-        }
-        return false;
+        return userType != null && (userType.equals(ua.artcode.model.common.UserType.ROLE_STUDENT) || userType.equals(ua.artcode.model.common.UserType.ROLE_TEACHER) || userType.equals(ua.artcode.model.common.UserType.ROLE_ADMIN));
     }
 }
