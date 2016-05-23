@@ -477,7 +477,7 @@
 
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <input id="checkTaskButton" class="btn btn-default"
+                                        <input id="checkTaskButton" type="button" class="btn btn-default"
                                                value="<spring:message code="check.task"/>">
 
                                         <form action="${CONTEXT_PATH}/task-menu/edit-task" role="form" method="post">
@@ -559,14 +559,21 @@
 <spring:url value="/resources/codemirror-5.15.0/mode/clike/clike.js" var="clikeJs"/>
 <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.js" var="fullscreanJS"/>
 <spring:url value="/resources/codemirror-5.15.0/addon/hint/show-hint.js" var="showHintJS"/>
+<spring:url value="/resources/codemirror-5.15.0/addon/hint/anyword-hint.js" var="anyWordHintJs"/>
 
 
 <script src="${codemirrorJs}"></script>
 <script src="${clikeJs}"></script>
 <script src="${fullscreanJS}"></script>
 <script src="${showHintJS}"></script>
+<script src="${anyWordHintJs}"></script>
 
 <script>
+
+    /*CodeMirror.commands.autocomplete = function(cm) {
+        cm.showHint({hint: CodeMirror.hint.anyword});
+    }*/
+
     var editor1 = CodeMirror.fromTextArea(document.getElementById("codeTextArea"), {
         lineNumbers: true,
         mode: "text/x-java",
@@ -585,16 +592,19 @@
 
     $("#checkTaskButton").on("click", function () {
         editor1.save();
+
         var data = $("#checkTaskForm").serialize();
+        // todo check without save
         data.userCode = editor1.getValue();
+
         $("#resultTableBody").html("");
+        $("#testResults").hide();
+        $("#errorContainer").hide();
         $.ajax({
             type: "POST",
             url: "${CONTEXT_PATH}/task-menu/check-task/json",
             data: data,
             success: function (data, textStatus, jqXHR) {
-                $("#testResults").hide();
-                $("#errorContainer").hide();
 
                 var testResultObject = data;
                 var att = $(testResultObject).attr("message");

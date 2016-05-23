@@ -31,9 +31,9 @@
                 var="dataTablesBootstrapCss"/>
     <link href="${dataTablesBootstrapCss}" rel="stylesheet">
 
+    <!-- DataTables Responsive CSS -->
     <spring:url value="/resources/bower_components/datatables-responsive/css/dataTables.responsive.css"
                 var="dataTablesResponsiveCss"/>
-    <!-- DataTables Responsive CSS -->
     <link href="${dataTablesResponsiveCss}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -450,7 +450,7 @@
                         <div class="form-group">
                             <label class="sr-only" for="searchWord">Email address</label>
                             <input name="key" type="text" class="form-control" id="searchWord" value="${searchWord}">
-                            <input type="hidden" name="type" value="user">
+                            <input type="hidden" name="type" value="${searchType}">
                         </div>
                         <button type="submit" class="btn btn-default">Search</button>
                     </form>
