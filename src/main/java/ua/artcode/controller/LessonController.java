@@ -3,6 +3,8 @@ package ua.artcode.controller;
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +51,9 @@ public class LessonController {
         ModelAndView mav = new ModelAndView("lesson/create-lesson");
         if (!result.hasErrors()) {
             try {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                String authName = auth.getName();
+                lesson.setAuthor(authName);
                 teacherService.addLesson(lesson);
                 List<Task> taskList = adminService.getAllTasks();
                 if (taskList.size() > 0) {
