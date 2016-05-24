@@ -67,9 +67,6 @@
                                        name="password" type="password" value="">
                             </div>
                             <div class="checkbox">
-                                <label>
-                                    <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                </label>
                                 <label><a href="registration-form"><spring:message code="registration"/></a></label>
                             </div>
 
