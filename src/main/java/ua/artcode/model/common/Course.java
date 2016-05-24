@@ -25,6 +25,9 @@ public class Course implements Comparable<Course>{
     @Description
     private String description;
 
+    @Indexed
+    private String author;
+
     @Reference
     private List<Lesson> lessonList=new ArrayList<>();
 

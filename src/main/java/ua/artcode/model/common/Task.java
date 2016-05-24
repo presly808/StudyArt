@@ -27,6 +27,9 @@ public class Task implements Comparable<Task> {
     @Description
     private String description;
 
+    @Indexed
+    private String author;
+
     private String examples;
 
     @Template

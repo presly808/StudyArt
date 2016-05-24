@@ -22,6 +22,9 @@ public class Lesson implements Comparable<Lesson> {
     @Indexed(unique = true)
     private String title;
 
+    @Indexed
+    private String author;
+
     @Description
     private String description;
 
@@ -73,6 +76,14 @@ public class Lesson implements Comparable<Lesson> {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public int size() {
