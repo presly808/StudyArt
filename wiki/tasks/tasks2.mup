@@ -1,0 +1,152 @@
+{
+  "title": "tasks",
+  "id": 1,
+  "formatVersion": 2,
+  "ideas": {
+    "1": {
+      "title": "add user in tasks",
+      "id": 3,
+      "ideas": {}
+    },
+    "11": {
+      "title": "create teacher page",
+      "id": 5,
+      "ideas": {
+        "1": {
+          "title": "courses",
+          "id": 6
+        },
+        "2": {
+          "title": "lessons",
+          "id": 7
+        },
+        "3": {
+          "title": "GroupTask",
+          "id": 8,
+          "attr": {
+            "style": {}
+          }
+        },
+        "4": {
+          "title": "get students by course",
+          "id": 30
+        },
+        "2.5": {
+          "title": "Task",
+          "id": 20
+        }
+      },
+      "attr": {
+        "style": {}
+      }
+    },
+    "16": {
+      "title": "add edit, remove, hide for owners in pages",
+      "id": 32
+    },
+    "21": {
+      "title": "create student page",
+      "id": 9,
+      "ideas": {
+        "1": {
+          "title": "Course",
+          "id": 21,
+          "ideas": {
+            "1": {
+              "title": "started",
+              "id": 23,
+              "ideas": {
+                "1": {
+                  "title": "persent",
+                  "id": 26
+                }
+              }
+            },
+            "2": {
+              "title": "finished",
+              "id": 24
+            }
+          }
+        },
+        "2": {
+          "title": "Lesson",
+          "id": 28
+        },
+        "3": {
+          "title": "task",
+          "id": 29,
+          "attr": {
+            "position": [
+              172,
+              83,
+              1
+            ],
+            "style": {}
+          }
+        }
+      }
+    },
+    "31": {
+      "title": "search page",
+      "id": 12,
+      "ideas": {
+        "1": {
+          "title": "add panes",
+          "id": 13,
+          "ideas": {
+            "1": {
+              "title": "courses",
+              "id": 14
+            },
+            "2": {
+              "title": "lesson",
+              "id": 15
+            }
+          }
+        },
+        "2": {
+          "title": "feature",
+          "id": 31
+        }
+      }
+    },
+    "-1": {
+      "title": "learning",
+      "id": 16,
+      "ideas": {
+        "1": {
+          "title": "markdowd",
+          "id": 17,
+          "ideas": {
+            "1": {
+              "title": "github wiki",
+              "id": 18
+            }
+          }
+        }
+      }
+    }
+  },
+  "links": [
+    {
+      "ideaIdFrom": 29,
+      "ideaIdTo": 28,
+      "attr": {
+        "style": {
+          "color": "#FF0000",
+          "lineStyle": "dashed"
+        }
+      }
+    },
+    {
+      "ideaIdFrom": 28,
+      "ideaIdTo": 21,
+      "attr": {
+        "style": {
+          "color": "#FF0000",
+          "lineStyle": "dashed"
+        }
+      }
+    }
+  ]
+}

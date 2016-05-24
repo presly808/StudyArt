@@ -8,6 +8,7 @@ import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.User;
+import ua.artcode.model.common.UserType;
 import ua.artcode.utils.Security;
 
 import java.util.List;
@@ -112,14 +113,16 @@ public class UserDaoMongoImpl implements UserDao {
     }
 
     @Override
-    public List<User> search(String key) {
+    public List<User> search(String key, int offset, int limit) {
         Query<User> query = datastore.createQuery(User.class);
 
         query.or(query.criteria("email").containsIgnoreCase(key),
                 query.criteria("name").containsIgnoreCase(key)
         );
 
-        return query.asList();
+        query.field("userType").notEqual(UserType.ROLE_ADMIN);
+
+        return query.offset(offset).limit(limit).asList();
     }
 
     @Override

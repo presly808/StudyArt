@@ -4,9 +4,7 @@ import com.mongodb.DuplicateKeyException;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
-import ua.artcode.model.common.Task;
-import ua.artcode.model.common.User;
-import ua.artcode.model.common.UserType;
+import ua.artcode.model.common.*;
 
 import java.util.List;
 
@@ -24,9 +22,13 @@ public interface UserService {
 
     int size();
 
-    List<User> search(String keyWord);
+    List<User> search(String keyWord, int offset, int length);
 
     long searchUsersCount(String keyWord);
+
+    long searchLessonsCount(String keyWord);
+
+    long searchCoursesCount(String keyWord);
 
     List<User> getAllUsers();
 
@@ -40,5 +42,9 @@ public interface UserService {
 
     long searchTasksCount(String keyWord);
 
-    List<Task> searchTasks(String keyWord);
+    List<Task> searchTasks(String keyWord, int offset, int length);
+
+    List<Course> searchCourses(String keyWord, int offset, int length);
+
+    List<Lesson> searchLessons(String keyWord, int offset, int length);
 }

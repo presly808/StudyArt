@@ -1,13 +1,15 @@
 package ua.artcode.model.taskComponent;
 
+import org.mongodb.morphia.annotations.Embedded;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-
+@Embedded
 public class TaskTestDataContainer {
 
-
+    @Embedded
     private List<TaskTestData> taskTestDataList;
 
 

@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.common.Course;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
 
@@ -29,4 +30,7 @@ public interface CourseDao {
 
     List<Course> getAll();
 
+    List<Course> search(String keyWord, int offset, int length);
+
+    long searchCount(String keyWord);
 }

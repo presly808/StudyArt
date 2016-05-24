@@ -8,6 +8,8 @@ import org.mongodb.morphia.query.Query;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.common.Course;
+import ua.artcode.model.common.Lesson;
+import ua.artcode.model.common.Task;
 
 import java.util.List;
 
@@ -114,6 +116,29 @@ public class CourseDaoMongoImpl implements CourseDao {
     @Override
     public List<Course> getAll() {
         return datastore.find(Course.class).asList();
+    }
+
+    @Override
+    public List<Course> search(String keyWord, int offset, int length) {
+
+        Query<Course> courses = datastore.find(Course.class);
+
+        courses.or(
+                courses.criteria("title").containsIgnoreCase(keyWord)
+        );
+
+        return courses.offset(offset).limit(length).asList();
+    }
+
+    @Override
+    public long searchCount(String keyWord) {
+        Query<Course> courses = datastore.find(Course.class);
+
+        courses.or(
+                courses.criteria("title").containsIgnoreCase(keyWord)
+        );
+
+        return courses.countAll();
     }
 
 }
