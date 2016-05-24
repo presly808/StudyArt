@@ -461,54 +461,114 @@
                     <ul class="nav nav-tabs">
                         <li role="presentation" class="${searchType == 'user' ? 'active' : ''}">
                             <a href="search?key=${searchWord}&type=user">Users <span
-                                class="badge">${foundUserSize} </span></a></li>
+                                    class="badge">${foundUserSize} </span></a></li>
 
                         <li role="presentation" class="${searchType == 'task' ? 'active' : ''}">
                             <a href="search?key=${searchWord}&type=task">Tasks <span
-                                class="badge">${foundTaskSize} </span></a></li>
+                                    class="badge">${foundTaskSize} </span></a></li>
+
+                        <li role="presentation" class="${searchType == 'course' ? 'active' : ''}">
+                            <a href="search?key=${searchWord}&type=course">Courses <span
+                                    class="badge">${foundCourseSize} </span></a></li>
+
+                        <li role="presentation" class="${searchType == 'lesson' ? 'active' : ''}">
+                            <a href="search?key=${searchWord}&type=lesson">Lessons <span
+                                    class="badge">${foundLessonSize} </span></a></li>
+
                     </ul>
 
 
                     <div class="content">
-                        <table width="100%" class="table-responsive table-striped">
-                            <c:if test="${searchType=='user'}">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Type</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="iterUser" items="${foundUsers}">
-                                    <tr class="odd gradeX">
-                                        <td>
-                                            <a href="${CONTEXT_PATH}/user-menu/show-user/${iterUser.name}">${iterUser.name}</a>
-                                        </td>
-                                        <td>${iterUser.email}</td>
-                                        <td>${iterUser.userType}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </c:if>
 
-                            <c:if test="${searchType == 'task'}">
-                                <thead>
-                                <tr>
-                                    <th>TaskName</th>
-                                    <th>GroupName</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="task" items="${foundTasks}">
-                                    <tr class="odd gradeX">
-                                        <td><a href="${CONTEXT_PATH}/task-menu/do-task/${task.title}">${task.title}</a></td>
-                                        <td><a href="${CONTEXT_PATH}/task-menu/show-group/${task.groupName}">${task.groupName}</a></td>
+                        <div class="row">
+                            <table width="100%" class="table-responsive table-striped">
+                                <c:if test="${searchType=='user'}">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
                                     </tr>
-                                </c:forEach>
-                                </tbody>
-                            </c:if>
-                        </table>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="iterUser" items="${foundUsers}">
+                                        <tr class="odd gradeX">
+                                            <td>
+                                                <a href="${CONTEXT_PATH}/user-menu/show-user/${iterUser.name}">${iterUser.name}</a>
+                                            </td>
+                                            <td>${iterUser.email}</td>
+                                            <td>${iterUser.userType}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </c:if>
+                                <c:if test="${searchType=='course'}">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Owner</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="iterCourse" items="${foundCourses}">
+                                        <tr class="odd gradeX">
+                                            <td>${iterCourse.title}</td>
+                                            <td>owner - NOT FINISHED</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </c:if>
+                                <c:if test="${searchType=='lesson'}">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Owner</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="iterLesson" items="${foundLessons}">
+                                        <tr class="odd gradeX">
+                                            <td>${iterLesson.title}</td>
+                                            <td>owner - NOT FINISHED</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </c:if>
+                                <c:if test="${searchType == 'task'}">
+                                    <thead>
+                                    <tr>
+                                        <th>TaskName</th>
+                                        <th>GroupName</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="task" items="${foundTasks}">
+                                        <tr class="odd gradeX">
+                                            <td>
+                                                <a href="${CONTEXT_PATH}/task-menu/do-task/${task.title}">${task.title}</a>
+                                            </td>
+                                            <td>
+                                                <a href="${CONTEXT_PATH}/task-menu/show-group/${task.groupName}">${task.groupName}</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </c:if>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <nav>
+                                <ul class="pagination">
+                                    <li><a href="search?key=${searchWord}&type=${searchType}&offset=${item.offset}&length=50" aria-label="Previous"><span aria-hidden="true">Begin</span></a></li>
+                                    <c:forEach var="item" items="${pagingLinks}">
+                                        <li class="${item.active == true ? 'active' : ''}">
+                                            <a href="search?key=${searchWord}&type=${searchType}&offset=${item.offset}&length=50">${item.offset}-${item.length}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li><a href="#" aria-label="Next"><span aria-hidden="true">End</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
 
                     </div>
 

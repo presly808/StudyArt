@@ -11,6 +11,10 @@ public class TestReflection {
 
     public static void main(String[] args) throws ClassNotFoundException {
 
+
+        // text -> java -> class -> load class -> run method via reflection
+        // template < parts from post request
+
         //load class
         Class cl = Class.forName("ua.artcode.experimental.future.core.v1.Example1");
 
@@ -18,7 +22,6 @@ public class TestReflection {
             // run tests
             Method method = cl.getMethod("runTests");
             method.invoke(null);
-
             // then get test results
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

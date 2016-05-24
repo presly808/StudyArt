@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
+import ua.artcode.model.common.Course;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
+import ua.artcode.utils.pagination.Paginator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -30,8 +33,9 @@ import java.util.Map;
 @Controller
 public class MainController {
 
-    @Qualifier("userServiceImpl")
+
     @Autowired
+    @Qualifier("userServiceImpl")
     private UserService userService;
 
     @Autowired
@@ -137,24 +141,46 @@ public class MainController {
     }
 
     @RequestMapping("/search")
-    public String generalSearch(@RequestParam("key") String keyWord,@RequestParam("type") String searchType, Model model){
+    public String generalSearch(@RequestParam(value = "length", defaultValue = "50") int length,
+                                @RequestParam(value = "offset",defaultValue = "0") int offset,
+                                @RequestParam("key") String keyWord,
+                                @RequestParam("type") String searchType, Model model){
         // use pagination
-
-        if("user".equals(searchType)){
-            List<User> users = userService.search(keyWord);
-            model.addAttribute("foundUsers", users);
-        } else if("task".equals(searchType)) {
-            List<Task> tasks = userService.searchTasks(keyWord);
-            model.addAttribute("foundTasks", tasks);
-        }
 
         long usersCount = userService.searchUsersCount(keyWord);
         long tasksCount = userService.searchTasksCount(keyWord);
+        long coursesCount = userService.searchCoursesCount(keyWord);
+        long lessonsCount = userService.searchLessonsCount(keyWord);
+
+        long pagingTotal = 0;
+
+        if("user".equals(searchType)){
+            List<User> users = userService.search(keyWord, offset, length);
+            model.addAttribute("foundUsers", users);
+            pagingTotal = usersCount;
+        } else if("task".equals(searchType)) {
+            List<Task> tasks = userService.searchTasks(keyWord, offset, length);
+            model.addAttribute("foundTasks", tasks);
+            pagingTotal = tasksCount;
+        } else if("course".equals(searchType)) {
+            List<Course> tasks = userService.searchCourses(keyWord, offset, length);
+            model.addAttribute("foundCourses", tasks);
+            pagingTotal = coursesCount;
+        } else if("lesson".equals(searchType)) {
+            List<Lesson> tasks = userService.searchLessons(keyWord, offset, length);
+            model.addAttribute("foundLessons", tasks);
+            pagingTotal = lessonsCount;
+        }
 
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchWord", keyWord);
         model.addAttribute("foundUserSize", usersCount);
         model.addAttribute("foundTaskSize", tasksCount);
+        model.addAttribute("foundCourseSize", coursesCount);
+        model.addAttribute("foundLessonSize", lessonsCount);
+
+        model.addAttribute("pagingLinks", Paginator.getPaginationElements(offset, length, pagingTotal));
+
         // add usersCount found size
         return "main/search";
     }
@@ -162,7 +188,7 @@ public class MainController {
     @RequestMapping("/user-get")
     public String userGet(@RequestParam("key") String keyWord, Model model){
         // use pagination
-        List<User> list = userService.search(keyWord);
+        List<User> list = userService.search(keyWord, 0, 50);
         long amount = userService.searchUsersCount(keyWord);
         model.addAttribute("foundUsers", list);
         model.addAttribute("searchWord", keyWord);

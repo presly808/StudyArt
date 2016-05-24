@@ -32,4 +32,7 @@ public interface LessonDao {
 
     Lesson find(ObjectId id) throws NoSuchLessonException;
 
+    List<Lesson> search(String keyWord, int offset, int length);
+
+    long searchCount(String keyWord);
 }

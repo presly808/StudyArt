@@ -59,10 +59,7 @@ public class LessonDaoMongoImpl implements LessonDao {
     @Override
     public boolean isExist(String title) {
         Lesson existLesson = datastore.find(Lesson.class).field("title").equal(title).get();
-        if (existLesson == null) {
-            return false;
-        }
-        return true;
+        return existLesson != null;
     }
 
     @Override
@@ -73,6 +70,35 @@ public class LessonDaoMongoImpl implements LessonDao {
             throw new NoSuchLessonException("The lesson has been not founded.");
         }
         return lesson;
+    }
+
+    @Override
+    public List<Lesson> search(String keyWord, int offset, int length) {
+
+        // todo use pagination
+        Query<Lesson> lessons = datastore.find(Lesson.class);
+
+        lessons.or(
+                lessons.criteria("title").containsIgnoreCase(keyWord)
+        );
+
+        return lessons.offset(offset).limit(length).asList();
+
+    }
+
+    @Override
+    public long searchCount(String keyWord) {
+
+
+        Query<Lesson> lessons = datastore.find(Lesson.class);
+
+        lessons.or(
+                lessons.criteria("title").containsIgnoreCase(keyWord)
+        );
+
+        return lessons.countAll();
+
+
     }
 
     @Override

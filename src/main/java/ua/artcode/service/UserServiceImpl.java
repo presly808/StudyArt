@@ -4,15 +4,15 @@ import com.mongodb.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ua.artcode.dao.CourseDao;
+import ua.artcode.dao.LessonDao;
 import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.UserDao;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAuthenticationFailException;
-import ua.artcode.model.common.Task;
-import ua.artcode.model.common.User;
-import ua.artcode.model.common.UserType;
+import ua.artcode.model.common.*;
 import ua.artcode.utils.Security;
 
 import java.util.List;
@@ -28,6 +28,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("taskMongoImpl")
     private TaskDao taskDao;
+
+    @Autowired
+    @Qualifier("courseDaoImpl")
+    private CourseDao courseDao;
+
+    @Autowired
+    @Qualifier("lessonDaoImpl")
+    private LessonDao lessonDao;
 
     public UserServiceImpl() {
     }
@@ -90,8 +98,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> search(String keyWord) {
-        return userDao.search(keyWord);
+    public List<User> search(String keyWord, int offset, int length) {
+        return userDao.search(keyWord, offset, length);
     }
 
     @Override
@@ -100,13 +108,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public long searchLessonsCount(String keyWord) {
+        return lessonDao.searchCount(keyWord);
+    }
+
+    @Override
+    public long searchCoursesCount(String keyWord) {
+        return courseDao.searchCount(keyWord);
+    }
+
+    @Override
     public long searchTasksCount(String keyWord){
         return taskDao.searchTaskCount(keyWord);
     }
 
     @Override
-    public List<Task> searchTasks(String keyWord) {
-        return taskDao.searchByTitle(keyWord);
+    public List<Task> searchTasks(String keyWord, int offset, int length) {
+        return taskDao.searchByTitle(keyWord, offset, length);
+    }
+
+    @Override
+    public List<Course> searchCourses(String keyWord, int offset, int length) {
+        return courseDao.search(keyWord, offset, length);
+    }
+
+    @Override
+    public List<Lesson> searchLessons(String keyWord, int offset, int length) {
+        return lessonDao.search(keyWord, offset, length);
     }
 
     @Override

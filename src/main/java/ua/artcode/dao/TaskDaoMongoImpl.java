@@ -120,7 +120,7 @@ public class TaskDaoMongoImpl implements TaskDao {
     }
 
     @Override
-    public List<Task> searchByTitle(String keyWord) {
+    public List<Task> searchByTitle(String keyWord, int offset, int length) {
         // todo use pagination
         Query<Task> tasks = datastore.find(Task.class);
 
@@ -129,7 +129,7 @@ public class TaskDaoMongoImpl implements TaskDao {
                 tasks.criteria("groupName").containsIgnoreCase(keyWord)
         );
 
-        return tasks.asList();
+        return tasks.offset(offset).limit(length).asList();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Example1 {
 
     // open for teacher only
     // junit class for test some or own runner
-    public static class MyTests{
+    public static class MyTests {
         @Test
         public void _01testPositiveTest(){
             ContactInfo actual = Container.buildAll(19, "Ivan", "Kiev", "Ushynsk", "3");
