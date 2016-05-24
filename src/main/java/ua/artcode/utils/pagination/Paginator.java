@@ -12,7 +12,7 @@ public class Paginator {
 
         long length = offset + limit;
 
-        if(offset >= total){
+        if(offset == 0 && length >= total){
             pageLinks.add(new PageLinkElement(0, offset, total, true));
             return pageLinks;
         }
@@ -42,7 +42,9 @@ public class Paginator {
         }
 
         // current
-        pageLinks.add(new PageLinkElement(0, offset, offset + step, true));
+        if(length >= total) {
+            pageLinks.add(new PageLinkElement(0, offset, offset + step, true));
+        }
 
         long rightStepLimit = offset + (step * 3);
         long rightFromCurr = rightStepLimit < total ? rightStepLimit : total;
@@ -71,40 +73,52 @@ public class Paginator {
     }
 
     public static void main(String[] args) {
-        List<PageLinkElement> pagesLink = getPaginationElements(500,100,889);
-        List<PageLinkElement> pagesLink2 = getPaginationElements(0,50,1000);
-        List<PageLinkElement> pagesLink3 = getPaginationElements(950,50,1000);
-        List<PageLinkElement> pagesLink4 = getPaginationElements(1000,50,1000);
-        List<PageLinkElement> pagesLink5 = getPaginationElements(50,50,1000);
-        List<PageLinkElement> pagesLink6 = getPaginationElements(100,50,144);
-        List<PageLinkElement> pagesLink7 = getPaginationElements(25,25,30);
 
         System.out.println("500,100,889");
+        List<PageLinkElement> pagesLink = getPaginationElements(500,100,889);
+
         pagesLink.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
 
         System.out.println();
         System.out.println("0,50,1000");
+        List<PageLinkElement> pagesLink2 = getPaginationElements(0,50,1000);
+
         pagesLink2.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
 
         System.out.println();
         System.out.println("950,50,1000");
+        List<PageLinkElement> pagesLink3 = getPaginationElements(950,50,1000);
+
         pagesLink3.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
 
         System.out.println();
         System.out.println("1000,50,1000");
+        List<PageLinkElement> pagesLink4 = getPaginationElements(1000,50,1000);
+
         pagesLink4.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
 
         System.out.println();
         System.out.println("50,50,1000");
+        List<PageLinkElement> pagesLink5 = getPaginationElements(50,50,1000);
+
         pagesLink5.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
 
         System.out.println();
         System.out.println("100,50,144");
+        List<PageLinkElement> pagesLink6 = getPaginationElements(100,50,144);
+
         pagesLink6.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
 
         System.out.println();
         System.out.println("25,25,30");
+        List<PageLinkElement> pagesLink7 = getPaginationElements(25,25,30);
+
         pagesLink7.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
+
+        System.out.println();
+        List<PageLinkElement> pagesLink8 = getPaginationElements(0,25,7);
+        System.out.println("0,25,7");
+        pagesLink8.stream().forEach((el) -> System.out.printf("%d-%d:", el.getOffset(), el.getLength()));
     }
 
 }
