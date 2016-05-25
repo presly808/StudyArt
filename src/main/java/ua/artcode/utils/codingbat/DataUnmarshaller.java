@@ -74,7 +74,8 @@ public class DataUnmarshaller {
             testArg.setValue(unmarshalStringArr(value));
         } else if ("String".equals(type) || "java.lang.String".contains(type)) {
             testArg.setType("String");
-            testArg.setValue(value);
+            String withoutBraces = value.substring(1, value.length() - 1);
+            testArg.setValue(withoutBraces);
         } else if ("List".equals(type) || "java.util.List".contains(type)) {
             testArg.setType("java.util.List");
             testArg.setValue(Arrays.asList(value));

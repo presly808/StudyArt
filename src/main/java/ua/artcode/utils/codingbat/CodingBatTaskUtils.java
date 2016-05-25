@@ -181,7 +181,11 @@ public class CodingBatTaskUtils {
             if (Arrays.deepEquals(new Object[]{actualValue}, new Object[]{expectedValue})) {
                 result = "OK";
             }
-        } else if (expectedValue.equals(actualValue)) {
+        }/*else if(actualValue.getClass() == String.class) {
+            if(expectedValue.equals("\"" + actualValue + "\"")){
+                result = "OK";
+            }
+        }*/else if (expectedValue.equals(actualValue)) {
             result = "OK";
         }
         LOG.debug("Result of one test = " + result);
