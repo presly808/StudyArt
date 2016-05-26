@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Search</title>
+    <title>Main Menu</title>
 
     <%@include file="/WEB-INF/pages/component/css-include.jsp" %>
 
@@ -26,15 +26,20 @@
     <!-- Custom Fonts -->
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"
-                var="dataTablesBootstrapCss"/>
-    <link href="${dataTablesBootstrapCss}" rel="stylesheet">
+    <%--CodeMirror online editor--%>
+    <spring:url value="/resources/codemirror-5.15.0/lib/codemirror.css" var="codemirrorCss"/>
+    <link href="<c:out value="${codemirrorCss}"/>" rel="stylesheet">
 
-    <!-- DataTables Responsive CSS -->
-    <spring:url value="/resources/bower_components/datatables-responsive/css/dataTables.responsive.css"
-                var="dataTablesResponsiveCss"/>
-    <link href="${dataTablesResponsiveCss}" rel="stylesheet">
+    <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.css" var="fullscreanCSS"/>
+    <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
+
+    <style type="text/css">
+        .CodeMirror {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
+        }
+    </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,7 +53,6 @@
 <body>
 
 <div id="wrapper">
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -58,7 +62,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${CONTEXT_PATH}/menu">ArtStudy</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/menu">ArtStudy</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -274,7 +278,7 @@
                     <%--todo replace via get request--%>
                     <li>
 
-                        <form method="post" action="${CONTEXT_PATH}/logout">
+                        <form method="post" action="${pageContext.request.contextPath}/logout">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                             <p><input type="submit" style="margin-left: 38px" class="btn" value="logout"></p>
@@ -287,7 +291,7 @@
         </ul>
         <!-- /.navbar-top-links -->
 
-        <div class="navbar-default sidebar" role="navigation">
+        <div id="demo" class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
@@ -295,13 +299,12 @@
                             <div class="input-group custom-search-form">
 
                                 <input type="text" name="key" class="form-control" placeholder="Search...">
-                                <input type="hidden" name="type" value="user">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-
+                                <input type="hidden" name="type" value="user">
                             </div>
                         </form>
                         <!-- /input-group -->
@@ -311,18 +314,18 @@
                         <ul class="nav nav-second-level">
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${CONTEXT_PATH}/course-menu/create-course"><spring:message
+                                    <a href="${pageContext.request.contextPath}/course-menu/create-course"><spring:message
                                             code="menu.add"/></a></li>
                             </security:authorize>
-                            <li><a href="${CONTEXT_PATH}/course-menu/show-courses"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/course-menu/show-courses"><spring:message
                                     code="course.menu.show"/></a></li>
 
-                            <li><a href="${CONTEXT_PATH}/course-menu/find-course"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/course-menu/find-course"><spring:message
                                     code="menu.find"/></a></li>
 
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${CONTEXT_PATH}/course-menu/delete-course"><spring:message
+                                    <a href="${pageContext.request.contextPath}/course-menu/delete-course"><spring:message
                                             code="menu.delete"/></a></li>
                             </security:authorize>
                         </ul>
@@ -332,18 +335,18 @@
                         <a href="#"><i class="fa fa-fw"></i>Task Group<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                <li><a href="${CONTEXT_PATH}/group-menu/create-group"><spring:message
+                                <li><a href="${pageContext.request.contextPath}/group-menu/create-group"><spring:message
                                         code="menu.add"/></a></li>
                             </security:authorize>
 
-                            <li><a href="${CONTEXT_PATH}/group-menu/show-groups"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/group-menu/show-groups"><spring:message
                                     code="group.menu.show"/></a></li>
 
-                            <li><a href="${CONTEXT_PATH}/group-menu/find-group"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/group-menu/find-group"><spring:message
                                     code="menu.find"/></a></li>
 
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
-                                <li><a href="${CONTEXT_PATH}/group-menu/delete-form"><spring:message
+                                <li><a href="${pageContext.request.contextPath}/group-menu/delete-form"><spring:message
                                         code="menu.delete"/></a></li>
                             </security:authorize>
                         </ul>
@@ -354,20 +357,20 @@
                         <ul class="nav nav-second-level">
                             <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${CONTEXT_PATH}/lesson-menu/create-lesson"><spring:message
+                                    <a href="${pageContext.request.contextPath}/lesson-menu/create-lesson"><spring:message
                                             code="menu.add"/></a></li>
                             </security:authorize>
 
-                            <li><a href="${CONTEXT_PATH}/lesson-menu/show-lessons"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/lesson-menu/show-lessons"><spring:message
                                     code="lesson.menu.show"/></a></li>
 
-                            <li><a href="${CONTEXT_PATH}/lesson-menu/find-lesson"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/lesson-menu/find-lesson"><spring:message
                                     code="menu.find"/></a></li>
 
                             <security:authorize
                                     access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${CONTEXT_PATH}/lesson-menu/delete-lesson"><spring:message
+                                    <a href="${pageContext.request.contextPath}/lesson-menu/delete-lesson"><spring:message
                                             code="menu.delete"/></a></li>
                             </security:authorize>
                         </ul>
@@ -402,23 +405,23 @@
                             <security:authorize
                                     access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${CONTEXT_PATH}/task-menu/create-task"><spring:message
+                                    <a href="${pageContext.request.contextPath}/task-menu/create-task"><spring:message
                                             code="menu.add"/></a></li>
                             </security:authorize>
 
-                            <li><a href="${CONTEXT_PATH}/task-menu/find-task">
-                                <spring:message code="menu.find"/></a></li>
+                            <li><a href="${pageContext.request.contextPath}/task-menu/find-task"><spring:message
+                                    code="menu.find"/></a></li>
 
-                            <li><a href="${CONTEXT_PATH}/task-menu/groups"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/task-menu/groups"><spring:message
                                     code="task.menu.show"/></a></li>
 
-                            <li><a href="${CONTEXT_PATH}/task-menu/size"><spring:message
+                            <li><a href="${pageContext.request.contextPath}/task-menu/size"><spring:message
                                     code="menu.size"/></a></li>
 
                             <security:authorize
                                     access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER')">
                                 <li>
-                                    <a href="${CONTEXT_PATH}/task-menu/delete-form"><spring:message
+                                    <a href="${pageContext.request.contextPath}/task-menu/delete-form"><spring:message
                                             code="menu.delete"/></a></li>
                             </security:authorize>
                         </ul>
@@ -435,150 +438,60 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Search</h1>
-
-                    <div class="row">
-                    </div>
+                    <h1 class="page-header"> Create Course
+                    </h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <form action="${CONTEXT_PATH}/search" method="get" class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="searchWord">Email address</label>
-                            <input name="key" type="text" class="form-control" id="searchWord" value="${searchWord}">
-                            <input type="hidden" name="type" value="${searchType}">
-                        </div>
-                        <button type="submit" class="btn btn-default">Search</button>
-                    </form>
+                    Create Course
                 </div>
-                <!-- /.panel-heading -->
+
                 <div class="panel-body">
+                    <div class="col-lg-6">
+                        <form:form action="${CONTEXT_PATH}/course-menu/add-course" modelAttribute="course"
+                                   method="post" role="form">
 
-                    <ul class="nav nav-tabs">
-                        <li role="presentation" class="${searchType == 'user' ? 'active' : ''}">
-                            <a href="search?key=${searchWord}&type=user">Users <span
-                                    class="badge">${foundUserSize} </span></a></li>
-
-                        <li role="presentation" class="${searchType == 'task' ? 'active' : ''}">
-                            <a href="search?key=${searchWord}&type=task">Tasks <span
-                                    class="badge">${foundTaskSize} </span></a></li>
-
-                        <li role="presentation" class="${searchType == 'course' ? 'active' : ''}">
-                            <a href="search?key=${searchWord}&type=course">Courses <span
-                                    class="badge">${foundCourseSize} </span></a></li>
-
-                        <li role="presentation" class="${searchType == 'lesson' ? 'active' : ''}">
-                            <a href="search?key=${searchWord}&type=lesson">Lessons <span
-                                    class="badge">${foundLessonSize} </span></a></li>
-
-                    </ul>
-
-
-                    <div class="content">
-
-                        <div class="row">
-                            <table width="100%" class="table-responsive table-striped">
-                                <c:if test="${searchType=='user'}">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Type</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="iterUser" items="${foundUsers}">
-                                        <tr class="odd gradeX">
-                                            <td>
-                                                <a href="${CONTEXT_PATH}/user-menu/show-user/${iterUser.name}">${iterUser.name}</a>
-                                            </td>
-                                            <td>${iterUser.email}</td>
-                                            <td>${iterUser.userType}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </c:if>
-                                <c:if test="${searchType=='course'}">
-                                    <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Owner</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="iterCourse" items="${foundCourses}">
-                                        <tr class="odd gradeX">
-                                            <td>${iterCourse.title}</td>
-                                            <td>owner - NOT FINISHED</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </c:if>
-                                <c:if test="${searchType=='lesson'}">
-                                    <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Owner</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="iterLesson" items="${foundLessons}">
-                                        <tr class="odd gradeX">
-                                            <td>${iterLesson.title}</td>
-                                            <td>owner - NOT FINISHED</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </c:if>
-                                <c:if test="${searchType == 'task'}">
-                                    <thead>
-                                    <tr>
-                                        <th>TaskName</th>
-                                        <th>GroupName</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="task" items="${foundTasks}">
-                                        <tr class="odd gradeX">
-                                            <td>
-                                                <a href="${CONTEXT_PATH}/task-menu/do-task/${task.title}">${task.title}</a>
-                                            </td>
-                                            <td>
-                                                <a href="${CONTEXT_PATH}/task-menu/show-group/${task.groupName}">${task.groupName}</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </c:if>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <nav>
-                                <ul class="pagination">
-                                    <li><a href="search?key=${searchWord}&type=${searchType}&offset=0&length=50" aria-label="Previous"><span aria-hidden="true">Begin</span></a></li>
-                                    <c:forEach var="item" items="${pagingLinks}">
-                                        <li class="${item.highlighted == true ? 'active' : ''} ${item.disabled == true ? 'disabled' : ''}">
-                                            <a href="search?key=${searchWord}&type=${searchType}&offset=${item.offset}&length=50">${item.offset}-${item.length}</a>
-                                        </li>
-                                    </c:forEach>
-                                    <li><a href="#" aria-label="Next"><span aria-hidden="true">End</span></a></li>
-                                </ul>
-                            </nav>
+                        <div class="form-group">
+                            <label><spring:message code="create.course.title"/></label>
+                            <form:input path="title" class="form-control"/>
+                            <form:errors path="title"/>
                         </div>
 
+                        <div class="form-group">
+                            <label>
+                                <spring:message code="create.course.description"/>:<br>
+                            </label>
+                            <form:input path="description" class="form-control"/>
+                            <form:errors path="description"/>
+                        </div>
+
+
+                        <input type="submit" class="btn btn-default" value="<spring:message code="create.course.add.course"/>">
                     </div>
 
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                    </form:form>
                 </div>
-                <!-- /.panel-body -->
             </div>
         </div>
-        <!-- /.container-fluid -->
+
+
+        <c:set var="error_msg_list" value="${message}"/>
+        <c:if test="${error_msg_list != null}">
+        <c:forEach var="error_msg" items="${error_msg_list}">
+
+        <p style="color:red"><c:out value="${error_msg}"/><p>
+        </c:forEach>
+        </c:if>
+        <!-- /.row -->
     </div>
-    <!-- /#page-wrapper -->
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
@@ -596,18 +509,27 @@
 <!-- Custom Theme JavaScript -->
 <script src="${sbAdminJs}"></script>
 
-<spring:url value="/resources/bower_components/datatables/media/js/jquery.dataTables.min.js"
-            var="jqueryDataTablesMinJs"/>
-<spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"
-            var="dataTablesBootstrapMinJs"/>
-<spring:url value="/resources/bower_components/datatables-responsive/js/dataTables.responsive.js"
-            var="dataTablesResponsiveJs"/>
+<spring:url value="/resources/codemirror-5.15.0/lib/codemirror.js" var="codemirrorJs"/>
+<spring:url value="/resources/codemirror-5.15.0/mode/clike/clike.js" var="clikeJs"/>
+<spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.js" var="fullscreanJS"/>
 
-<!-- DataTables JavaScript -->
-<script src="${jqueryDataTablesMinJs}"></script>
-<script src="=${dataTablesBootstrapMinJs}"></script>
-<script src="${dataTablesResponsiveJs}"></script>
+<script src="${codemirrorJs}"></script>
+<script src="${clikeJs}"></script>
+<script src="${fullscreanJS}"></script>
 
+<script>
+    var editor1 = CodeMirror.fromTextArea(document.getElementById("solutionTextArea"), {
+        lineNumbers: true,
+        mode: "text/x-java"
+    });
+
+    var editor2 = CodeMirror.fromTextArea(document.getElementById("templateTextArea"), {
+        lineNumbers: true,
+        mode: "text/x-java"
+    });
+
+
+</script>
 
 </body>
 

@@ -38,14 +38,14 @@ public class CourseController {
 
     @RequestMapping(value = "/create-course")
     public ModelAndView addCourse() {
-        ModelAndView mav = new ModelAndView("course/create-course");
+        ModelAndView mav = new ModelAndView("main/create-course");
         mav.addObject("course", new Course());
         return mav;
     }
 
     @RequestMapping(value = "/add-course", method = RequestMethod.POST)
     public ModelAndView createCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView("course/create-course");
+        ModelAndView mav = new ModelAndView("main/create-course");
 
         if (!result.hasErrors()) {
             try {
