@@ -464,7 +464,7 @@
                             <label>
                                 <spring:message code="create.course.description"/>:<br>
                             </label>
-                            <form:input path="description" class="form-control"/>
+                            <form:textarea path="description" class="form-control" rows="10"/>
                             <form:errors path="description"/>
                         </div>
 

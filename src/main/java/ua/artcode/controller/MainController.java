@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -23,6 +24,9 @@ import ua.artcode.model.common.Lesson;
 import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
 import ua.artcode.service.UserService;
+import ua.artcode.to.Message;
+import ua.artcode.to.MessageType;
+import ua.artcode.to.SearchResults;
 import ua.artcode.utils.pagination.Paginator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -183,6 +187,31 @@ public class MainController {
 
         // add usersCount found size
         return "main/search";
+    }
+
+    // endpoint for autocomplete
+    @RequestMapping("/search/json")
+    public @ResponseBody Object generalSearchJson(@RequestParam(value = "length", defaultValue = "50") int length,
+                                @RequestParam(value = "offset",defaultValue = "0") int offset,
+                                @RequestParam("key") String keyWord,
+                                @RequestParam("type") String searchType){
+
+        if("user".equals(searchType)){
+            List<User> users = userService.search(keyWord, offset, length);
+            return new SearchResults<User>("user", users);
+        } else if("task".equals(searchType)) {
+            List<Task> tasks = userService.searchTasks(keyWord, offset, length);
+            return new SearchResults<Task>("task", tasks);
+        } else if("course".equals(searchType)) {
+            List<Course> courses = userService.searchCourses(keyWord, offset, length);
+            return new SearchResults<Course>("course", courses);
+        } else if("lesson".equals(searchType)) {
+            List<Lesson> lessons = userService.searchLessons(keyWord, offset, length);
+            return new SearchResults<Lesson>("lesson", lessons);
+        }
+
+        // add usersCount found size
+        return new Message("Invalid search type", MessageType.ERROR, "invalid search type in ajax request");
     }
 
     @RequestMapping("/user-get")
