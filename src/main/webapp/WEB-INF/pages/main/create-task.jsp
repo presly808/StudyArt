@@ -27,16 +27,15 @@
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
     <%--CodeMirror online editor--%>
-    <spring:url value="/resources/codemirror-5.15.0/lib/codemirror.css" var="codemirrorCss"/>
     <link href="<c:out value="${codemirrorCss}"/>" rel="stylesheet">
 
-    <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.css" var="fullscreanCSS"/>
     <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
 
     <style type="text/css">
-        .CodeMirror {border: 1px solid #ccc;
+        .CodeMirror {
+            border: 1px solid #ccc;
             border-radius: 4px;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
         }
     </style>
 
@@ -452,90 +451,94 @@
                         <form:form action="${CONTEXT_PATH}/task-menu/add-task" modelAttribute="task"
                                    method="post" role="form">
 
-                            <div class="form-group">
-                                <label><spring:message code="create.task.name"/></label>
-                                <form:input path="title" class="form-control"/>
-                                <form:errors path="title"/>
-                            </div>
+                        <div class="form-group">
+                            <label><spring:message code="create.task.name"/></label>
+                            <form:input path="title" class="form-control"/>
+                            <form:errors path="title"/>
+                        </div>
 
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.group"/>:<br>
-                                </label>
-                                <form:input path="groupName" class="form-control"/>
-                                <form:errors path="groupName"/>
-                            </div>
+                        <div class="form-group">
+                            <label>
+                                <spring:message code="create.task.group"/>:<br>
+                            </label>
+                            <form:input path="groupName" class="form-control"/>
+                            <form:errors path="groupName"/>
+                        </div>
 
 
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.description"/>
-                                </label>
-                                <form:textarea path="description" class="form-control" rows="3"/>
-                                <form:errors path="description"/>
-                            </div>
+                        <div class="form-group">
+                            <label>
+                                <spring:message code="create.task.description"/>
+                            </label>
+                            <form:textarea path="description" class="form-control" rows="3"/>
+                            <form:errors path="description"/>
+                        </div>
 
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.template"/>:<br>
-                                </label>
-                                <p class="help-block"><code>public int methodName(int a, int b) {}</code></p>
-                                <form:textarea id="templateTextArea" path="template" class="form-control" rows="3"/>
-                                <form:errors path="template"/>
-                            </div>
+                        <div class="form-group">
+                            <label>
+                                <spring:message code="create.task.template"/>:<br>
+                            </label>
 
-                            <div class="form-group">
-                                <label>Solution</label>
-                                <p class="help-block"><code>public int methodName(int a, int b) { return a + b; }</code></p>
-                                        <form:textarea id="solutionTextArea" path="solution" class="form-control cm-s-bar" rows="10"/>
-                                <form:errors path="solution"/>
-                            </div>
+                            <p class="help-block"><code>public int methodName(int a, int b) {}</code></p>
+                            <form:textarea id="templateTextArea" path="template" class="form-control" rows="3"/>
+                            <form:errors path="template"/>
+                        </div>
 
-                            <div class="form-group">
-                                <label><spring:message code="create.task.datapoint"/></label>
-                                <p class="help-block"><code>25-10,15</code></p>
-                                <textarea name="data_points" class="form-control" rows="8"><c:if test="${testData != null}">${testData}</c:if></textarea>
-                            </div>
+                        <div class="form-group">
+                            <label>Solution</label>
 
-                            <div class="form-group">
-                                <label>
-                                    <spring:message code="create.task.examples"/>
-                                </label>
-                                <form:textarea path="examples" class="form-control" rows="3"/>
-                                <form:errors path="examples"/>
-                            </div>
+                            <p class="help-block"><code>public int methodName(int a, int b) { return a + b; }</code></p>
+                            <form:textarea id="solutionTextArea" path="solution" class="form-control cm-s-bar"
+                                           rows="10"/>
+                            <form:errors path="solution"/>
+                        </div>
 
-                            <input type="submit" class="btn btn-default" value="<spring:message code="create"/>">
+                        <div class="form-group">
+                            <label><spring:message code="create.task.datapoint"/></label>
+
+                            <p class="help-block"><code>25-10,15</code></p>
+                            <textarea name="data_points" class="form-control" rows="8"><c:if
+                                    test="${testData != null}">${testData}</c:if></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <spring:message code="create.task.examples"/>
+                            </label>
+                            <form:textarea path="examples" class="form-control" rows="3"/>
+                            <form:errors path="examples"/>
+                        </div>
+
+                        <input type="submit" class="btn btn-default" value="<spring:message code="create"/>">
                     </div>
 
-                            <c:if test="${task.id != null}">
-                                <input type="hidden" name="id" value="${task.id}"/>
-                            </c:if>
-                            <input type="hidden" name="mainTitle" value="${mainTitle}"/>
-                            <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-                        </form:form>
-                    </div>
+                    <c:if test="${task.id != null}">
+                        <input type="hidden" name="id" value="${task.id}"/>
+                    </c:if>
+                    <input type="hidden" name="mainTitle" value="${mainTitle}"/>
+                        <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+                    </form:form>
                 </div>
             </div>
-
-
-            <c:set var="error_msg_list" value="${message}"/>
-            <c:if test="${error_msg_list != null}">
-            <c:forEach var="error_msg" items="${error_msg_list}">
-
-            <p style="color:red"><c:out value="${error_msg}"/><p>
-            </c:forEach>
-            </c:if>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
 
+
+        <c:set var="error_msg_list" value="${message}"/>
+        <c:if test="${error_msg_list != null}">
+        <c:forEach var="error_msg" items="${error_msg_list}">
+
+        <p style="color:red"><c:out value="${error_msg}"/><p>
+        </c:forEach>
+        </c:if>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
 </div>
+<!-- /#page-wrapper -->
+
+
 <!-- /#wrapper -->
 
-<
 <%@include file="/WEB-INF/pages/component/js-include.jsp" %>
 <script src="${jqueryJs}"></script>
 
@@ -548,9 +551,6 @@
 <!-- Custom Theme JavaScript -->
 <script src="${sbAdminJs}"></script>
 
-<spring:url value="/resources/codemirror-5.15.0/lib/codemirror.js" var="codemirrorJs"/>
-<spring:url value="/resources/codemirror-5.15.0/mode/clike/clike.js" var="clikeJs"/>
-<spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.js" var="fullscreanJS"/>
 
 <script src="${codemirrorJs}"></script>
 <script src="${clikeJs}"></script>
@@ -566,8 +566,6 @@
         lineNumbers: true,
         mode: "text/x-java"
     });
-
-
 </script>
 
 </body>

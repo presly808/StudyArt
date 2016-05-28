@@ -31,9 +31,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Razer on 13.02.16.
- */
 @Controller
 @RequestMapping(value = "/lesson-menu")
 public class LessonController {

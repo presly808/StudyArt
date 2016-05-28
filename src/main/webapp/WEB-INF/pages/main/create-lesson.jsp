@@ -27,11 +27,11 @@
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
     <%--CodeMirror online editor--%>
-    <spring:url value="/resources/codemirror-5.15.0/lib/codemirror.css" var="codemirrorCss"/>
     <link href="<c:out value="${codemirrorCss}"/>" rel="stylesheet">
 
-    <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.css" var="fullscreanCSS"/>
     <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
+
+    <link href="<c:out value="${simplemdeCss}"/>" rel="stylesheet">
 
     <style type="text/css">
         .CodeMirror {
@@ -40,13 +40,15 @@
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
         }
 
+        .navbar-static-top {
+            z-index: 5;
+        }
+
         /*.ui-autocomplete-loading {
             background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
         }*/
     </style>
 
-
-    <spring:url value="/resources/bower_components/jquery-ui/themes/smoothness/jquery-ui.css" var="jqueryUiCss"/>
     <link href="<c:out value="${jqueryUiCss}"/>" rel="stylesheet">
 
 
@@ -474,7 +476,7 @@
                             <label>
                                 <spring:message code="create.course.lesson.description"/>
                             </label>
-                            <form:textarea path="description" class="form-control" rows="10"/>
+                            <form:textarea id="description" path="description" class="form-control" rows="10"/>
                             <form:errors path="description"/>
                         </div>
 
@@ -514,7 +516,7 @@
 <!-- /#wrapper -->
 
 <%@include file="/WEB-INF/pages/component/js-include.jsp" %>
-<spring:url value="/resources/bower_components/jquery-ui/jquery-ui.min.js" var="jqueryUiJs"/>
+
 
 <script src="${jqueryJs}"></script>
 
@@ -530,15 +532,21 @@
 <%--JQueryUi--%>
 <script src="${jqueryUiJs}"></script>
 
-<spring:url value="/resources/codemirror-5.15.0/lib/codemirror.js" var="codemirrorJs"/>
-<spring:url value="/resources/codemirror-5.15.0/mode/clike/clike.js" var="clikeJs"/>
-<spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.js" var="fullscreanJS"/>
 
-<script src="${codemirrorJs}"></script>
-<script src="${clikeJs}"></script>
-<script src="${fullscreanJS}"></script>
+<%--<script src="${codemirrorJs}"></script>--%>
+<%--<script src="${clikeJs}"></script>--%>
+<%--<script src="${fullscreanJS}"></script>--%>
+<script src="${simplemdeJs}"></script>
+<%--<script data-main="${simplemdeJs}" src="${requireJS}"></script>--%>
 
 <script>
+
+    var simplemde = new SimpleMDE({ element: $("#description")[0] , autosave: {
+        enabled: true,
+        uniqueId: "MyUniqueID",
+        delay: 1000,
+    }});
+
     $(function() {
         function split( val ) {
             return val.split( /,\s*/ );

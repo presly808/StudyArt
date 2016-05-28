@@ -27,13 +27,10 @@
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"
-                var="dataTablesBootstrapCss"/>
+
     <link href="${dataTablesBootstrapCss}" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <spring:url value="/resources/bower_components/datatables-responsive/css/dataTables.responsive.css"
-                var="dataTablesResponsiveCss"/>
     <link href="${dataTablesResponsiveCss}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -583,7 +580,6 @@
 </div>
 <!-- /#wrapper -->
 
-<
 <%@include file="/WEB-INF/pages/component/js-include.jsp" %>
 <script src="${jqueryJs}"></script>
 
@@ -596,18 +592,10 @@
 <!-- Custom Theme JavaScript -->
 <script src="${sbAdminJs}"></script>
 
-<spring:url value="/resources/bower_components/datatables/media/js/jquery.dataTables.min.js"
-            var="jqueryDataTablesMinJs"/>
-<spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"
-            var="dataTablesBootstrapMinJs"/>
-<spring:url value="/resources/bower_components/datatables-responsive/js/dataTables.responsive.js"
-            var="dataTablesResponsiveJs"/>
-
 <!-- DataTables JavaScript -->
 <script src="${jqueryDataTablesMinJs}"></script>
 <script src="=${dataTablesBootstrapMinJs}"></script>
 <script src="${dataTablesResponsiveJs}"></script>
-
 
 </body>
 
