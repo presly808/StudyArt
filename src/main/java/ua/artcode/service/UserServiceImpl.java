@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserServiceImpl(UserDao userDao) {
-        this.userDao=userDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -50,13 +50,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(String email, User user) throws NoSuchUserException,DuplicateDataException {
-        userDao.update(email,user);
+    public void update(String email, User user) throws NoSuchUserException, DuplicateDataException {
+        userDao.update(email, user);
     }
 
     @Override
     public User findUser(String name) throws NoSuchUserException {
-       return userDao.find(name);
+        return userDao.find(name);
     }
 
     @Override
@@ -98,6 +98,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void subscribe(Course course, User user) {
+        course.addSubscriber(user);
+    }
+
+    @Override
+    public void unsubscribe(Course course, User user) throws AppException {
+        course.deleteSubscriber(user);
+    }
+
+    @Override
     public List<User> search(String keyWord, int offset, int length) {
         return userDao.search(keyWord, offset, length);
     }
@@ -118,7 +128,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public long searchTasksCount(String keyWord){
+    public long searchTasksCount(String keyWord) {
         return taskDao.searchTaskCount(keyWord);
     }
 
@@ -139,7 +149,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean delete(String email) throws NoSuchUserException {
-       return userDao.delete(email);
+        return userDao.delete(email);
     }
 
 

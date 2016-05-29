@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -72,6 +73,9 @@ public class TaskController {
         String operationType = req.getParameter("mainTitle");
         if (!result.hasErrors()) {
             try {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                String authName = auth.getName();
+                task.setAuthor(authName);
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
                 task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 

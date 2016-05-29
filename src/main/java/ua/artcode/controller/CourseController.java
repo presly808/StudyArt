@@ -5,6 +5,8 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
+import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
+import ua.artcode.model.common.User;
 import ua.artcode.service.TeacherService;
+import ua.artcode.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -32,6 +37,9 @@ public class CourseController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MessageSource messageSource;
@@ -49,6 +57,9 @@ public class CourseController {
 
         if (!result.hasErrors()) {
             try {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                String authName = auth.getName();
+                course.setAuthor(authName);
                 teacherService.addCourse(course);
                 List lessonsList = teacherService.getAllLessons();
 
@@ -96,7 +107,7 @@ public class CourseController {
                 }
             }
             course.setLessonList(lessonsForCourse);
-            teacherService.updateCourse(course.getId(),course);
+            teacherService.updateCourse(course.getId(), course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
         } catch (DuplicateDataException e) {
@@ -142,7 +153,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/update-course")
-    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes)  {
+    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("course/edit-course");
         List<Lesson> lessonInCourse = new ArrayList<>();
         List<Lesson> allLessons = teacherService.getAllLessons();
@@ -167,7 +178,7 @@ public class CourseController {
             } catch (NoSuchCourseException e) {
                 redirectAttributes.addFlashAttribute("message", e.getMessage());
                 mav.setViewName("redirect:/course-menu");
-            } catch (DuplicateDataException e){
+            } catch (DuplicateDataException e) {
                 mav.addObject("message", e.getMessage());
             }
         }
@@ -186,11 +197,26 @@ public class CourseController {
         ModelAndView mav = new ModelAndView("course/show-course");
         try {
             Course course = teacherService.findCourseByTitle(title);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String userName = auth.getName();
+            User user = userService.findUser(userName);
+            if (course.getAuthor().equals(userName)) {
+                mav.addObject("edit", true);
+            } else {
+                mav.addObject("edit", false);
+            }
+            if (course.getSubscribers().contains(user)) {
+                mav.addObject("subscribe", true);
+            } else {
+                mav.addObject("subscribe", false);
+            }
             mav.addObject(course);
             mav.addObject("lessons", course.getLessonList());
         } catch (NoSuchCourseException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             mav.setViewName("redirect:/course-menu/show-courses");
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
         }
         return mav;
     }

@@ -20,8 +20,27 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="hidden" name="id" value="${course.id.toString()}"/>
 
-    <p><input type="submit" value="<spring:message code="menu.edit"/>"></p>
+
+    <%--<script type="text/javascript"> --%>
+    <%--if (${subscribe}){--%>
+        <%--<p><input type="button" value="<spring:message code="menu.subscribe" javaScriptEscape="true"/></p>--%>
+        <%--//<spring:message code='menu.subscribe' javaScriptEscape='true' />--%>
+    <%--}else{--%>
+        <%--//<p><input type="button" value="<spring:message code="menu.unsubscribe"/>"></p>--%>
+    <%--}--%>
+    <%--</script>--%>
 </form>
+<script type="text/javascript">
+    var edit=${edit};
+    if(edit){
+
+        <p><input type="submit" value="edit"/></p>
+    }
+    else{
+        <h1>wlkeglskgsldkg</h1>
+    }
+    //<p><input type="submit" value="<spring:message code="menu.edit"/>"></p>
+</script>
 <br>
 </body>
 </html>

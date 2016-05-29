@@ -48,7 +48,7 @@ public class UserDaoMongoImpl implements UserDao {
             datastore.save(user);
         } catch (DuplicateKeyException e) {
             datastore.save(oldUser);
-            throw new DuplicateDataException("User with email: "+user.getEmail()+" is already exist");
+            throw new DuplicateDataException("User with email: " + user.getEmail() + " is already exist");
         }
 
         LOG.info("The user has been updated.");

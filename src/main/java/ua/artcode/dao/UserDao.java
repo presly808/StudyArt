@@ -13,7 +13,6 @@ public interface UserDao {
 
     void add(User user) throws DuplicateKeyException;
 
-
     User find(String name) throws NoSuchUserException;
 
     User findByEmail(String email) throws NoSuchUserException;

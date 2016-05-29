@@ -22,6 +22,10 @@ public interface UserService {
 
     int size();
 
+    void subscribe(Course course, User user);
+
+    void unsubscribe(Course course, User user) throws AppException;
+
     List<User> search(String keyWord, int offset, int length);
 
     long searchUsersCount(String keyWord);

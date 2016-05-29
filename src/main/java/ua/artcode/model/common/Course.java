@@ -5,6 +5,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Reference;
+import ua.artcode.exception.AppException;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Title;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 
 @Entity
-public class Course implements Comparable<Course>{
+public class Course implements Comparable<Course> {
 
     @Id
     private ObjectId id;
@@ -29,7 +30,10 @@ public class Course implements Comparable<Course>{
     private String author;
 
     @Reference
-    private List<Lesson> lessonList=new ArrayList<>();
+    private List<Lesson> lessonList = new ArrayList<>();
+
+    @Reference
+    private List<User> subscribers = new ArrayList<>();
 
     public Course() {
     }
@@ -42,6 +46,18 @@ public class Course implements Comparable<Course>{
     public Course(String title, List<Lesson> lessonList) {
         this.title = title;
         this.lessonList = lessonList;
+    }
+
+    public List<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public ObjectId getId() {
@@ -70,6 +86,16 @@ public class Course implements Comparable<Course>{
 
     public List<Lesson> getLessonList() {
         return lessonList;
+    }
+
+    public void addSubscriber(User user) {
+        subscribers.add(user);
+    }
+
+    public void deleteSubscriber(User user) throws AppException {
+        if (!subscribers.remove(user)) {
+            throw new AppException("No such user to delete!");
+        }
     }
 
     public void setLessonList(List<Lesson> lessonList) {
