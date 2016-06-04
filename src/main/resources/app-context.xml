@@ -15,7 +15,6 @@
     <!-- support JSR303 annotation -->
     <mvc:annotation-driven validator="validator"/>
 
-
     <!--context:property-placeholder location="app.properties"/-->
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

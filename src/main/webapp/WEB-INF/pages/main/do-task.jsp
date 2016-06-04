@@ -27,11 +27,8 @@
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
     <%--CodeMirror online editor--%>
-    <spring:url value="/resources/codemirror-5.15.0/lib/codemirror.css" var="codemirrorCss"/>
     <link href="<c:out value="${codemirrorCss}"/>" rel="stylesheet">
 
-    <spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.css" var="fullscreanCSS"/>
-    <spring:url value="/resources/codemirror-5.15.0/addon/hint/show-hint.css" var="showHintCss"/>
     <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
     <link href="<c:out value="${showHintCss}"/>" rel="stylesheet">
 
@@ -555,11 +552,6 @@
 <!-- Custom Theme JavaScript -->
 <script src="${sbAdminJs}"></script>
 
-<spring:url value="/resources/codemirror-5.15.0/lib/codemirror.js" var="codemirrorJs"/>
-<spring:url value="/resources/codemirror-5.15.0/mode/clike/clike.js" var="clikeJs"/>
-<spring:url value="/resources/codemirror-5.15.0/addon/display/fullscreen.js" var="fullscreanJS"/>
-<spring:url value="/resources/codemirror-5.15.0/addon/hint/show-hint.js" var="showHintJS"/>
-<spring:url value="/resources/codemirror-5.15.0/addon/hint/anyword-hint.js" var="anyWordHintJs"/>
 
 
 <script src="${codemirrorJs}"></script>

@@ -8,16 +8,17 @@ public class PageLinkElement {
     private long pageNum;
     private long offset;
     private long length;
-    private boolean active;
+    private boolean highlighted;
+    private boolean disabled;
 
     public PageLinkElement() {
     }
 
-    public PageLinkElement(long pageNum, long offset, long length, boolean active) {
+    public PageLinkElement(long pageNum, long offset, long length, boolean highlighted) {
         this.pageNum = pageNum;
         this.offset = offset;
         this.length = length;
-        this.active = active;
+        this.highlighted = highlighted;
     }
 
     public long getPageNum() {
@@ -44,11 +45,19 @@ public class PageLinkElement {
         this.length = length;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isHighlighted() {
+        return highlighted;
     }
 
     public void setIsActive(boolean isActive) {
-        this.active = isActive;
+        this.highlighted = isActive;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }

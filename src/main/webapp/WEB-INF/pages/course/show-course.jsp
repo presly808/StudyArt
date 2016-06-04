@@ -5,9 +5,11 @@
     <title><spring:message code="title.show.course"/></title>
 </head>
 <body>
+
 <form action="${pageContext.request.contextPath}/course-menu/edit-course" method="post">
 
     <h1>${course.title}</h1>
+    <h1>111</h1>
     <p>${course.description}</p>
     <br>
 
@@ -20,27 +22,30 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="hidden" name="id" value="${course.id.toString()}"/>
 
-
-    <%--<script type="text/javascript"> --%>
-    <%--if (${subscribe}){--%>
-        <%--<p><input type="button" value="<spring:message code="menu.subscribe" javaScriptEscape="true"/></p>--%>
-        <%--//<spring:message code='menu.subscribe' javaScriptEscape='true' />--%>
-    <%--}else{--%>
-        <%--//<p><input type="button" value="<spring:message code="menu.unsubscribe"/>"></p>--%>
-    <%--}--%>
-    <%--</script>--%>
 </form>
-<script type="text/javascript">
-    var edit=${edit};
-    if(edit){
 
-        <p><input type="submit" value="edit"/></p>
+<input type="submit"  id="myButton" value="Edit"/>
+
+<script type="text/javascript">
+
+    var myBtn = document.getElementById('myButton');
+
+    //add event listener
+    myBtn.addEventListener('click', function() {
+        window.location.href='www.google.com.ua';
+    });
+
+//    var button_my_button = "#myButton";
+//    $(button_my_button).click(function(){
+//        window.location.href='www.google.com.ua';
+//    });
+
+    var k=${edit};
+
+    if (k) {
+
     }
-    else{
-        <h1>wlkeglskgsldkg</h1>
-    }
-    //<p><input type="submit" value="<spring:message code="menu.edit"/>"></p>
 </script>
-<br>
+
 </body>
 </html>

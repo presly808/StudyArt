@@ -3,32 +3,34 @@ package ua.artcode.controller;
 import com.mongodb.DuplicateKeyException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
+import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.model.common.Lesson;
 import ua.artcode.model.common.Task;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
+import ua.artcode.service.UserService;
+import ua.artcode.to.Message;
+import ua.artcode.to.MessageType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Razer on 13.02.16.
- */
 @Controller
 @RequestMapping(value = "/lesson-menu")
 public class LessonController {
@@ -39,36 +41,71 @@ public class LessonController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    @Qualifier("userServiceImpl")
+    private UserService userService;
+
     @RequestMapping(value = "/create-lesson")
     public ModelAndView addLesson() {
-        ModelAndView mav = new ModelAndView("lesson/create-lesson");
+        ModelAndView mav = new ModelAndView("main/create-lesson");
         mav.addObject("lesson", new Lesson());
         return mav;
     }
 
     @RequestMapping(value = "/add-lesson", method = RequestMethod.POST)
-    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("lesson/create-lesson");
         if (!result.hasErrors()) {
             try {
-                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                String authName = auth.getName();
-                lesson.setAuthor(authName);
+                String tasksTitle = req.getParameter("lessonTasks");
+                String[] titles = tasksTitle.split(",\\s");
+                Arrays.stream(titles).forEach((task) -> {
+                    try {
+                        lesson.getTasks().add(adminService.findTaskByTitle(task));
+                    } catch (NoSuchTaskException e) {
+                        e.printStackTrace();
+                    }
+                });
+
                 teacherService.addLesson(lesson);
-                List<Task> taskList = adminService.getAllTasks();
-                if (taskList.size() > 0) {
-                    redirectAttributes.addFlashAttribute("title", lesson.getTitle());
-                    redirectAttributes.addFlashAttribute("tasks", taskList);
-                    mav.setViewName("redirect:/lesson-menu/setup-tasks");
-                } else {
-                    redirectAttributes.addFlashAttribute("message", "The lesson has been successfully created.");
-                    mav.setViewName("redirect:/lesson-menu");
-                }
+                redirectAttributes.addFlashAttribute("message", "The lesson has been successfully created.");
+                mav.setViewName("redirect:/lesson-menu");
+
             } catch (DuplicateKeyException e) {
                 mav.addObject("message", "Lesson with title: " + lesson.getTitle() + " already exist!");
             }
         }
         return mav;
+    }
+
+    //
+    @RequestMapping(value = "/add-lesson/json", method = RequestMethod.POST)
+    public @ResponseBody Message createLessonJson(@Valid Lesson lesson, BindingResult result,
+                                                  HttpServletRequest req,
+                                                  RedirectAttributes redirectAttributes) {
+        if (!result.hasErrors()) {
+            try {
+                String tasksTitle = req.getParameter("tasks");
+                String[] titles = tasksTitle.split(",\\s");
+                Arrays.stream(titles).forEach((task) -> {
+                    try {
+                        lesson.getTasks().add(adminService.findTaskByTitle(task));
+                    } catch (NoSuchTaskException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                teacherService.addLesson(lesson);
+                return new Message("Success", MessageType.INFO, "Lesson " + lesson.getTitle() + " created");
+            } catch (DuplicateKeyException e) {
+                e.printStackTrace();
+                // todo use logger
+                return new Message(e.getMessage(), MessageType.ERROR, e.getMessage());
+            }
+
+        } else {
+            return new Message("Validation Error", MessageType.ERROR, result.toString());
+        }
     }
 
     @RequestMapping(value = "/setup-tasks")

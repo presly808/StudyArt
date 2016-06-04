@@ -27,13 +27,10 @@
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"
-                var="dataTablesBootstrapCss"/>
+
     <link href="${dataTablesBootstrapCss}" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <spring:url value="/resources/bower_components/datatables-responsive/css/dataTables.responsive.css"
-                var="dataTablesResponsiveCss"/>
     <link href="${dataTablesResponsiveCss}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -559,9 +556,9 @@
                         <div class="row">
                             <nav>
                                 <ul class="pagination">
-                                    <li><a href="search?key=${searchWord}&type=${searchType}&offset=${item.offset}&length=50" aria-label="Previous"><span aria-hidden="true">Begin</span></a></li>
+                                    <li><a href="search?key=${searchWord}&type=${searchType}&offset=0&length=50" aria-label="Previous"><span aria-hidden="true">Begin</span></a></li>
                                     <c:forEach var="item" items="${pagingLinks}">
-                                        <li class="${item.active == true ? 'active' : ''}">
+                                        <li class="${item.highlighted == true ? 'active' : ''} ${item.disabled == true ? 'disabled' : ''}">
                                             <a href="search?key=${searchWord}&type=${searchType}&offset=${item.offset}&length=50">${item.offset}-${item.length}</a>
                                         </li>
                                     </c:forEach>
@@ -583,7 +580,6 @@
 </div>
 <!-- /#wrapper -->
 
-<
 <%@include file="/WEB-INF/pages/component/js-include.jsp" %>
 <script src="${jqueryJs}"></script>
 
@@ -596,18 +592,10 @@
 <!-- Custom Theme JavaScript -->
 <script src="${sbAdminJs}"></script>
 
-<spring:url value="/resources/bower_components/datatables/media/js/jquery.dataTables.min.js"
-            var="jqueryDataTablesMinJs"/>
-<spring:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"
-            var="dataTablesBootstrapMinJs"/>
-<spring:url value="/resources/bower_components/datatables-responsive/js/dataTables.responsive.js"
-            var="dataTablesResponsiveJs"/>
-
 <!-- DataTables JavaScript -->
 <script src="${jqueryDataTablesMinJs}"></script>
 <script src="=${dataTablesBootstrapMinJs}"></script>
 <script src="${dataTablesResponsiveJs}"></script>
-
 
 </body>
 
