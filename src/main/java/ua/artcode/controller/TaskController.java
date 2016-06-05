@@ -27,6 +27,7 @@ import ua.artcode.utils.codingbat.CodingBatTaskUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -66,12 +67,19 @@ public class TaskController {
     // -5-3,3
     // -5-5
     @RequestMapping(value = "/add-task", method = RequestMethod.POST)
-    public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
+    public ModelAndView createTask(@Valid Task task, BindingResult result, HttpServletRequest req,
+                                   RedirectAttributes redirectAttributes,
+                                   Principal principal) {
         ModelAndView mav = new ModelAndView("main/create-task");
         String testData = req.getParameter("data_points");
         String operationType = req.getParameter("mainTitle");
+        String currentUserName = principal.getName();
+
         if (!result.hasErrors()) {
             try {
+
+                task.setOwner(userService.findUser(currentUserName));
+
                 task.setMethodSignature(CodingBatTaskUtils.getMethodSignature(task.getTemplate()));
                 task.setTaskTestDataContainer(CodingBatTaskUtils.getTestDataContainer(testData));
 
@@ -98,6 +106,8 @@ public class TaskController {
             } catch (DuplicateDataException e) {
                 mav.addObject("message", e.getMessage());
             } catch (NoSuchTaskException e) {
+                req.setAttribute("message", e.getMessage());
+            } catch (NoSuchUserException e) {
                 req.setAttribute("message", e.getMessage());
             }
         }

@@ -1,9 +1,7 @@
 package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.*;
 import ua.artcode.model.taskComponent.MethodSignature;
 import ua.artcode.model.taskComponent.TaskTestDataContainer;
 import ua.artcode.validation.Description;
@@ -31,6 +29,13 @@ public class Task implements Comparable<Task> {
 
     @Template
     private String template;
+
+    @Reference(lazy = true)
+    private User owner;
+
+    // for user statistics
+    @Transient
+    private boolean performed;
 
     private String solution;
 
@@ -135,6 +140,22 @@ public class Task implements Comparable<Task> {
 
     public void setTaskTestDataContainer(TaskTestDataContainer taskTestDataContainer) {
         this.taskTestDataContainer = taskTestDataContainer;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public boolean isPerformed() {
+        return performed;
+    }
+
+    public void setPerformed(boolean performed) {
+        this.performed = performed;
     }
 
     @Override

@@ -15,13 +15,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
+import ua.artcode.exception.NoSuchLessonException;
+import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
+import ua.artcode.model.common.Task;
+import ua.artcode.model.common.User;
+import ua.artcode.model.taskComponent.TaskTestResult;
+import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
+import ua.artcode.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +43,13 @@ public class CourseController {
     private TeacherService teacherService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MessageSource messageSource;
+
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping(value = "/create-course")
     public ModelAndView addCourse() {
@@ -43,27 +58,71 @@ public class CourseController {
         return mav;
     }
 
+    @RequestMapping(value = "/subscribe/{courseTitle}")
+    public String subscribe(@PathVariable("courseTitle") String courseTitle, Principal principal) {
+
+        try {
+            User currentUser = userService.findUser(principal.getName());
+            Course course = teacherService.findCourseByTitle(courseTitle);
+            currentUser.getSubscribedCourses().add(course);
+
+            userService.update(currentUser.getEmail(), currentUser);
+
+        } catch (NoSuchUserException | NoSuchCourseException | DuplicateDataException e) {
+            e.printStackTrace();
+        }
+
+
+        return "redirect:/course-menu/show-course/" + courseTitle;
+
+    }
+
     @RequestMapping(value = "/add-course", method = RequestMethod.POST)
-    public ModelAndView createCourse(@Valid Course course, BindingResult result, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView("main/create-course");
+    public ModelAndView createCourse(@Valid Course course, BindingResult result, HttpServletRequest req,
+                                     RedirectAttributes redirectAttributes,
+                                     Principal principal) {
+        ModelAndView mav = new ModelAndView();
 
         if (!result.hasErrors()) {
             try {
-                teacherService.addCourse(course);
-                List lessonsList = teacherService.getAllLessons();
 
-                if (lessonsList.size() > 0) {
-                    redirectAttributes.addFlashAttribute("title", course.getTitle());
-                    redirectAttributes.addFlashAttribute("lessons", lessonsList);
-                    mav.setViewName("redirect:/course-menu/setup-lessons");
-                } else {
-                    redirectAttributes.addFlashAttribute("message", messageSource.getMessage("course.successfully.create", null, LocaleContextHolder.getLocale()));
-                    mav.setViewName("redirect:/course-menu");
-                }
+                User user = userService.findUser(principal.getName());
+                course.setOwner(user);
+
+                String courseLessons = req.getParameter("courseLessons");
+
+                String[] titles = courseLessons.split(",\\s");
+                Arrays.stream(titles).forEach((lessonTitle) -> {
+                    try {
+                        course.getLessonList().add(teacherService.findLessonByTitle(lessonTitle));
+                    } catch (NoSuchLessonException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                teacherService.addCourse(course);
+
+                prepareUserCourseInformation(mav,user,course);
+
+                mav.addObject("message", messageSource.getMessage("course.successfully.create",
+                        null, LocaleContextHolder.getLocale()));
+
+                mav.addObject("course", course);
+
+                mav.setViewName("main/show-course");
+
             } catch (DuplicateKeyException e) {
                 mav.addObject("message", "Course with title: " + course.getTitle() + " already exist!");
+                mav.setViewName("main/create-course");
+            } catch (NoSuchUserException e) {
+                e.printStackTrace();
+                mav.addObject("message", e.getMessage());
+                mav.setViewName("main/create-course");
             }
         }
+
+
+
         return mav;
     }
 
@@ -72,6 +131,7 @@ public class CourseController {
         ModelAndView mav = new ModelAndView("course/setup-lessons");
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(req);
         if (map != null) {
+            // todo hardcode parameter, why do we need it?
             mav.addObject("title639824Course", map.get("title"));
             mav.addObject("lessons", map.get("lessons"));
         } else {
@@ -86,6 +146,7 @@ public class CourseController {
 
         try {
             List<Lesson> allLessons = teacherService.getAllLessons();
+            // todo hardcode parameter, why do we need it?
             String title = req.getParameter("title639824Course");
 
             Course course = teacherService.findCourseByTitle(title);
@@ -96,7 +157,7 @@ public class CourseController {
                 }
             }
             course.setLessonList(lessonsForCourse);
-            teacherService.updateCourse(course.getId(),course);
+            teacherService.updateCourse(course.getId(), course);
             redirectAttributes.addFlashAttribute("message", "Course has been successfully created.");
             mav.setViewName("redirect:/course-menu");
         } catch (DuplicateDataException e) {
@@ -142,7 +203,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/update-course")
-    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes)  {
+    public ModelAndView updateCourse(@Valid Course course, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         ModelAndView mav = new ModelAndView("course/edit-course");
         List<Lesson> lessonInCourse = new ArrayList<>();
         List<Lesson> allLessons = teacherService.getAllLessons();
@@ -167,7 +228,7 @@ public class CourseController {
             } catch (NoSuchCourseException e) {
                 redirectAttributes.addFlashAttribute("message", e.getMessage());
                 mav.setViewName("redirect:/course-menu");
-            } catch (DuplicateDataException e){
+            } catch (DuplicateDataException e) {
                 mav.addObject("message", e.getMessage());
             }
         }
@@ -182,17 +243,44 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/show-course/{title}")
-    public ModelAndView showCourse(@PathVariable String title, RedirectAttributes redirectAttributes) {
-        ModelAndView mav = new ModelAndView("course/show-course");
+    public ModelAndView showCourse(@PathVariable String title, RedirectAttributes redirectAttributes, Principal principal) {
+        ModelAndView mav = new ModelAndView("main/show-course");
         try {
+
+            User user = userService.findUser(principal.getName());
+
             Course course = teacherService.findCourseByTitle(title);
-            mav.addObject(course);
-            mav.addObject("lessons", course.getLessonList());
+            mav.addObject("course", course);
+            prepareUserCourseInformation(mav, user, course);
+
         } catch (NoSuchCourseException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             mav.setViewName("redirect:/course-menu/show-courses");
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
         }
         return mav;
+    }
+
+    private void prepareUserCourseInformation(ModelAndView mav, User user, Course course) {
+        mav.addObject("subscribed", user.getSubscribedCourses().contains(course));
+
+        List<Lesson> lessonList = course.getLessonList();
+        long performedLessons = lessonList.stream().filter((lesson) -> user.getPerformedLesson().contains(lesson)).count();
+
+        lessonList.stream().forEach((lesson) -> {
+            List<Task> tasks = lesson.getTasks();
+            lesson.setAmountTasksSize(tasks.size());
+            lesson.setPerformedTasksSize(
+                    (int) tasks.stream()
+                            .filter(task -> {
+                                TaskTestResult taskTestResult = user.getSolvedTaskContainer().get(task.getId());
+                                return taskTestResult != null && taskTestResult.getPassedAll();
+                            }).count());
+        });
+
+        course.setPerformedLesson((int) performedLessons);
+        course.setAmountLessons(lessonList.size());
     }
 
     @RequestMapping(value = "/show-course")
@@ -201,9 +289,8 @@ public class CourseController {
         try {
             String title = req.getParameter("title");
             Course course = teacherService.findCourseByTitle(title);
-            mav.setViewName("course/show-course");
+            mav.setViewName("main/show-course");
             mav.addObject("course", course);
-            mav.addObject("lessons", course.getLessonList());
         } catch (NoSuchCourseException e) {
             mav.setViewName("course/find-course");
             mav.addObject("error", e.getMessage());

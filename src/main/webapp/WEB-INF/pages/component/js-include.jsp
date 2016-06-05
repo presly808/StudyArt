@@ -18,5 +18,6 @@ rap/dist/js/bootstrap.min.js" var="bootstrapJs"/>
 <spring:url value="/resources/bower_components/jquery-ui/jquery-ui.min.js" var="jqueryUiJs"/>
 <spring:url value="/resources/bower_components/simplemde/dist/simplemde.min.js" var="simplemdeJs"/>
 <spring:url value="/resources/bower_components/requirejs/require.js" var="requireJS"/>
+<spring:url value="/resources/bower_components/markdown-js/dist/markdown.min.js" var="markdownMinJs"/>
 
 

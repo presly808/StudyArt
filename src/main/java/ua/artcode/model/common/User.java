@@ -1,18 +1,14 @@
 package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.*;
 import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.validation.Email;
 import ua.artcode.validation.Password;
 import ua.artcode.validation.UserName;
 import ua.artcode.validation.UserType;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class User implements Comparable<User> {
@@ -37,6 +33,11 @@ public class User implements Comparable<User> {
     @Embedded
     private Map<ObjectId, TaskTestResult> solvedTaskContainer = new HashMap<>();
 
+    @Reference
+    private List<Course> subscribedCourses = new ArrayList<>();
+
+    @Reference(lazy = true, idOnly = true)
+    private Set<Lesson> performedLesson = new HashSet<>();
 
     public User() {
         id=new ObjectId();
@@ -112,6 +113,22 @@ public class User implements Comparable<User> {
 
     public void setUserType(ua.artcode.model.common.UserType userType) {
         this.userType = userType;
+    }
+
+    public List<Course> getSubscribedCourses() {
+        return subscribedCourses;
+    }
+
+    public void setSubscribedCourses(List<Course> subscribedCourses) {
+        this.subscribedCourses = subscribedCourses;
+    }
+
+    public Set<Lesson> getPerformedLesson() {
+        return performedLesson;
+    }
+
+    public void setPerformedLesson(Set<Lesson> performedLesson) {
+        this.performedLesson = performedLesson;
     }
 
     @Override

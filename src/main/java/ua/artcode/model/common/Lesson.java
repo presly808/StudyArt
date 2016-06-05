@@ -1,10 +1,7 @@
 package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.*;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Title;
 
@@ -25,8 +22,17 @@ public class Lesson implements Comparable<Lesson> {
     @Description
     private String description;
 
+    @Reference(lazy = true)
+    private User owner;
+
     @Reference
     private List<Task> tasks = new ArrayList<>();
+
+    @Transient
+    private int amountTasksSize;
+
+    @Transient
+    private int performedTasksSize;
 
     public Lesson() {
     }
@@ -77,6 +83,30 @@ public class Lesson implements Comparable<Lesson> {
 
     public int size() {
         return tasks.size();
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public int getAmountTasksSize() {
+        return amountTasksSize;
+    }
+
+    public void setAmountTasksSize(int amountTasksSize) {
+        this.amountTasksSize = amountTasksSize;
+    }
+
+    public int getPerformedTasksSize() {
+        return performedTasksSize;
+    }
+
+    public void setPerformedTasksSize(int performedTasksSize) {
+        this.performedTasksSize = performedTasksSize;
     }
 
     @Override

@@ -26,6 +26,12 @@
     <!-- Custom Fonts -->
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 
+    <%--CodeMirror online editor--%>
+    <link href="<c:out value="${codemirrorCss}"/>" rel="stylesheet">
+
+    <link href="<c:out value="${fullscreanCSS}"/>" rel="stylesheet">
+    <link href="<c:out value="${showHintCss}"/>" rel="stylesheet">
+
     <link href="<c:out value="${appCss}"/>" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,25 +46,52 @@
 <body>
 
 <div id="wrapper">
-
-    <%@include file="/WEB-INF/pages/component/navbar.jsp"%>
+    <!-- Navigation -->
+    <%@include file="/WEB-INF/pages/component/navbar.jsp" %>
 
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Blank</h1>
+                    <h1 class="page-header">${lesson.title}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
 
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <div class="md">${lesson.description}</div>
+                        <br><br>
+
+                        <h3>Tasks</h3>
+                        <ul class="list-group">
+                            <c:forEach var="task" items="${tasks}">
+                                <a href="${CONTEXT_PATH}/task-menu/do-task/${task.title}"
+                                   class="list-group-item">${task.title}<span style="float: right;">
+                                    <c:if test="${task.performed}"><i style="color: green" class="glyphicon glyphicon-ok"></i></c:if>
+                                </span>
+                                </a>
+                            </c:forEach>
+                        </ul>
+
+                        <input type="hidden" name="id" value="${course.id.toString()}"/>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
 </div>
+<!-- /#page-wrapper -->
+
+
 <!-- /#wrapper -->
 
 <%@include file="/WEB-INF/pages/component/js-include.jsp" %>
@@ -72,6 +105,24 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="${sbAdminJs}"></script>
+
+
+<script src="${codemirrorJs}"></script>
+<script src="${clikeJs}"></script>
+<script src="${fullscreanJS}"></script>
+<script src="${showHintJS}"></script>
+<script src="${anyWordHintJs}"></script>
+<script src="${markdownMinJs}"></script>
+
+
+<script>
+
+    $(".md").each(function () {
+        var markdownText = $(this).html();
+        $(this).html(markdown.toHTML(markdownText));
+    });
+
+</script>
 
 </body>
 

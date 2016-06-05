@@ -1,10 +1,7 @@
 package ua.artcode.model.common;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.*;
 import ua.artcode.validation.Description;
 import ua.artcode.validation.Title;
 
@@ -22,11 +19,23 @@ public class Course implements Comparable<Course>{
     @Indexed(unique = true)
     private String title;
 
-    @Description
+    //@Description
     private String description;
 
+    @Reference(lazy = true)
+    private User owner;
+
     @Reference
-    private List<Lesson> lessonList=new ArrayList<>();
+    private List<Lesson> lessonList = new ArrayList<>();
+
+    // for displaying current user statistics
+    @Transient
+    private int amountLessons;
+
+    // for displaying current user statistics
+    @Transient
+    private int performedLesson;
+
 
     public Course() {
     }
@@ -71,6 +80,30 @@ public class Course implements Comparable<Course>{
 
     public void setLessonList(List<Lesson> lessonList) {
         this.lessonList = lessonList;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public int getAmountLessons() {
+        return amountLessons;
+    }
+
+    public void setAmountLessons(int amountLessons) {
+        this.amountLessons = amountLessons;
+    }
+
+    public int getPerformedLesson() {
+        return performedLesson;
+    }
+
+    public void setPerformedLesson(int performedLesson) {
+        this.performedLesson = performedLesson;
     }
 
     @Override

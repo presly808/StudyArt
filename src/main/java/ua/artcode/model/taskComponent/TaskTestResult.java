@@ -33,8 +33,6 @@ public class TaskTestResult {
 
     private String userCode;
 
-
-
     public String getStatus() {
         return status;
     }

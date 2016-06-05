@@ -16,6 +16,8 @@
     <!-- Custom CSS -->
     <link href="<c:out value="${sbAdminCss}"/>" rel="stylesheet">
 
+    <link href="<c:out value="${appCss}"/>" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="<c:out value="${fontAwesomeCss}"/>" rel="stylesheet">
 

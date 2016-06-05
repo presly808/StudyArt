@@ -16,8 +16,11 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.exception.NoSuchTaskException;
+import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.Lesson;
 import ua.artcode.model.common.Task;
+import ua.artcode.model.common.User;
+import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 import ua.artcode.service.UserService;
@@ -26,6 +29,7 @@ import ua.artcode.to.MessageType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,10 +57,17 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/add-lesson", method = RequestMethod.POST)
-    public ModelAndView createLesson(@Valid Lesson lesson, BindingResult result, HttpServletRequest req, RedirectAttributes redirectAttributes) {
+    public ModelAndView createLesson(@Valid Lesson lesson,
+                                     BindingResult result,
+                                     HttpServletRequest req,
+                                     RedirectAttributes redirectAttributes,
+                                     Principal principal) {
         ModelAndView mav = new ModelAndView("lesson/create-lesson");
         if (!result.hasErrors()) {
             try {
+
+                lesson.setOwner(userService.findUser(principal.getName()));
+
                 String tasksTitle = req.getParameter("lessonTasks");
                 String[] titles = tasksTitle.split(",\\s");
                 Arrays.stream(titles).forEach((task) -> {
@@ -72,7 +83,11 @@ public class LessonController {
                 mav.setViewName("redirect:/lesson-menu");
 
             } catch (DuplicateKeyException e) {
+                e.printStackTrace();
                 mav.addObject("message", "Lesson with title: " + lesson.getTitle() + " already exist!");
+            } catch (NoSuchUserException e) {
+                e.printStackTrace();
+                mav.addObject("message", "User is not in system");
             }
         }
         return mav;
@@ -215,15 +230,27 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/show-lesson/{title}")
-    public ModelAndView showLesson(@PathVariable String title) {
-        ModelAndView mav = new ModelAndView("lesson/show-lesson");
+    public ModelAndView showLesson(@PathVariable String title, Principal principal) {
+        ModelAndView mav = new ModelAndView("main/show-lesson");
         try {
+
+            User user = userService.findUser(principal.getName());
             Lesson lesson = teacherService.findLessonByTitle(title);
             mav.addObject(lesson);
-            mav.addObject("tasks", lesson.getTasks());
+
+            List<Task> tasks = lesson.getTasks();
+            tasks.stream().forEach(task -> {
+                TaskTestResult taskTestResult = user.getSolvedTaskContainer().get(task.getId());
+                task.setPerformed(taskTestResult != null && taskTestResult.getPassedAll());
+            });
+
+            mav.addObject("tasks", tasks);
         } catch (NoSuchLessonException e) {
             mav.addObject("message", e.getMessage());
             mav.setViewName("lesson/list-lessons");
+        } catch (NoSuchUserException e) {
+            e.printStackTrace();
+            mav.addObject("message", e.getMessage());
         }
         return mav;
     }
