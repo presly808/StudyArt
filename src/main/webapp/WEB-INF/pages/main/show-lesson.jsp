@@ -54,7 +54,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">${lesson.title}</h1>
+                    <h1 class="page-header">${lesson.title} <c:if test="${not empty courseTitle}">
+                        <a href="${CONTEXT_PATH}/course-menu/show-course/${courseTitle}"><span
+                                class="btn label label-info">${courseTitle}</span></a>
+                        </c:if></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -70,9 +73,10 @@
                         <h3>Tasks</h3>
                         <ul class="list-group">
                             <c:forEach var="task" items="${tasks}">
-                                <a href="${CONTEXT_PATH}/task-menu/do-task/${task.title}"
+                                <a href="${CONTEXT_PATH}/task-menu/do-task/${task.title}?lessonId=${lesson.id}"
                                    class="list-group-item">${task.title}<span style="float: right;">
-                                    <c:if test="${task.performed}"><i style="color: green" class="glyphicon glyphicon-ok"></i></c:if>
+                                    <c:if test="${task.performed}"><i style="color: green"
+                                                                      class="glyphicon glyphicon-ok"></i></c:if>
                                 </span>
                                 </a>
                             </c:forEach>

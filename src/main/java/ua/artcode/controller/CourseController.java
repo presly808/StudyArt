@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -19,9 +20,7 @@ import ua.artcode.exception.NoSuchLessonException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
-import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
-import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.TeacherService;
 import ua.artcode.service.UserService;
@@ -102,7 +101,8 @@ public class CourseController {
 
                 teacherService.addCourse(course);
 
-                prepareUserCourseInformation(mav,user,course);
+                mav.addObject("subscribed", user.getSubscribedCourses().contains(course));
+                userService.addUserCourseStatInformation(user, course);
 
                 mav.addObject("message", messageSource.getMessage("course.successfully.create",
                         null, LocaleContextHolder.getLocale()));
@@ -243,15 +243,21 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/show-course/{title}")
-    public ModelAndView showCourse(@PathVariable String title, RedirectAttributes redirectAttributes, Principal principal) {
+    public ModelAndView showCourse(@PathVariable String title, @RequestParam(required = false, name = "user") String targetUserName,
+                                   RedirectAttributes redirectAttributes, Principal principal) {
         ModelAndView mav = new ModelAndView("main/show-course");
         try {
 
-            User user = userService.findUser(principal.getName());
+            String userName = targetUserName != null && targetUserName.isEmpty() ? targetUserName : principal.getName();
+
+            User currentUser = userService.findUser(userName);
 
             Course course = teacherService.findCourseByTitle(title);
+            userService.addUserCourseStatInformation(currentUser, course);
+
+            mav.addObject("currentUser", currentUser);
             mav.addObject("course", course);
-            prepareUserCourseInformation(mav, user, course);
+            mav.addObject("subscribed", currentUser.getSubscribedCourses().contains(course));
 
         } catch (NoSuchCourseException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
@@ -260,27 +266,6 @@ public class CourseController {
             e.printStackTrace();
         }
         return mav;
-    }
-
-    private void prepareUserCourseInformation(ModelAndView mav, User user, Course course) {
-        mav.addObject("subscribed", user.getSubscribedCourses().contains(course));
-
-        List<Lesson> lessonList = course.getLessonList();
-        long performedLessons = lessonList.stream().filter((lesson) -> user.getPerformedLesson().contains(lesson)).count();
-
-        lessonList.stream().forEach((lesson) -> {
-            List<Task> tasks = lesson.getTasks();
-            lesson.setAmountTasksSize(tasks.size());
-            lesson.setPerformedTasksSize(
-                    (int) tasks.stream()
-                            .filter(task -> {
-                                TaskTestResult taskTestResult = user.getSolvedTaskContainer().get(task.getId());
-                                return taskTestResult != null && taskTestResult.getPassedAll();
-                            }).count());
-        });
-
-        course.setPerformedLesson((int) performedLessons);
-        course.setAmountLessons(lessonList.size());
     }
 
     @RequestMapping(value = "/show-course")

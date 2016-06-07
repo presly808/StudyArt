@@ -9,18 +9,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.*;
+import ua.artcode.model.common.Lesson;
 import ua.artcode.model.common.Task;
+import ua.artcode.model.common.UserType;
 import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.model.common.User;
 import ua.artcode.process.TaskRunFacade;
 import ua.artcode.service.AdminService;
+import ua.artcode.service.TeacherService;
 import ua.artcode.service.UserService;
 import ua.artcode.to.*;
 import ua.artcode.utils.codingbat.CodingBatTaskUtils;
@@ -41,6 +41,9 @@ public class TaskController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     @Qualifier("userServiceImpl")
     @Autowired
@@ -158,12 +161,26 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/do-task/{title}", method = RequestMethod.GET)
-    public ModelAndView doTasks(@PathVariable String title) {
+    public ModelAndView doTasks(@PathVariable String title,
+                                @RequestParam(name = "lessonId", required = false) String lessonId) {
         ModelAndView mav = new ModelAndView("main/do-task");
+
+        if(lessonId != null && !lessonId.isEmpty()){
+            try {
+                Lesson lesson = teacherService.findLessonById(new ObjectId(lessonId));
+                mav.addObject("lessonTitle", lesson.getTitle());
+                mav.addObject("lessonId", lesson.getId());
+            } catch (NoSuchLessonException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
         return prepareTask(title, mav);
     }
 
-    // todo extract method to a
+    // todo extract method to a UserService, see example  UserService.addUserCourseStatInformation
     private ModelAndView prepareTask(String title, ModelAndView mav) {
         try {
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -180,12 +197,12 @@ public class TaskController {
 
             mav.addObject("template", template);
             mav.addObject(task);
+
+            mav.addObject("isOwner",user.equals(task.getOwner()) || user.getUserType() == UserType.ROLE_ADMIN);
+
             //model.addAttribute(task);
 
-        } catch (NoSuchUserException e) {
-            mav.addObject("message", e.getMessage());
-            mav.setViewName("main/task-menu");
-        } catch (NoSuchTaskException e) {
+        } catch (NoSuchUserException | NoSuchTaskException e) {
             mav.addObject("message", e.getMessage());
             mav.setViewName("main/task-menu");
         }
@@ -226,7 +243,9 @@ public class TaskController {
                 return new Message("Compilation Error", MessageType.ERROR, newTaskTestResult.getStatus());
             }
 
-            writeResult(user, newTaskTestResult, taskId);
+            // todo do we always save any result of task testing?
+            userService.writeResult(user, newTaskTestResult, taskId);
+
 
             String email = user.getEmail();
             userService.update(email, user);
@@ -264,7 +283,7 @@ public class TaskController {
                 return mav;
             }
 
-            writeResult(user, newTaskTestResult, taskId);
+            userService.writeResult(user, newTaskTestResult, taskId);
 
             String email = user.getEmail();
             userService.update(email, user);
@@ -282,28 +301,6 @@ public class TaskController {
         return mav;
     }
 
-
-    // todo are you sure of this method location?
-    private void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) {
-        try {
-            TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);
-
-            if (oldTaskTestResult != null) {
-                if (!oldTaskTestResult.getPassedAll()) {
-                    user.addSolvedTask(taskId, newTaskTestResult);
-                } else if (newTaskTestResult.getPassedAll()) {
-                    user.addSolvedTask(taskId, newTaskTestResult);
-                }
-            } else {
-                user.addSolvedTask(taskId, newTaskTestResult);
-            }
-            String email = user.getEmail();
-
-            userService.update(email, user);
-        } catch (DuplicateDataException | NoSuchUserException e) {
-            LOG.warn(e.getMessage());
-        }
-    }
 
     @RequestMapping(value = "/size")
     public ModelAndView sizeTasks() {

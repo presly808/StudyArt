@@ -36,7 +36,7 @@ public class User implements Comparable<User> {
     @Reference
     private List<Course> subscribedCourses = new ArrayList<>();
 
-    @Reference(lazy = true, idOnly = true)
+    @Reference
     private Set<Lesson> performedLesson = new HashSet<>();
 
     public User() {

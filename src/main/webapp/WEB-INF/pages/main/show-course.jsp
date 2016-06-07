@@ -57,60 +57,60 @@
                     <h1 class="page-header">${course.title}
                         <c:choose>
                             <c:when test="${subscribed == true}">
-                                <i style="color: yellow" class="glyphicon glyphicon-bookmark"></i>
+                                <i style="color: #00b3ee" class="glyphicon glyphicon-flag"></i>
                             </c:when>
                             <c:otherwise>
                                 <a href="${CONTEXT_PATH}/course-menu/subscribe/${course.title}" class="btn btn-primary">Subscribe</a>
                             </c:otherwise>
                         </c:choose>
                     </h1>
-
+                    <label>Progress data of <a
+                            href="${CONTEXT_PATH}/user-menu/show-user/${currentUser.name}">${currentUser.name}</a></label>
                 </div>
 
             </div>
 
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-6">
 
-                        <div class="md">${course.description}</div>
-                        <br><br>
+                    <div class="md">${course.description}</div>
+                    <br><br>
 
-                        <h3>Lessons</h3>
-                        <ul class="list-group">
-                            <c:forEach var="lesson" items="${course.lessonList}">
-                                <a href="${CONTEXT_PATH}/lesson-menu/show-lesson/${lesson.title}"
-                                   class="list-group-item">${lesson.title}
+                    <h3>Lessons</h3>
+                    <ul class="list-group">
+                        <c:forEach var="lesson" items="${course.lessonList}">
+                            <a href="${CONTEXT_PATH}/lesson-menu/show-lesson/${lesson.title}?courseId=${course.id}"
+                               class="list-group-item">${lesson.title}
                                     <span style="float: right">
                                     ${lesson.performedTasksSize} / ${lesson.amountTasksSize}
                                     </span>
-                                </a>
-                            </c:forEach>
-                        </ul>
+                            </a>
+                        </c:forEach>
+                    </ul>
 
-                        <%--<c:forEach var="lesson" items="${course.lessonList}">
-                            <div class="row">
-                                <div class="col-xs-6">${lesson.title}</div>
-                                <div class="col-xs-6">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100" style="min-width:2em; width: 2%;">
-                                            0%
-                                        </div>
+                    <%--<c:forEach var="lesson" items="${course.lessonList}">
+                        <div class="row">
+                            <div class="col-xs-6">${lesson.title}</div>
+                            <div class="col-xs-6">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100" style="min-width:2em; width: 2%;">
+                                        0%
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>--%>
+                        </div>
+                    </c:forEach>--%>
 
 
-                        <input type="hidden" name="id" value="${course.id.toString()}"/>
-
-                    </div>
+                    <input type="hidden" name="id" value="${course.id.toString()}"/>
 
                 </div>
+
             </div>
+
         </div>
         <!-- /.row -->
     </div>

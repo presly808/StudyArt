@@ -11,12 +11,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.artcode.exception.NoSuchTaskException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.Task;
+import ua.artcode.model.common.UserType;
 import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.model.common.User;
 import ua.artcode.service.AdminService;
 import ua.artcode.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +43,7 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping(value = "/show-user/{name}")
+    /*@RequestMapping(value = "/show-user/{name}")
     public ModelAndView showUser(@PathVariable String name) {
         ModelAndView mav = new ModelAndView("user/show-user");
         try {
@@ -80,6 +82,45 @@ public class UserController {
             mav.setViewName("user/list-users");
         } catch (NoSuchTaskException e) {
             e.printStackTrace();
+        }
+        return mav;
+    }*/
+
+    // todo refactor logic, simplify
+    @RequestMapping(value = "/show-user/{name}")
+    public ModelAndView showUserPage(@PathVariable String name, Principal principal) {
+
+        ModelAndView mav = new ModelAndView("main/user-info");
+
+        try {
+            User currentUser = userService.findUser(principal.getName());
+
+            User targetUser = userService.findUser(name);
+
+            if(targetUser.getUserType() == UserType.ROLE_TEACHER){
+                mav.setViewName("main/teacher-info");
+            }
+
+            String targetUserRole = targetUser.getUserType().toFormattedString();
+            boolean isPageOwner = principal.getName().equals(targetUser.getName());
+
+            //todo may be long time processing O(N^3), find some solution
+            if(currentUser.equals(targetUser)){ // see stat if you are owner
+                targetUser.getSubscribedCourses().stream()
+                        .forEach((course) -> userService.addUserCourseStatInformation(targetUser, course));
+            } else if(!(currentUser.getUserType() == UserType.ROLE_STUDENT)){ // see statistics of other if you are teacher
+                targetUser.getSubscribedCourses().stream()
+                        .forEach((course) -> userService.addUserCourseStatInformation(targetUser, course));
+            }
+
+            mav.addObject("user", targetUser);
+
+            mav.addObject("role", targetUserRole);
+
+            mav.addObject("isOwner", isPageOwner);
+        } catch (NoSuchUserException e) {
+            mav.addObject("message", e.getMessage());
+            mav.setViewName("user/list-users");
         }
         return mav;
     }

@@ -80,8 +80,7 @@
                             <label for="ChooseType">Choose type</label>
 
                             <div class="input-group">
-                                <form:select path="userType" id="ChooseType" class="form-control">
-                                    <form:option value="" label="Select user type"/>
+                                <form:select path="userType" id="ChooseType" class="form-control" multiple="true">
                                     <form:option value="ROLE_STUDENT" label="Student"/>
                                     <form:option value="ROLE_TEACHER" label="Teacher"/>
                                 </form:select>

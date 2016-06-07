@@ -1,10 +1,13 @@
 package ua.artcode.service;
 
 import com.mongodb.DuplicateKeyException;
+import org.bson.types.ObjectId;
+import ua.artcode.controller.TaskController;
 import ua.artcode.exception.AppException;
 import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.model.common.*;
+import ua.artcode.model.taskComponent.TaskTestResult;
 
 import java.util.List;
 
@@ -47,4 +50,9 @@ public interface UserService {
     List<Course> searchCourses(String keyWord, int offset, int length);
 
     List<Lesson> searchLessons(String keyWord, int offset, int length);
+
+    Course addUserCourseStatInformation(User user, Course course);
+
+    // todo are you sure of this method location?
+    void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId);
 }

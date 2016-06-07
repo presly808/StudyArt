@@ -1,6 +1,8 @@
 package ua.artcode.service;
 
 import com.mongodb.DuplicateKeyException;
+import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchUserException;
 import ua.artcode.exception.UserAuthenticationFailException;
 import ua.artcode.model.common.*;
+import ua.artcode.model.taskComponent.TaskTestResult;
 import ua.artcode.utils.Security;
 
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
 
     @Autowired
     @Qualifier("userDaoMongoMongoImpl")
@@ -146,5 +150,63 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userDao.getAll();
+    }
+
+    @Override
+    public Course addUserCourseStatInformation(User user, Course course) {
+
+        /*if(!user.getSubscribedCourses().contains(course)){
+            return course;
+        }*/
+
+        List<Lesson> lessonList = course.getLessonList();
+//        long performedLessons = lessonList.stream().filter((lesson) -> user.getPerformedLesson().contains(lesson)).count();
+        long performedLessons = lessonList.stream().filter((lesson) ->
+            lesson.getTasks().stream()
+                    .allMatch((task -> {
+                        TaskTestResult taskTestResult1 = user.getSolvedTaskContainer().get(task.getId());
+                        return taskTestResult1 != null && taskTestResult1.getPassedAll();
+                    }))
+        ).count();
+
+        lessonList.stream().forEach((lesson) -> {
+            List<Task> tasks = lesson.getTasks();
+            lesson.setAmountTasksSize(tasks.size());
+            lesson.setPerformedTasksSize(
+                    (int) tasks.stream()
+                            .filter(task -> {
+                                TaskTestResult taskTestResult = user.getSolvedTaskContainer().get(task.getId());
+                                return taskTestResult != null && taskTestResult.getPassedAll();
+                            }).count());
+        });
+
+        course.setPerformedLesson((int) performedLessons);
+        course.setAmountLessons(lessonList.size());
+
+        return course;
+    }
+
+    // todo are you sure of this method location?
+    @Override
+    public void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) {
+        try {
+            TaskTestResult oldTaskTestResult = user.getSolvedTask(taskId);
+
+            // todo see at funny conditions
+            if (oldTaskTestResult != null) {
+                if (!oldTaskTestResult.getPassedAll()) {
+                    user.addSolvedTask(taskId, newTaskTestResult);
+                } else if (newTaskTestResult.getPassedAll()) {
+                    user.addSolvedTask(taskId, newTaskTestResult);
+                }
+            } else {
+                user.addSolvedTask(taskId, newTaskTestResult);
+            }
+            String email = user.getEmail();
+
+            update(email, user);
+        } catch (DuplicateDataException | NoSuchUserException e) {
+            LOG.error(e.getMessage());
+        }
     }
 }

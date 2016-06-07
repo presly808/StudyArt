@@ -19,7 +19,7 @@ public class Lesson implements Comparable<Lesson> {
     @Indexed(unique = true)
     private String title;
 
-    @Description
+    //@Description
     private String description;
 
     @Reference(lazy = true)

@@ -101,7 +101,7 @@
                     <div class="content">
 
                         <div class="row">
-                            <table style="margin-left: 1em" width="100%" class="table-responsive table-striped">
+                            <table style="margin-left: 1em" width="97%" class="table-responsive table-striped">
                                 <c:if test="${searchType=='user'}">
                                     <thead>
                                     <tr>
@@ -133,12 +133,14 @@
                                     <c:forEach var="iterCourse" items="${foundCourses}">
                                         <tr class="odd gradeX">
                                             <td><a href="${CONTEXT_PATH}/course-menu/show-course/${iterCourse.title}">${iterCourse.title}</a></td>
-                                            <td>owner - NOT FINISHED</td>
+                                            <td><a href="${CONTEXT_PATH}/user-menu/show-user/${iterCourse.owner.name}">
+                                                    ${iterCourse.owner.name}
+                                            </a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
                                 </c:if>
-                                <c:if test="${searchType=='lesson'}">
+                                <c:if test="${searchType == 'lesson'}">
                                     <thead>
                                     <tr>
                                         <th>Title</th>
@@ -148,8 +150,10 @@
                                     <tbody>
                                     <c:forEach var="iterLesson" items="${foundLessons}">
                                         <tr class="odd gradeX">
-                                            <td>${iterLesson.title}</td>
-                                            <td>owner - NOT FINISHED</td>
+                                            <td><a href="${CONTEXT_PATH}/lesson-menu/show-lesson/${iterLesson.title}">${iterLesson.title}</a></td>
+                                            <td><a href="${CONTEXT_PATH}/user-menu/show-user/${iterLesson.owner.name}">
+                                                ${iterLesson.owner.name}
+                                            </a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

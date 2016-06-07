@@ -6,17 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
-import ua.artcode.exception.DuplicateDataException;
-import ua.artcode.exception.NoSuchLessonException;
-import ua.artcode.exception.NoSuchTaskException;
-import ua.artcode.exception.NoSuchUserException;
+import ua.artcode.exception.*;
+import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
 import ua.artcode.model.common.Task;
 import ua.artcode.model.common.User;
@@ -230,12 +225,15 @@ public class LessonController {
     }
 
     @RequestMapping(value = "/show-lesson/{title}")
-    public ModelAndView showLesson(@PathVariable String title, Principal principal) {
+    public ModelAndView showLesson(@PathVariable String title,
+                                   @RequestParam(name = "courseId", required = false) String courseId,
+                                   Principal principal) {
         ModelAndView mav = new ModelAndView("main/show-lesson");
         try {
 
             User user = userService.findUser(principal.getName());
             Lesson lesson = teacherService.findLessonByTitle(title);
+
             mav.addObject(lesson);
 
             List<Task> tasks = lesson.getTasks();
@@ -244,7 +242,20 @@ public class LessonController {
                 task.setPerformed(taskTestResult != null && taskTestResult.getPassedAll());
             });
 
+
             mav.addObject("tasks", tasks);
+
+            //todo think about adding Course field to Lesson
+            if(courseId != null && !courseId.isEmpty()){
+                try {
+                    Course course = teacherService.findCourseById(new ObjectId(courseId));
+                    mav.addObject("courseTitle", course.getTitle());
+                } catch (NoSuchCourseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         } catch (NoSuchLessonException e) {
             mav.addObject("message", e.getMessage());
             mav.setViewName("lesson/list-lessons");

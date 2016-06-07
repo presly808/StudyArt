@@ -47,7 +47,7 @@
 
 <div id="wrapper">
     <!-- Navigation -->
-    <%@include file="/WEB-INF/pages/component/navbar.jsp"%>
+    <%@include file="/WEB-INF/pages/component/navbar.jsp" %>
 
     <c:set var="task" value="${task}"/>
     <!-- Page Content -->
@@ -55,7 +55,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Perform Task</h1>
+                    <h1 class="page-header">Perform Task <c:if test="${not empty lessonTitle}">
+                        <a href="${CONTEXT_PATH}/lesson-menu/show-lesson/${lessonTitle}"><span
+                                class="label label-info">${lessonTitle}</span></a>
+                    </c:if></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -70,6 +73,15 @@
                         <div class="col-lg-6">
 
                             <label>Task ${task.title}</label>
+
+                            <c:if test="${isOwner}">
+                                <form action="${CONTEXT_PATH}/task-menu/edit-task" role="form" method="post">
+                                    <input type="hidden" name="id" value="${task.id}">
+                                    <input type="submit" class="btn btn-default"
+                                           value="<spring:message code="menu.edit"/>">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </c:if>
 
                             <p><a href="${CONTEXT_PATH}/task-menu/show-group/${task.groupName}">${task.groupName}</a>
                             </p>
@@ -86,19 +98,13 @@
                                               name="userCode">${template}</textarea>
                                 </div>
                                 <input type="hidden" name="id" value="${task.id.toString()}">
+                                <input type="hidden" name="lessonId" value="${lessonId}">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <input id="checkTaskButton" type="button" class="btn btn-default"
                                                value="<spring:message code="check.task"/>">
-
-                                        <form action="${CONTEXT_PATH}/task-menu/edit-task" role="form" method="post">
-                                            <input type="hidden" name="id" value="${task.id}">
-                                            <input type="submit" class="btn btn-default"
-                                                   value="<spring:message code="menu.edit"/>">
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                        </form>
                                     </div>
 
                                 </div>
@@ -169,7 +175,6 @@
 <script src="${sbAdminJs}"></script>
 
 
-
 <script src="${codemirrorJs}"></script>
 <script src="${clikeJs}"></script>
 <script src="${fullscreanJS}"></script>
@@ -179,21 +184,21 @@
 <script>
 
     /*CodeMirror.commands.autocomplete = function(cm) {
-        cm.showHint({hint: CodeMirror.hint.anyword});
-    }*/
+     cm.showHint({hint: CodeMirror.hint.anyword});
+     }*/
 
     var editor1 = CodeMirror.fromTextArea(document.getElementById("codeTextArea"), {
         lineNumbers: true,
         mode: "text/x-java",
         extraKeys: {
             "Ctrl-Space": "autocomplete",
-            "F11": function(cm) {
+            "F11": function (cm) {
                 cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                $("#mainNavbar").css("z-index",0);
+                $("#mainNavbar").css("z-index", 0);
             },
-            "Esc": function(cm) {
+            "Esc": function (cm) {
                 if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-                $("#mainNavbar").css("z-index",1000);
+                $("#mainNavbar").css("z-index", 1000);
             }
         }
     });
