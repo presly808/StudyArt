@@ -3,13 +3,17 @@
 <html>
 <head>
     <title><spring:message code="title.show.course"/></title>
+    <script type="text/javascript">
+        function redirect() {
+            document.forms["form"].submit();
+        }
+    </script>
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/course-menu/edit-course" method="post">
+<form action="${pageContext.request.contextPath}/course-menu/edit-course" method="post" id="form">
 
     <h1>${course.title}</h1>
-    <h1>111</h1>
     <p>${course.description}</p>
     <br>
 
@@ -22,30 +26,18 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="hidden" name="id" value="${course.id.toString()}"/>
 
+    <input type="submit" id="myButton" onclick="redirect()" value="Edit" style="visibility: hidden;"/>
+
 </form>
 
-<input type="submit"  id="myButton" value="Edit"/>
 
 <script type="text/javascript">
 
-    var myBtn = document.getElementById('myButton');
-
-    //add event listener
-    myBtn.addEventListener('click', function() {
-        window.location.href='www.google.com.ua';
-    });
-
-//    var button_my_button = "#myButton";
-//    $(button_my_button).click(function(){
-//        window.location.href='www.google.com.ua';
-//    });
-
-    var k=${edit};
-
-    if (k) {
-
+    if (${edit}) {
+        document.getElementById('myButton').style.visibility = 'visible';
     }
 </script>
+
 
 </body>
 </html>
