@@ -6,6 +6,7 @@ import ua.artcode.exception.DuplicateDataException;
 import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Task;
+import ua.artcode.model.common.User;
 
 import java.util.List;
 
@@ -33,4 +34,6 @@ public interface CourseDao {
     List<Course> search(String keyWord, int offset, int length);
 
     long searchCount(String keyWord);
+
+    List<Course> getOwnerCourses(User owner);
 }

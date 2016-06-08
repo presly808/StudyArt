@@ -72,4 +72,6 @@ public interface TeacherService {
 
     int sizeOfGroup();
 
+    List<Course> getOwnerCourses(User owner);
+
 }

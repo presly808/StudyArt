@@ -1,6 +1,7 @@
 package ua.artcode.controller;
 
 import com.mongodb.DuplicateKeyException;
+import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -242,13 +243,20 @@ public class CourseController {
         return mav;
     }
 
+
     @RequestMapping(value = "/show-course/{title}")
     public ModelAndView showCourse(@PathVariable String title, @RequestParam(required = false, name = "user") String targetUserName,
                                    RedirectAttributes redirectAttributes, Principal principal) {
         ModelAndView mav = new ModelAndView("main/show-course");
         try {
 
-            String userName = targetUserName != null && targetUserName.isEmpty() ? targetUserName : principal.getName();
+            boolean isNotEmpty = targetUserName != null && !targetUserName.isEmpty();
+            String userName = isNotEmpty ? targetUserName : principal.getName();
+
+            // go to other user statistic page
+            if(isNotEmpty && !principal.getName().equals(targetUserName)){
+                mav.setViewName("main/show-course-progress");
+            }
 
             User currentUser = userService.findUser(userName);
 

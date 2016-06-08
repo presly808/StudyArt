@@ -144,6 +144,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public List<Course> getOwnerCourses(User owner) {
+        return courseDao.getOwnerCourses(owner);
+    }
+
+    @Override
     public UserGroup findUserGroupByName(String name) throws NoSuchGroupException {
         return userGroupDao.find(name);
     }

@@ -10,6 +10,7 @@ import ua.artcode.exception.NoSuchCourseException;
 import ua.artcode.model.common.Course;
 import ua.artcode.model.common.Lesson;
 import ua.artcode.model.common.Task;
+import ua.artcode.model.common.User;
 
 import java.util.List;
 
@@ -139,6 +140,13 @@ public class CourseDaoMongoImpl implements CourseDao {
         );
 
         return courses.countAll();
+    }
+
+    @Override
+    public List<Course> getOwnerCourses(User owner) {
+        // todo think about indexing
+        Query<Course> courses = datastore.find(Course.class);
+        return courses.field("owner").equal(owner).asList();
     }
 
 }

@@ -54,17 +54,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">${course.title}
+                    <h1 class="page-header"><a href="${CONTEXT_PATH}/course-menu/show-course/${course.title}">${course.title}</a>
                         <c:choose>
                             <c:when test="${subscribed == true}">
                                 <i style="color: #00b3ee" class="glyphicon glyphicon-flag"></i>
                             </c:when>
                             <c:otherwise>
-                                <a href="${CONTEXT_PATH}/course-menu/subscribe/${course.title}" class="btn btn-primary">Subscribe</a>
+                                <a href="${CONTEXT_PATH}/course-menu/subscribe/${course.title}" class="btn btn-primary">Follow</a>
                             </c:otherwise>
                         </c:choose>
                     </h1>
-                    <label>Progress data of <a
+                    <label>Progress of <a
                             href="${CONTEXT_PATH}/user-menu/show-user/${currentUser.name}">${currentUser.name}</a></label>
                 </div>
 
@@ -88,22 +88,6 @@
                             </a>
                         </c:forEach>
                     </ul>
-
-                    <%--<c:forEach var="lesson" items="${course.lessonList}">
-                        <div class="row">
-                            <div class="col-xs-6">${lesson.title}</div>
-                            <div class="col-xs-6">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100" style="min-width:2em; width: 2%;">
-                                        0%
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>--%>
-
 
                     <input type="hidden" name="id" value="${course.id.toString()}"/>
 
@@ -144,9 +128,11 @@
 
 <script>
 
-    $(".md").each(function () {
-        var markdownText = $(this).html();
-        $(this).html(markdown.toHTML(markdownText));
+    $(document).on("load", function(){
+        $(".md").each(function () {
+            var markdownText = $(this).html();
+            $(this).html(markdown.toHTML(markdownText));
+        });
     });
 
 </script>

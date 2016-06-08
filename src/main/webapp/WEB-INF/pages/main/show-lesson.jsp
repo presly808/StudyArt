@@ -63,7 +63,7 @@
             </div>
 
 
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
 
@@ -121,9 +121,11 @@
 
 <script>
 
-    $(".md").each(function () {
-        var markdownText = $(this).html();
-        $(this).html(markdown.toHTML(markdownText));
+    $(document).on("load", function(){
+        $(".md").each(function () {
+            var markdownText = $(this).html();
+            $(this).html(markdown.toHTML(markdownText));
+        });
     });
 
 </script>

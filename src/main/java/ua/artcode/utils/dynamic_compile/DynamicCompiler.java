@@ -40,7 +40,7 @@ public class DynamicCompiler {
         String message = null;
         try {
             String absolutePath = sourceFile.getCanonicalPath();
-            String result = String.format("javac -cp  " + LIBS_CLASSPATH + " %s", absolutePath);
+            String result = "javac -cp " + LIBS_CLASSPATH + " " + absolutePath;
             Process pr = Runtime.getRuntime().exec(result);
 
             if (pr.waitFor() != 0) {

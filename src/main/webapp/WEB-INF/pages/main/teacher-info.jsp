@@ -48,7 +48,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">${user.name} page<span class="label label-info">Role: ${role}</span>
+                    <h1 class="page-header">Teacher ${user.name} page<span class="label label-info">Role: ${role}</span>
                         <c:if test="${isOwner}"><span class="label label-success"> Your page</span></c:if></h1>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -57,7 +57,7 @@
             <div class="row">
 
                 <ul class="list-group">
-                    <c:forEach var="course" items="${user.subscribedCourses}">
+                    <c:forEach var="course" items="${courses}">
                         <a href="${CONTEXT_PATH}/course-menu/show-course/${course.title}"
                            class="list-group-item">${course.title}
                                     <span style="float: right">

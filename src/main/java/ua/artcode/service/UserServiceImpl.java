@@ -159,8 +159,9 @@ public class UserServiceImpl implements UserService {
             return course;
         }*/
 
+
+        // todo remove duplication of code, do ony one stream
         List<Lesson> lessonList = course.getLessonList();
-//        long performedLessons = lessonList.stream().filter((lesson) -> user.getPerformedLesson().contains(lesson)).count();
         long performedLessons = lessonList.stream().filter((lesson) ->
             lesson.getTasks().stream()
                     .allMatch((task -> {
@@ -176,7 +177,16 @@ public class UserServiceImpl implements UserService {
                     (int) tasks.stream()
                             .filter(task -> {
                                 TaskTestResult taskTestResult = user.getSolvedTaskContainer().get(task.getId());
-                                return taskTestResult != null && taskTestResult.getPassedAll();
+
+                                if (taskTestResult == null) {
+                                    return false;
+                                }
+
+                                if (taskTestResult.getPassedAll()){
+                                    task.setPerformed(true);
+                                }
+
+                                return true;
                             }).count());
         });
 
@@ -186,7 +196,6 @@ public class UserServiceImpl implements UserService {
         return course;
     }
 
-    // todo are you sure of this method location?
     @Override
     public void writeResult(User user, TaskTestResult newTaskTestResult, ObjectId taskId) {
         try {
