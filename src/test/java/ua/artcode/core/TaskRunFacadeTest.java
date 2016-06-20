@@ -159,7 +159,7 @@ public class TaskRunFacadeTest {
 
     @Test
     public void runTaskArraySizePassedAllTest() {
-        TaskTestResult taskTestResult = taskRunFacade.runTask(arraySizeTask, "public int sizeArray(int[] z){ return  z.length;}");
+        TaskTestResult taskTestResult = taskRunFacade.runTask(arraySizeTask, "public int sizeArray(git int[] z){ return  z.length;}");
         assertTrue(taskTestResult.getPassedAll());
     }
 
