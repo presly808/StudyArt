@@ -27,7 +27,6 @@ public class DynamicCompiler {
         for (URL url : urls) {
             classPaths.append(url.getFile()).append(File.pathSeparator); // use ; for Windows like
         }
-        LOG.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + classPaths.toString());
         return classPaths.toString();
     }
 

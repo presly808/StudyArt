@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 
 public class DataUnmarshaller {
-
+    //TODO
     public void convertInData(Task task) {
         TestArg testArg;
         for (TaskTestData data : task.getTaskTestDataContainer().getTaskTestDataList()) {
@@ -47,9 +47,10 @@ public class DataUnmarshaller {
         } else if ("short".equals(type) || "java.lang.Short".contains(type)) {
             testArg.setType("Short");
             testArg.setValue(unmarshalShort(value));
-        } else if ("int[]".equals(type)) {
+        } else if ("int[]".equals(type)|| "int []".equals(type)) {
             testArg.setType("int[]");
             testArg.setValue(unmarshalIntegerArr(value));
+            //TODO 000>unmarshall>0(world000>world0)
         } else if ("int".equals(type) || "java.lang.Integer".contains(type)) {
             testArg.setType("Integer");
             testArg.setValue(unmarshalInteger(value));
@@ -74,7 +75,7 @@ public class DataUnmarshaller {
             testArg.setValue(unmarshalStringArr(value));
         } else if ("String".equals(type) || "java.lang.String".contains(type)) {
             testArg.setType("String");
-            String withoutBraces = value.substring(1, value.length() - 1);
+            String withoutBraces = value.substring(0, value.length());
             testArg.setValue(withoutBraces);
         } else if ("List".equals(type) || "java.util.List".contains(type)) {
             testArg.setType("java.util.List");

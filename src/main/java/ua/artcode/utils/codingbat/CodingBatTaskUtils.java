@@ -18,10 +18,7 @@ import ua.artcode.model.taskComponent.TaskTestData;
 import ua.artcode.model.taskComponent.TaskTestDataContainer;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Maxim on 04.12.2015.
@@ -124,7 +121,7 @@ public class CodingBatTaskUtils {
         String params = StringUtils.substringBetween(dataHtml, "(", ")");
         return params != null ? CodingBatHtmlDataParser.parseTestData(params) : new LinkedList<>();
     }
-
+    //TODO
     public static TaskTestDataContainer getTestDataContainer(String testData) throws AppValidationException {
         TaskTestDataContainer testDataContainer = new TaskTestDataContainer();
         List<String> dataPoints = new ArrayList<>(Arrays.asList(testData.split("\r\n")));
@@ -133,11 +130,13 @@ public class CodingBatTaskUtils {
             for (String dataPoint : dataPoints) {
                 String[] dataParts = dataPoint.split("-");
                 String expectedValue = dataParts[0].trim();
-                String[] inData = dataParts[1].split(",");
-                for (String value : inData) {
-                    value.trim();
-                }
-                List<String> inParams = new ArrayList<>(Arrays.asList(inData));
+                //TODO !!!!
+                //String[] inData = dataParts[1].split(",");
+//                for (String value : inData) {
+//                    value.trim();
+//                }
+                //List<String> inParams = new ArrayList<>(Arrays.asList(inData));
+                List<String> inParams =CodingBatHtmlDataParser.parseTestData(dataParts[1]);
 
                 list = new ArrayList<>();
                 list.add(expectedValue);
@@ -181,11 +180,7 @@ public class CodingBatTaskUtils {
             if (Arrays.deepEquals(new Object[]{actualValue}, new Object[]{expectedValue})) {
                 result = "OK";
             }
-        }/*else if(actualValue.getClass() == String.class) {
-            if(expectedValue.equals("\"" + actualValue + "\"")){
-                result = "OK";
-            }
-        }*/else if (expectedValue.equals(actualValue)) {
+        } else if (expectedValue.equals(actualValue)) {
             result = "OK";
         }
         LOG.debug("Result of one test = " + result);

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-4.0xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <context:annotation-config/>
+
+
+    <!-- support JSR303 annotation -->
+    <mvc:annotation-driven validator="validator"/>
+
+    <!--context:property-placeholder location="app.properties"/-->
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="false"/>
+        <property name="locations">
+            <list>
+                <value>classpath:app.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--Spring mvc beans-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <mvc:resources mapping="/resources/**" location="/resources/theme2/"/>
+
+    <bean id="taskMongoTestImpl" class="ua.artcode.dao.TaskDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <!--<bean id="taskMongoImpl" class="ua.artcode.dao.TaskDaoMongoImpl">-->
+        <!--<constructor-arg name="datastore" ref="datastore"/>-->
+    <!--</bean>-->
+
+    <bean id="userDaoMongoTestImpl" class="ua.artcode.dao.UserDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <!--<bean id="userDaoMongoMongoImpl" class="ua.artcode.dao.UserDaoMongoImpl">-->
+        <!--<constructor-arg name="datastore" ref="datastore"/>-->
+    <!--</bean>-->
+
+    <bean id="courseDaoTestImpl" class="ua.artcode.dao.CourseDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <!--<bean id="courseDaoImpl" class="ua.artcode.dao.CourseDaoMongoImpl">-->
+        <!--<constructor-arg name="datastore" ref="datastore"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="groupDaoImpl" class="ua.artcode.dao.UserGroupDaoMongoImpl">-->
+        <!--<constructor-arg name="datastore" ref="datastore"/>-->
+    <!--</bean>-->
+
+    <bean id="groupDaoImplTest" class="ua.artcode.dao.UserGroupDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <!--<bean id="lessonDaoImpl" class="ua.artcode.dao.LessonDaoMongoImpl">-->
+        <!--<constructor-arg name="datastore" ref="datastore"/>-->
+    <!--</bean>-->
+
+    <bean id="lessonDaoImplTest" class="ua.artcode.dao.LessonDaoMongoImpl">
+        <constructor-arg name="datastore" ref="testStore"/>
+    </bean>
+
+    <bean id="mongoClient" class="com.mongodb.MongoClient">
+        <constructor-arg name="host" value="${mongo.host}"/>
+        <constructor-arg name="port" value="${mongo.port}"/>
+    </bean>
+
+    <bean id="dbname" class="java.lang.String">
+        <constructor-arg value="${mongo.db}"/>
+    </bean>
+
+    <bean id="morphia" class="org.mongodb.morphia.Morphia"/>
+
+    <!--<bean id="datastore" class="org.mongodb.morphia.Datastore" factory-bean="morphia" factory-method="createDatastore">-->
+        <!--&lt;!&ndash; constructor args pass args to factoryMethod&ndash;&gt;-->
+        <!--<constructor-arg name="mongoClient" ref="mongoClient"/>-->
+        <!--<constructor-arg name="dbName" value="${mongo.db}"/>-->
+    <!--</bean>-->
+
+    <bean id="testStore" class="org.mongodb.morphia.Datastore" factory-bean="morphia" factory-method="createDatastore">
+        <!-- constructor args pass args to factoryMethod-->
+        <constructor-arg name="mongoClient" ref="mongoClient"/>
+        <constructor-arg name="dbName" value="${mongo.test.db}"/>
+    </bean>
+
+    <bean id="dynamicCompiler" class="ua.artcode.utils.dynamic_compile.DynamicCompiler"/>
+
+    <bean id="dataUnmarshaller" class="ua.artcode.utils.codingbat.DataUnmarshaller"/>
+
+
+    <bean id="templateProcessor" class="ua.artcode.preprocess.TemplateProcessor">
+        <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="vc" ref="velocityContext"/>
+    </bean>
+
+    <bean id="velocityEngine"
+          class="org.springframework.ui.velocity.VelocityEngineFactoryBean" init-method="newVelocityEngine">
+        <property name="velocityProperties">
+            <props>
+                <prop key="resource.loader">class</prop>
+                <prop key="class.resource.loader.class">
+                    org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="velocityContext" class="org.apache.velocity.VelocityContext"/>
+
+    <bean id="taskRunner" class="ua.artcode.process.TaskRunFacade">
+        <constructor-arg name="templatePath" value="${velocity.template}"/>
+        <constructor-arg name="srcRoot">
+            <bean class="java.io.File">
+                <constructor-arg type="java.lang.String" value="${root.dynamic}"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="dateConverter" ref="dataUnmarshaller"/>
+        <constructor-arg name="dynamicCompiler" ref="dynamicCompiler"/>
+        <constructor-arg name="templateProcessor" ref="templateProcessor"/>
+    </bean>
+
+    <!--SPRING LOCALE CONTEXT-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="label"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="localeChangeInterceptor"
+          class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang"/>
+    </bean>
+
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="en"/>
+    </bean>
+
+    <bean id="handlerMapping"
+          class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors">
+            <ref bean="localeChangeInterceptor"/>
+        </property>
+    </bean>
+
+
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
+
+</beans>
