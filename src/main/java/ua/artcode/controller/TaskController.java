@@ -162,7 +162,9 @@ public class TaskController {
 
     @RequestMapping(value = "/do-task/{title}", method = RequestMethod.GET)
     public ModelAndView doTasks(@PathVariable String title,
-                                @RequestParam(name = "lessonId", required = false) String lessonId) {
+                                @RequestParam(name = "lessonId", required = false) String lessonId,
+                                @RequestParam(name = "userId", required = false) String userId,
+                                Principal principal) {
         ModelAndView mav = new ModelAndView("main/do-task");
 
         if(lessonId != null && !lessonId.isEmpty()){
@@ -175,21 +177,19 @@ public class TaskController {
             }
         }
 
+        String userName = userId != null && !userId.isEmpty() ? userId : principal.getName();
 
-
-        return prepareTask(title, mav);
+        return prepareTask(title, mav, userName);
     }
 
     // todo extract method to a UserService, see example  UserService.addUserCourseStatInformation
-    private ModelAndView prepareTask(String title, ModelAndView mav) {
+    private ModelAndView prepareTask(String title, ModelAndView mav, String userName) {
         try {
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String name = userDetails.getUsername();
-            User user = userService.findUser(name);
+            User user = userService.findUser(userName);
+
             String template;
 
             Task task = adminService.findTaskByTitle(title);
-
 
             TaskTestResult taskTestResult = user.getSolvedTask(task.getId());
 
@@ -200,7 +200,7 @@ public class TaskController {
 
             mav.addObject("isOwner",user.equals(task.getOwner()) || user.getUserType() == UserType.ROLE_ADMIN);
 
-            //model.addAttribute(task);
+            mav.addObject("user", user);
 
         } catch (NoSuchUserException | NoSuchTaskException e) {
             mav.addObject("message", e.getMessage());
@@ -210,16 +210,16 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/show-solution/{title}", method = RequestMethod.GET)
-    public ModelAndView showSolution(@PathVariable String title) {
+    public ModelAndView showSolution(@PathVariable String title, Principal principal) {
         ModelAndView mav = new ModelAndView("task/show-solution");
-        return prepareTask(title, mav);
+        return prepareTask(title, mav, principal.getName());
     }
 
     @RequestMapping(value = "/do-task", method = RequestMethod.POST)
-    public ModelAndView doTasksPost(HttpServletRequest req) {
+    public ModelAndView doTasksPost(HttpServletRequest req, Principal principal) {
         ModelAndView mav = new ModelAndView("task/do-task");
         String title = req.getParameter("title");
-        return prepareTask(title, mav);
+        return prepareTask(title, mav, principal.getName());
     }
 
     @RequestMapping(value = "/check-task/json", method = RequestMethod.POST)

@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Main Menu</title>
+    <title>Perform Task</title>
 
     <%@include file="/WEB-INF/pages/component/css-include.jsp" %>
 
@@ -94,6 +94,7 @@
                                   method="post">
                                 <div class="form-group">
                                     <label for="codeTextArea">${task.title}</label>
+                                    <label>Code of ${user.name}</label>
                                     <textarea id="codeTextArea" class="form-control"
                                               name="userCode">${template}</textarea>
                                 </div>
