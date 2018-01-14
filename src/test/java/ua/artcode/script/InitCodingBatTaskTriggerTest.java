@@ -3,6 +3,7 @@ package ua.artcode.script;
 import org.codehaus.plexus.util.FileUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,7 @@ public class InitCodingBatTaskTriggerTest {
 
     }
 
+    @Ignore
     @Test
     public void createDumpOfDataBaseTest() {
         try {
